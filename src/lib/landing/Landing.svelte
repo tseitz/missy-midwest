@@ -1,11 +1,11 @@
-<section id="landing" class="w-full bg-missy-500" />
+<section id="landing" class="w-full" />
 
 <style>
 	#landing {
 		background: url('guitar.jpg') no-repeat center center fixed;
 		background-size: cover;
 		filter: blur(6px);
-		height: 80vh;
+		height: 84vh;
 	}
 	#landing::after {
 		content: '';

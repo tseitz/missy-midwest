@@ -2,12 +2,12 @@
 	import missyLogo from './missy-midwest-neon-cropped.png';
 	let y = 0;
 
-	let margin = -3;
+	let margin = -3.5;
 	let scale = 5;
 	let translateX = '0';
 	let translateY = '80%';
 
-	$: margin = Math.min(0, -3 + y / 100);
+	$: margin = Math.min(0, -3.5 + y / 100);
 	$: scale = Math.max(1, 5 - y / 125);
 	$: translateY = Math.max(0, 80 - y / 6.25) + '%';
 </script>
@@ -22,7 +22,7 @@
 			<img
 				src={missyLogo}
 				alt="Missy Midwest"
-				class="h-12 w-24"
+				class="h-12 w-28"
 				style="transform: scale({scale}) translate({translateX}, {translateY});"
 			/>
 		</div>

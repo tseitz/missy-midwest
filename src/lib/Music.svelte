@@ -34,5 +34,6 @@
 	.frame-wrapper iframe {
 		width: 100%;
 		min-height: 420px;
+		max-width: 348px;
 	}
 </style>

@@ -31,7 +31,7 @@
 				{#if show === 1}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-90 p-24"
+							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>
@@ -51,12 +51,12 @@
 				{#if show === 2}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-90 p-24"
+							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>
 				{/if}
-				<img class="w-full" src={missyMidwest} alt="Missy Logo" />
+				<img class="w-full my-auto" src={missyMidwest} alt="Missy Logo" />
 			</a>
 		</div>
 		<div class="w-full bg-slate-100 rounded-md">
@@ -71,7 +71,7 @@
 				{#if show === 3}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-90 p-24"
+							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>

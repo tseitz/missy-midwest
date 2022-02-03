@@ -4,6 +4,7 @@
 	#landing {
 		background: url('guitar.jpg') no-repeat center center fixed;
 		background-size: cover;
+		transition: background-size 0.5s ease-out;
 		filter: blur(6px);
 		height: 84vh;
 	}

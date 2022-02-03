@@ -1,14 +1,12 @@
 <section
 	id="music"
-	class="max-w-screen-2xl w-full px-14 py-20 grid lg:grid-cols-2 md:grid-cols-1 gap-8"
+	class="max-w-screen-2xl w-full py-12 md:py-20 grid lg:grid-cols-2 md:grid-cols-1 gap-8"
 >
-	<div>
-		<h2 class="text-slate-200 text-4xl mb-12 text-center italic">SoundCloud</h2>
+	<div class="mb-6 md:mb-0">
+		<h2 class="text-slate-200 text-4xl mb-8 md:mb-12 text-center italic">SoundCloud</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				class="rounded-xl"
-				width="420"
-				height="480"
 				title="Missy Mix Vol. 15"
 				scrolling="no"
 				frameborder="no"
@@ -19,17 +17,22 @@
 	</div>
 
 	<div>
-		<h2 class="text-slate-200 text-4xl mb-12 text-center italic">Audius</h2>
+		<h2 class="text-slate-200 text-4xl mb-8 md:mb-12 text-center italic">Audius</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				class="rounded-xl"
 				title="Audius"
 				src="https://audius.co/embed/track/NPWX8?flavor=card"
-				width="420"
-				height="480"
 				allow="encrypted-media"
 				style="border: none;"
 			/>
 		</div>
 	</div>
 </section>
+
+<style>
+	.frame-wrapper iframe {
+		width: 100%;
+		min-height: 420px;
+	}
+</style>

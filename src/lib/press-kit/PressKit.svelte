@@ -16,7 +16,7 @@
 	}
 </script>
 
-<section id="press" class="max-w-screen-2xl w-full px-14 py-20">
+<section id="press" class="max-w-screen-2xl w-full py-20">
 	<h2 class="text-slate-100 text-4xl italic mb-12">Press Kit</h2>
 	<div class="grid sm:grid-cols-3 xs:grid-cols-1 gap-8">
 		<div class="w-full bg-slate-100 rounded-md">

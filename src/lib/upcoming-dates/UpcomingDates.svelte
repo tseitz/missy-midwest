@@ -6,7 +6,7 @@
 	import smokeWeed from './images/420.jpg';
 </script>
 
-<section id="dates" class="max-w-screen-2xl w-full px-14 py-20">
+<section id="dates" class="max-w-screen-2xl w-full py-20">
 	<h2 class="text-slate-100 text-4xl mb-12 italic">Upcoming Dates</h2>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-8">
 		<div

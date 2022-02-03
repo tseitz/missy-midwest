@@ -16,10 +16,12 @@
 
 <Landing />
 
-<Music />
+<div class="px-8 md:px-14">
+	<Music />
 
-<UpcomingDates />
+	<UpcomingDates />
 
-<About />
+	<About />
 
-<PressKit />
+	<PressKit />
+</div>

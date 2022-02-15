@@ -2,7 +2,7 @@
 
 <style>
 	#landing {
-		background: url('dft-piano-crop-compress.jpg') no-repeat center bottom fixed;
+		background: url('dft-piano.webp') no-repeat center bottom fixed;
 		background-size: cover;
 		transition: background-size 0.5s ease-out;
 		filter: blur(5px);

@@ -2,7 +2,7 @@
 	import missyGuitarPic from './images/missy-guitar-pic.png';
 	import missyMidwest from './images/missy-midwest.png';
 	import purpleGlowPartyPdf from './images/purple-glow-party-event.pdf';
-	import purpleGlowPartyImg from './images/glow-party.png';
+	import purpleGlowPartyImg from './images/glow-party.webp';
 	import { fade } from 'svelte/transition';
 
 	import Icon from '@iconify/svelte';

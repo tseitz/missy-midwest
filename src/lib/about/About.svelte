@@ -1,5 +1,5 @@
 <script lang="ts">
-	import jordanDrinks from './images/jordan-drinks-2.jpg';
+	import jordanDrinks from './images/jordan-drinks-2-compress.jpg';
 </script>
 
 <section id="about" class="max-w-screen-2xl w-full grid grid-cols-2 gap-8 md:gap-16 py-20">

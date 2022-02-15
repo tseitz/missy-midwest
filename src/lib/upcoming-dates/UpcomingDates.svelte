@@ -1,5 +1,5 @@
 <script lang="ts">
-	import jordanLove from './images/jordan-falls-in-love.jpg';
+	import jordanLove from './images/jordan-falls-in-love-compress.jpg';
 	import tuckersShuckers from './images/tuckers-shuckers.png';
 	import faucetteFestival from './images/faucette.jpg';
 	import area51 from './images/area-51.jpg';

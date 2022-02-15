@@ -2,10 +2,10 @@
 
 <style>
 	#landing {
-		background: url('guitar.jpg') no-repeat center center fixed;
+		background: url('dft-piano.jpg') no-repeat center bottom fixed;
 		background-size: cover;
 		transition: background-size 0.5s ease-out;
-		filter: blur(6px);
+		filter: blur(5px);
 		height: 84vh;
 	}
 	#landing::after {
@@ -13,7 +13,7 @@
 		height: 100%;
 		width: 100%;
 		display: block;
-		background-color: purple;
-		opacity: 75%;
+		background-color: var(--missy-purple-500);
+		opacity: 48%;
 	}
 </style>

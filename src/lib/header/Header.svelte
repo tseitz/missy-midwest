@@ -11,7 +11,6 @@
 	let socialSize = 36;
 
 	$: mobileNav = navWidth < 1024;
-	$: stickyLogo = navWidth < 480;
 </script>
 
 <svelte:window bind:innerWidth={navWidth} />
@@ -38,7 +37,7 @@
 		</div>
 	</div>
 
-	<Nav {mobileNav} {stickyLogo} />
+	<Nav {navWidth} {mobileNav} />
 
 	<div class="social-wrap">
 		<div class="social">

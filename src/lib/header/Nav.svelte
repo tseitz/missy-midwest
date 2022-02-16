@@ -1,16 +1,17 @@
 <script lang="ts">
 	import missyLogo from './images/missy-midwest-neon-cropped.png';
+	export let navWidth: number;
 	export let mobileNav: boolean;
-	export let stickyLogo: boolean;
 	let y = 0;
 
 	let margin = -3.5;
 	let translateX = '0';
 	let translateY = '80%';
 
-	$: margin = !stickyLogo && Math.min(0, -3.5 + y / 100);
-	$: scale = !stickyLogo && Math.max(1, 5 - y / 125);
-	$: translateY = !stickyLogo && Math.max(0, 80 - y / 6.25) + '%';
+	$: mobileLogo = navWidth < 480;
+	$: margin = mobileNav ? 0 : Math.min(0, -3.5 + y / 100);
+	$: scale = mobileNav ? Math.max(1, 3.5 - y / 125) : Math.max(1, 5 - y / 125);
+	$: translateY = mobileNav ? Math.max(0, 110 - y / 3) + '%' : Math.max(0, 80 - y / 6.25) + '%';
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -23,7 +24,7 @@
 			<li><a class="text-missy-500 text-lg" href="#about">About</a></li>
 			<li><a class="text-missy-500 text-lg" href="#press">Press</a></li>
 		</ul>
-		<div class="logo {stickyLogo ? 'sticky-logo' : ''}" style="margin: 0 {margin}rem">
+		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
 				src={missyLogo}
 				alt="Missy Midwest"
@@ -36,7 +37,7 @@
 			<li>
 				<a class="text-missy-500 text-lg" href="#dates">Upcoming Dates</a>
 			</li>
-			<div class="logo {stickyLogo ? 'sticky-logo' : ''}" style="margin: 0 {margin}rem">
+			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
 					src={missyLogo}
 					alt="Missy Midwest"
@@ -85,10 +86,10 @@
 		object-fit: contain;
 		transition: transform 0.05s ease-out;
 	}
-	.sticky-logo {
+	.mobile-logo {
 		margin: 0 1.4rem !important;
 	}
-	.sticky-logo > img {
+	/* .sticky-logo > img {
 		transform: none !important;
-	}
+	} */
 </style>

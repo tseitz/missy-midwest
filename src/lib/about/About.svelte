@@ -2,7 +2,10 @@
 	import jordanDrinks from './images/jordan-drinks.webp';
 </script>
 
-<section id="about" class="max-w-screen-2xl w-full grid grid-cols-2 gap-8 md:gap-16 py-20">
+<section
+	id="about"
+	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 md:py-20"
+>
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-12 italic">About Missy</h2>
 		<p class="text-slate-100">

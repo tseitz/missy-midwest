@@ -16,9 +16,9 @@
 	}
 </script>
 
-<section id="press" class="max-w-screen-2xl w-full py-20">
+<section id="press" class="max-w-screen-2xl w-full py-12 md:py-20">
 	<h2 class="text-slate-100 text-4xl italic mb-12">Press Kit</h2>
-	<div class="grid sm:grid-cols-3 xs:grid-cols-1 gap-8">
+	<div class="grid sm:grid-cols-3 xs:grid-cols-1 gap-10">
 		<div class="w-full bg-slate-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"

@@ -5,9 +5,9 @@
 	import dftOnTheRoad from './images/DFT-on-the-road-2022.webp';
 </script>
 
-<section id="dates" class="max-w-screen-2xl w-full py-20">
+<section id="dates" class="max-w-screen-2xl w-full py-12 md:py-20">
 	<h2 class="text-slate-100 text-4xl mb-12 italic">Upcoming Dates</h2>
-	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-8">
+	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
 		<a
 			href="https://www.lakepubcrawl.com/bands.html"
 			target="_blank"
@@ -46,7 +46,8 @@
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md">
 				<p class="text-2xl">April 22th</p>
-				<p class="text-md">Yellow Brick Road Tour</p>
+				<p class="text-md">Yellow Brick Road Tour @ The Rev Room</p>
+				<p class="text-sm">Little Rock, AR</p>
 			</div>
 		</div>
 	</div>

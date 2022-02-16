@@ -1,23 +1,13 @@
 <script lang="ts">
-	import jordanLove from './images/jordan-falls-in-love.webp';
 	import tuckersShuckers from './images/tuckers-shuckers.webp';
 	import faucetteFestival from './images/faucette.webp';
 	import area51 from './images/area-51.jpg';
-	import smokeWeed from './images/420.jpg';
+	import dftOnTheRoad from './images/DFT-on-the-road-2022.webp';
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full py-20">
 	<h2 class="text-slate-100 text-4xl mb-12 italic">Upcoming Dates</h2>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-8">
-		<div
-			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background-image: url({jordanLove});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"
-		>
-			<div class="description bg-slate-100 px-8 py-4 rounded-b-md">
-				<p class="text-2xl">February 11th</p>
-				<p class="text-md">Missy Mix Vol.19 - Missy in Love</p>
-			</div>
-		</div>
 		<a
 			href="https://www.lakepubcrawl.com/bands.html"
 			target="_blank"
@@ -52,11 +42,11 @@
 		</div>
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background-image: url({smokeWeed});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"
+			style="background: url({dftOnTheRoad}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md">
-				<p class="text-2xl">April 20th</p>
-				<p class="text-md">Missy Mix Vol. 420 - Cannibas Cures</p>
+				<p class="text-2xl">April 22th</p>
+				<p class="text-md">Yellow Brick Road Tour</p>
 			</div>
 		</div>
 	</div>

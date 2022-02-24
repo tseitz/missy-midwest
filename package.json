@@ -37,6 +37,8 @@
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.1",
 		"@lukeed/uuid": "^2.0.0",
-		"cookie": "^0.4.1"
+		"cookie": "^0.4.1",
+		"svelte-forms-lib": "^2.0.1",
+		"yup": "^0.32.11"
 	}
 }

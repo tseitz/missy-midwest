@@ -23,6 +23,8 @@
 			<li><a class="text-missy-500 text-lg" href="#dates">Dates</a></li>
 			<li><a class="text-missy-500 text-lg" href="#about">About</a></li>
 			<li><a class="text-missy-500 text-lg" href="#press">Press</a></li>
+			<!-- <li><a class="text-missy-500 text-lg" href="#contact">Contact</a></li>
+			<li><a class="text-missy-500 text-lg" href="#donate">Donate</a></li> -->
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
@@ -35,7 +37,7 @@
 		<ul>
 			<li><a class="text-missy-500 text-lg" href="#music">Music</a></li>
 			<li>
-				<a class="text-missy-500 text-lg" href="#dates">Upcoming Dates</a>
+				<a class="text-missy-500 text-lg" href="#dates">Dates</a>
 			</li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
@@ -46,6 +48,8 @@
 			</div>
 			<li><a class="text-missy-500 text-lg" href="#about">About</a></li>
 			<li><a class="text-missy-500 text-lg" href="#press">Press Kit</a></li>
+			<!-- <li><a class="text-missy-500 text-lg" href="#contact">Contact</a></li>
+			<li><a class="text-missy-500 text-lg" href="#donate">Donate</a></li> -->
 		</ul>
 	{/if}
 </nav>

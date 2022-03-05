@@ -35,9 +35,12 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@emailjs/browser": "^3.4.0",
 		"@fontsource/fira-mono": "^4.5.1",
 		"@lukeed/uuid": "^2.0.0",
+		"@types/grecaptcha": "^3.0.3",
 		"cookie": "^0.4.1",
+		"dotenv": "^16.0.0",
 		"svelte-forms-lib": "^2.0.1",
 		"yup": "^0.32.11"
 	}

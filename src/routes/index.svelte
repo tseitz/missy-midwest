@@ -8,8 +8,8 @@
 	import PressKit from '$lib/press-kit/PressKit.svelte';
 	import UpcomingDates from '$lib/upcoming-dates/UpcomingDates.svelte';
 	import Landing from '$lib/landing/Landing.svelte';
-	// import Contact from '$lib/contact/Contact.svelte';
-	// import Donate from '$lib/donate/Donate.svelte';
+	import Contact from '$lib/contact/Contact.svelte';
+	import Donate from '$lib/donate/Donate.svelte';
 </script>
 
 <svelte:head>
@@ -25,9 +25,9 @@
 
 	<About />
 
+	<Contact />
+
+	<Donate />
+
 	<PressKit />
-
-	<!-- <Contact />
-
-	<Donate /> -->
 </div>

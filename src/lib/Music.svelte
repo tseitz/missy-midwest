@@ -1,6 +1,6 @@
 <section
 	id="music"
-	class="max-w-screen-2xl w-full py-12 md:py-20 grid lg:grid-cols-2 md:grid-cols-1 gap-8"
+	class="max-w-screen-2xl w-full py-12 md:py-16 grid lg:grid-cols-2 md:grid-cols-1 gap-8"
 >
 	<div class="mb-6 md:mb-0">
 		<h2 class="text-slate-200 text-4xl mb-8 md:mb-12 text-center italic">SoundCloud</h2>

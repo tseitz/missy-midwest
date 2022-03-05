@@ -1,14 +1,14 @@
 <script lang="ts">
-	import tuckersShuckers from './images/tuckers-shuckers.webp';
+	// import tuckersShuckers from './images/tuckers-shuckers.webp';
 	import faucetteFestival from './images/faucette.webp';
 	import area51 from './images/area-51.jpg';
 	import dftOnTheRoad from './images/DFT-on-the-road-2022.webp';
 </script>
 
-<section id="dates" class="max-w-screen-2xl w-full py-12 md:py-20">
-	<h2 class="text-slate-100 text-4xl mb-12 italic">Upcoming Dates</h2>
+<section id="dates" class="max-w-screen-2xl w-full py-12 md:py-16">
+	<h2 class="text-slate-100 text-4xl mb-12 italic">See Missy</h2>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
-		<a
+		<!-- <a
 			href="https://www.lakepubcrawl.com/bands.html"
 			target="_blank"
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
@@ -19,7 +19,7 @@
 				<p class="text-md">Tuckers Shuckers Oysters & Tap</p>
 				<p class="text-sm">Lake Ozark, MO</p>
 			</div>
-		</a>
+		</a> -->
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background-image: url({faucetteFestival});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"

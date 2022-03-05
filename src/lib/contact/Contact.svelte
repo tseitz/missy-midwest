@@ -1,48 +1,85 @@
 <script lang="ts">
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
+	import { init, send } from '@emailjs/browser';
 
-	const { form, errors, state, handleChange, handleSubmit } = createForm({
+	const emailUserId = import.meta.env['VITE_MISSY_EMAIL_USER_ID'] as string;
+	const emailServiceId = import.meta.env['VITE_MISSY_EMAIL_SERVICE_ID'] as string;
+	const emailTemplateId = import.meta.env['VITE_MISSY_EMAIL_TEMPLATE_ID'] as string;
+
+	init(emailUserId);
+	const phoneRegExp =
+		/^(((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?)?$/;
+	let submit = false;
+	const { form, errors, handleChange, handleSubmit, handleReset } = createForm({
 		initialValues: {
 			name: '',
-			email: ''
+			email: '',
+			phone: '',
+			message: ''
 		},
+
 		validationSchema: yup.object().shape({
-			title: yup.string().oneOf(['Mr.', 'Mrs.', 'Mx.']).required(),
-			name: yup.string().required(),
-			email: yup.string().email().required()
+			name: yup.string().required('Name is required'),
+			email: yup.string().email().required('Email is required'),
+			phone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+			message: yup
+				.string()
+				.required('Message is required')
+				.max(10000, `Whoa, that's a long message. Could you trim it back a bit?`)
 		}),
-		onSubmit: (values) => {
-			alert(JSON.stringify(values));
+
+		onSubmit: async (values) => {
+			grecaptcha.ready(function () {
+				grecaptcha
+					.execute('6LdOxaEeAAAAAEVoXpwQ_G_30DI8m8y5xcUhARAf', { action: 'submit' })
+					.then(async (token: string) => {
+						if (token) {
+							const validation = await fetch(`/captcha`, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify({
+									token
+								})
+							});
+
+							const validationResp = await validation.json();
+							if (validation.status === 200) {
+								const emailResp = await send(emailServiceId, emailTemplateId, values);
+								console.log(emailResp);
+								if (emailResp.status === 200) {
+									handleReset();
+									alert(validationResp.message);
+								} else {
+									alert(
+										'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
+									);
+								}
+							} else {
+								alert(validationResp.error);
+							}
+						}
+					});
+			});
 		}
 	});
 </script>
 
 <section
 	id="contact"
-	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 md:py-20"
+	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 md:py-16"
 >
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-12 italic">Contact</h2>
 		<p class="text-slate-100">
-			A midwestern melting pot of EDM, country, bass, and urban styles; Missy Midwest brings dance
-			vibes from all your favorite genres
+			Missy would love to hear from you! For bookings and inquiries please fill out the form.
 		</p>
 	</div>
-	<div>
+	<div class="bg-slate-100 rounded-md p-8">
 		<form on:submit={handleSubmit}>
-			<label for="title">title</label>
-			<select id="title" name="title" on:change={handleChange} bind:value={$form.title}>
-				<option />
-				<option>Mr.</option>
-				<option>Mrs.</option>
-				<option>Mx.</option>
-			</select>
-			{#if $errors.title}
-				<small>{$errors.title}</small>
-			{/if}
-
-			<label for="name">name</label>
+			<label class="text-2xl mb-2" for="name">Name</label>
 			<input
 				id="name"
 				name="name"
@@ -50,11 +87,11 @@
 				on:blur={handleChange}
 				bind:value={$form.name}
 			/>
-			{#if $errors.name}
-				<small>{$errors.name}</small>
+			{#if submit && $errors.name}
+				<small class="text-red-500">{$errors.name}</small>
 			{/if}
 
-			<label for="email">email</label>
+			<label class="text-2xl mt-4 mb-2" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
@@ -62,14 +99,63 @@
 				on:blur={handleChange}
 				bind:value={$form.email}
 			/>
-			{#if $errors.email}
-				<small>{$errors.email}</small>
+			{#if submit && $errors.email}
+				<small class="text-red-500">{$errors.email}</small>
 			{/if}
 
-			<button type="submit">submit</button>
+			<label class="text-2xl mt-4 mb-2" for="phone">Phone (Optional)</label>
+			<input
+				id="phone"
+				name="phone"
+				on:change={handleChange}
+				on:blur={handleChange}
+				bind:value={$form.phone}
+			/>
+			{#if submit && $errors.phone}
+				<small class="text-red-500">{$errors.phone}</small>
+			{/if}
+
+			<label class="text-2xl mt-4 mb-2" for="message">Message</label>
+			<textarea
+				id="message"
+				name="message"
+				rows="7"
+				on:change={handleChange}
+				on:blur={handleChange}
+				bind:value={$form.message}
+			/>
+			{#if submit && $errors.message}
+				<small class="text-red-500">{$errors.message}</small>
+			{/if}
+
+			<div class="btn-wrap flex justify-end mt-4">
+				<button
+					class="g-recaptcha bg-pink-500 hover:bg-pink-700 text-slate-100 font-bold py-2 px-4 rounded"
+					type="submit"
+					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
+					data-callback="onSubmit"
+					data-action={handleSubmit}
+					on:click={() => (submit = true)}>Submit</button
+				>
+			</div>
 		</form>
 	</div>
 </section>
 
 <style>
+	input,
+	textarea {
+		padding: 12px;
+		width: 100%;
+	}
+
+	label {
+		display: block;
+	}
+
+	small {
+		display: block;
+		font-size: 14px;
+		margin-top: 10px;
+	}
 </style>

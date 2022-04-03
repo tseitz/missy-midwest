@@ -20,6 +20,13 @@ html {
 	scroll-behavior: smooth;
 }
 
+@media (max-width: 768px) {
+  .grecaptcha-badge { 
+    /* visibility: hidden; */
+    bottom: 4.5rem !important;
+  }
+}
+
 @tailwind components;
 
 @tailwind utilities;

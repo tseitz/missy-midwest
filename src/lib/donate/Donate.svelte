@@ -1,7 +1,7 @@
 <script lang="ts">
 </script>
 
-<section id="donate" class="max-w-screen-2xl w-full py-10 md:py-16">
+<section id="donate" class="max-w-screen-2xl w-full pt-20 pb-16">
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-12 italic">Donate</h2>
 		<p class="text-slate-100">

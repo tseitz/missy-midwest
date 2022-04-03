@@ -4,17 +4,17 @@
 
 <section
 	id="about"
-	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 py-12 md:py-16"
+	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
 >
 	<div>
-		<h2 class="text-slate-100 text-4xl mb-12 italic">About Missy</h2>
+		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">About Missy</h2>
 		<p class="text-slate-100">
 			A midwestern melting pot of EDM, country, bass, and urban styles; Missy Midwest brings dance
 			vibes from all your favorite genres
 		</p>
 	</div>
 	<div>
-		<img src={jordanDrinks} alt="Missy Midwest" class="about-img opacity-70 rounded-md" />
+		<img src={jordanDrinks} alt="Missy Midwest" class="about-img opacity-90 rounded-md" />
 	</div>
 </section>
 

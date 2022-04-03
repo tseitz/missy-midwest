@@ -19,12 +19,12 @@
 <nav class={mobileNav && mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
 		<ul>
-			<li><a class="text-missy-500 text-lg" href="#music">Music</a></li>
-			<li><a class="text-missy-500 text-lg" href="#dates">Dates</a></li>
-			<li><a class="text-missy-500 text-lg" href="#about">About</a></li>
-			<li><a class="text-missy-500 text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-missy-500 text-lg" href="#donate">Donate</a></li>
-			<li><a class="text-missy-500 text-lg" href="#press">Press Kit</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#music">Music</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#dates">Dates</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#about">About</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#contact">Contact</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#donate">Donate</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#press">Press Kit</a></li>
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
@@ -35,11 +35,11 @@
 		</div>
 	{:else}
 		<ul>
-			<li><a class="text-missy-500 text-lg" href="#music">Music</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#music">Music</a></li>
 			<li>
-				<a class="text-missy-500 text-lg" href="#dates">Dates</a>
+				<a class="text-missy-500 text-md md:text-lg" href="#dates">Dates</a>
 			</li>
-			<li><a class="text-missy-500 text-lg" href="#about">About</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#about">About</a></li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
 					src={missyLogo}
@@ -47,9 +47,9 @@
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>
 			</div>
-			<li><a class="text-missy-500 text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-missy-500 text-lg" href="#donate">Donate</a></li>
-			<li><a class="text-missy-500 text-lg" href="#press">Press Kit</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#contact">Contact</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#donate">Donate</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#press">Press Kit</a></li>
 		</ul>
 	{/if}
 </nav>
@@ -68,6 +68,7 @@
 		left: 0;
 		width: 100%;
 		bottom: 0;
+		height: 4rem;
 		/* margin-top: 3.75rem; */
 		background-color: var(--missy-white-100);
 		/* height: calc(100% - 3.75rem); */
@@ -78,7 +79,7 @@
 		padding: 0 1rem;
 	}
 	.mobile li {
-		padding: 1rem;
+		padding: 1rem 0.5rem;
 		text-align: center;
 	}
 	.logo {

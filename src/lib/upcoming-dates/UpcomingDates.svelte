@@ -56,7 +56,7 @@
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md">
 				<p class="text-2xl">Summer 2022</p>
-				<p class="text-md">Tequila Tuesday's @ Camp Taco</p>
+				<p class="text-md">Camp Taco</p>
 				<p class="text-sm">Little Rock, AR</p>
 			</div>
 		</div>

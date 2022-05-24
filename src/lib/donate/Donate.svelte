@@ -12,13 +12,13 @@
 			>
 			<br />
 			<br />
-			"Your decision to donate to Missy Midwest & Jordan Brooke Music LLC is held with great responsibility
+			<!-- "Your decision to donate to Missy Midwest & Jordan Brooke Music LLC is held with great responsibility
 			and pride. All money goes towards creating a better future for not only artists but everyone involved
 			in the music process. From producers to listeners, sound techs to promoters, and people from all
 			walks of life. One dollar to Missy Midwest equals one dollar for musical freedom and the ability
 			to truly be who you want to be. As Jordan Brooke Music grows, you will see the impact in her communities,
 			local and abroad through volunteer work and donations of her own. Thank you for your donation."
-			- Missy Midwest
+			- Missy Midwest -->
 		</p>
 	</div>
 </section>

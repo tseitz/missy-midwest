@@ -78,6 +78,19 @@
 		z-index: 1;
 		padding: 0 1rem;
 	}
+	li > a:hover {
+		border-bottom: 1px solid var(--missy-pink);
+		color: var(--missy-pink);
+	}
+	/* li > a:hover,
+	li > a:focus {
+		background: linear-gradient(to right, rgb(236 72 153), rgb(79, 36, 73));
+		background-size: 100% 0.1em, 0 0.1em;
+		background-position: 100% 100%, 0 100%;
+		background-repeat: no-repeat;
+		transition: background-size 400ms;
+		background-size: 0 0.1em, 100% 0.1em;
+	} */
 	.mobile li {
 		padding: 1rem 0.5rem;
 		text-align: center;

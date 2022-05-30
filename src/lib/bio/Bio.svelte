@@ -3,7 +3,7 @@
 </script>
 
 <section
-	id="about"
+	id="bio"
 	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
 >
 	<div>
@@ -39,12 +39,12 @@
 		</p>
 	</div>
 	<div class="flex justify-center">
-		<img src={missy} alt="Missy Midwest" class="about-img opacity-90 rounded-md" />
+		<img src={missy} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 	</div>
 </section>
 
 <style>
-	.about-img {
+	.bio-img {
 		max-height: 70vh;
 	}
 </style>

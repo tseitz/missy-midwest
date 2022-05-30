@@ -4,12 +4,12 @@
 
 <script lang="ts">
 	import Music from '$lib/Music.svelte';
-	import About from '$lib/about/About.svelte';
+	import Bio from '$lib/bio/Bio.svelte';
 	import PressKit from '$lib/press-kit/PressKit.svelte';
 	import UpcomingDates from '$lib/upcoming-dates/UpcomingDates.svelte';
 	import Landing from '$lib/landing/Landing.svelte';
 	import Contact from '$lib/contact/Contact.svelte';
-	import Donate from '$lib/donate/Donate.svelte';
+	import Support from '$lib/support/Support.svelte';
 </script>
 
 <svelte:head>
@@ -23,11 +23,11 @@
 
 	<UpcomingDates />
 
-	<About />
+	<Bio />
 
 	<Contact />
 
-	<Donate />
+	<Support />
 
 	<PressKit />
 </div>

@@ -2,7 +2,8 @@
 
 @import '@fontsource/fira-mono';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Limelight&family=Roboto+Condensed:ital,wght@1,300;1,400;1,700&display=swap');
 
 @tailwind base;
 
@@ -20,6 +21,7 @@
 
 h1, h2, h3, h4, h5, h6, .missy-header {
   font-family: var(--missy-header-font);
+  font-weight: 700;
 }
 
 p {

@@ -16,14 +16,14 @@
 
 <svelte:window bind:scrollY={y} />
 
-<nav class={mobileNav && mobileNav ? 'mobile' : ''}>
+<nav class={mobileNav && mobileNav ? 'mobile missy-header' : 'missy-header'}>
 	{#if mobileNav}
 		<ul>
 			<li><a class="text-missy-500 text-md md:text-lg" href="#music">Music</a></li>
 			<li><a class="text-missy-500 text-md md:text-lg" href="#dates">Dates</a></li>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#about">About</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#bio">Bio</a></li>
 			<li><a class="text-missy-500 text-md md:text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#donate">Donate</a></li>
+			<li><a class="text-missy-500 text-md md:text-lg" href="#support">Support</a></li>
 			<li><a class="text-missy-500 text-md md:text-lg" href="#press">Press Kit</a></li>
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
@@ -35,11 +35,11 @@
 		</div>
 	{:else}
 		<ul>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#music">Music</a></li>
+			<li><a class="text-missy-500 text-lg md:text-xl" href="#music">Music</a></li>
 			<li>
-				<a class="text-missy-500 text-md md:text-lg" href="#dates">Dates</a>
+				<a class="text-missy-500 text-lg md:text-xl" href="#dates">Dates</a>
 			</li>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#about">About</a></li>
+			<li><a class="text-missy-500 text-lg md:text-xl" href="#bio">Bio</a></li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
 					src={missyLogo}
@@ -47,9 +47,9 @@
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>
 			</div>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#donate">Donate</a></li>
-			<li><a class="text-missy-500 text-md md:text-lg" href="#press">Press Kit</a></li>
+			<li><a class="text-missy-500 text-lg md:text-xl" href="#contact">Contact</a></li>
+			<li><a class="text-missy-500 text-lg md:text-xl" href="#support">Support</a></li>
+			<li><a class="text-missy-500 text-lg md:text-xl" href="#press">Press Kit</a></li>
 		</ul>
 	{/if}
 </nav>

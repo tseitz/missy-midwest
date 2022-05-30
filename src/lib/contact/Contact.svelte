@@ -26,7 +26,7 @@
 			message: yup
 				.string()
 				.required('Message is required')
-				.max(10000, `Whoa, that's a long message. Could you trim it back a bit?`)
+				.max(10000, `Whoa, that's a long message. Could you trim it down a bit?`)
 		}),
 
 		onSubmit: async (values) => {
@@ -75,6 +75,10 @@
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Contact</h2>
 		<p class="text-slate-100">
 			Missy would love to hear from you! For bookings and inquiries please fill out the form.
+			<br />
+			<br />
+			Missy also streams every morning at 8 a.m. Find her
+			<a href="https://www.twitch.tv/missymidwest" target="_blank">here</a>
 		</p>
 	</div>
 	<div class="bg-slate-100 rounded-md p-8">

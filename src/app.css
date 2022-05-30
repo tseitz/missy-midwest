@@ -32,6 +32,11 @@ html {
 	scroll-behavior: smooth;
 }
 
+a:hover {
+  border-bottom: 1px solid var(--missy-pink);
+  color: var(--missy-pink);
+}
+
 @media (max-width: 768px) {
   .grecaptcha-badge { 
     /* visibility: hidden; */

@@ -6,7 +6,7 @@
 <section id="support" class="max-w-screen-2xl w-full pt-20 pb-16">
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-12 italic">Support</h2>
-		<div class="grid xl:grid-cols-3 lg:grid-cols-3 gap-10">
+		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
 			<div>
 				<img src={venmo} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">

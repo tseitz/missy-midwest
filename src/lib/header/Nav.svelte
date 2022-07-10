@@ -16,7 +16,7 @@
 
 <svelte:window bind:scrollY={y} />
 
-<nav class={mobileNav && mobileNav ? 'mobile missy-header' : 'missy-header'}>
+<nav class={mobileNav && mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
 		<ul>
 			<li><a class="text-missy-500 text-md md:text-lg" href="#music">Music</a></li>

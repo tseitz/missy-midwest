@@ -77,8 +77,8 @@
 			Missy would love to hear from you! For bookings and inquiries please fill out the form.
 			<br />
 			<br />
-			Missy also streams every morning at 8 a.m. Find her
-			<a href="https://www.twitch.tv/missymidwest" target="_blank">here</a>
+			Missy also streams every morning at 8 a.m. Find her on Twitch
+			<a href="https://www.twitch.tv/missymidwest" target="_blank">here</a>.
 		</p>
 	</div>
 	<div class="bg-slate-100 rounded-md p-8">

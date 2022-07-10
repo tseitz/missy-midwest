@@ -13,9 +13,14 @@ const config = {
 
 		trailingSlash: 'never',
 
+		prerender: {
+			default: true
+		},
+
 		vite: {
 			build: {
-				target: 'es2019'
+				target: 'es2019',
+				minify: 'esbuild'
 			}
 		}
 	}

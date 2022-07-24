@@ -134,7 +134,7 @@
 
 			<div class="btn-wrap flex justify-end mt-4">
 				<button
-					class="g-recaptcha bg-pink-500 hover:bg-pink-700 text-slate-100 font-bold py-2 px-4 rounded"
+					class="g-recaptcha btn btn-secondary"
 					type="submit"
 					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
 					data-callback="onSubmit"

@@ -40,6 +40,7 @@
 		"@lukeed/uuid": "^2.0.0",
 		"@types/grecaptcha": "^3.0.4",
 		"cookie": "^0.4.2",
+		"daisyui": "^2.20.0",
 		"dotenv": "^16.0.1",
 		"svelte-forms-lib": "^2.0.1",
 		"yup": "^0.32.11"

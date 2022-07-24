@@ -1,14 +1,14 @@
 <script lang="ts">
-	import spotifyLogo from './images/spotify.svg';
-	import soundcloudLogo from './images/soundcloud.svg';
-	import appleMusicLogo from './images/apple-music.png';
-	import instagramLogo from './images/instagram.svg';
-	import facebookLogo from './images/facebook.svg';
-	import youtubeLogo from './images/youtube.svg';
+	import spotifyLogo from './images/spotify.png';
+	import soundcloudLogo from './images/soundcloud.png';
+	import twitchLogo from './images/twitch.png';
+	import instagramLogo from './images/instagram.png';
+	import facebookLogo from './images/facebook.png';
+	import youtubeLogo from './images/youtube.png';
 	import Nav from '$lib/header/Nav.svelte';
 
 	let navWidth: number;
-	let socialSize = 36;
+	let socialSize = 42;
 
 	$: mobileNav = navWidth < 1024;
 </script>
@@ -31,8 +31,8 @@
 			</a>
 		</div>
 		<div class="social">
-			<a href="https://kit.svelte.dev" target="_blank">
-				<img src={appleMusicLogo} alt="Apple Music" height={socialSize} width={socialSize} />
+			<a href="https://www.twitch.tv/missymidwest" target="_blank">
+				<img src={twitchLogo} alt="Twitch" height={socialSize} width={socialSize} />
 			</a>
 		</div>
 	</div>
@@ -88,7 +88,7 @@
 	.social-wrap {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
+		gap: 1.2rem;
 		max-width: 16rem;
 	}
 

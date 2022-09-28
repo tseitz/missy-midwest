@@ -8,7 +8,7 @@
 >
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>
-		<p class="text-slate-100 mb-6">
+		<!-- <p class="text-slate-100 mb-6">
 			Missy Midwest is no stranger to live music. With her performances starting at as young as
 			kindergarten, MissWest has over 20 years of experience being in the spotlight and behind the
 			curtain. She has taken 4+ years of voice lessons and over 10 years of piano lessons. Her time
@@ -36,6 +36,14 @@
 			mission and the mission of the entire Missy Midwest Team to sustain positive relationships
 			with our fellow music lovers through showing up to community events and supporting the artists
 			of those events.
+		</p> -->
+		<p>
+			You can find Missy Midwest breaking into music scenes all across the Midwest. You'll find her
+			rocking the house at Franky & Louie's Beachfront Bar and Neon Taco in Lake of the Ozarks.
+			Missy recently played her hometown music festival, 309fest, and proved she was a force to be
+			noticed. She can't wait to make more appearances in her new home, Little Rock, AR. This club
+			season she is releasing a weekly Missy Mix, writing her own music, learning production and
+			supporting her local music scene as well as festivals across the U.S.
 		</p>
 	</div>
 	<div class="flex justify-center">
@@ -45,6 +53,6 @@
 
 <style>
 	.bio-img {
-		max-height: 70vh;
+		max-height: 60vh;
 	}
 </style>

@@ -7,11 +7,11 @@
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				class="rounded-xl"
-				title="Missy Mix Vol. 36"
+				title="Missy Mix Vol. 44"
 				scrolling="no"
 				frameborder="no"
 				allow="autoplay"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1303340989&color=%23a664de&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1335067822&color=%23a664de&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
 			/>
 		</div>
 	</div>
@@ -21,8 +21,8 @@
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				class="rounded-xl"
-				title="Audius"
-				src="https://audius.co/embed/track/NPWX8?flavor=card"
+				title="Don't Know Why (Missy Cover)"
+				src="https://audius.co/embed/track/5OrZX?flavor=card"
 				allow="encrypted-media"
 				style="border: none;"
 			/>

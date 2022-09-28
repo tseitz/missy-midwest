@@ -37,7 +37,7 @@
 			with our fellow music lovers through showing up to community events and supporting the artists
 			of those events.
 		</p> -->
-		<p>
+		<p class="text-slate-100 mb-6">
 			You can find Missy Midwest breaking into music scenes all across the Midwest. You'll find her
 			rocking the house at Franky & Louie's Beachfront Bar and Neon Taco in Lake of the Ozarks.
 			Missy recently played her hometown music festival, 309fest, and proved she was a force to be

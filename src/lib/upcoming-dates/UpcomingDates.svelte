@@ -6,7 +6,7 @@
 
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">
 	<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
-	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
+	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-slate-100">
 		<!-- <div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background: url({frankyAndLouies}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"

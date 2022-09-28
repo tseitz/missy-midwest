@@ -1,3 +1,4 @@
+import { json as json$1 } from '@sveltejs/kit';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -5,7 +6,7 @@ dotenv.config();
 /**
  * @type {import('@sveltejs/kit').RequestHandler}
  */
-export async function post({ request }) {
+export async function POST({ request }) {
 	const data = await request.json();
 
 	const reply = await fetch(
@@ -21,18 +22,14 @@ export async function post({ request }) {
 	const validation = await reply.json();
 
 	if (validation.success) {
-		return {
-			status: 200,
-			body: {
-				message: 'Message sent! Thanks for your submission :)'
-			}
-		};
+		return json$1({
+			message: 'Message sent! Thanks for your submission :)'
+		});
 	}
 
-	return {
-		status: 403,
-		body: {
-			error: 'Recaptcha failed. Sorry robot. Please retry if you are in fact, human.'
-		}
-	};
+	return json$1({
+		error: 'Recaptcha failed. Sorry robot. Please retry if you are in fact, human.'
+	}, {
+		status: 403
+	});
 }

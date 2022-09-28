@@ -1,7 +1,3 @@
-<script context="module" lang="ts">
-	export const prerender = true;
-</script>
-
 <script lang="ts">
 	import Music from '$lib/Music.svelte';
 	import Bio from '$lib/bio/Bio.svelte';

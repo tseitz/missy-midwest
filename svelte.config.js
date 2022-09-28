@@ -6,23 +6,14 @@ import netlify from '@sveltejs/adapter-netlify';
 const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
-	preprocess: [preprocess({})],
+	preprocess: preprocess({}),
 
 	kit: {
 		adapter: netlify(),
 
-		trailingSlash: 'never',
-
 		prerender: {
-			default: true
+			enabled: true
 		},
-
-		vite: {
-			build: {
-				target: 'es2019',
-				minify: 'esbuild'
-			}
-		}
 	}
 };
 

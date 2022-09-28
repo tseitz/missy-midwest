@@ -1,3 +1,5 @@
+
+// @migration task: Check imports
 // import type { Locals } from '$lib/types';
 
 // import type { RequestHandler } from '@sveltejs/kit';

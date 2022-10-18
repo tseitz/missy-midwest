@@ -22,7 +22,7 @@
 		</div>
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background: url({halloween}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+			style="background: url({halloween}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;background-position:top"
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
 				<p class="text-2xl missy-header">Missy Mix: The Spooky Special Vol. II</p>
@@ -53,7 +53,7 @@
 		</div>
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background-image: url({subSessions});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"
+			style="background-image: url({subSessions});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:top;"
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
 				<p class="text-2xl missy-header">SUB SESSIONS</p>

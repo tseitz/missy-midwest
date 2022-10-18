@@ -11,7 +11,7 @@
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-slate-100">
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background: url({faucette}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+			style="background: url({faucette}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;background-position:bottom"
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
 				<p class="text-2xl missy-header">Faucette Festival</p>

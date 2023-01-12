@@ -7,22 +7,26 @@ import netlify from '@sveltejs/adapter-netlify';
 
 /** @type {import('vite').UserConfig} */
 const config = {
-    plugins: [sveltekit()],
+	plugins: [sveltekit()],
 
-    preprocess: preprocess({}),
+	preprocess: preprocess({}),
 
-    kit: {
-      adapter: netlify(),
+	kit: {
+		adapter: netlify(),
 
-      prerender: {
-        enabled: true
-      },
-    },
+		prerender: {
+			enabled: true
+		},
 
-    build: {
-      target: 'es2019',
-      minify: 'esbuild'
-    }
+		optimizeDeps: {
+			include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
+		}
+	},
+
+	build: {
+		target: 'es2019',
+		minify: 'esbuild'
+	}
 };
 
 export default config;

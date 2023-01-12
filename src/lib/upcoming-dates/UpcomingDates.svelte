@@ -68,7 +68,7 @@
 
 <style>
 	.event:hover {
-		transform: scale(1.01) rotate(-0.1deg);
+		transform: scale(1.02) rotate(-0.1deg);
 		transition: transform 0.33s ease-out;
 	}
 </style>

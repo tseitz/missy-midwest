@@ -17,9 +17,9 @@
 <div class="px-8 md:px-14">
 	<Music />
 
-	<UpcomingDates />
-
 	<Bio />
+
+	<UpcomingDates />
 
 	<Contact />
 

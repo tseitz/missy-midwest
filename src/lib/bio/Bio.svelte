@@ -1,5 +1,19 @@
 <script lang="ts">
 	import missy from './images/missy.webp';
+	// import { browser } from '$app/environment';
+	// import { onMount } from 'svelte';
+
+	// let carousel; // for calling methods of the carousel instance
+
+	// let Carousel: ConstructorOfATypedSvelteComponent; // for saving Carousel component class
+	// onMount(async () => {
+	// 	const module = await import('svelte-carousel');
+	// 	Carousel = module.default;
+	// });
+
+	// const handleNextClick = () => {
+	// 	carousel.goToNext();
+	// };
 </script>
 
 <section
@@ -38,13 +52,24 @@
 			of those events.
 		</p> -->
 		<p class="text-slate-100 mb-6">
-			You can find Missy Midwest breaking into music scenes all across the Midwest. You'll find her
-			rocking the house at Franky & Louie's Beachfront Bar and Neon Taco in Lake of the Ozarks.
-			Missy recently played her hometown music festival, 309fest, and proved she was a force to be
-			noticed. She can't wait to make more appearances in her new home, Little Rock, AR. This club
-			season she is releasing a weekly Missy Mix, writing her own music, learning production and
-			supporting her local music scene as well as festivals across the U.S.
+			Missy Midwest brings you uplifting affirmations, sentimental love ballads and booty shaking
+			party beats; with a country flair. She emulates a wide range of genres mixed together; just
+			like the Midwest. You can attend her high energy DJ sets in the hottest Lake of the Ozarks
+			locations. Missy recently played her hometown music festival, 309fest, as well as
+			Fayetteville's "Her Set Her Sound" and proved she was a force to be noticed. She can't wait to
+			bring the uplifting and relatable lyrics of her Country Bass anthems to stages in 2023. This
+			club season she is writing her own music, competing with other outstanding musicians, fine
+			tuning her production skills and supporting her local music scene.
 		</p>
+		<!-- {#if browser}
+			<Carousel bind:this={carousel}>
+				<div>1</div>
+				<div>2</div>
+				<div>3</div>
+			</Carousel>
+		{/if}
+
+		<button on:click={handleNextClick}>Next</button> -->
 	</div>
 	<div class="flex justify-center">
 		<img src={missy} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />

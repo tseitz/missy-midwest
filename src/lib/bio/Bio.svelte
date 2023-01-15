@@ -1,13 +1,14 @@
 <script lang="ts">
 	import missy from './images/missy.webp';
-	import area51 from '../upcoming-dates/images/archive/area-51.jpg';
-	import campTaco from '../upcoming-dates/images/archive/camp-taco.webp';
-	import electricForest from '../upcoming-dates/images/archive/electric-forest.webp';
+	// import area51 from '../upcoming-dates/images/archive/area-51.jpg';
+	// import campTaco from '../upcoming-dates/images/archive/camp-taco.webp';
+
+	export let dates: any;
 </script>
 
 <section
 	id="bio"
-	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
+	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 pt-20 pb-12 md:pb-16"
 >
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>
@@ -26,37 +27,36 @@
 				<div
 					class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4"
 				>
-					<button
-						type="button"
-						data-bs-target="#carouselExampleIndicators"
-						data-bs-slide-to="0"
-						class="active"
-						aria-current="true"
-						aria-label="Slide 1"
-					/>
-					<button
-						type="button"
-						data-bs-target="#carouselExampleIndicators"
-						data-bs-slide-to="1"
-						aria-label="Slide 2"
-					/>
-					<button
-						type="button"
-						data-bs-target="#carouselExampleIndicators"
-						data-bs-slide-to="2"
-						aria-label="Slide 3"
-					/>
+					{#each dates.pastDates as date, i}
+						<button
+							type="button"
+							data-bs-target="#carouselExampleIndicators"
+							data-bs-slide-to={i}
+							class="active !bg-missy-400"
+							aria-current="true"
+							aria-label={date.title}
+						/>
+					{/each}
 				</div>
 				<div class="carousel-inner relative w-full overflow-hidden">
-					<div class="carousel-item active float-left w-full">
-						<img src={area51} class="block w-full" alt="Wild Landscape" />
-					</div>
-					<div class="carousel-item float-left w-full">
-						<img src={campTaco} class="block w-full" alt="Camera" />
-					</div>
-					<div class="carousel-item float-left w-full">
-						<img src={electricForest} class="block w-full" alt="Exotic Fruits" />
-					</div>
+					{#each dates.pastDates as date, i}
+						<div class="carousel-item {i === 0 ? 'active' : ''} float-left w-full">
+							<!-- <img src={date.image} class="block w-full" alt={date.title} /> -->
+							<div
+								class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
+								style="background: url({date.image}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+							>
+								<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
+									<p class="text-2xl missy-header">{date.title}</p>
+									<p class="text-lg">
+										{new Date(date.dateTime).toLocaleDateString()}
+									</p>
+									<p class="text-sm">{date.venue}</p>
+									<!-- <p class="text-sm">{date.address}</p> -->
+								</div>
+							</div>
+						</div>
+					{/each}
 				</div>
 				<button
 					class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
@@ -88,22 +88,4 @@
 	.bio-img {
 		max-height: 60vh;
 	}
-	/* 
-	.carousel-indicators {
-		z-index: 2;
-		margin-right: 15%;
-		margin-left: 15%;
-		list-style: none;
-	}
-
-	.carousel-item.active {
-		display: block;
-	}
-
-	.carousel-item {
-		display: none;
-		margin-right: -100%;
-		backface-visibility: hidden;
-		transition: transform 0.6s ease-in-out;
-	} */
 </style>

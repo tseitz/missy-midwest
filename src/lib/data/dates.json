@@ -2,23 +2,138 @@
   "dates": [
     {
       "title": "Backwoods On The Road Tour",
-      "displayDate": "2022-10-28T02:00:00.000Z", // "Friday, October 28th 8pm-12am"
+      "dateTime": "2022-10-28T01:00:00.000Z",
       "venue": "Stickyz Rock'n'Roll Chicken",
       "address": "107 River Market Ave, Little Rock, AR 72201",
+      "image": "./gig-photos/backwoods.webp",
       "displayHistorical": true
     },
     {
       "title": "Missy Mix: 1 Year Anniversary!",
-      "displayDate": "2022-11-04T00:00:00.000Z",
+      "dateTime": "2022-11-04T00:00:00.000Z",
       "venue": "Soundcloud",
       "address": null,
+      "image": "./gig-photos/missy-guitar-pic.png",
       "displayHistorical": false
     },
     {
       "title": "SUB SESSIONS",
-      "displayDate": "2022-11-05T03:00:00.000Z",
+      "dateTime": "2022-11-05T02:00:00.000Z",
       "venue": "Hopkins Icehouse",
       "address": "301 E 3rd St, Texarkana, AR 71854",
+      "image": "./gig-photos/subsessions.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Faucette Festival",
+      "dateTime": "2022-10-22T17:00:00.000Z",
+      "venue": "Faucette Park",
+      "address": "100 Riverfront Pl, North Little Rock, AR 72114",
+      "image": "./gig-photos/faucette.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Franky & Louie's Beachfront Bar",
+      "dateTime": "2022-08-20T18:00:00.000Z",
+      "venue": "Franky & Louie's",
+      "address": "1028 Deer Valley Rd, Sunrise Beach, MO 65079",
+      "image": "./gig-photos/franky-and-louies.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "United Groove Presents",
+      "dateTime": "2022-08-27T00:00:00.000Z",
+      "venue": "The Labyrinth",
+      "address": "619 S Spring St. Little Rock, AR",
+      "image": "./gig-photos/united-groove.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "West & Watson Open Decks",
+      "dateTime": "2022-07-28T02:00:00.000Z",
+      "venue": "West & Watson",
+      "address": "326 N West Ave STE 4, Fayetteville, AR 72701",
+      "image": "./gig-photos/west-and-watson.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Franky & Louie's Beachfront Bar",
+      "dateTime": "2022-07-30T18:00:00.000Z",
+      "venue": "Franky & Louie's",
+      "address": "1028 Deer Valley Rd, Sunrise Beach, MO 65079",
+      "image": "./gig-photos/franky-and-louies.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Neon Taco",
+      "dateTime": "2022-07-31T18:00:00.000Z",
+      "venue": "Neon Taco",
+      "address": "1076 Bagnell Dam Blvd, Lake Ozark, MO 65049",
+      "image": "./gig-photos/neon-taco.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Paradise",
+      "dateTime": "2022-06-12T18:00:00.000Z",
+      "venue": "Paradise",
+      "address": "430 Tropical Trail Rd, Sunrise Beach, MO 65079",
+      "image": "./gig-photos/paradise.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Her Set Her Sound",
+      "dateTime": "2022-06-03T16:30:00.000Z",
+      "venue": "Prairie Street Live",
+      "address": "509 W. Prairie St, Fayetteville, AR 72701",
+      "image": "./gig-photos/her-set-her-sound.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Punchy Event",
+      "dateTime": "2022-06-11T18:00:00.000Z",
+      "venue": "Lost Forty",
+      "address": "Little Rock, AR",
+      "image": "./gig-photos/punchy.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Sunday Fill-Up",
+      "dateTime": "2022-06-12T18:30:00.000Z",
+      "venue": "The Filling Station NLR",
+      "address": "North Little Rock, AR",
+      "image": "./gig-photos/sunday-fill-up.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Mardi Gras Pub Crawl",
+      "dateTime": "2022-02-19T17:00:00.000Z",
+      "venue": "Tuckers Shuckers Oysters & Tap",
+      "address": "Lake Ozark, MO",
+      "image": "./gig-photos/tuckers-shuckers.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Faucette Festival",
+      "dateTime": "2022-03-05T17:00:00.000Z",
+      "venue": "Tuckers Shuckers Oysters & Tap",
+      "address": "Faucette Brothers Park",
+      "image": "./gig-photos/faucette.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Faucette Festival After Party",
+      "dateTime": "2022-03-05T17:00:00.000Z",
+      "venue": "Area 51",
+      "address": "Little Rock, AR",
+      "image": "./gig-photos/area-51.jpg",
+      "displayHistorical": true
+    },
+    {
+      "title": "Yellow Brick Road Tour",
+      "dateTime": "2022-04-22T17:00:00.000Z",
+      "venue": "The Rev Room",
+      "address": "Little Rock, AR",
+      "image": "./gig-photos/DFT-on-the-road-2022.webp",
       "displayHistorical": true
     }
   ]

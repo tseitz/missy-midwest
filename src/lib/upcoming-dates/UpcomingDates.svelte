@@ -1,11 +1,5 @@
 <script lang="ts">
-	import faucette from './images/faucette.webp';
-	import subSessions from './images/subsessions.webp';
-	import backwoods from './images/backwoods.webp';
-	import halloween from './images/halloween.webp';
-	import anniversary from '../press-kit/images/missy-guitar-pic.png';
 	export let dates: any;
-	console.log(dates);
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">
@@ -34,16 +28,16 @@
 		</div> -->
 		<div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
-			style="background: url({backwoods}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+			style="background: url('./gig-photos/backwoods.webp') rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
 		>
 			<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
 				<p class="text-2xl missy-header">Backwoods On The Road Tour</p>
-				<p class="text-md">Friday, October 28th 8pm-12am</p>
+				<p class="text-lg">Friday, October 28th 8pm-12am</p>
 				<p class="text-sm">Stickyz Rock'n'Roll Chicken</p>
 				<p class="text-sm">107 River Market Ave, Little Rock, AR 72201</p>
 			</div>
 		</div>
-		<div
+		<!-- <div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background-image: url({anniversary});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"
 		>
@@ -63,7 +57,7 @@
 				<p class="text-sm">Hopkins Icehouse</p>
 				<p class="text-sm">301 E 3rd St, Texarkana, AR 71854</p>
 			</div>
-		</div>
+		</div> -->
 		<!-- No scheduled events at this time. Use the contact form below to book Missy! -->
 	</div>
 </section>

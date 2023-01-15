@@ -26,7 +26,7 @@
 				<p class="text-sm">Soundcloud</p>
 			</div>
 		</div> -->
-		<div
+		<!-- <div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background: url('./gig-photos/backwoods.webp') rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
 		>
@@ -36,7 +36,7 @@
 				<p class="text-sm">Stickyz Rock'n'Roll Chicken</p>
 				<p class="text-sm">107 River Market Ave, Little Rock, AR 72201</p>
 			</div>
-		</div>
+		</div> -->
 		<!-- <div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background-image: url({anniversary});background-repeat: no-repeat;background-size:cover;opacity:0.98;background-position:center;"
@@ -58,7 +58,7 @@
 				<p class="text-sm">301 E 3rd St, Texarkana, AR 71854</p>
 			</div>
 		</div> -->
-		<!-- No scheduled events at this time. Use the contact form below to book Missy! -->
+		No scheduled events at this time. Use the contact form below to book Missy!
 	</div>
 </section>
 

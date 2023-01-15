@@ -1,19 +1,8 @@
 <script lang="ts">
 	import missy from './images/missy.webp';
-	// import { browser } from '$app/environment';
-	// import { onMount } from 'svelte';
-
-	// let carousel; // for calling methods of the carousel instance
-
-	// let Carousel: ConstructorOfATypedSvelteComponent; // for saving Carousel component class
-	// onMount(async () => {
-	// 	const module = await import('svelte-carousel');
-	// 	Carousel = module.default;
-	// });
-
-	// const handleNextClick = () => {
-	// 	carousel.goToNext();
-	// };
+	import area51 from '../upcoming-dates/images/archive/area-51.jpg';
+	import campTaco from '../upcoming-dates/images/archive/camp-taco.webp';
+	import electricForest from '../upcoming-dates/images/archive/electric-forest.webp';
 </script>
 
 <section
@@ -22,35 +11,6 @@
 >
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>
-		<!-- <p class="text-slate-100 mb-6">
-			Missy Midwest is no stranger to live music. With her performances starting at as young as
-			kindergarten, MissWest has over 20 years of experience being in the spotlight and behind the
-			curtain. She has taken 4+ years of voice lessons and over 10 years of piano lessons. Her time
-			spent performing in concert halls, clubs, outdoor venues, various religious establishments,
-			theaters, schools, and homes has no doubt shaped her into the hard working and dedicated
-			artist she is today.
-		</p>
-		<p class="text-slate-100 mb-6">
-			In April of 2020, the pandemic had brought uncertainty and big changes. Through that isolation
-			Missy took that as her cue to shake things up. She decided to do all of the things she always
-			said she "never had time" for. One of those being to pick up music again. Through that
-			decision she decided to go for the professional career she always knew was meant for her. To
-			be a music artist.
-		</p>
-		<p class="text-slate-100 mb-6">
-			Currently, you can find Missy DJing at community-centered events in Central & NW Arkansas such
-			as Faucette Festivals, Her Set Her Sound 2022 and Sunday Fill-Up. These events focus on
-			uplifting under-represented members of the edm community as well as supporting small business
-			owners. She's also performed at the iconic Revolution Room in downtown Little Rock where she
-			competed for a time slot at Dancefestopia 2022.
-		</p>
-		<p class="text-slate-100">
-			Behind the scenes she is releasing a weekly Missy Mix, song-writing, learning production
-			through Abelton, and helping to support and foster the edm community in Arkansas. It is her
-			mission and the mission of the entire Missy Midwest Team to sustain positive relationships
-			with our fellow music lovers through showing up to community events and supporting the artists
-			of those events.
-		</p> -->
 		<p class="text-slate-100 mb-6">
 			Missy Midwest brings you uplifting affirmations, sentimental love ballads and booty shaking
 			party beats; with a country flair. She emulates a wide range of genres mixed together; just
@@ -61,15 +21,63 @@
 			club season she is writing her own music, competing with other outstanding musicians, fine
 			tuning her production skills and supporting her local music scene.
 		</p>
-		<!-- {#if browser}
-			<Carousel bind:this={carousel}>
-				<div>1</div>
-				<div>2</div>
-				<div>3</div>
-			</Carousel>
-		{/if}
-
-		<button on:click={handleNextClick}>Next</button> -->
+		<div class="p-4">
+			<div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
+				<div
+					class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4"
+				>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="0"
+						class="active"
+						aria-current="true"
+						aria-label="Slide 1"
+					/>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="1"
+						aria-label="Slide 2"
+					/>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="2"
+						aria-label="Slide 3"
+					/>
+				</div>
+				<div class="carousel-inner relative w-full overflow-hidden">
+					<div class="carousel-item active float-left w-full">
+						<img src={area51} class="block w-full" alt="Wild Landscape" />
+					</div>
+					<div class="carousel-item float-left w-full">
+						<img src={campTaco} class="block w-full" alt="Camera" />
+					</div>
+					<div class="carousel-item float-left w-full">
+						<img src={electricForest} class="block w-full" alt="Exotic Fruits" />
+					</div>
+				</div>
+				<button
+					class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+					type="button"
+					data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="prev"
+				>
+					<span class="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true" />
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button
+					class="carousel-control-next absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+					type="button"
+					data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="next"
+				>
+					<span class="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true" />
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
 	</div>
 	<div class="flex justify-center">
 		<img src={missy} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
@@ -80,4 +88,22 @@
 	.bio-img {
 		max-height: 60vh;
 	}
+	/* 
+	.carousel-indicators {
+		z-index: 2;
+		margin-right: 15%;
+		margin-left: 15%;
+		list-style: none;
+	}
+
+	.carousel-item.active {
+		display: block;
+	}
+
+	.carousel-item {
+		display: none;
+		margin-right: -100%;
+		backface-visibility: hidden;
+		transition: transform 0.6s ease-in-out;
+	} */
 </style>

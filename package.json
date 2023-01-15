@@ -45,6 +45,7 @@
 		"daisyui": "^2.31.0",
 		"dotenv": "^16.0.2",
 		"svelte-forms-lib": "^2.0.1",
+		"tw-elements": "1.0.0-alpha13",
 		"vite": "^3.1.4",
 		"yup": "^0.32.11"
 	}

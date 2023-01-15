@@ -6,6 +6,9 @@
 	import Landing from '$lib/landing/Landing.svelte';
 	import Contact from '$lib/contact/Contact.svelte';
 	import Support from '$lib/support/Support.svelte';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
 <svelte:head>
@@ -19,7 +22,7 @@
 
 	<Bio />
 
-	<UpcomingDates />
+	<UpcomingDates dates={data} />
 
 	<Contact />
 

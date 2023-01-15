@@ -1,5 +1,5 @@
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/tw-elements/dist/js/**/*.js'],
 
 	theme: {
 		extend: {
@@ -12,7 +12,7 @@ const config = {
 		}
 	},
 
-	plugins: [require('daisyui')]
+	plugins: [require('daisyui'), require('tw-elements/dist/plugin')]
 };
 
 module.exports = config;

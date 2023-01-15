@@ -4,6 +4,8 @@
 	import backwoods from './images/backwoods.webp';
 	import halloween from './images/halloween.webp';
 	import anniversary from '../press-kit/images/missy-guitar-pic.png';
+	export let dates: any;
+	console.log(dates);
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">

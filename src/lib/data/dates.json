@@ -1,0 +1,25 @@
+{
+  "dates": [
+    {
+      "title": "Backwoods On The Road Tour",
+      "displayDate": "2022-10-28T02:00:00.000Z", // "Friday, October 28th 8pm-12am"
+      "venue": "Stickyz Rock'n'Roll Chicken",
+      "address": "107 River Market Ave, Little Rock, AR 72201",
+      "displayHistorical": true
+    },
+    {
+      "title": "Missy Mix: 1 Year Anniversary!",
+      "displayDate": "2022-11-04T00:00:00.000Z",
+      "venue": "Soundcloud",
+      "address": null,
+      "displayHistorical": false
+    },
+    {
+      "title": "SUB SESSIONS",
+      "displayDate": "2022-11-05T03:00:00.000Z",
+      "venue": "Hopkins Icehouse",
+      "address": "301 E 3rd St, Texarkana, AR 71854",
+      "displayHistorical": true
+    }
+  ]
+}

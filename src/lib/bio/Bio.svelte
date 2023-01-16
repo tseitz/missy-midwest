@@ -8,7 +8,7 @@
 
 <section
 	id="bio"
-	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 pt-20 pb-12 md:pb-16"
+	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
 >
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>

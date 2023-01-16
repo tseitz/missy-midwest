@@ -5,6 +5,47 @@
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">
 	<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-slate-100">
+		{#if dates.upcomingDates.length > 0}
+			{#each dates.upcomingDates as show}
+				{@const date = new Date(show.dateTime)}
+				{#if show.link}
+					<a
+						href={show.link}
+						target="_blank"
+						rel="noopener noreferrer prefetch"
+						class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end {show.imageClasses &&
+						show.imageClasses.length > 0
+							? show.imageClasses
+							: ''}"
+						style="background: url({show.image}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+					>
+						<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
+							<p class="text-2xl missy-header">{show.title}</p>
+							<p class="text-md">{date.toLocaleDateString()} @ {date.toLocaleTimeString()}</p>
+							<p class="text-sm">{show.venue}</p>
+							<p class="text-sm">{show.address}</p>
+						</div>
+					</a>
+				{:else}
+					<div
+						class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end {show.imageClasses &&
+						show.imageClasses.length > 0
+							? show.imageClasses
+							: ''}"
+						style="background: url({show.image}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+					>
+						<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
+							<p class="text-2xl missy-header">{show.title}</p>
+							<p class="text-md">{date.toLocaleDateString()} @ {date.toLocaleTimeString()}</p>
+							<p class="text-sm">{show.venue}</p>
+							<p class="text-sm">{show.address}</p>
+						</div>
+					</div>
+				{/if}
+			{/each}
+		{:else}
+			No scheduled events at this time. Use the contact form below to book Missy!
+		{/if}
 		<!-- <div
 			class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
 			style="background: url({faucette}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;background-position:bottom"
@@ -58,7 +99,6 @@
 				<p class="text-sm">301 E 3rd St, Texarkana, AR 71854</p>
 			</div>
 		</div> -->
-		No scheduled events at this time. Use the contact form below to book Missy!
 	</div>
 </section>
 

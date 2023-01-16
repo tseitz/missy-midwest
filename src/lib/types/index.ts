@@ -4,5 +4,6 @@ export interface GigDate {
 	venue: string;
 	address: string | null;
 	image: string;
+	imageClasses?: string[];
 	displayHistorical: boolean;
 }

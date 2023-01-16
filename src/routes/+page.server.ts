@@ -11,10 +11,6 @@ export const load = (() => {
 	const pastDates: GigDate[] = [];
 	const now = new Date();
 
-	dates.sort((a, b) => {
-		return new Date(b.dateTime) - new Date(a.dateTime);
-	});
-
 	dates.forEach((gig: GigDate) => {
 		const parsedDate = new Date(gig.dateTime);
 		if (parsedDate > now) {
@@ -23,6 +19,14 @@ export const load = (() => {
 			pastDates.push(gig);
 		}
 	});
+
+	upcomingDates.sort((a, b) => {
+		return new Date(a.dateTime) - new Date(b.dateTime);
+	});
+	pastDates.sort((a, b) => {
+		return new Date(b.dateTime) - new Date(a.dateTime);
+	});
+
 	return {
 		upcomingDates,
 		pastDates

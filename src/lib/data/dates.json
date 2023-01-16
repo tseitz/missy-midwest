@@ -89,7 +89,7 @@
       "displayHistorical": true
     },
     {
-      "title": "Punchy Event",
+      "title": "Punchy Tiki Patio Party",
       "dateTime": "2022-06-11T18:00:00.000Z",
       "venue": "Lost Forty",
       "address": "Little Rock, AR",
@@ -134,6 +134,40 @@
       "venue": "The Rev Room",
       "address": "Little Rock, AR",
       "image": "./gig-photos/DFT-on-the-road-2022.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "309 Fest",
+      "dateTime": "2022-08-13T02:00:00.000Z",
+      "venue": "Pizza Works",
+      "address": "Peoria Heights, IL",
+      "image": "./gig-photos/309-fest.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "West & Watson Open Decks",
+      "dateTime": "2023-01-27T03:00:00.000Z",
+      "venue": "West & Watson",
+      "address": "326 N West Ave STE 4, Fayetteville, AR 72701",
+      "image": "./gig-photos/west-and-watson.webp",
+      "displayHistorical": true
+    },
+    {
+      "title": "Yellow Brick Road Tour",
+      "dateTime": "2023-02-18T02:00:00.000Z",
+      "venue": "Stickyz Rock'n'Roll Chicken",
+      "address": "107 River Market Ave, Little Rock, AR 72201",
+      "image": "./gig-photos/dft-ybrt.webp",
+      "imageClasses": ["!bg-top"],
+      "link": "https://www.facebook.com/DFTYellowBrickRoad",
+      "displayHistorical": true
+    },
+    {
+      "title": "Yuni Wa Presents: Underground Electronic",
+      "dateTime": "2023-02-10T02:00:00.000Z",
+      "venue": "Vino's",
+      "address": "923 W 7th St, Little Rock, AR 72201",
+      "image": "./gig-photos/vinos-pizza.webp",
       "displayHistorical": true
     }
   ]

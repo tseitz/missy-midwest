@@ -18,7 +18,7 @@
 <header class={mobileNav && mobileNav ? 'mobile' : ''}>
 	<div class="social-wrap">
 		<div class="social">
-			<a href="https://soundcloud.com/missymidwest" target="_blank">
+			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
 				<img src={soundcloudLogo} alt="SoundCloud" height={socialSize} width={socialSize} />
 			</a>
 		</div>
@@ -26,12 +26,13 @@
 			<a
 				href="https://open.spotify.com/artist/6udqUh6VgevnT7z1evE0E0?si=q01wY7yiR8OGr8Sbmc5Kqg"
 				target="_blank"
+				rel="noreferrer"
 			>
 				<img src={spotifyLogo} alt="Spotify" height={socialSize} width={socialSize} />
 			</a>
 		</div>
 		<div class="social">
-			<a href="https://www.twitch.tv/missymidwest" target="_blank">
+			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">
 				<img src={twitchLogo} alt="Twitch" height={socialSize} width={socialSize} />
 			</a>
 		</div>
@@ -41,22 +42,26 @@
 
 	<div class="social-wrap">
 		<div class="social">
-			<a href="https://www.instagram.com/missy.midwest/" target="_blank">
+			<a href="https://www.instagram.com/missy.midwest/" target="_blank" rel="noreferrer">
 				<img src={instagramLogo} alt="Instagram" height={socialSize} width={socialSize} />
 			</a>
 		</div>
 		<div class="social">
-			<a href="https://www.facebook.com/MissyMidwest/" target="_blank">
+			<a href="https://www.facebook.com/MissyMidwest/" target="_blank" rel="noreferrer">
 				<img src={facebookLogo} alt="Facebook" height={socialSize} width={socialSize} />
 			</a>
 		</div>
 		<div class="social">
-			<a href="https://www.youtube.com/channel/UCG4fK0SGXZpW6FJfGblgIqg" target="_blank">
+			<a
+				href="https://www.youtube.com/channel/UCG4fK0SGXZpW6FJfGblgIqg"
+				target="_blank"
+				rel="noreferrer"
+			>
 				<img src={youtubeLogo} alt="YouTube" height={socialSize} width={socialSize} />
 			</a>
 		</div>
 		<!-- <div class="social">
-			<a href="https://www.facebook.com/MissyMidwest/" target="_blank">
+			<a href="https://www.facebook.com/MissyMidwest/" target="_blank"  rel="noreferrer">
 				<img src={facebookLogo} alt="Facebook" height={socialSize} width={socialSize} />
 			</a>
 		</div> -->
@@ -77,7 +82,7 @@
 		top: 0;
 		width: 100%;
 		height: 3.75rem;
-		z-index: 1;
+		z-index: 10;
 		padding: 0 2rem;
 	}
 

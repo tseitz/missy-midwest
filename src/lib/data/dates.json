@@ -169,6 +169,45 @@
       "address": "923 W 7th St, Little Rock, AR 72201",
       "image": "./gig-photos/vinos-pizza.webp",
       "displayHistorical": true
+    },
+    {
+      "title": "Yard Party - Missy DJ's @ 7pm, Karaoke 8pm-10pm",
+      "dateTime": "2023-04-06T19:00:00.000Z",
+      "dateString": "FREE ENTRY: Every Thursday in April (6th, 13th, 20th, 27th)",
+      "venue": "Camp Taco",
+      "address": "822 E 6th St, Little Rock, AR 72202",
+      "image": "./gig-photos/karaoke-thursday.webp",
+      "link": "https://www.camptaco.com/events",
+      "displayHistorical": false,
+      "featured": true
+    },
+    {
+      "title": "Wavy Friday",
+      "dateTime": "2023-04-07T03:00:00.000Z",
+      "venue": "Canvas",
+      "address": "1737 Madison Ave, Memphis, TN 38104",
+      "image": "./gig-photos/wavy-friday.webp",
+      "link": "https://www.instagram.com/maddevents_/",
+      "displayHistorical": true
+    },
+    {
+      "title": "Franky & Louie's Beachfront Bar",
+      "dateTime": "2023-06-10T13:00:00.000Z",
+      "dateString": "June 10th - Sept 3rd Every Saturday & Holiday @ 1pm-5pm",
+      "venue": "Franky & Louie's",
+      "address": "1028 Deer Valley Rd, Sunrise Beach, MO 65079",
+      "image": "./gig-photos/franky-and-louies.webp",
+      "displayHistorical": false
+    },
+    {
+      "title": "Backwoods Music Festival (Silent Disco)",
+      "dateTime": "2023-04-22T10:00:00.000Z",
+      "venue": "Mulberry Mountain",
+      "address": "4117 Mulberry Mountain Loop #9306, Ozark, AR 72949",
+      "image": "./gig-photos/backwoods-2023.webp",
+      "link": "https://backwoodsmusicfestival.com/",
+      "displayHistorical": true,
+      "featured": true
     }
   ]
 }

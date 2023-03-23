@@ -9,25 +9,28 @@ export const load = (() => {
 	const { dates }: GigDateData = dateData;
 	const upcomingDates: GigDate[] = [];
 	const pastDates: GigDate[] = [];
+	const featuredDates: GigDate[] = [];
 	const now = new Date();
 
+	dates.sort((a, b) => {
+		return new Date(a.dateTime) - new Date(b.dateTime);
+	});
+
 	dates.forEach((gig: GigDate) => {
-		const parsedDate = new Date(gig.dateTime);
-		if (parsedDate > now) {
+		gig.parsedDateTime = new Date(gig.dateTime);
+		gig.localeDate = gig.parsedDateTime.toLocaleDateString();
+		gig.localeTime = gig.parsedDateTime.toLocaleTimeString();
+		if (gig.featured) {
+			featuredDates.push(gig);
+		} else if (gig.parsedDateTime > now) {
 			upcomingDates.push(gig);
 		} else {
 			pastDates.push(gig);
 		}
 	});
 
-	upcomingDates.sort((a, b) => {
-		return new Date(a.dateTime) - new Date(b.dateTime);
-	});
-	pastDates.sort((a, b) => {
-		return new Date(b.dateTime) - new Date(a.dateTime);
-	});
-
 	return {
+		featuredDates,
 		upcomingDates,
 		pastDates
 	};

@@ -10,7 +10,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="grid grid-cols-1 gap-10 text-slate-100 pb-12">
+<div class="grid grid-cols-1 text-slate-100">
 	<h3 class="text-slate-100 text-2xl mt-8 mb-4 md:mb-6 italic">Previous Events</h3>
 	{#if browser}
 		<Carousel

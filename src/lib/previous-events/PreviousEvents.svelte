@@ -5,7 +5,7 @@
 	export let dates: any;
 	let innerWidth;
 
-	$: particles = innerWidth > 1600 ? 3 : innerWidth > 1200 ? 2 : 1;
+	$: particles = innerWidth > 1600 ? 3 : innerWidth > 1024 ? 2 : 1;
 </script>
 
 <svelte:window bind:innerWidth />

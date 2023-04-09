@@ -78,7 +78,7 @@
 			<br />
 			<br />
 			Missy also streams every morning at 8 a.m. Find her on Twitch
-			<a href="https://www.twitch.tv/missymidwest" target="_blank">here</a>.
+			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>.
 		</p>
 	</div>
 	<div class="bg-slate-100 rounded-md p-8">

@@ -10,16 +10,22 @@
 			<div>
 				<img src={venmo} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
-					<a href="https://urlgeni.us/venmo/eSxa" target="_blank" class="text-pink-300"
-						>@missymidwest</a
+					<a
+						href="https://urlgeni.us/venmo/eSxa"
+						target="_blank"
+						rel="noreferrer"
+						class="text-pink-300">@missymidwest</a
 					>
 				</div>
 			</div>
 			<div>
 				<img src={cashapp} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
-					<a href="https://urlgeni.us/cashapp/us6a" target="_blank" class="text-pink-300 mt-6"
-						>@missymidwest</a
+					<a
+						href="https://urlgeni.us/cashapp/us6a"
+						target="_blank"
+						rel="noreferrer"
+						class="text-pink-300 mt-6">@missymidwest</a
 					>
 				</div>
 			</div>
@@ -28,6 +34,7 @@
 			Links are coming soon. If you just can't wait to support Missy, her Venmo is <a
 				href="https://urlgeni.us/venmo/eSxa"
 				target="_blank"
+         rel="noreferrer"
 				class="text-pink-300">@missymidwest</a
 			>
 			<br />

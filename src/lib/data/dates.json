@@ -133,6 +133,7 @@
       "dateTime": "2022-04-22T17:00:00.000Z",
       "venue": "The Rev Room",
       "address": "Little Rock, AR",
+      "imageClasses": ["!bg-top"],
       "image": "./gig-photos/DFT-on-the-road-2022.webp",
       "displayHistorical": true
     },

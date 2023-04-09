@@ -8,7 +8,7 @@ type GigDateData = {
 export const load = (() => {
 	const { dates }: GigDateData = dateData;
 	const upcomingDates: GigDate[] = [];
-	const pastDates: GigDate[] = [];
+	let pastDates: GigDate[] = [];
 	const featuredDates: GigDate[] = [];
 	const now = new Date();
 

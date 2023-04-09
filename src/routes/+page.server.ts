@@ -12,9 +12,7 @@ export const load = (() => {
 	const featuredDates: GigDate[] = [];
 	const now = new Date();
 
-	dates.sort((a, b) => {
-		return new Date(a.dateTime) - new Date(b.dateTime);
-	});
+	dates.sort(sortAsc);
 
 	dates.forEach((gig: GigDate) => {
 		gig.parsedDateTime = new Date(gig.dateTime);
@@ -29,9 +27,15 @@ export const load = (() => {
 		}
 	});
 
+	pastDates.reverse();
+
 	return {
 		featuredDates,
 		upcomingDates,
 		pastDates
 	};
 }) satisfies PageServerLoad;
+
+function sortAsc(a: GigDate, b: GigDate) {
+	return new Date(a.dateTime) - new Date(b.dateTime);
+}

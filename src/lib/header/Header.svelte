@@ -1,5 +1,5 @@
 <script lang="ts">
-	import spotifyLogo from './images/spotify.png';
+	import tikTokLogo from './images/tik-tok.png';
 	import soundcloudLogo from './images/soundcloud.png';
 	import twitchLogo from './images/twitch.png';
 	import instagramLogo from './images/instagram.png';
@@ -22,13 +22,9 @@
 				<img src={soundcloudLogo} alt="SoundCloud" height={socialSize} width={socialSize} />
 			</a>
 		</div>
-		<div class="social">
-			<a
-				href="https://open.spotify.com/artist/6udqUh6VgevnT7z1evE0E0?si=q01wY7yiR8OGr8Sbmc5Kqg"
-				target="_blank"
-				rel="noreferrer"
-			>
-				<img src={spotifyLogo} alt="Spotify" height={socialSize} width={socialSize} />
+		<div class="social m-auto">
+			<a href="https://www.tiktok.com/@missy.midwestofficial" target="_blank" rel="noreferrer">
+				<img src={tikTokLogo} alt="TikTok" height={socialSize - 12} width={socialSize - 12} />
 			</a>
 		</div>
 		<div class="social">

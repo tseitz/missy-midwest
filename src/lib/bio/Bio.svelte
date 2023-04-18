@@ -9,14 +9,16 @@
 	<div>
 		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>
 		<p class="text-slate-100 mb-6">
-			Missy Midwest brings you uplifting affirmations, sentimental love ballads and booty shaking
-			party beats; with a country flair. She emulates a wide range of genres mixed together; just
-			like the Midwest. You can attend her high energy DJ sets in the hottest Lake of the Ozarks
-			locations. Missy recently played her hometown music festival, 309fest, as well as
-			Fayetteville's "Her Set Her Sound" and proved she was a force to be noticed. She can't wait to
-			bring the uplifting and relatable lyrics of her Country Bass anthems to stages in 2023. This
-			club season she is writing her own music, competing with other outstanding musicians, fine
-			tuning her production skills and supporting her local music scene.
+			Missy Midwest has created a humble following in her newest home-region, Little Rock, AR.
+			Currently, she brings you a DJ set with banging subwoofers and your favorite hip-hop tracks.
+			Missy will get on the mic though; and sing to you her own original works of musical art that
+			contain uplifting affirmations to the beats you know in your heart. If she isn't writing &
+			producing; she's hosting parties and curating the atmosphere at some of your favorite regional
+			hotspots such as; Backwoods Music Festival, Breakaway - Kansas City, & Her Set Her Sound of
+			Fayetteville. She's graced stages at the most historical and legendary venues still operating
+			in Little Rock and surrounding areas; The Rev Room, Vino's, Stickyz Rock'n'Roll Chicken Shack,
+			West & Watson of Fayetteville, and Canvas of Memphis. Missy Midwest is excited to continue
+			sharing her optimistic mindset through music to the masses.
 		</p>
 	</div>
 	<div class="flex justify-center">

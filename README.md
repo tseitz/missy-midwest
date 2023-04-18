@@ -43,3 +43,7 @@ npm run build
 Format - ISO 8601
 
 https://www.timestamp-converter.com/
+
+## Getting Icons
+
+Go to https://www.flaticon.com/, use missy midwest dark for color

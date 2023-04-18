@@ -1,8 +1,8 @@
 <script lang="ts">
 	import missyGuitarPic from './images/missy-guitar-pic.png';
 	import missyMidwest from './images/missy-midwest.png';
-	import purpleGlowPartyPdf from './images/purple-glow-party-event.pdf';
-	import purpleGlowPartyImg from './images/glow-party.webp';
+	import missyMidwestArtistPicDownload from './images/missy-midwest-artist-pic.jpeg';
+	import missyMidwestArtistPic from './images/missy-midwest-artist-pic-render.webp';
 	import { fade } from 'svelte/transition';
 
 	import Icon from '@iconify/svelte';
@@ -62,11 +62,11 @@
 		<div class="w-full bg-slate-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
-				href={purpleGlowPartyPdf}
+				href={missyMidwestArtistPicDownload}
 				on:mouseover={() => showIcon(3)}
 				on:focus={() => showIcon(3)}
 				on:mouseleave={() => showIcon(-1)}
-				download
+				download=""
 			>
 				{#if show === 3}
 					<div transition:fade={{ duration: 180 }}>
@@ -76,7 +76,7 @@
 						/>
 					</div>
 				{/if}
-				<img class="w-full rounded-md" src={purpleGlowPartyImg} alt="Missy Press Kit" />
+				<img class="w-full rounded-md" src={missyMidwestArtistPic} alt="Missy Press Kit" />
 			</a>
 		</div>
 	</div>

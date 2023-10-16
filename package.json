@@ -38,11 +38,13 @@
 	"dependencies": {
 		"@emailjs/browser": "^3.10.0",
 		"@fontsource/fira-mono": "^4.5.10",
+		"@google-cloud/local-auth": "^3.0.0",
 		"@lukeed/uuid": "^2.0.0",
 		"@types/grecaptcha": "^3.0.4",
 		"cookie": "^0.5.0",
 		"daisyui": "^2.46.1",
 		"dotenv": "^16.0.3",
+		"googleapis": "^127.0.0",
 		"svelte-carousel": "^1.0.25",
 		"svelte-forms-lib": "^2.0.1",
 		"tw-elements": "1.0.0-beta1",

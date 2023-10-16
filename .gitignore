@@ -10,3 +10,5 @@ node_modules
 .output
 
 .netlify
+
+credentials.json

@@ -20,9 +20,9 @@
 <div class="px-8 md:px-14">
 	<Music />
 
-	<Bio dates={data} />
+	<Bio />
 
-	<UpcomingDates dates={data} />
+	<UpcomingDates events={data.body} />
 
 	<Contact />
 

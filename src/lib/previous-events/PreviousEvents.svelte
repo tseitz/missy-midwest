@@ -2,7 +2,7 @@
 	import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 
-	export let dates: any;
+	export let events: any;
 	let innerWidth;
 
 	$: particles = innerWidth > 1600 ? 3 : innerWidth > 1024 ? 2 : 1;
@@ -21,7 +21,7 @@
 			particlesToShow={particles}
 			class="rounded-md"
 		>
-			{#each dates.pastDates as date, i}
+			<!-- {#each dates.pastDates as date, i}
 				<div
 					class="h-96 w-full bg-slate-100 flex flex-col justify-end {date.imageClasses &&
 					date.imageClasses.length > 0
@@ -37,7 +37,7 @@
 						<p class="text-sm">{date.venue}</p>
 					</div>
 				</div>
-			{/each}
+			{/each} -->
 		</Carousel>
 	{/if}
 </div>

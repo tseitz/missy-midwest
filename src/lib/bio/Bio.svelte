@@ -7,18 +7,34 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
 >
 	<div>
-		<h2 class="text-base-content text-4xl mb-8 md:mb-12 italic">Bio</h2>
+		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Bio</h2>
+		<!-- <p class="text-base-content mb-6">
+			Missy Midwest is an electronic & open-format DJ gathering a humble following throughout her
+			tour of the Southern Midwest. She brings your favorite pop & hip-hop tracks with a twist of
+			edm to clubs, music festivals and party coves across the Midwest. She creates a captivating
+			experience and uses smooth mixing & hot cue play to keep her audience's attention and their
+			energy high. You'll be singing & dancing along before the first song is over.
+			<br /><br />
+			Missy's strengths involve professionalism, clear communication, preparedness and the ability to
+			make a new friend in any setting. Her business savvy is apparent once you've worked alongside her
+			for any event she is involved in. Her sets are well-thought out and curated according to the theme/genre
+			requested by the venue and promoter. It is important to Missy that your business & attendees feel
+			safe & heard and that she has helped you accomplish your best event possible. The little things
+			matter!
+			<br /><br />
+			You can find Team Missy at events and venues such as Dancfestopia & Breakaway (Kansas City), Her
+			Set Her Sound & West & Watson (Fayetteville), Stickyz & The Rev Room (Little Rock), Canvas of Memphis,
+			The Momentary (Bentonville) and many more.
+			<br /><br />
+			Missy Midwest is passionate about continuing to project her optimistic mindset through music to
+			the masses.
+		</p> -->
 		<p class="text-base-content mb-6">
-			Missy Midwest has created a humble following in her newest home-region, Little Rock, AR.
-			Currently, she brings you a DJ set with banging subwoofers and your favorite hip-hop tracks.
-			Missy will get on the mic though; and sing to you her own original works of musical art that
-			contain uplifting affirmations to the beats you know in your heart. If she isn't writing &
-			producing; she's hosting parties and curating the atmosphere at some of your favorite regional
-			hotspots such as; Backwoods Music Festival, Breakaway - Kansas City, & Her Set Her Sound of
-			Fayetteville. She's graced stages at the most historical and legendary venues still operating
-			in Little Rock and surrounding areas; The Rev Room, Vino's, Stickyz Rock'n'Roll Chicken Shack,
-			West & Watson of Fayetteville, and Canvas of Memphis. Missy Midwest is excited to continue
-			sharing her optimistic mindset through music to the masses.
+			Missy Midwest is a music artist & DJ hailing from Central Arkansas. Her song choice, smooth
+			mixing & hot cue play has gathered her a humble following throughout her tour of the Southern
+			Midwest. Missy combines booty bouncing hip-hop tracks with sub bass you can feel. She makes
+			sure everyone is dancing, shakin' it and feeling bold as ever. You can find her at your
+			favorite clubs, music festivals and party coves across the Midwest.
 		</p>
 	</div>
 	<div class="flex justify-center">

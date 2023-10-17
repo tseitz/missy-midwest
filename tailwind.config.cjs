@@ -6,7 +6,7 @@ const config = {
 			{
 				missy: {
 					primary: '#88428c',
-					secondary: '#ec4899',
+					secondary: '#ba8fff',
 					accent: '#1fb2a6',
 					neutral: '#2a323c',
 					'base-100': '#1d232a',
@@ -25,7 +25,7 @@ const config = {
 			colors: {
 				missy: {
 					400: '#88428c',
-					500: '#4f2449'
+					500: '#ba8fff'
 				}
 			}
 		}

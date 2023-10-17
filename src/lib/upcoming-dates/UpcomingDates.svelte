@@ -6,9 +6,9 @@
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">
-	<h2 class="text-base-content text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
-	<h3 class="text-base-content text-2xl mb-4 md:mb-8 italic">Featured Events</h3>
-	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-base-content">
+	<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
+	<!-- <h3 class="text-base-content text-2xl mb-4 md:mb-8 italic">Featured Events</h3> -->
+	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-secondary">
 		{#if events.length > 0}
 			{#each events as show}
 				{#if show.attachments}

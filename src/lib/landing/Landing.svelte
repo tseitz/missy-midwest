@@ -2,11 +2,11 @@
 
 <style>
 	#landing {
-		background: url('dft-piano.webp') no-repeat center bottom fixed;
+		background: url('missy-fan-crop.jpg') no-repeat top center fixed;
 		background-size: cover;
 		transition: background-size 0.5s ease-out;
 		filter: blur(5px);
-		height: 84vh;
+		height: 94vh;
 	}
 	#landing::after {
 		content: '';

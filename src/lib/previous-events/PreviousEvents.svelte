@@ -10,8 +10,8 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="grid grid-cols-1 text-base-content">
-	<h3 class="text-base-content text-2xl mt-8 mb-4 md:mb-6 italic">Previous Events</h3>
+<div class="grid grid-cols-1 text-secondary">
+	<h3 class="text-secondary text-2xl mt-8 mb-4 md:mb-6 italic">Previous Events</h3>
 	{#if browser}
 		<Carousel
 			autoplay

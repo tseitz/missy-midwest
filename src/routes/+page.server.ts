@@ -14,9 +14,9 @@ export const load = async () => {
 	try {
 		const response = await calendar.events.list({
 			auth: client,
-			calendarId: 'missy.midwestofficial@gmail.com', // or the specific calendar ID you want to access
+			calendarId: 'missy.midwestofficial@gmail.com',
 			timeMin: new Date().toISOString(),
-			maxResults: 10, // adjust as needed
+			maxResults: 10,
 			singleEvents: true,
 			orderBy: 'startTime'
 		});

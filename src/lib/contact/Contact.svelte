@@ -72,7 +72,7 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-20 pb-16"
 >
 	<div>
-		<h2 class="text-base-content text-4xl mb-8 md:mb-12 italic">Contact</h2>
+		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Contact</h2>
 		<p class="text-base-content">
 			Missy would love to hear from you! For bookings and inquiries please fill out the form.
 			<br />
@@ -83,7 +83,7 @@
 	</div>
 	<div class="bg-base-100 rounded-md p-8">
 		<form on:submit={handleSubmit}>
-			<label class="text-xl text-base-content mb-2" for="name">Name</label>
+			<label class="text-xl text-secondary mb-2" for="name">Name</label>
 			<input
 				id="name"
 				name="name"
@@ -95,7 +95,7 @@
 				<small class="text-red-500">{$errors.name}</small>
 			{/if}
 
-			<label class="text-xl text-base-content mt-4 mb-2" for="email">Email</label>
+			<label class="text-xl text-secondary mt-4 mb-2" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
@@ -107,7 +107,7 @@
 				<small class="text-red-500">{$errors.email}</small>
 			{/if}
 
-			<label class="text-xl text-base-content mt-4 mb-2" for="phone">Phone (Optional)</label>
+			<label class="text-xl text-secondary mt-4 mb-2" for="phone">Phone (Optional)</label>
 			<input
 				id="phone"
 				name="phone"
@@ -119,7 +119,7 @@
 				<small class="text-red-500">{$errors.phone}</small>
 			{/if}
 
-			<label class="text-xl text-base-content mt-4 mb-2" for="message">Message</label>
+			<label class="text-xl text-secondary mt-4 mb-2" for="message">Message</label>
 			<textarea
 				id="message"
 				name="message"

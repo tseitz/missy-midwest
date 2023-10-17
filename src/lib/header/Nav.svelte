@@ -1,17 +1,17 @@
 <script lang="ts">
-	import missyLogo from './images/missy-midwest-neon-cropped.png';
+	import missyLogo from './images/missy-logo.png';
 	export let navWidth: number;
 	export let mobileNav: boolean;
 	let y = 0;
 
 	let margin = -3.5;
 	let translateX = '0';
-	let translateY = '80%';
+	let translateY = '3400%';
 
 	$: mobileLogo = navWidth < 480;
 	$: margin = mobileNav ? 0 : Math.min(0, -3.5 + y / 100);
-	$: scale = mobileNav ? Math.max(1, 3.5 - y / 125) : Math.max(1, 5 - y / 125);
-	$: translateY = mobileNav ? Math.max(0, 110 - y / 3) + '%' : Math.max(0, 80 - y / 6.25) + '%';
+	$: scale = mobileNav ? Math.max(1, 3.5 - y / 125) : Math.max(1, 5 - y / 100);
+	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.8) + '%' : Math.max(0, 340 - y / 1.3) + '%';
 </script>
 
 <svelte:window bind:scrollY={y} />

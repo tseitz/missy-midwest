@@ -6,9 +6,9 @@
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-20 pb-16">
-	<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
-	<h3 class="text-slate-100 text-2xl mb-4 md:mb-8 italic">Featured Events</h3>
-	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-slate-100">
+	<h2 class="text-base-content text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
+	<h3 class="text-base-content text-2xl mb-4 md:mb-8 italic">Featured Events</h3>
+	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-base-content">
 		{#if events.length > 0}
 			{#each events as show}
 				{#if show.attachments}
@@ -16,12 +16,12 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event h-96 overflow-scroll w-full bg-slate-100 rounded-md flex flex-col justify-end"
+						class="event h-96 w-full bg-base-100 rounded-md flex flex-col justify-end"
 						style="background: url(https://drive.google.com/uc?id={show.attachments[0]
-							.fileId}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
+							.fileId}) rgb(29, 35, 42) no-repeat center 36%;opacity:0.98;background-size: 100%;"
 					>
 						<div
-							class="bg-slate-100 max-h-96 overflow-scroll px-8 py-4 rounded-b-md text-missy-500"
+							class="bg-base-100 max-h-96 overflow-auto px-8 py-4 rounded-b-md text-base-content"
 						>
 							<p class="text-2xl missy-header">{show.summary}</p>
 							{#if show.start.dateTime}
@@ -40,9 +40,9 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event h-96 overflow-scroll w-full bg-slate-100 rounded-md flex flex-col justify-end"
+						class="event h-96 w-full bg-base-100 rounded-md flex flex-col justify-end"
 					>
-						<div class="bg-slate-100 max-h-96 overflow-scroll px-8 py-4 rounded-md text-missy-500">
+						<div class="bg-base-100 max-h-96 overflow-auto px-8 py-4 rounded-md text-base-content">
 							<p class="text-2xl missy-header">{show.summary}</p>
 							{#if show.start.dateTime}
 								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>

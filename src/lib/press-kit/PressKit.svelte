@@ -17,7 +17,7 @@
 </script>
 
 <section id="press" class="max-w-screen-2xl w-full pt-20 pb-24">
-	<h2 class="text-slate-100 text-4xl italic mb-12">Press Kit</h2>
+	<h2 class="text-base-content text-4xl italic mb-12">Press Kit</h2>
 	<div class="grid sm:grid-cols-3 xs:grid-cols-1 gap-10">
 		<div class="w-full bg-slate-100 rounded-md">
 			<a

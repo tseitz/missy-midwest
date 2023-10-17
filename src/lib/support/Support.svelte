@@ -5,7 +5,7 @@
 
 <section id="support" class="max-w-screen-2xl w-full pt-20 pb-16">
 	<div>
-		<h2 class="text-slate-100 text-4xl mb-12 italic">Support</h2>
+		<h2 class="text-base-content text-4xl mb-12 italic">Support</h2>
 		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
 			<div>
 				<img src={venmo} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
@@ -30,7 +30,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- <p class="text-slate-100">
+		<!-- <p class="text-base-content">
 			Links are coming soon. If you just can't wait to support Missy, her Venmo is <a
 				href="https://urlgeni.us/venmo/eSxa"
 				target="_blank"

@@ -7,8 +7,8 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
 >
 	<div>
-		<h2 class="text-slate-100 text-4xl mb-8 md:mb-12 italic">Bio</h2>
-		<p class="text-slate-100 mb-6">
+		<h2 class="text-base-content text-4xl mb-8 md:mb-12 italic">Bio</h2>
+		<p class="text-base-content mb-6">
 			Missy Midwest has created a humble following in her newest home-region, Little Rock, AR.
 			Currently, she brings you a DJ set with banging subwoofers and your favorite hip-hop tracks.
 			Missy will get on the mic though; and sing to you her own original works of musical art that

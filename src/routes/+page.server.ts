@@ -4,7 +4,6 @@ import { MISSY_CALENDAR_CLIENT_EMAIL, MISSY_CALENDAR_PRIVATE_KEY } from '$env/st
 const calendar = google.calendar('v3');
 
 export const load = async () => {
-	console.log(MISSY_CALENDAR_CLIENT_EMAIL, MISSY_CALENDAR_PRIVATE_KEY);
 	const client = new google.auth.JWT(
 		MISSY_CALENDAR_CLIENT_EMAIL,
 		null,

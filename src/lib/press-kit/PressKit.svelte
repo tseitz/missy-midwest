@@ -19,7 +19,7 @@
 <section id="press" class="max-w-screen-2xl w-full pt-20 pb-24">
 	<h2 class="text-base-content text-4xl italic mb-12">Press Kit</h2>
 	<div class="grid sm:grid-cols-3 xs:grid-cols-1 gap-10">
-		<div class="w-full bg-slate-100 rounded-md">
+		<div class="w-full bg-base-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
 				href={missyGuitarPic}
@@ -31,7 +31,7 @@
 				{#if show === 1}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
+							class="text-missy-500 bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>
@@ -39,7 +39,7 @@
 				<img class="w-full m-auto" src={missyGuitarPic} alt="Missy Guitar Pic" />
 			</a>
 		</div>
-		<div class="w-full bg-slate-100 rounded-md">
+		<div class="w-full bg-base-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
 				href={missyMidwest}
@@ -51,7 +51,7 @@
 				{#if show === 2}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
+							class="text-missy-500 bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>
@@ -59,7 +59,7 @@
 				<img class="w-full my-auto" src={missyMidwest} alt="Missy Logo" />
 			</a>
 		</div>
-		<div class="w-full bg-slate-100 rounded-md">
+		<div class="w-full bg-base-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
 				href={missyMidwestArtistPicDownload}
@@ -71,7 +71,7 @@
 				{#if show === 3}
 					<div transition:fade={{ duration: 180 }}>
 						<Icon
-							class="text-missy-500 bg-slate-200 rounded-md absolute h-full w-full opacity-70 p-24"
+							class="text-missy-500 bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/>
 					</div>

@@ -16,11 +16,13 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event h-96 w-full bg-slate-100 rounded-md flex flex-col justify-end"
+						class="event h-96 overflow-scroll w-full bg-slate-100 rounded-md flex flex-col justify-end"
 						style="background: url(https://drive.google.com/uc?id={show.attachments[0]
 							.fileId}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
 					>
-						<div class="description bg-slate-100 px-8 py-4 rounded-b-md text-missy-500">
+						<div
+							class="bg-slate-100 max-h-96 overflow-scroll px-8 py-4 rounded-b-md text-missy-500"
+						>
 							<p class="text-2xl missy-header">{show.summary}</p>
 							{#if show.start.dateTime}
 								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
@@ -38,21 +40,19 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event w-full bg-slate-100 rounded-md flex flex-col justify-end"
+						class="event h-96 overflow-scroll w-full bg-slate-100 rounded-md flex flex-col justify-end"
 					>
-						<div class="event w-full bg-slate-100 rounded-md flex flex-col justify-end">
-							<div class="bg-slate-100 px-8 py-4 rounded-md text-missy-500">
-								<p class="text-2xl missy-header">{show.summary}</p>
-								{#if show.start.dateTime}
-									<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
-								{:else}
-									<p class="text-md">{show.start.date} - {show.end.date}</p>
-								{/if}
-								<p class="text-sm">{show.location}</p>
-								{#if show.description}
-									<p class="text-sm" style="white-space: pre-line">{show.description}</p>
-								{/if}
-							</div>
+						<div class="bg-slate-100 max-h-96 overflow-scroll px-8 py-4 rounded-md text-missy-500">
+							<p class="text-2xl missy-header">{show.summary}</p>
+							{#if show.start.dateTime}
+								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
+							{:else}
+								<p class="text-md">{show.start.date} - {show.end.date}</p>
+							{/if}
+							<p class="text-sm">{show.location}</p>
+							{#if show.description}
+								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
+							{/if}
 						</div>
 					</a>
 				{/if}

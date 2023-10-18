@@ -1,7 +1,3 @@
-<script lang="ts">
-	import missy from '/bio/missy-bio.webp';
-</script>
-
 <section
 	id="bio"
 	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-12 md:pb-16"
@@ -17,7 +13,7 @@
 		</p>
 	</div>
 	<div class="flex justify-center">
-		<img src={missy} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+		<img src="/bio/missy-bio.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 	</div>
 </section>
 

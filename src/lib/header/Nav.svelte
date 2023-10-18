@@ -1,5 +1,4 @@
 <script lang="ts">
-	import missyLogo from '/header/missy-logo.png';
 	export let navWidth: number;
 	export let mobileNav: boolean;
 	let y = 0;
@@ -19,12 +18,24 @@
 <nav class={mobileNav && mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
 		<ul class="bg-base-100">
-			<li><a class="text-base-content text-md md:text-lg" href="#music">Music</a></li>
-			<li><a class="text-base-content text-md md:text-lg" href="#bio">Bio</a></li>
-			<li><a class="text-base-content text-md md:text-lg" href="#dates">Dates</a></li>
-			<li><a class="text-base-content text-md md:text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-base-content text-md md:text-lg" href="#support">Support</a></li>
-			<li><a class="text-base-content text-md md:text-lg" href="#press">Press Kit</a></li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#music">Music</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#bio">Bio</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#dates">Dates</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#contact">Contact</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#support">Support</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-md md:text-lg" href="#press">Press Kit</a>
+			</li>
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
@@ -35,9 +46,13 @@
 		</div>
 	{:else}
 		<ul>
-			<li><a class="text-base-content text-lg xl:text-xl" href="#music">Music</a></li>
-			<li><a class="text-base-content text-lg xl:text-xl" href="#bio">Bio</a></li>
-			<li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-lg xl:text-xl" href="#music">Music</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-lg xl:text-xl" href="#bio">Bio</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8 2xl:pr-12">
 				<a class="text-base-content text-lg xl:text-xl" href="#dates">Dates</a>
 			</li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
@@ -47,9 +62,15 @@
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>
 			</div>
-			<li><a class="text-base-content text-lg xl:text-xl" href="#contact">Contact</a></li>
-			<li><a class="text-base-content text-lg xl:text-xl" href="#support">Support</a></li>
-			<li><a class="text-base-content text-lg xl:text-xl" href="#press">Press Kit</a></li>
+			<li class="px-1 lg:px-4 2xl:px-8 2xl:pl-12">
+				<a class="text-base-content text-lg xl:text-xl" href="#contact">Contact</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-lg xl:text-xl" href="#support">Support</a>
+			</li>
+			<li class="px-1 lg:px-4 2xl:px-8">
+				<a class="text-base-content text-lg xl:text-xl" href="#press">Press Kit</a>
+			</li>
 		</ul>
 	{/if}
 </nav>
@@ -63,30 +84,15 @@
 	}
 	.mobile > ul {
 		position: fixed;
-		/* align-items: flex-start;
-		justify-content: flex-start; */
 		left: 0;
 		width: 100%;
 		bottom: 0;
 		height: 4rem;
-		/* margin-top: 3.75rem; */
-		/* background-color: var(--missy-white-100); */
-		/* height: calc(100% - 3.75rem); */
-		/* min-width: 240px; */
 	}
 	li {
 		z-index: 1;
-		padding: 0 1rem;
+		/* padding: 0 1rem; */
 	}
-	/* li > a:hover,
-	li > a:focus {
-		background: linear-gradient(to right, rgb(236 72 153), rgb(79, 36, 73));
-		background-size: 100% 0.1em, 0 0.1em;
-		background-position: 100% 100%, 0 100%;
-		background-repeat: no-repeat;
-		transition: background-size 400ms;
-		background-size: 0 0.1em, 100% 0.1em;
-	} */
 	.mobile li {
 		padding: 1rem 0.5rem;
 		text-align: center;

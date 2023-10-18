@@ -1,5 +1,5 @@
 <script lang="ts">
-	import missyLogo from './images/missy-logo.png';
+	import missyLogo from '/header/missy-logo.png';
 	export let navWidth: number;
 	export let mobileNav: boolean;
 	let y = 0;
@@ -28,7 +28,7 @@
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
-				src={missyLogo}
+				src="/header/missy-logo.png"
 				alt="Missy Midwest"
 				style="transform: scale({scale}) translate({translateX}, {translateY});"
 			/>
@@ -42,7 +42,7 @@
 			</li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
-					src={missyLogo}
+					src="/header/missy-logo.png"
 					alt="Missy Midwest"
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>

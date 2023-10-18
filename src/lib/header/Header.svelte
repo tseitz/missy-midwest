@@ -1,10 +1,4 @@
 <script lang="ts">
-	import tikTokLogo from './images/tiktok-secondary.png';
-	import soundcloudLogo from './images/soundcloud-secondary.png';
-	import twitchLogo from './images/twitch-secondary.png';
-	import instagramLogo from './images/instagram-secondary.png';
-	import facebookLogo from './images/facebook-secondary.png';
-	import youtubeLogo from './images/youtube-secondary.png';
 	import Nav from '$lib/header/Nav.svelte';
 
 	let navWidth: number;
@@ -15,36 +9,65 @@
 
 <svelte:window bind:innerWidth={navWidth} />
 
-<header class={mobileNav && mobileNav ? 'mobile bg-base-100' : 'bg-base-100'}>
-	<div class="social-wrap">
+<header
+	class={mobileNav && mobileNav
+		? 'mobile bg-base-100 px-2 md:px-4 lg:px-8'
+		: 'bg-base-100 px-2 md:px-4 lg:px-8'}
+>
+	<div class="social-wrap gap-2 md:gap-6 xl:gap-12">
 		<div class="social">
 			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
-				<img src={soundcloudLogo} alt="SoundCloud" height={socialSize} width={socialSize} />
+				<img
+					src="/header/soundcloud-secondary.png"
+					alt="SoundCloud"
+					height={socialSize}
+					width={socialSize}
+				/>
 			</a>
 		</div>
 		<div class="social m-auto">
 			<a href="https://www.tiktok.com/@missy.midwestofficial" target="_blank" rel="noreferrer">
-				<img src={tikTokLogo} alt="TikTok" height={socialSize} width={socialSize} />
+				<img
+					src="/header/tiktok-secondary.png"
+					alt="TikTok"
+					height={socialSize}
+					width={socialSize}
+				/>
 			</a>
 		</div>
 		<div class="social">
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">
-				<img src={twitchLogo} alt="Twitch" height={socialSize} width={socialSize} />
+				<img
+					src="/header/twitch-secondary.png"
+					alt="Twitch"
+					height={socialSize}
+					width={socialSize}
+				/>
 			</a>
 		</div>
 	</div>
 
 	<Nav {navWidth} {mobileNav} />
 
-	<div class="social-wrap">
+	<div class="social-wrap gap-2 md:gap-6 xl:gap-12">
 		<div class="social">
 			<a href="https://www.instagram.com/missy.midwest/" target="_blank" rel="noreferrer">
-				<img src={instagramLogo} alt="Instagram" height={socialSize} width={socialSize} />
+				<img
+					src="/header/instagram-secondary.png"
+					alt="Instagram"
+					height={socialSize}
+					width={socialSize}
+				/>
 			</a>
 		</div>
 		<div class="social">
 			<a href="https://www.facebook.com/MissyMidwest/" target="_blank" rel="noreferrer">
-				<img src={facebookLogo} alt="Facebook" height={socialSize} width={socialSize} />
+				<img
+					src="/header/facebook-secondary.png"
+					alt="Facebook"
+					height={socialSize}
+					width={socialSize}
+				/>
 			</a>
 		</div>
 		<div class="social">
@@ -53,7 +76,12 @@
 				target="_blank"
 				rel="noreferrer"
 			>
-				<img src={youtubeLogo} alt="YouTube" height={socialSize + 5} width={socialSize + 5} />
+				<img
+					src="/header/youtube-secondary.png"
+					alt="YouTube"
+					height={socialSize + 5}
+					width={socialSize + 5}
+				/>
 			</a>
 		</div>
 		<!-- <div class="social">
@@ -79,7 +107,6 @@
 		width: 100%;
 		height: 4rem;
 		z-index: 10;
-		padding: 0 2rem;
 	}
 
 	.mobile {
@@ -90,7 +117,6 @@
 		display: grid;
 		align-items: center;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 1.4rem;
 		max-width: 16rem;
 	}
 

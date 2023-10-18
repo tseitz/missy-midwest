@@ -2,7 +2,7 @@
 
 <style>
 	#landing {
-		background: url('missy-fan-crop.jpg') no-repeat top center fixed;
+		background: url('/landing/missy-fan-crop.webp') no-repeat top center fixed;
 		background-size: cover;
 		transition: background-size 0.5s ease-out;
 		filter: blur(5px);

@@ -1,8 +1,3 @@
-<script lang="ts">
-	import venmo from './images/venmo.webp';
-	import cashapp from './images/cashapp.webp';
-</script>
-
 <section id="support" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<div>
 		<h2 class="text-secondary text-4xl mb-12 italic">Support</h2>
@@ -22,7 +17,7 @@
 		</div>
 		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
 			<div>
-				<img src={venmo} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
 					<a
 						href="https://urlgeni.us/venmo/eSxa"
@@ -33,7 +28,7 @@
 				</div>
 			</div>
 			<div>
-				<img src={cashapp} alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+				<img src="/support/cashapp.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
 					<a
 						href="https://urlgeni.us/cashapp/us6a"

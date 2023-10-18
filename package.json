@@ -1,6 +1,6 @@
 {
 	"name": "missy-midwest",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -32,7 +32,8 @@
 		"svelte-preprocess": "^4.10.7",
 		"tailwindcss": "^3.2.4",
 		"tslib": "^2.4.1",
-		"typescript": "^4.9.4"
+		"typescript": "^4.9.4",
+		"vite-plugin-imagemin": "^0.6.1"
 	},
 	"type": "module",
 	"dependencies": {

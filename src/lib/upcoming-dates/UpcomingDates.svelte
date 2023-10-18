@@ -40,17 +40,19 @@
 						rel="noopener noreferrer prefetch"
 						class="event h-96 w-full bg-neutral rounded-md flex flex-col justify-end"
 					>
-						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-md text-base-content">
+						<div class="bg-neutral max-h-96 px-8 py-4 rounded-md text-base-content">
 							<p class="text-2xl missy-header text-secondary">{show.summary}</p>
-							{#if show.start.dateTime}
-								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
-							{:else}
-								<p class="text-md">{show.start.date} - {show.end.date}</p>
-							{/if}
-							<p class="text-sm">{show.location}</p>
-							{#if show.description}
-								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
-							{/if}
+							<div class="overflow-auto max-h-72">
+								{#if show.start.dateTime}
+									<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
+								{:else}
+									<p class="text-md">{show.start.date} - {show.end.date}</p>
+								{/if}
+								<p class="text-sm">{show.location}</p>
+								{#if show.description}
+									<p class="text-sm" style="white-space: pre-line">{show.description}</p>
+								{/if}
+							</div>
 						</div>
 					</a>
 				{/if}

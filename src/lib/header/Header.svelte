@@ -8,7 +8,7 @@
 	import Nav from '$lib/header/Nav.svelte';
 
 	let navWidth: number;
-	let socialSize = 30;
+	let socialSize = 26;
 
 	$: mobileNav = navWidth < 1024;
 </script>
@@ -77,7 +77,7 @@
 		position: sticky;
 		top: 0;
 		width: 100%;
-		height: 3.75rem;
+		height: 4rem;
 		z-index: 10;
 		padding: 0 2rem;
 	}
@@ -90,12 +90,12 @@
 		display: grid;
 		align-items: center;
 		grid-template-columns: repeat(3, 1fr);
-		gap: 1.3rem;
+		gap: 1.4rem;
 		max-width: 16rem;
 	}
 
 	.mobile > .social-wrap {
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	/* .social {

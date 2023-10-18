@@ -1,10 +1,10 @@
 <script lang="ts">
-	import missy from './images/missy.webp';
+	import missy from './images/missy-bio.jpeg';
 </script>
 
 <section
 	id="bio"
-	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-20 pb-12 md:pb-16"
+	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-12 md:pb-16"
 >
 	<div>
 		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Bio</h2>
@@ -45,5 +45,6 @@
 <style>
 	.bio-img {
 		max-height: 60vh;
+		opacity: 80%;
 	}
 </style>

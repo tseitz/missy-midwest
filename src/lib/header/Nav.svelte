@@ -4,27 +4,27 @@
 	export let mobileNav: boolean;
 	let y = 0;
 
-	let margin = -3.5;
+	let margin = -4.5;
 	let translateX = '0';
-	let translateY = '3400%';
+	let translateY = '340%';
 
 	$: mobileLogo = navWidth < 480;
-	$: margin = mobileNav ? 0 : Math.min(0, -3.5 + y / 100);
-	$: scale = mobileNav ? Math.max(1, 3.5 - y / 125) : Math.max(1, 5 - y / 100);
-	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.8) + '%' : Math.max(0, 340 - y / 1.3) + '%';
+	$: margin = mobileNav ? 0 : Math.min(0, -4.5 + y / 100);
+	$: scale = mobileNav ? Math.max(1, 2.6 - y / 125) : Math.max(1, 5 - y / 100);
+	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.5) + '%' : Math.max(0, 340 - y / 1.3) + '%';
 </script>
 
 <svelte:window bind:scrollY={y} />
 
 <nav class={mobileNav && mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
-		<ul>
-			<li><a class="text-secondary text-md md:text-lg" href="#music">Music</a></li>
-			<li><a class="text-secondary text-md md:text-lg" href="#bio">Bio</a></li>
-			<li><a class="text-secondary text-md md:text-lg" href="#dates">Dates</a></li>
-			<li><a class="text-secondary text-md md:text-lg" href="#contact">Contact</a></li>
-			<li><a class="text-secondary text-md md:text-lg" href="#support">Support</a></li>
-			<li><a class="text-secondary text-md md:text-lg" href="#press">Press Kit</a></li>
+		<ul class="bg-base-100">
+			<li><a class="text-base-content text-md md:text-lg" href="#music">Music</a></li>
+			<li><a class="text-base-content text-md md:text-lg" href="#bio">Bio</a></li>
+			<li><a class="text-base-content text-md md:text-lg" href="#dates">Dates</a></li>
+			<li><a class="text-base-content text-md md:text-lg" href="#contact">Contact</a></li>
+			<li><a class="text-base-content text-md md:text-lg" href="#support">Support</a></li>
+			<li><a class="text-base-content text-md md:text-lg" href="#press">Press Kit</a></li>
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
@@ -35,10 +35,10 @@
 		</div>
 	{:else}
 		<ul>
-			<li><a class="text-secondary text-lg md:text-xl" href="#music">Music</a></li>
-			<li><a class="text-secondary text-lg md:text-xl" href="#bio">Bio</a></li>
+			<li><a class="text-base-content text-lg xl:text-xl" href="#music">Music</a></li>
+			<li><a class="text-base-content text-lg xl:text-xl" href="#bio">Bio</a></li>
 			<li>
-				<a class="text-secondary text-lg md:text-xl" href="#dates">Dates</a>
+				<a class="text-base-content text-lg xl:text-xl" href="#dates">Dates</a>
 			</li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
@@ -47,9 +47,9 @@
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>
 			</div>
-			<li><a class="text-secondary text-lg md:text-xl" href="#contact">Contact</a></li>
-			<li><a class="text-secondary text-lg md:text-xl" href="#support">Support</a></li>
-			<li><a class="text-secondary text-lg md:text-xl" href="#press">Press Kit</a></li>
+			<li><a class="text-base-content text-lg xl:text-xl" href="#contact">Contact</a></li>
+			<li><a class="text-base-content text-lg xl:text-xl" href="#support">Support</a></li>
+			<li><a class="text-base-content text-lg xl:text-xl" href="#press">Press Kit</a></li>
 		</ul>
 	{/if}
 </nav>
@@ -70,7 +70,7 @@
 		bottom: 0;
 		height: 4rem;
 		/* margin-top: 3.75rem; */
-		background-color: var(--missy-white-100);
+		/* background-color: var(--missy-white-100); */
 		/* height: calc(100% - 3.75rem); */
 		/* min-width: 240px; */
 	}
@@ -94,7 +94,7 @@
 	.logo {
 		transition: margin 0.05s ease-out;
 		min-width: 3rem;
-		max-width: 7.5rem;
+		max-width: 9.5rem;
 	}
 	.logo img {
 		object-fit: contain;

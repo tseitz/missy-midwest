@@ -3,7 +3,7 @@
 	import cashapp from './images/cashapp.webp';
 </script>
 
-<section id="support" class="max-w-screen-2xl w-full pt-20 pb-16">
+<section id="support" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<div>
 		<h2 class="text-secondary text-4xl mb-12 italic">Support</h2>
 		<div class="text-base-content mb-8">

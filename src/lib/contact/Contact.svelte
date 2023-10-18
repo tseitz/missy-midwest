@@ -69,7 +69,7 @@
 
 <section
 	id="contact"
-	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-20 pb-16"
+	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-16"
 >
 	<div>
 		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Contact</h2>
@@ -81,7 +81,7 @@
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>.
 		</p>
 	</div>
-	<div class="bg-base-100 rounded-md p-8">
+	<div class="bg-neutral rounded-md p-8">
 		<form on:submit={handleSubmit}>
 			<label class="text-xl text-secondary mb-2" for="name">Name</label>
 			<input

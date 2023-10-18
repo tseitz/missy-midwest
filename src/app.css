@@ -34,7 +34,7 @@ html {
 
 a:hover {
   /* border-bottom: 1px solid var(--missy-pink); */
-  color: var(--missy-pink);
+  color: var(--missy-purple-400);
 }
 
 @media (max-width: 768px) {

@@ -38,12 +38,8 @@ npm run build
 > You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
 
 
-## Converting Date
-
-Format - ISO 8601
-
-https://www.timestamp-converter.com/
-
 ## Getting Icons
 
-Go to https://www.flaticon.com/, use missy midwest dark for color
+Go to https://www.flaticon.com/ or https://www.svgrepo.com/, use missy midwest dark for color
+
+Would like to convert these to custom svg and change colors on hover in the future

@@ -21,8 +21,8 @@
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				class="rounded-xl"
-				title="Obsessed"
-				src="https://audius.co/embed/track/QZZV1g9?flavor=card"
+				title="Monthly Mix 1"
+				src="https://audius.co/embed/track/V5G0gJQ?flavor=card"
 				allow="encrypted-media"
 				style="border: none;"
 			/>

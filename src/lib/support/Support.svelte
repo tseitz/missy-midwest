@@ -13,14 +13,14 @@
 			<br /><br />
 			Repost her music on Soundcloud
 			<br /><br />
-			Use code "MISSY" on all qualifying ticket sales (Creepshow KC)
+			Use code "MISSY" on all qualifying ticket sales
 		</div>
 		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
 			<div>
 				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
 					<a
-						href="https://urlgeni.us/venmo/eSxa"
+						href="https://venmo.com/u/missymidwest"
 						target="_blank"
 						rel="noreferrer"
 						class="text-secondary">@missymidwest</a
@@ -28,10 +28,14 @@
 				</div>
 			</div>
 			<div>
-				<img src="/support/cashapp.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+				<img
+					src="/support/cashapp.webp"
+					alt="Missy Midwest"
+					class="bio-img opacity-90 rounded-md"
+				/>
 				<div class="mt-2">
 					<a
-						href="https://urlgeni.us/cashapp/us6a"
+						href="https://cash.app/$missymidwest"
 						target="_blank"
 						rel="noreferrer"
 						class="text-secondary mt-6">@missymidwest</a

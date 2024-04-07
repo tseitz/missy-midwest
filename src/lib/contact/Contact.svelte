@@ -74,11 +74,16 @@
 	<div>
 		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Contact</h2>
 		<p class="text-base-content">
-			Missy would love to hear from you! For bookings and inquiries please fill out the form.
+			Missy would love to hear from you! For bookings, inquiries or anything else please fill out
+			this form.
 			<br />
 			<br />
-			Missy also streams every morning at 8 a.m. Find her on Twitch
-			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>.
+			You can also visit the linktree below for all her latest music, ticket information and more.
+			<br />
+			<br />
+			<a href="https://linktr.ee/missymidwest" target="_blank">https://linktr.ee/missymidwest</a>
+			<!-- Missy also streams every morning at 8 a.m. Find her on Twitch
+			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>. -->
 		</p>
 	</div>
 	<div class="bg-neutral rounded-md p-8">

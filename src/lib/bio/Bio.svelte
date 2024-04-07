@@ -5,7 +5,7 @@
 	<div>
 		<h2 class="text-secondary text-4xl mb-6 md:mb-10 italic">Bio</h2>
 		<p class="text-base-content mb-6">
-			Missy Midwest is a technically trained music artist & DJ hailing from Central Arkansas. She
+			Missy Midwest is a technically trained music artist & DJ hailing from Central Illinois. She
 			graduated with her Bachelors Degree in Public Relations & Business Administration in 2015 and
 			decided to go back to school for music in 2016. She earned her Associates Degree in 2019 with
 			a focus in piano & voice from the highly regarded music program at Illinois Central College.

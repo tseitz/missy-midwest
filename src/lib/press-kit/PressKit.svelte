@@ -18,7 +18,7 @@
 		<div class="w-full bg-base-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
-				href="/press-kit/missy-midwest-bio.docx"
+				href="/press-kit/missy-presskit-bio.txt"
 				on:mouseover={() => showIcon(1)}
 				on:focus={() => showIcon(1)}
 				on:mouseleave={() => showIcon(-1)}
@@ -32,7 +32,7 @@
 						/>
 					</div>
 				{/if}
-				<img class="w-full m-auto" src="/press-kit/missy-bio.webp" alt="Missy Bio" />
+				<img class="w-full m-auto" src="/press-kit/missy-presskit-bio.webp" alt="Missy Bio" />
 			</a>
 		</div>
 		<div class="w-full bg-base-100 rounded-md">
@@ -78,7 +78,7 @@
 		<div class="w-full bg-base-100 rounded-md">
 			<a
 				class="relative h-full flex flex-col justify-center"
-				href="/press-kit/missy-bridge.jpeg"
+				href="/press-kit/missy-profile.jpg"
 				on:mouseover={() => showIcon(4)}
 				on:focus={() => showIcon(4)}
 				on:mouseleave={() => showIcon(-1)}
@@ -94,7 +94,7 @@
 				{/if}
 				<img
 					class="w-full rounded-md"
-					src="/press-kit/missy-bridge.webp"
+					src="/press-kit/missy-profile.webp"
 					alt="Missy Artist Pic 2"
 				/>
 			</a>

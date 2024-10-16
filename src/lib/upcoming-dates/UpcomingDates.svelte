@@ -18,8 +18,8 @@
 						target="_blank"
 						rel="noopener noreferrer prefetch"
 						class="event h-96 w-full bg-neutral rounded-md flex flex-col justify-end"
-						style="background: url(https://drive.google.com/uc?id={show.attachments[0]
-							.fileId}) rgb(29, 35, 42) no-repeat top;opacity:0.98;background-size: 100%;"
+						style="background: url(https://drive.google.com/thumbnail?id={show.attachments[0]
+							.fileId}&sz=w1000) rgb(29, 35, 42) no-repeat center;background-size: cover;"
 					>
 						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-b-md text-base-content">
 							<p class="text-2xl missy-header text-secondary">{show.summary}</p>

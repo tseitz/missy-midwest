@@ -21,7 +21,7 @@
 		</p>
 	</div>
 	<div class="flex justify-center">
-		<img src="/bio/missy-bio.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+		<img src="/bio/jordan.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 	</div>
 </section>
 

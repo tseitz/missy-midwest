@@ -6,12 +6,12 @@
 		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center italic">Featured Track</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
-				title="Espresso (Lullaby) - Sabrina Carpenter (Missy Midwest Cover & Remix)"
+				title="Megan Thee Stallion - Megan&#x27;s Piano (Missy Midwest Remix)"
 				class="rounded-xl"
 				scrolling="no"
 				frameborder="no"
 				allow="autoplay"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1927045238&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1983401839&color=%23871e6f&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
 			/>
 		</div>
 	</div>

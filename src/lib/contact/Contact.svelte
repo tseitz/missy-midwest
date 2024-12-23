@@ -92,6 +92,7 @@
 			<input
 				id="name"
 				name="name"
+				class="text-purple-800"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.name}
@@ -104,6 +105,7 @@
 			<input
 				id="email"
 				name="email"
+				class="text-purple-800"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.email}
@@ -116,6 +118,7 @@
 			<input
 				id="phone"
 				name="phone"
+				class="text-purple-800"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.phone}
@@ -129,6 +132,7 @@
 				id="message"
 				name="message"
 				rows="7"
+				class="text-purple-800"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.message}

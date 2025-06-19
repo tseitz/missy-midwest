@@ -70,6 +70,7 @@ p, label {
 
 html {
 	scroll-behavior: smooth;
+	font-family: var(--missy-obviously);
 }
 
 a { 

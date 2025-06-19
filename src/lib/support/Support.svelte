@@ -3,18 +3,12 @@
 		<h2 class="text-secondary text-4xl mb-12">Support</h2>
 		<div class="text-gray-200 mb-8">
 			If you would like to send your support, here are the following FREE ways to do so:
-			<!-- <ul>
+			<ul class="list-disc pl-6 mt-2 mb-2 space-y-1">
 				<li>Share / Like / Comment on social media posts</li>
 				<li>Repost her music on Soundcloud</li>
-				<li>Use code "MISSY" on all qualifying ticket sales (Creepshow KC)</li>
-			</ul> -->
-			<br /><br />
-			Share / Like / Comment on social media posts
-			<br /><br />
-			Repost her music on Soundcloud
-			<br /><br />
-			Use code "MISSY" on all qualifying ticket sales
-			<br /><br />
+				<li>Use code "MISSY" on all qualifying ticket sales</li>
+			</ul>
+			<br />
 			If you'd like to go above and beyond, you can use the links below!
 		</div>
 		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">

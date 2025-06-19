@@ -5,19 +5,21 @@
 	<div>
 		<h2 class="text-secondary text-4xl mb-6 md:mb-10 italic">Bio</h2>
 		<p class="text-base-content mb-6">
-			✨ Midwest Grown Music Artist & DJ ✨
+			✨ Music Artist & Resident DJ ✨
 			<br />
 			<br />
-			Hailing from the Heart of Illinois,
+			Hailing from a melting pot of music, the Heart of IL, Missy Midwest (she/her) is a multitalented
+			open-format DJ, vocalist, and music producer who has been captivating crowds since 2021. With a
+			residency in Lake of the Ozarks, MO, she brings unmatched energy and versatility to every performance,
+			seamlessly blending genres like UKG, house, hip-hop, drum and bass, 140 deep dub, pop, country,
+			and timeless club classics to keep the dance floor alive.
 			<br />
-			Missy Midwest produces a divinely feminine electronic experience while puffing out her chest with
-			big, hip-hop energy. Missy is known best for her live DJ sets that incorporate all the songs you
-			know & love with sub bass you can feel.
 			<br />
-			<br />
-			Her live performance at Goddess Awakening Music Festival showcased her own music & vocals as well
-			as her team’s visual experience. Team Missy brings feminine figures and live video footage to tell
-			the crowd that everyone can be the main character.
+			Her journey has been picking up speed as she releases mixes and original tracks each month. As
+			a vocalist and producer, Missy Midwest infuses her sets with original flair and takes pride in
+			crafting immersive experiences tailored to each event. Ready to ignite the festival stages this
+			fall, Missy Midwest is set to deliver performance after performance meant to induce confidence
+			& creative living.
 		</p>
 	</div>
 	<div class="flex justify-center">

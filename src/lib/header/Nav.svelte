@@ -8,9 +8,9 @@
 	let translateY = '340%';
 
 	$: mobileLogo = navWidth < 480;
-	$: margin = mobileNav ? 0 : Math.min(0, -4.5 + y / 100);
-	$: scale = mobileNav ? Math.max(1, 2.6 - y / 125) : Math.max(1, 5 - y / 100);
-	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.5) + '%' : Math.max(0, 340 - y / 1.3) + '%';
+	$: margin = mobileNav ? 0 : Math.min(0, -4.7 + y / 100);
+	$: scale = mobileNav ? Math.max(1, 2.8 - y / 125) : Math.max(1.06, 5.5 - y / 100);
+	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.5) + '%' : Math.max(0, 380 - y / 1.2) + '%';
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -39,7 +39,7 @@
 		</ul>
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
-				src="/header/missy-logo.png"
+				src="/header/missy-midwest-main.png"
 				alt="Missy Midwest"
 				style="transform: scale({scale}) translate({translateX}, {translateY});"
 			/>
@@ -57,7 +57,7 @@
 			</li>
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
-					src="/header/missy-logo.png"
+					src="/header/missy-midwest-main.png"
 					alt="Missy Midwest"
 					style="transform: scale({scale}) translate({translateX}, {translateY});"
 				/>

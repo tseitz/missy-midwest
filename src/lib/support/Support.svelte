@@ -14,6 +14,8 @@
 			Repost her music on Soundcloud
 			<br /><br />
 			Use code "MISSY" on all qualifying ticket sales
+			<br /><br />
+			If you'd like to go above and beyond, you can use the links below!
 		</div>
 		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
 			<div>

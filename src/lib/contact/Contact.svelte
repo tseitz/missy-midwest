@@ -74,7 +74,7 @@
 	<div>
 		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Contact</h2>
 		<p class="text-base-content">
-			Missy would love to hear from you! For bookings, inquiries or anything else please fill out
+			For festival bookings, residencies, workshop offerings or any other inquires please fill out
 			this form.
 			<br />
 			<br />

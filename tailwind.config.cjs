@@ -6,7 +6,7 @@ const config = {
 			{
 				missy: {
 					primary: '#88428c',
-					secondary: '#ba8fff',
+					secondary: '#cbb1fa',
 					accent: '#1fb2a6',
 					neutral: '#2a323c',
 					'base-100': '#1d232a',

@@ -6,12 +6,12 @@
 		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center italic">Featured Track</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
-				title="Megan Thee Stallion - Megan&#x27;s Piano (Missy Midwest Remix)"
+				title="Missy Midwest - What I Want (Morgan Wallen Cover)"
 				class="rounded-xl"
 				scrolling="no"
 				frameborder="no"
 				allow="autoplay"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1983401839&color=%23871e6f&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2107016109&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
 			/>
 		</div>
 	</div>
@@ -20,12 +20,12 @@
 		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center italic">Featured Mix</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
-				title="Split Astral Radio #31: Missy Midwest"
+				title="Full Tree House Set at Franky &amp; Louies - May 2025"
 				class="rounded-xl"
 				scrolling="no"
 				frameborder="no"
 				allow="autoplay"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1934873384&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2107042845&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
 			/>
 		</div>
 	</div>

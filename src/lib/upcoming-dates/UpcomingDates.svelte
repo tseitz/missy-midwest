@@ -83,7 +83,7 @@
 							{#if show.start.dateTime}
 								<p class="text-md">{formatDateTime(show.start.dateTime)}</p>
 							{:else}
-								<p class="text-md">{formatDate(show.start.date)} All Day</p>
+								<p class="text-md">{formatDate(show.start?.date || '')} All Day</p>
 							{/if}
 							<p class="text-sm">{show.location}</p>
 							<!-- {#if show.description}
@@ -105,8 +105,4 @@
 		transform: scale(1.02) rotate(-0.1deg);
 		transition: transform 0.33s ease-out;
 	}
-
-	/* a:hover {
-		border: 1px solid var(--missy-purple-300);
-	} */
 </style>

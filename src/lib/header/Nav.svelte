@@ -53,7 +53,7 @@
 		<ul>
 			<!-- Left side routes -->
 			{#each leftRoutes as route}
-				<li class="px-1 lg:px-4 2xl:px-8">
+				<li class="px-1 pt-1 lg:px-4 2xl:px-8">
 					<a class="text-md xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
@@ -71,7 +71,7 @@
 
 			<!-- Right side routes -->
 			{#each rightRoutes as route}
-				<li class="px-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
+				<li class="px-1 pt-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
 					<a class="text-md xl:text-lg" href={route.href}>
 						{route.label}
 					</a>

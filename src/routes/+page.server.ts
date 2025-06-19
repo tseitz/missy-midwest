@@ -6,7 +6,7 @@ const calendar = google.calendar('v3');
 export const load = async () => {
 	const client = new google.auth.JWT(
 		MISSY_CALENDAR_CLIENT_EMAIL,
-		null,
+		undefined,
 		MISSY_CALENDAR_PRIVATE_KEY.replace(/\\n/g, '\n'),
 		['https://www.googleapis.com/auth/calendar.readonly']
 	);
@@ -28,7 +28,7 @@ export const load = async () => {
 		console.log(error);
 		return {
 			status: 500,
-			body: error.message
+			body: error instanceof Error ? error.message : 'Unknown error'
 		};
 	}
 };

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Carousel from 'svelte-carousel';
+	// import Carousel from 'svelte-carousel';
 	import { browser } from '$app/environment';
 
 	export let events: any;
@@ -11,17 +11,17 @@
 <svelte:window bind:innerWidth />
 
 <div class="grid grid-cols-1 text-secondary">
-	<h3 class="text-secondary text-2xl mt-8 mb-4 md:mb-6 italic">Previous Events</h3>
+	<h3 class="text-secondary text-2xl mt-8 mb-4 md:mb-6">Previous Events</h3>
 	{#if browser}
-		<Carousel
+		<!-- <Carousel
 			autoplay
 			duration={1000}
 			autoplayDuration={4000}
 			pauseOnFocus
 			particlesToShow={particles}
 			class="rounded-md"
-		>
-			<!-- {#each dates.pastDates as date, i}
+		> -->
+		<!-- {#each dates.pastDates as date, i}
 				<div
 					class="h-96 w-full bg-slate-100 flex flex-col justify-end {date.imageClasses &&
 					date.imageClasses.length > 0
@@ -38,6 +38,6 @@
 					</div>
 				</div>
 			{/each} -->
-		</Carousel>
+		<!-- </Carousel> -->
 	{/if}
 </div>

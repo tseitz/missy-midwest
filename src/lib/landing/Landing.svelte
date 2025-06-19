@@ -1,4 +1,4 @@
-<section id="landing" class="w-full" />
+<section id="landing" class="w-full"></section>
 
 <style>
 	#landing {

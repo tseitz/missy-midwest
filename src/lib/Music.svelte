@@ -3,7 +3,7 @@
 	class="max-w-screen-2xl w-full grid lg:grid-cols-2 md:grid-cols-1 gap-8 pt-20 pb-12"
 >
 	<div class="mb-6 md:mb-0">
-		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center italic">Featured Track</h2>
+		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center">Featured Track</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				title="Missy Midwest - What I Want (Morgan Wallen Cover)"
@@ -12,12 +12,12 @@
 				frameborder="no"
 				allow="autoplay"
 				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2107016109&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-			/>
+			></iframe>
 		</div>
 	</div>
 
 	<div>
-		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center italic">Featured Mix</h2>
+		<h2 class="text-secondary text-4xl mb-8 md:mb-10 text-center">Featured Mix</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				title="Full Tree House Set at Franky &amp; Louies - May 2025"
@@ -26,7 +26,7 @@
 				frameborder="no"
 				allow="autoplay"
 				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2107042845&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
-			/>
+			></iframe>
 		</div>
 	</div>
 </section>

@@ -3,12 +3,49 @@
 	import type { CalendarEvent } from '$lib/types/index';
 
 	export let events: CalendarEvent[];
+
+	// Helper function to get ordinal suffix
+	function getOrdinalSuffix(day: number): string {
+		if (day > 3 && day < 21) return 'th';
+		switch (day % 10) {
+			case 1:
+				return 'st';
+			case 2:
+				return 'nd';
+			case 3:
+				return 'rd';
+			default:
+				return 'th';
+		}
+	}
+
+	// Helper function to format dates as "Month Day, Year"
+	function formatDate(dateString: string): string {
+		const date = new Date(dateString);
+		const month = date.toLocaleDateString('en-US', { month: 'long' });
+		const day = date.getDate();
+		const year = date.getFullYear();
+		const ordinal = getOrdinalSuffix(day);
+		return `${month} ${day}${ordinal} ${year}`;
+	}
+
+	// Helper function to format date and time
+	function formatDateTime(dateTimeString: string): string {
+		const date = new Date(dateTimeString);
+		const formattedDate = formatDate(dateTimeString);
+		const time = date.toLocaleTimeString('en-US', {
+			hour: 'numeric',
+			minute: '2-digit',
+			hour12: true
+		});
+		return `${formattedDate} at ${time}`;
+	}
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
-	<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Upcoming Dates!</h2>
-	<!-- <h3 class="text-base-content text-2xl mb-4 md:mb-8 italic">Featured Events</h3> -->
-	<p class="text-base-content text-2xl mb-4 md:mb-8">Click the show to add to your calendar</p>
+	<h2 class="text-secondary text-4xl mb-8 md:mb-12">Upcoming Dates!</h2>
+	<!-- <h3 class="text-base-content text-2xl mb-4 md:mb-8">Featured Events</h3> -->
+	<p class="text-base-content text-2xl mb-4 md:mb-8">Click the event to add it to your calendar!</p>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-secondary">
 		{#if events.length > 0}
 			{#each events as show}
@@ -22,13 +59,13 @@
 							.fileId}&sz=w1000) rgb(29, 35, 42) no-repeat center;background-size: cover;"
 					>
 						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-b-md text-base-content">
-							<p class="text-2xl missy-header text-secondary">{show.summary}</p>
+							<p class="text-2xl py-1 missy-header text-secondary">{show.summary}</p>
 							{#if show.start.dateTime}
-								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
+								<p class="text-md">{formatDateTime(show.start.dateTime)}</p>
 							{:else}
-								<p class="text-md">{show.start.date} - {show.end.date}</p>
+								<p class="text-md">{formatDate(show.start.date)} All Day</p>
 							{/if}
-							<p class="text-sm">{show.location}</p>
+							<p class="text-sm py-2">{show.location}</p>
 							<!-- {#if show.description}
 								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
 							{/if} -->
@@ -44,9 +81,9 @@
 						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-md text-base-content">
 							<p class="text-2xl missy-header text-secondary">{show.summary}</p>
 							{#if show.start.dateTime}
-								<p class="text-md">{new Date(show.start.dateTime).toLocaleString()}</p>
+								<p class="text-md">{formatDateTime(show.start.dateTime)}</p>
 							{:else}
-								<p class="text-md">{show.start.date} - {show.end.date}</p>
+								<p class="text-md">{formatDate(show.start.date)} All Day</p>
 							{/if}
 							<p class="text-sm">{show.location}</p>
 							<!-- {#if show.description}
@@ -68,4 +105,8 @@
 		transform: scale(1.02) rotate(-0.1deg);
 		transition: transform 0.33s ease-out;
 	}
+
+	/* a:hover {
+		border: 1px solid var(--missy-purple-300);
+	} */
 </style>

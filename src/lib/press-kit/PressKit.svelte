@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	import Icon from '@iconify/svelte';
-
 	let show = -1;
 
 	function showIcon(index: number) {
@@ -13,7 +11,7 @@
 </script>
 
 <section id="press" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-24">
-	<h2 class="text-secondary text-4xl italic mb-12">Press Kit</h2>
+	<h2 class="text-secondary text-4xl mb-12">Press Kit</h2>
 	<div class="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-8">
 		<div class="w-full bg-base-100 rounded-md">
 			<a
@@ -26,10 +24,10 @@
 			>
 				{#if show === 1}
 					<div transition:fade={{ duration: 180 }}>
-						<Icon
+						<!-- <Icon
 							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
-						/>
+						/> -->
 					</div>
 				{/if}
 				<img class="w-full m-auto" src="/press-kit/missy-presskit-bio.webp" alt="Missy Bio" />
@@ -46,10 +44,10 @@
 			>
 				{#if show === 2}
 					<div transition:fade={{ duration: 180 }}>
-						<Icon
+						<!-- <Icon
 							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
-						/>
+						/> -->
 					</div>
 				{/if}
 				<img class="w-full my-auto" src="/press-kit/missy-logo.png" alt="Missy Logo" />
@@ -66,10 +64,10 @@
 			>
 				{#if show === 3}
 					<div transition:fade={{ duration: 180 }}>
-						<Icon
+						<!-- <Icon
 							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
-						/>
+						/> -->
 					</div>
 				{/if}
 				<img class="w-full rounded-md" src="/press-kit/missy-fan.webp" alt="Missy Artist Pic" />
@@ -86,10 +84,10 @@
 			>
 				{#if show === 4}
 					<div transition:fade={{ duration: 180 }}>
-						<Icon
+						<!-- <Icon
 							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
-						/>
+						/> -->
 					</div>
 				{/if}
 				<img

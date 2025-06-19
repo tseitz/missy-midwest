@@ -72,7 +72,7 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-16"
 >
 	<div>
-		<h2 class="text-secondary text-4xl mb-8 md:mb-12 italic">Contact</h2>
+		<h2 class="text-secondary text-4xl mb-8 md:mb-12">Contact</h2>
 		<p class="text-base-content">
 			For festival bookings, residencies, workshop offerings or any other inquires please fill out
 			this form.

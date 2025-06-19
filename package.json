@@ -40,7 +40,7 @@
 		"@google-cloud/local-auth": "^3.0.0",
 		"@icons-pack/svelte-simple-icons": "^5.0.0",
 		"@lukeed/uuid": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^5.1.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.4",
 		"@types/grecaptcha": "^3.0.4",
 		"cookie": "^0.5.0",
 		"daisyui": "^2.46.1",

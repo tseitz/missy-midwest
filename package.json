@@ -52,5 +52,8 @@
 		"tw-elements": "1.0.0-beta1",
 		"vite": "^6.3.5",
 		"yup": "^0.32.11"
-	}
+	},
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "latest_version"
+  }
 }

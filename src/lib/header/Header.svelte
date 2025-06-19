@@ -12,9 +12,9 @@
 <header
 	class={mobileNav && mobileNav
 		? 'mobile bg-base-100 px-2 md:px-4 lg:px-8'
-		: 'bg-base-100 px-2 md:px-4 lg:px-8'}
+		: 'bg-base-100 px-2 md:px-4 lg:px-6'}
 >
-	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
+	<div class="social-wrap gap-2 md:gap-4 xl:gap-10 2xl:gap-12">
 		<div class="social">
 			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
 				<img

@@ -46,6 +46,7 @@
 		"daisyui": "^2.46.1",
 		"dotenv": "^16.0.3",
 		"googleapis": "^127.0.0",
+		"lucide-svelte": "^0.518.0",
 		"svelte-carousel": "^1.0.25",
 		"svelte-forms-lib": "^2.0.1",
 		"tw-elements": "1.0.0-beta1",

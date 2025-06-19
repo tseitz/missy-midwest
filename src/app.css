@@ -5,6 +5,15 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Roboto+Condensed:ital,wght@0,400;1,700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Limelight&family=Roboto+Condensed:ital,wght@1,300;1,400;1,700&display=swap');
 
+/* Load Cochin font from static folder */
+@font-face {
+  font-family: 'Cochin';
+  src: url('/fonts/Cochin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 
 :root {
@@ -13,6 +22,7 @@
   --missy-header-font: 'Limelight', cursive, 'Roboto Condensed', sans-serif;
 	--missy-body-font: 'Roboto Condensed', 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
+	--missy-cochin: 'Cochin', serif;
 	--missy-white-100: rgb(241 245 249);
   --missy-purple-300: #C8B3F6;
 	--missy-purple-400: #7B5CFA;
@@ -21,7 +31,7 @@
 }
 
 h1, h2, h3, h4, h5, h6, .missy-header {
-  font-family: var(--missy-header-font);
+  font-family: var(--missy-cochin);
   font-weight: 700;
 }
 

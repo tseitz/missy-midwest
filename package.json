@@ -1,6 +1,6 @@
 {
 	"name": "missy-midwest",
-	"version": "2.1.0",
+	"version": "3.0.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -50,10 +50,10 @@
 		"lucide-svelte": "^0.518.0",
 		"svelte-forms-lib": "^2.0.1",
 		"tw-elements": "1.0.0-beta1",
-		"vite": "^6.3.5",
+		"vite": "^5.4.19",
 		"yup": "^0.32.11"
 	},
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "latest_version"
-  }
+	"optionalDependencies": {
+		"@rollup/rollup-linux-x64-gnu": "^4.4.0"
+	}
 }

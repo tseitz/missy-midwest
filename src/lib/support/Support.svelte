@@ -1,7 +1,7 @@
 <section id="support" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<div>
 		<h2 class="text-secondary text-4xl mb-12">Support</h2>
-		<div class="text-base-content mb-8">
+		<div class="text-gray-200 mb-8">
 			If you would like to send your support, here are the following FREE ways to do so:
 			<!-- <ul>
 				<li>Share / Like / Comment on social media posts</li>

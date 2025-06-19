@@ -73,7 +73,7 @@
 >
 	<div>
 		<h2 class="text-secondary text-4xl mb-8 md:mb-12">Contact</h2>
-		<p class="text-base-content">
+		<p class="text-gray-200">
 			For festival bookings, residencies, workshop offerings or any other inquires please fill out
 			this form.
 			<br />
@@ -92,39 +92,42 @@
 			<input
 				id="name"
 				name="name"
-				class="text-purple-800"
+				type="text"
+				class="input input-secondary bg-gray-200"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.name}
 			/>
 			{#if submit && $errors.name}
-				<small class="text-red-500">{$errors.name}</small>
+				<small class="errpr">{$errors.name}</small>
 			{/if}
 
 			<label class="text-xl text-secondary mt-4 mb-2" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
-				class="text-purple-800"
+				type="text"
+				class="input input-secondary bg-gray-200"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.email}
 			/>
 			{#if submit && $errors.email}
-				<small class="text-red-500">{$errors.email}</small>
+				<small class="errpr">{$errors.email}</small>
 			{/if}
 
 			<label class="text-xl text-secondary mt-4 mb-2" for="phone">Phone (Optional)</label>
 			<input
 				id="phone"
 				name="phone"
-				class="text-purple-800"
+				type="text"
+				class="input input-secondary bg-gray-200 text-neutral"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.phone}
 			/>
 			{#if submit && $errors.phone}
-				<small class="text-red-500">{$errors.phone}</small>
+				<small class="errpr">{$errors.phone}</small>
 			{/if}
 
 			<label class="text-xl text-secondary mt-4 mb-2" for="message">Message</label>
@@ -132,13 +135,13 @@
 				id="message"
 				name="message"
 				rows="7"
-				class="text-purple-800"
+				class="textarea textarea-secondary bg-gray-200"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.message}
 			></textarea>
 			{#if submit && $errors.message}
-				<small class="text-red-500">{$errors.message}</small>
+				<small class="errpr">{$errors.message}</small>
 			{/if}
 
 			<div class="btn-wrap flex justify-end mt-4">
@@ -170,5 +173,9 @@
 		display: block;
 		font-size: 14px;
 		margin-top: 10px;
+	}
+
+	.errpr {
+		color: #b72365;
 	}
 </style>

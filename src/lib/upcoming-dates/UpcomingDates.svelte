@@ -44,8 +44,8 @@
 
 <section id="dates" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<h2 class="text-secondary text-4xl mb-8 md:mb-12">Upcoming Dates!</h2>
-	<!-- <h3 class="text-base-content text-2xl mb-4 md:mb-8">Featured Events</h3> -->
-	<p class="text-base-content text-2xl mb-4 md:mb-8">Click the event to add it to your calendar!</p>
+	<!-- <h3 class="text-gray-200 text-2xl mb-4 md:mb-8">Featured Events</h3> -->
+	<p class="text-gray-200 text-xl mb-4 md:mb-8">Click the event to add it to your calendar!</p>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10 text-secondary">
 		{#if events.length > 0}
 			{#each events as show}
@@ -58,14 +58,14 @@
 						style="background: url(https://drive.google.com/thumbnail?id={show.attachments[0]
 							.fileId}&sz=w1000) rgb(29, 35, 42) no-repeat center;background-size: cover;"
 					>
-						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-b-md text-base-content">
+						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-b-md">
 							<p class="text-2xl py-1 missy-header text-secondary">{show.summary}</p>
 							{#if show.start.dateTime}
-								<p class="text-md">{formatDateTime(show.start.dateTime)}</p>
+								<p class="text-md text-purple-100">{formatDateTime(show.start.dateTime)}</p>
 							{:else}
-								<p class="text-md">{formatDate(show.start.date)} All Day</p>
+								<p class="text-md text-purple-100">{formatDate(show.start?.date || '')} All Day</p>
 							{/if}
-							<p class="text-sm py-2">{show.location}</p>
+							<p class="text-sm py-2 text-gray-200">{show.location}</p>
 							<!-- {#if show.description}
 								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
 							{/if} -->
@@ -78,7 +78,7 @@
 						rel="noopener noreferrer prefetch"
 						class="event h-96 w-full bg-neutral rounded-md flex flex-col justify-end"
 					>
-						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-md text-base-content">
+						<div class="bg-neutral max-h-96 overflow-auto px-8 py-4 rounded-md text-gray-200">
 							<p class="text-2xl missy-header text-secondary">{show.summary}</p>
 							{#if show.start.dateTime}
 								<p class="text-md">{formatDateTime(show.start.dateTime)}</p>

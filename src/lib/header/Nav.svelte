@@ -33,7 +33,7 @@
 		<ul class="bg-base-100">
 			{#each routes as route}
 				<li class="px-1 lg:px-4 2xl:px-8">
-					<a class="text-base-content text-md" href={route.href}>
+					<a class="text-md" href={route.href}>
 						{route.label}
 					</a>
 				</li>
@@ -54,7 +54,7 @@
 			<!-- Left side routes -->
 			{#each leftRoutes as route}
 				<li class="px-1 lg:px-4 2xl:px-8">
-					<a class="text-base-content text-md xl:text-lg" href={route.href}>
+					<a class="text-md xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
 				</li>
@@ -72,7 +72,7 @@
 			<!-- Right side routes -->
 			{#each rightRoutes as route}
 				<li class="px-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
-					<a class="text-base-content text-md xl:text-lg" href={route.href}>
+					<a class="text-md xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
 				</li>
@@ -82,6 +82,10 @@
 </nav>
 
 <style>
+	a {
+		color: #e5e7eb;
+	}
+
 	ul {
 		display: flex;
 		align-items: center;

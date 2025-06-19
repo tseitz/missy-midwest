@@ -12,3 +12,5 @@ node_modules
 .netlify
 
 credentials.json
+
+temp-test/

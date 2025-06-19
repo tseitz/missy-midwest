@@ -1,14 +1,14 @@
-import { sveltekit } from '@sveltejs/kit/vite';
+import tailwindcss from '@tailwindcss/vite';
+import devtoolsJson from 'vite-plugin-devtools-json';
 import viteImagemin from 'vite-plugin-imagemin';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
-	plugins: [sveltekit(), viteImagemin()],
-	kit: {
-		optimizeDeps: {
-			include: ['lodash.get', 'lodash.isequal', 'lodash.clonedeep']
-		}
-	}
-};
-
-export default config;
+export default defineConfig({
+	plugins: [
+		tailwindcss(),
+		sveltekit(),
+		devtoolsJson(),
+		viteImagemin()
+	],
+});

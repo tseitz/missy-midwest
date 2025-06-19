@@ -136,7 +136,7 @@
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.message}
-			/>
+			></textarea>
 			{#if submit && $errors.message}
 				<small class="text-red-500">{$errors.message}</small>
 			{/if}

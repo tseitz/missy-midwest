@@ -14,8 +14,8 @@
 	--missy-body-font: 'Roboto Condensed', 'Open Sans', 'Helvetica Neue', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
 	--missy-white-100: rgb(241 245 249);
-  --missy-purple-300: rgb(203 177 250);
-	--missy-purple-400: rgb(136, 66, 140);
+  --missy-purple-300: #C8B3F6;
+	--missy-purple-400: #7B5CFA;
 	--missy-purple-500: rgb(79, 36, 73);
   --missy-pink: rgb(236 72 153);
 }

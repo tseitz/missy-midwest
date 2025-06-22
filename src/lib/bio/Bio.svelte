@@ -3,9 +3,9 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-12 md:pb-16"
 >
 	<div>
-		<h2 class="text-secondary text-4xl mb-6 md:mb-10">Bio</h2>
-		<p class="text-gray-200 mb-6">
-			<span class="missy-purple">✨ Music Artist & Resident DJ ✨</span>
+		<h2 class="text-4xl mb-6 md:mb-10">Bio</h2>
+		<p class="mb-6">
+			<span class="text-violet-200">✨ Music Artist & Resident DJ ✨</span>
 			<br />
 			<br />
 			Hailing from a melting pot of music, the Heart of IL, Missy Midwest (she/her) is a multitalented
@@ -28,10 +28,6 @@
 </section>
 
 <style>
-	.missy-purple {
-		color: var(--color-secondary);
-	}
-
 	.bio-img {
 		max-height: 60vh;
 		opacity: 80%;

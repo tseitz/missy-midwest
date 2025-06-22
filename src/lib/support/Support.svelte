@@ -1,7 +1,7 @@
 <section id="support" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<div>
-		<h2 class="text-secondary text-4xl mb-12">Support</h2>
-		<div class="text-gray-200 mb-8">
+		<h2 class="text-4xl mb-12">Support</h2>
+		<div class="mb-8">
 			If you would like to send your support, here are the following FREE ways to do so:
 			<ul class="list-disc pl-6 mt-2 mb-2 space-y-1">
 				<li>Share / Like / Comment on social media posts</li>
@@ -15,11 +15,8 @@
 			<div>
 				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
 				<div class="mt-2">
-					<a
-						href="https://venmo.com/u/missymidwest"
-						target="_blank"
-						rel="noreferrer"
-						class="text-secondary">@missymidwest</a
+					<a href="https://venmo.com/u/missymidwest" target="_blank" rel="noreferrer"
+						>@missymidwest</a
 					>
 				</div>
 			</div>
@@ -30,11 +27,8 @@
 					class="bio-img opacity-90 rounded-md"
 				/>
 				<div class="mt-2">
-					<a
-						href="https://cash.app/$missymidwest"
-						target="_blank"
-						rel="noreferrer"
-						class="text-secondary mt-6">@missymidwest</a
+					<a href="https://cash.app/$missymidwest" target="_blank" rel="noreferrer" class="mt-6"
+						>@missymidwest</a
 					>
 				</div>
 			</div>

@@ -11,7 +11,7 @@
 </script>
 
 <section id="press" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-24">
-	<h2 class="text-secondary text-4xl mb-12">Press Kit</h2>
+	<h2 class="text-4xl mb-12">Press Kit</h2>
 	<div class="grid md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-1 gap-8">
 		<div class="w-full bg-base-100 rounded-md">
 			<a
@@ -25,7 +25,7 @@
 				{#if show === 1}
 					<div transition:fade={{ duration: 180 }}>
 						<!-- <Icon
-							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
+							class="bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/> -->
 					</div>
@@ -45,7 +45,7 @@
 				{#if show === 2}
 					<div transition:fade={{ duration: 180 }}>
 						<!-- <Icon
-							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
+							class="bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/> -->
 					</div>
@@ -65,7 +65,7 @@
 				{#if show === 3}
 					<div transition:fade={{ duration: 180 }}>
 						<!-- <Icon
-							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
+							class="bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/> -->
 					</div>
@@ -85,7 +85,7 @@
 				{#if show === 4}
 					<div transition:fade={{ duration: 180 }}>
 						<!-- <Icon
-							class="text-secondary bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
+							class="bg-base-content rounded-md absolute h-full w-full opacity-70 p-24"
 							icon="bi:cloud-download"
 						/> -->
 					</div>

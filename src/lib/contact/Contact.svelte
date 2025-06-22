@@ -72,8 +72,8 @@
 	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-16"
 >
 	<div>
-		<h2 class="text-secondary text-4xl mb-8 md:mb-12">Contact</h2>
-		<p class="text-gray-200">
+		<h2 class="text-4xl mb-8 md:mb-12">Contact</h2>
+		<p>
 			For festival bookings, residencies, workshop offerings or any other inquires please fill out
 			this form.
 			<br />
@@ -86,67 +86,67 @@
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>. -->
 		</p>
 	</div>
-	<div class="bg-neutral rounded-md p-8">
+	<div class="rounded-md p-8 bg-missy-classic-lavender/60 backdrop-blur-md">
 		<form on:submit={handleSubmit}>
-			<label class="text-xl text-secondary mb-2" for="name">Name</label>
+			<label class="text-xl text-slate-50 mb-2" for="name">Name</label>
 			<input
 				id="name"
 				name="name"
 				type="text"
-				class="input input-secondary bg-gray-200"
+				class="bg-slate-50 text-missy-deep-purple"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.name}
 			/>
 			{#if submit && $errors.name}
-				<small class="errpr">{$errors.name}</small>
+				<small class="text-missy-magenta">{$errors.name}</small>
 			{/if}
 
-			<label class="text-xl text-secondary mt-4 mb-2" for="email">Email</label>
+			<label class="text-xl text-slate-50 mt-4 mb-2" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
 				type="text"
-				class="input input-secondary bg-gray-200"
+				class="bg-slate-50 text-missy-deep-purple"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.email}
 			/>
 			{#if submit && $errors.email}
-				<small class="errpr">{$errors.email}</small>
+				<small class="text-missy-magenta">{$errors.email}</small>
 			{/if}
 
-			<label class="text-xl text-secondary mt-4 mb-2" for="phone">Phone (Optional)</label>
+			<label class="text-xl text-slate-50 mt-4 mb-2" for="phone">Phone (Optional)</label>
 			<input
 				id="phone"
 				name="phone"
 				type="text"
-				class="input input-secondary bg-gray-200 text-neutral"
+				class="bg-slate-50 text-missy-deep-purple"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.phone}
 			/>
 			{#if submit && $errors.phone}
-				<small class="errpr">{$errors.phone}</small>
+				<small class="text-missy-magenta">{$errors.phone}</small>
 			{/if}
 
-			<label class="text-xl text-secondary mt-4 mb-2" for="message">Message</label>
+			<label class="text-xl text-slate-50 mt-4 mb-2" for="message">Message</label>
 			<textarea
 				id="message"
 				name="message"
 				rows="7"
-				class="textarea textarea-secondary bg-gray-200"
+				class="bg-slate-50 text-missy-deep-purple"
 				on:change={handleChange}
 				on:blur={handleChange}
 				bind:value={$form.message}
 			></textarea>
 			{#if submit && $errors.message}
-				<small class="errpr">{$errors.message}</small>
+				<small class="text-missy-magenta">{$errors.message}</small>
 			{/if}
 
 			<div class="btn-wrap flex justify-end mt-4">
 				<button
-					class="g-recaptcha btn btn-secondary"
+					class="g-recaptcha"
 					type="submit"
 					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
 					data-callback="onSubmit"
@@ -173,9 +173,5 @@
 		display: block;
 		font-size: 14px;
 		margin-top: 10px;
-	}
-
-	.errpr {
-		color: #b72365;
 	}
 </style>

@@ -5,6 +5,6 @@
 
 <Header />
 
-<main class="flex flex-col items-center w-full bg-base-100">
+<main class="flex flex-col items-center w-full bg-missy-deep-purple">
 	<slot />
 </main>

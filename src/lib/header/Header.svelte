@@ -19,23 +19,23 @@
 
 <header
 	class={mobileNav && mobileNav
-		? 'mobile bg-base-100 px-2 md:px-4 lg:px-8'
-		: 'bg-base-100 px-2 md:px-4 lg:px-6'}
+		? 'mobile bg-missy-deep-purple shadow-lg px-2 md:px-4 lg:px-8'
+		: 'bg-missy-deep-purple shadow-lg px-2 md:px-4 lg:px-6'}
 >
 	<div class="social-wrap gap-2 md:gap-4 xl:gap-10 2xl:gap-12">
 		<div class="social">
 			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
-				<SiSoundcloud size={socialSize} color="var(--missy-purple-300)" />
+				<SiSoundcloud size={socialSize} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 		<div class="social m-auto">
 			<a href="https://www.tiktok.com/@missy.midwestofficial" target="_blank" rel="noreferrer">
-				<SiTiktok size={socialSize} color="var(--missy-purple-300)" />
+				<SiTiktok size={socialSize} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 		<div class="social">
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">
-				<SiTwitch size={socialSize} color="var(--missy-purple-300)" />
+				<SiTwitch size={socialSize} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 	</div>
@@ -45,12 +45,12 @@
 	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
 		<div class="social">
 			<a href="https://www.instagram.com/missy.midwest/" target="_blank" rel="noreferrer">
-				<SiInstagram size={socialSize} color="var(--missy-purple-300)" />
+				<SiInstagram size={socialSize} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 		<div class="social">
 			<a href="https://www.facebook.com/MissyMidwest/" target="_blank" rel="noreferrer">
-				<SiFacebook size={socialSize} color="var(--missy-purple-300)" />
+				<SiFacebook size={socialSize} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 		<div class="social">
@@ -59,7 +59,7 @@
 				target="_blank"
 				rel="noreferrer"
 			>
-				<SiYoutube size={socialSize + 5} color="var(--missy-purple-300)" />
+				<SiYoutube size={socialSize + 5} color="var(--color-missy-classic-lavender)" />
 			</a>
 		</div>
 	</div>

@@ -11,7 +11,7 @@
 		{ href: '#dates', label: 'DATES' },
 		{ href: '#contact', label: 'CONTACT' },
 		{ href: '#support', label: 'SUPPORT' },
-		{ href: '#press', label: 'PRESS KIT' }
+		{ href: '#press', label: 'KIT' }
 	];
 
 	// Computed values
@@ -30,7 +30,7 @@
 <nav class={mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
 		<!-- Mobile Navigation -->
-		<ul class="bg-base-100">
+		<ul class="bg-missy-deep-purple">
 			{#each routes as route}
 				<li class="px-1 lg:px-4 2xl:px-8">
 					<a class="text-md" href={route.href}>
@@ -53,8 +53,8 @@
 		<ul>
 			<!-- Left side routes -->
 			{#each leftRoutes as route}
-				<li class="px-1 pt-1 lg:px-4 2xl:px-8">
-					<a class="text-md xl:text-lg" href={route.href}>
+				<li class="px-1 lg:px-4 2xl:px-8">
+					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
 				</li>
@@ -71,8 +71,8 @@
 
 			<!-- Right side routes -->
 			{#each rightRoutes as route}
-				<li class="px-1 pt-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
-					<a class="text-md xl:text-lg" href={route.href}>
+				<li class="px-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
+					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
 				</li>
@@ -83,7 +83,7 @@
 
 <style>
 	a {
-		color: #e5e7eb;
+		color: white;
 	}
 
 	ul {
@@ -91,7 +91,7 @@
 		align-items: center;
 		justify-content: space-between;
 		list-style: none;
-		font-family: var(--missy-cochin);
+		font-family: var(--font-cochin);
 	}
 
 	.mobile > ul {

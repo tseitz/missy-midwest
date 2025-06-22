@@ -83,7 +83,11 @@
 
 <style>
 	a {
-		color: white;
+		color: var(--color-slate-50);
+	}
+
+	a:hover {
+		color: var(--color-missy-classic-lavender);
 	}
 
 	ul {

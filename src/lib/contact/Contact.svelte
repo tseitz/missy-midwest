@@ -88,7 +88,7 @@
 	</div>
 	<div class="rounded-md p-8 bg-missy-classic-lavender/60 backdrop-blur-md">
 		<form on:submit={handleSubmit}>
-			<label class="text-xl text-slate-50 mb-2" for="name">Name</label>
+			<label class="text-xl mb-2" for="name">Name</label>
 			<input
 				id="name"
 				name="name"
@@ -102,7 +102,7 @@
 				<small class="text-missy-magenta">{$errors.name}</small>
 			{/if}
 
-			<label class="text-xl text-slate-50 mt-4 mb-2" for="email">Email</label>
+			<label class="text-xl mt-4 mb-2" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
@@ -116,7 +116,7 @@
 				<small class="text-missy-magenta">{$errors.email}</small>
 			{/if}
 
-			<label class="text-xl text-slate-50 mt-4 mb-2" for="phone">Phone (Optional)</label>
+			<label class="text-xl mt-4 mb-2" for="phone">Phone (Optional)</label>
 			<input
 				id="phone"
 				name="phone"
@@ -130,7 +130,7 @@
 				<small class="text-missy-magenta">{$errors.phone}</small>
 			{/if}
 
-			<label class="text-xl text-slate-50 mt-4 mb-2" for="message">Message</label>
+			<label class="text-xl mt-4 mb-2" for="message">Message</label>
 			<textarea
 				id="message"
 				name="message"

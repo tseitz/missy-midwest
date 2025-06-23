@@ -19,8 +19,8 @@
 
 <header
 	class={mobileNav && mobileNav
-		? 'mobile bg-missy-deep-purple shadow-lg px-2 md:px-4 lg:px-8'
-		: 'bg-missy-deep-purple shadow-lg px-2 md:px-4 lg:px-6'}
+		? 'mobile bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-8'
+		: 'bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-6'}
 >
 	<div class="social-wrap gap-2 md:gap-4 xl:gap-10 2xl:gap-12">
 		<div class="social">

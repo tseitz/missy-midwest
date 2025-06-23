@@ -4,8 +4,8 @@
 >
 	<div>
 		<h2 class="text-4xl mb-6 md:mb-10">Bio</h2>
-		<p class="mb-6">
-			<span class="text-violet-200">✨ Music Artist & Resident DJ ✨</span>
+		<p class="mb-6 text-sm md:text-base">
+			<span class="text-lg text-violet-200">✨ Music Artist & Resident DJ ✨</span>
 			<br />
 			<br />
 			Hailing from a melting pot of music, the Heart of IL, Missy Midwest (she/her) is a multitalented

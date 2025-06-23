@@ -45,7 +45,7 @@
 <section id="dates" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
 	<h2 class="text-4xl mb-8 md:mb-12">Upcoming Dates!</h2>
 	<!-- <h3 class="text-2xl mb-4 md:mb-8">Featured Events</h3> -->
-	<p class="text-xl mb-4 md:mb-8">Click the event to add it to your calendar!</p>
+	<p class="text-base lg:text-xl mb-4 md:mb-8">Click the event to add it to your calendar!</p>
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
 		{#if events.length > 0}
 			{#each events as show}

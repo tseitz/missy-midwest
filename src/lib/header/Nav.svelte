@@ -30,7 +30,9 @@
 <nav class={mobileNav ? 'mobile' : ''}>
 	{#if mobileNav}
 		<!-- Mobile Navigation -->
-		<ul class="bg-missy-deep-purple">
+		<ul
+			class="bg-missy-deep-purple px-4 md:px-6 lg:px-6 inset-shadow-sm inset-shadow-missy-classic-lavender/25"
+		>
 			{#each routes as route}
 				<li class="px-1 lg:px-4 2xl:px-8">
 					<a class="text-md" href={route.href}>
@@ -53,7 +55,7 @@
 		<ul>
 			<!-- Left side routes -->
 			{#each leftRoutes as route}
-				<li class="px-1 lg:px-4 2xl:px-8">
+				<li class="px-1 pt-1 lg:px-4 2xl:px-8">
 					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
@@ -71,7 +73,7 @@
 
 			<!-- Right side routes -->
 			{#each rightRoutes as route}
-				<li class="px-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
+				<li class="px-1 pt-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
 					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>

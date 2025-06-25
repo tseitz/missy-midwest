@@ -86,7 +86,7 @@
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>. -->
 		</p>
 	</div>
-	<div class="rounded-md p-8 bg-missy-classic-lavender/60 backdrop-blur-md">
+	<div class="rounded-md p-8 bg-missy-classic-lavender">
 		<form on:submit={handleSubmit}>
 			<label class="text-xl mb-2" for="name">Name</label>
 			<input
@@ -144,9 +144,9 @@
 				<small class="text-missy-magenta">{$errors.message}</small>
 			{/if}
 
-			<div class="btn-wrap flex justify-end mt-4">
+			<div class="flex justify-end mt-4">
 				<button
-					class="g-recaptcha"
+					class="g-recaptcha px-6 py-3 bg-missy-deep-purple/80 backdrop-blur-lg text-slate-50 font-semibold rounded-lg shadow-lg shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-xl hover:shadow-missy-classic-lavender/30 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-missy-classic-lavender/50 focus:ring-offset-2 focus:ring-offset-transparent hover:cursor-pointer"
 					type="submit"
 					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
 					data-callback="onSubmit"

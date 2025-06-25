@@ -45,7 +45,7 @@
 		<!-- Mobile Logo -->
 		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 			<img
-				src="/header/missy-midwest-main.png"
+				src="/header/missy-midwest-logo.png"
 				alt="Missy Midwest"
 				style="transform: scale({scale}) translate(0, {translateY});"
 			/>
@@ -65,7 +65,7 @@
 			<!-- Center logo -->
 			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
 				<img
-					src="/header/missy-midwest-main.png"
+					src="/header/missy-midwest-logo.png"
 					alt="Missy Midwest"
 					style="transform: scale({scale}) translate(0, {translateY});"
 				/>

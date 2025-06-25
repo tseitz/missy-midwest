@@ -54,7 +54,7 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end"
+						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end hover:shadow-lg hover:shadow-missy-classic-lavender/20"
 						style="background: url(https://drive.google.com/thumbnail?id={show.attachments[0]
 							.fileId}&sz=w1000) rgb(29, 35, 42) no-repeat center;background-size: cover;"
 					>
@@ -80,7 +80,7 @@
 						href={show.htmlLink}
 						target="_blank"
 						rel="noopener noreferrer prefetch"
-						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end"
+						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end hover:shadow-lg hover:shadow-missy-classic-lavender/20"
 					>
 						<div
 							class="bg-missy-deep-purple/80 backdrop-blur-md max-h-96 overflow-auto px-8 py-4 rounded-md"
@@ -109,6 +109,6 @@
 <style>
 	.event:hover {
 		transform: scale(1.02) rotate(-0.1deg);
-		transition: transform 0.33s ease-out;
+		transition: all 0.33s ease-out;
 	}
 </style>

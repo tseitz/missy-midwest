@@ -1,9 +1,0 @@
-# SPA fallback - redirect all routes to index.html
-/*    /index.html   200
-
-# Handle common 404 scenarios
-/404    /index.html   404
-/error  /index.html   404
-
-# Redirect old URLs if any (add as needed)
-# /old-page    /new-page    301 

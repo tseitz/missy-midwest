@@ -46,7 +46,6 @@
 		"@icons-pack/svelte-simple-icons": "^5.0.0",
 		"dotenv": "^16.0.3",
 		"googleapis": "^127.0.0",
-		"svelte-forms-lib": "^2.0.1",
 		"yup": "^0.32.11"
 	},
 	"optionalDependencies": {

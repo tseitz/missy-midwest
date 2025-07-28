@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { createForm } from 'svelte-forms-lib';
-	import * as yup from 'yup';
 	import { init, send } from '@emailjs/browser';
 
 	const emailUserId = import.meta.env['VITE_MISSY_EMAIL_USER_ID'] as string;
@@ -8,63 +6,123 @@
 	const emailTemplateId = import.meta.env['VITE_MISSY_EMAIL_TEMPLATE_ID'] as string;
 
 	init(emailUserId);
+
 	const phoneRegExp =
 		/^(((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?)?$/;
-	let submit = false;
-	const { form, errors, handleChange, handleSubmit, handleReset } = createForm({
-		initialValues: {
+
+	let formData = {
+		name: '',
+		email: '',
+		phone: '',
+		message: ''
+	};
+
+	let errors = {
+		name: '',
+		email: '',
+		phone: '',
+		message: ''
+	};
+
+	let submitAttempted = false;
+
+	function validateForm() {
+		errors = {
 			name: '',
 			email: '',
 			phone: '',
 			message: ''
-		},
+		};
 
-		validationSchema: yup.object().shape({
-			name: yup.string().required('Name is required'),
-			email: yup.string().email().required('Email is required'),
-			phone: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-			message: yup
-				.string()
-				.required('Message is required')
-				.max(10000, `Whoa, that's a long message. Could you trim it down a bit?`)
-		}),
+		let isValid = true;
 
-		onSubmit: async (values) => {
-			grecaptcha.ready(function () {
-				grecaptcha
-					.execute('6LdOxaEeAAAAAEVoXpwQ_G_30DI8m8y5xcUhARAf', { action: 'submit' })
-					.then(async (token: string) => {
-						if (token) {
-							const validation = await fetch(`/captcha`, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json'
-								},
-								body: JSON.stringify({
-									token
-								})
-							});
-
-							const validationResp = await validation.json();
-							if (validation.status === 200) {
-								const emailResp = await send(emailServiceId, emailTemplateId, values);
-								console.log(emailResp);
-								if (emailResp.status === 200) {
-									handleReset();
-									alert(validationResp.message);
-								} else {
-									alert(
-										'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
-									);
-								}
-							} else {
-								alert(validationResp.error);
-							}
-						}
-					});
-			});
+		if (!formData.name.trim()) {
+			errors.name = 'Name is required';
+			isValid = false;
 		}
-	});
+
+		if (!formData.email.trim()) {
+			errors.email = 'Email is required';
+			isValid = false;
+		} else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+			errors.email = 'Please enter a valid email';
+			isValid = false;
+		}
+
+		if (formData.phone && !phoneRegExp.test(formData.phone)) {
+			errors.phone = 'Phone number is not valid';
+			isValid = false;
+		}
+
+		if (!formData.message.trim()) {
+			errors.message = 'Message is required';
+			isValid = false;
+		} else if (formData.message.length > 10000) {
+			errors.message = `Whoa, that's a long message. Could you trim it down a bit?`;
+			isValid = false;
+		}
+
+		return isValid;
+	}
+
+	function resetForm() {
+		formData = {
+			name: '',
+			email: '',
+			phone: '',
+			message: ''
+		};
+		errors = {
+			name: '',
+			email: '',
+			phone: '',
+			message: ''
+		};
+		submitAttempted = false;
+	}
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		submitAttempted = true;
+
+		if (!validateForm()) {
+			return;
+		}
+
+		grecaptcha.ready(function () {
+			grecaptcha
+				.execute('6LdOxaEeAAAAAEVoXpwQ_G_30DI8m8y5xcUhARAf', { action: 'submit' })
+				.then(async (token: string) => {
+					if (token) {
+						const validation = await fetch(`/captcha`, {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								token
+							})
+						});
+
+						const validationResp = await validation.json();
+						if (validation.status === 200) {
+							const emailResp = await send(emailServiceId, emailTemplateId, formData);
+							console.log(emailResp);
+							if (emailResp.status === 200) {
+								resetForm();
+								alert(validationResp.message);
+							} else {
+								alert(
+									'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
+								);
+							}
+						} else {
+							alert(validationResp.error);
+						}
+					}
+				});
+		});
+	}
 </script>
 
 <section
@@ -94,12 +152,10 @@
 				name="name"
 				type="text"
 				class="bg-slate-50 text-missy-deep-purple"
-				on:change={handleChange}
-				on:blur={handleChange}
-				bind:value={$form.name}
+				bind:value={formData.name}
 			/>
-			{#if submit && $errors.name}
-				<small class="text-missy-magenta">{$errors.name}</small>
+			{#if submitAttempted && errors.name}
+				<small class="text-missy-magenta">{errors.name}</small>
 			{/if}
 
 			<label class="text-xl mt-4 mb-2" for="email">Email</label>
@@ -108,12 +164,10 @@
 				name="email"
 				type="text"
 				class="bg-slate-50 text-missy-deep-purple"
-				on:change={handleChange}
-				on:blur={handleChange}
-				bind:value={$form.email}
+				bind:value={formData.email}
 			/>
-			{#if submit && $errors.email}
-				<small class="text-missy-magenta">{$errors.email}</small>
+			{#if submitAttempted && errors.email}
+				<small class="text-missy-magenta">{errors.email}</small>
 			{/if}
 
 			<label class="text-xl mt-4 mb-2" for="phone">Phone (Optional)</label>
@@ -122,12 +176,10 @@
 				name="phone"
 				type="text"
 				class="bg-slate-50 text-missy-deep-purple"
-				on:change={handleChange}
-				on:blur={handleChange}
-				bind:value={$form.phone}
+				bind:value={formData.phone}
 			/>
-			{#if submit && $errors.phone}
-				<small class="text-missy-magenta">{$errors.phone}</small>
+			{#if submitAttempted && errors.phone}
+				<small class="text-missy-magenta">{errors.phone}</small>
 			{/if}
 
 			<label class="text-xl mt-4 mb-2" for="message">Message</label>
@@ -136,12 +188,10 @@
 				name="message"
 				rows="7"
 				class="bg-slate-50 text-missy-deep-purple"
-				on:change={handleChange}
-				on:blur={handleChange}
-				bind:value={$form.message}
+				bind:value={formData.message}
 			></textarea>
-			{#if submit && $errors.message}
-				<small class="text-missy-magenta">{$errors.message}</small>
+			{#if submitAttempted && errors.message}
+				<small class="text-missy-magenta">{errors.message}</small>
 			{/if}
 
 			<div class="flex justify-end mt-4">
@@ -150,8 +200,7 @@
 					type="submit"
 					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
 					data-callback="onSubmit"
-					data-action={handleSubmit}
-					on:click={() => (submit = true)}>Submit</button
+					data-action={handleSubmit}>Submit</button
 				>
 			</div>
 		</form>

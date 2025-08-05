@@ -16,7 +16,7 @@ export const load = async () => {
 			auth: client,
 			calendarId: 'missy.midwestofficial@gmail.com',
 			timeMin: new Date().toISOString(),
-			maxResults: 10,
+			// maxResults: 20,
 			singleEvents: true,
 			orderBy: 'startTime'
 		});

@@ -3,7 +3,6 @@
 	import type { CalendarEvent } from '$lib/types/index';
 
 	export let events: CalendarEvent[];
-	console.log(events);
 
 	// Helper function to get ordinal suffix
 	function getOrdinalSuffix(day: number): string {

@@ -1,30 +1,30 @@
 <script lang="ts">
-	import { init, send } from '@emailjs/browser';
+	import { Turnstile } from 'svelte-turnstile';
+	import { enhance } from '$app/forms';
 
-	const emailUserId = import.meta.env['VITE_MISSY_EMAIL_USER_ID'] as string;
-	const emailServiceId = import.meta.env['VITE_MISSY_EMAIL_SERVICE_ID'] as string;
-	const emailTemplateId = import.meta.env['VITE_MISSY_EMAIL_TEMPLATE_ID'] as string;
-
-	init(emailUserId);
+	const turnstileSiteKey = import.meta.env['VITE_TURNSTILE_SITE_KEY'] as string;
 
 	const phoneRegExp =
 		/^(((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?)?$/;
 
-	let formData = {
+	let formData = $state({
 		name: '',
 		email: '',
 		phone: '',
 		message: ''
-	};
+	});
 
-	let errors = {
+	let errors = $state({
 		name: '',
 		email: '',
 		phone: '',
 		message: ''
-	};
+	});
 
-	let submitAttempted = false;
+	let submitAttempted = $state(false);
+	let isSubmitting = $state(false);
+
+	let form = $state<{ success: boolean; message?: string } | null>(null);
 
 	function validateForm() {
 		errors = {
@@ -65,64 +65,25 @@
 		return isValid;
 	}
 
-	function resetForm() {
-		formData = {
-			name: '',
-			email: '',
-			phone: '',
-			message: ''
-		};
-		errors = {
-			name: '',
-			email: '',
-			phone: '',
-			message: ''
-		};
-		submitAttempted = false;
-	}
+	$effect(() => {
+		console.log('form', form);
+		if (form) {
+			if (form.success) {
+				alert(form.message || 'Message sent! Thanks for your submission :)');
+				formData = {
+					name: '',
+					email: '',
+					phone: '',
+					message: ''
+				};
+				submitAttempted = false;
+			} else {
+				alert(form.message || 'Something went wrong. Please try again.');
+			}
 
-	async function handleSubmit(event: Event) {
-		event.preventDefault();
-		submitAttempted = true;
-
-		if (!validateForm()) {
-			return;
+			form = null;
 		}
-
-		grecaptcha.ready(function () {
-			grecaptcha
-				.execute('6LdOxaEeAAAAAEVoXpwQ_G_30DI8m8y5xcUhARAf', { action: 'submit' })
-				.then(async (token: string) => {
-					if (token) {
-						const validation = await fetch(`/captcha`, {
-							method: 'POST',
-							headers: {
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({
-								token
-							})
-						});
-
-						const validationResp = await validation.json();
-						if (validation.status === 200) {
-							const emailResp = await send(emailServiceId, emailTemplateId, formData);
-							console.log(emailResp);
-							if (emailResp.status === 200) {
-								resetForm();
-								alert(validationResp.message);
-							} else {
-								alert(
-									'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
-								);
-							}
-						} else {
-							alert(validationResp.error);
-						}
-					}
-				});
-		});
-	}
+	});
 </script>
 
 <section
@@ -145,7 +106,29 @@
 		</p>
 	</div>
 	<div class="rounded-md p-8 bg-missy-classic-lavender">
-		<form on:submit={handleSubmit}>
+		<form
+			method="POST"
+			action="?/contact"
+			use:enhance={() => {
+				submitAttempted = true;
+
+				if (!validateForm()) {
+					return ({ update }) => update({ reset: false });
+				}
+
+				isSubmitting = true;
+
+				return async ({ result, update }) => {
+					isSubmitting = false;
+					if (result.type === 'success') {
+						form = result.data as any;
+					} else if (result.type === 'failure') {
+						form = result.data as any;
+					}
+					await update({ reset: false });
+				};
+			}}
+		>
 			<label class="text-xl mb-2" for="name">Name</label>
 			<input
 				id="name"
@@ -153,6 +136,7 @@
 				type="text"
 				class="bg-slate-50 text-missy-deep-purple"
 				bind:value={formData.name}
+				required
 			/>
 			{#if submitAttempted && errors.name}
 				<small class="text-missy-magenta">{errors.name}</small>
@@ -162,9 +146,10 @@
 			<input
 				id="email"
 				name="email"
-				type="text"
+				type="email"
 				class="bg-slate-50 text-missy-deep-purple"
 				bind:value={formData.email}
+				required
 			/>
 			{#if submitAttempted && errors.email}
 				<small class="text-missy-magenta">{errors.email}</small>
@@ -189,19 +174,24 @@
 				rows="7"
 				class="bg-slate-50 text-missy-deep-purple"
 				bind:value={formData.message}
+				required
 			></textarea>
 			{#if submitAttempted && errors.message}
 				<small class="text-missy-magenta">{errors.message}</small>
 			{/if}
 
+			<div class="mt-4">
+				<Turnstile siteKey={turnstileSiteKey} theme="dark" />
+			</div>
+
 			<div class="flex justify-end mt-4">
 				<button
-					class="g-recaptcha px-6 py-3 bg-missy-deep-purple/80 backdrop-blur-lg text-slate-50 font-semibold rounded-lg shadow-lg shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-xl hover:shadow-missy-classic-lavender/30 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-missy-classic-lavender/50 focus:ring-offset-2 focus:ring-offset-transparent hover:cursor-pointer"
+					class="px-6 py-3 bg-missy-deep-purple/80 backdrop-blur-lg text-slate-50 font-semibold rounded-lg shadow-lg shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-xl hover:shadow-missy-classic-lavender/30 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-missy-classic-lavender/50 focus:ring-offset-2 focus:ring-offset-transparent hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
 					type="submit"
-					data-sitekey={import.meta.env['VITE_RECAPTCHA_SITE_KEY']}
-					data-callback="onSubmit"
-					data-action={handleSubmit}>Submit</button
+					disabled={isSubmitting}
 				>
+					{isSubmitting ? 'Sending...' : 'Submit'}
+				</button>
 			</div>
 		</form>
 	</div>

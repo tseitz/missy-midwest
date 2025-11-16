@@ -1,78 +1,10 @@
-import { google } from 'googleapis';
-import {
-	MISSY_CALENDAR_CLIENT_EMAIL,
-	MISSY_CALENDAR_PRIVATE_KEY,
-	MISSY_TURNSTILE_SECRET_KEY,
-	MISSY_EMAIL_USER_ID,
-	MISSY_EMAIL_SERVICE_ID,
-	MISSY_EMAIL_TEMPLATE_ID
-} from '$env/static/private';
 import { fail } from '@sveltejs/kit';
-
-const calendar = google.calendar('v3');
-
-// Validate Turnstile token
-async function validateTurnstileToken(token: string): Promise<boolean> {
-	const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({
-			secret: MISSY_TURNSTILE_SECRET_KEY,
-			response: token
-		})
-	});
-	const data = await response.json();
-	return data.success;
-}
-
-// Send email via EmailJS (server-side)
-async function sendEmail(formData: {
-	name: string;
-	email: string;
-	phone: string;
-	message: string;
-}) {
-	const response = await fetch(`https://api.emailjs.com/api/v1.0/email/send`, {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({
-			service_id: MISSY_EMAIL_SERVICE_ID,
-			template_id: MISSY_EMAIL_TEMPLATE_ID,
-			user_id: MISSY_EMAIL_USER_ID,
-			template_params: formData
-		})
-	});
-	return response.ok;
-}
+import { validateTurnstileToken } from '$lib/server/turnstile';
+import { sendEmail } from '$lib/server/email';
+import { getUpcomingEvents } from '$lib/server/calendar';
 
 export const load = async () => {
-	const client = new google.auth.JWT(
-		MISSY_CALENDAR_CLIENT_EMAIL,
-		undefined,
-		MISSY_CALENDAR_PRIVATE_KEY.replace(/\\n/g, '\n'),
-		['https://www.googleapis.com/auth/calendar.readonly']
-	);
-
-	try {
-		const response = await calendar.events.list({
-			auth: client,
-			calendarId: 'missy.midwestofficial@gmail.com',
-			timeMin: new Date().toISOString(),
-			// maxResults: 20,
-			singleEvents: true,
-			orderBy: 'startTime'
-		});
-
-		return {
-			body: response.data.items
-		};
-	} catch (error) {
-		console.error(error);
-		return {
-			status: 500,
-			body: error instanceof Error ? error.message : 'Unknown error'
-		};
-	}
+	return await getUpcomingEvents();
 };
 
 export const actions = {

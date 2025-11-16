@@ -1,8 +1,13 @@
 <script lang="ts">
 	import { Turnstile } from 'svelte-turnstile';
 	import { enhance } from '$app/forms';
+	import { sendEmail } from '$lib/email';
+	import { browser } from '$app/environment';
 
 	const turnstileSiteKey = import.meta.env['VITE_TURNSTILE_SITE_KEY'] as string;
+	const emailServiceId = import.meta.env['VITE_EMAILJS_SERVICE_ID'] as string;
+	const emailTemplateId = import.meta.env['VITE_EMAILJS_TEMPLATE_ID'] as string;
+	const emailPublicKey = import.meta.env['VITE_EMAILJS_PUBLIC_KEY'] as string;
 
 	const phoneRegExp =
 		/^(((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?)?$/;
@@ -118,12 +123,39 @@
 				isSubmitting = true;
 
 				return async ({ result, update }) => {
-					isSubmitting = false;
-					if (result.type === 'success') {
+					// If Turnstile validation passed, send email from client
+					if (result.type === 'success' && browser) {
+						try {
+							const emailSent = await sendEmail(
+								formData,
+								emailServiceId,
+								emailTemplateId,
+								emailPublicKey
+							);
+
+							if (emailSent) {
+								form = result.data as any;
+							} else {
+								form = {
+									success: false,
+									message:
+										'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
+								};
+							}
+						} catch (error) {
+							console.error('Email send error:', error);
+							form = {
+								success: false,
+								message: 'Something went wrong. Please try again.'
+							};
+						}
+					} else if (result.type === 'success') {
 						form = result.data as any;
 					} else if (result.type === 'failure') {
 						form = result.data as any;
 					}
+
+					isSubmitting = false;
 					await update({ reset: false });
 				};
 			}}
@@ -180,7 +212,7 @@
 			{/if}
 
 			<div class="mt-4">
-				<Turnstile siteKey={turnstileSiteKey} theme="dark" />
+				<Turnstile siteKey={turnstileSiteKey} theme="auto" />
 			</div>
 
 			<div class="flex justify-end mt-4">

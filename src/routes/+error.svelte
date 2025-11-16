@@ -7,10 +7,6 @@
 	$: errorMessage = error?.message || 'Something went wrong';
 	$: is404 = status === 404 || status === undefined;
 
-	console.log('Error object:', error);
-	console.log('Status:', status);
-	console.log('Is 404:', is404);
-
 	function goHome() {
 		goto('/');
 	}

@@ -42,7 +42,6 @@ async function sendEmail(formData: {
 			template_params: formData
 		})
 	});
-	console.log('response', response);
 	return response.ok;
 }
 
@@ -68,7 +67,7 @@ export const load = async () => {
 			body: response.data.items
 		};
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		return {
 			status: 500,
 			body: error instanceof Error ? error.message : 'Unknown error'
@@ -86,7 +85,6 @@ export const actions = {
 		const phone = formData.get('phone')?.toString() || '';
 		const message = formData.get('message')?.toString() || '';
 		const turnstileToken = formData.get('cf-turnstile-response')?.toString() || '';
-		console.log('turnstileToken', turnstileToken);
 
 		// Validate Turnstile token
 		if (!turnstileToken || !(await validateTurnstileToken(turnstileToken))) {
@@ -98,9 +96,7 @@ export const actions = {
 
 		// Send email
 		try {
-			console.log('sending email', name, email, phone, message);
 			const emailSent = await sendEmail({ name, email, phone, message });
-			console.log('emailSent', emailSent);
 			if (emailSent) {
 				return {
 					success: true,

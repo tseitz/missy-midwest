@@ -66,7 +66,6 @@
 	}
 
 	$effect(() => {
-		console.log('form', form);
 		if (form) {
 			if (form.success) {
 				alert(form.message || 'Message sent! Thanks for your submission :)');

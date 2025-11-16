@@ -30,6 +30,7 @@
 	let isSubmitting = $state(false);
 
 	let form = $state<{ success: boolean; message?: string } | null>(null);
+	let turnstileKey = $state(0);
 
 	function validateForm() {
 		errors = {
@@ -70,6 +71,12 @@
 		return isValid;
 	}
 
+	function resetTurnstile() {
+		// Reset Turnstile by incrementing key to force re-render
+		// This ensures a fresh token is generated for the next submission
+		turnstileKey++;
+	}
+
 	$effect(() => {
 		if (form) {
 			if (form.success) {
@@ -81,8 +88,10 @@
 					message: ''
 				};
 				submitAttempted = false;
+				resetTurnstile();
 			} else {
 				alert(form.message || 'Something went wrong. Please try again.');
+				resetTurnstile();
 			}
 
 			form = null;
@@ -152,7 +161,9 @@
 					} else if (result.type === 'success') {
 						form = result.data as any;
 					} else if (result.type === 'failure') {
+						// Turnstile validation failed or other server error - reset CAPTCHA
 						form = result.data as any;
+						resetTurnstile();
 					}
 
 					isSubmitting = false;
@@ -212,7 +223,9 @@
 			{/if}
 
 			<div class="mt-4">
-				<Turnstile siteKey={turnstileSiteKey} theme="auto" />
+				{#key turnstileKey}
+					<Turnstile siteKey={turnstileSiteKey} theme="auto" />
+				{/key}
 			</div>
 
 			<div class="flex justify-end mt-4">

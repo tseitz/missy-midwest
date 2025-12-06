@@ -18,8 +18,6 @@
 <Landing />
 
 <div class="px-8 md:px-14">
-	<Music />
-
 	<Bio />
 
 	<UpcomingDates events={data.body} />
@@ -27,6 +25,4 @@
 	<Contact />
 
 	<Support />
-
-	<PressKit />
 </div>

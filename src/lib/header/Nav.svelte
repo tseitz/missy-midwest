@@ -4,25 +4,20 @@
 
 	let y = 0;
 
-	// Navigation routes configuration
 	const routes = [
-		{ href: '#music', label: 'MUSIC' },
 		{ href: '#bio', label: 'BIO' },
 		{ href: '#dates', label: 'DATES' },
 		{ href: '#contact', label: 'CONTACT' },
-		{ href: '#support', label: 'SUPPORT' },
-		{ href: '#press', label: 'KIT' }
+		{ href: '#support', label: 'SUPPORT' }
 	];
 
-	// Computed values
 	$: mobileLogo = navWidth < 480;
 	$: margin = mobileNav ? 0 : Math.min(0, -4.7 + y / 100);
 	$: scale = mobileNav ? Math.max(1, 2.8 - y / 125) : Math.max(1.06, 5.5 - y / 100);
 	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.5) + '%' : Math.max(0, 380 - y / 1.2) + '%';
 
-	// Split routes for desktop layout (logo in center)
-	$: leftRoutes = routes.slice(0, 3);
-	$: rightRoutes = routes.slice(3);
+	$: leftRoutes = routes.slice(0, 2);
+	$: rightRoutes = routes.slice(2);
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -55,7 +50,7 @@
 		<ul>
 			<!-- Left side routes -->
 			{#each leftRoutes as route}
-				<li class="px-1 pt-1 lg:px-4 2xl:px-8">
+				<li class="px-1 pt-1 lg:px-8 2xl:px-16">
 					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>
@@ -73,7 +68,7 @@
 
 			<!-- Right side routes -->
 			{#each rightRoutes as route}
-				<li class="px-1 pt-1 lg:px-4 2xl:px-8 {route.href === '#contact' ? '2xl:pl-12' : ''}">
+				<li class="px-1 pt-1 lg:px-8 2xl:px-16">
 					<a class="xl:text-lg" href={route.href}>
 						{route.label}
 					</a>

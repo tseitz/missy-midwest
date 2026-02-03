@@ -20,8 +20,17 @@
 	}
 
 	// Helper function to format dates as "Month Day, Year"
+	// Date-only strings (YYYY-MM-DD) are parsed as UTC midnight by JS, which causes
+	// off-by-one in timezones behind UTC. Parse them as local date instead.
 	function formatDate(dateString: string): string {
-		const date = new Date(dateString);
+		const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(dateString);
+		let date: Date;
+		if (isDateOnly) {
+			const [y, m, d] = dateString.split('-').map(Number);
+			date = new Date(y, m - 1, d); // month is 0-indexed
+		} else {
+			date = new Date(dateString);
+		}
 		const month = date.toLocaleDateString('en-US', { month: 'long' });
 		const day = date.getDate();
 		const year = date.getFullYear();

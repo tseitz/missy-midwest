@@ -72,8 +72,32 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .grecaptcha-badge { 
+  .grecaptcha-badge {
     /* visibility: hidden; */
     bottom: 4.5rem !important;
   }
+}
+
+/* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
+.text-glow {
+  text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
+}
+.bg-glow-warm {
+  background:
+    radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
+    linear-gradient(180deg, var(--color-missy-deep-purple) 0%, var(--color-missy-plum) 52%, var(--color-lake-sunset) 124%);
+}
+.text-gradient-sun {
+  background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.label-eyebrow {
+  font-family: var(--font-obviously);
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-lake-sunrise);
 }

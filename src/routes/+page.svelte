@@ -16,7 +16,7 @@
 <Hero />
 <div class="flex w-full flex-col items-center">
 	<Bio />
-	<ShopTeaser />
+	<ShopTeaser groups={data.shopGroups} />
 	<ShowsTeaser events={data.nextShows} />
 	<InstagramFeed />
 </div>

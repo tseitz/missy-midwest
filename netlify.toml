@@ -1,3 +1,8 @@
 [build]
-  command = "npm ci --include=optional && vite build"
+  command = "pnpm install --frozen-lockfile && pnpm build"
   publish = "build"
+
+[build.environment]
+  # pnpm is the canonical package manager (see CLAUDE.md). Netlify detects
+  # pnpm-lock.yaml, but pin the version so local and CI resolve identically.
+  PNPM_VERSION = "11.5.0"

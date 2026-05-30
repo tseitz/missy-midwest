@@ -1,129 +1,40 @@
 <script lang="ts">
-	export let navWidth: number;
-	export let mobileNav: boolean;
-
-	let y = 0;
+	import { page } from '$app/state';
 
 	const routes = [
-		{ href: '#bio', label: 'BIO' },
-		{ href: '#dates', label: 'DATES' },
-		{ href: '#contact', label: 'CONTACT' },
-		{ href: '#support', label: 'SUPPORT' }
+		{ href: '/music', label: 'MUSIC' },
+		{ href: '/shows', label: 'SHOWS' },
+		{ href: '/shop', label: 'SHOP' },
+		{ href: '/contact', label: 'CONTACT' }
 	];
-
-	$: mobileLogo = navWidth < 480;
-	$: margin = mobileNav ? 0 : Math.min(0, -4.7 + y / 100);
-	$: scale = mobileNav ? Math.max(1, 2.8 - y / 125) : Math.max(1.06, 5.5 - y / 100);
-	$: translateY = mobileNav ? Math.max(0, 400 - y / 0.5) + '%' : Math.max(0, 380 - y / 1.2) + '%';
-
-	$: leftRoutes = routes.slice(0, 2);
-	$: rightRoutes = routes.slice(2);
 </script>
 
-<svelte:window bind:scrollY={y} />
-
-<nav class={mobileNav ? 'mobile' : ''}>
-	{#if mobileNav}
-		<!-- Mobile Navigation -->
-		<ul
-			class="bg-missy-deep-purple px-4 md:px-6 lg:px-6 inset-shadow-sm inset-shadow-missy-classic-lavender/25"
-		>
-			{#each routes as route}
-				<li class="px-1 lg:px-4 2xl:px-8">
-					<a class="text-md" href={route.href}>
-						{route.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
-
-		<!-- Mobile Logo -->
-		<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
-			<img
-				src="/header/missy-midwest-logo.png"
-				alt="Missy Midwest"
-				style="transform: scale({scale}) translate(0, {translateY});"
-			/>
-		</div>
-	{:else}
-		<!-- Desktop Navigation -->
-		<ul>
-			<!-- Left side routes -->
-			{#each leftRoutes as route}
-				<li class="px-1 pt-1 lg:px-8 2xl:px-16">
-					<a class="xl:text-lg" href={route.href}>
-						{route.label}
-					</a>
-				</li>
-			{/each}
-
-			<!-- Center logo -->
-			<div class="logo {mobileLogo ? 'mobile-logo' : ''}" style="margin: 0 {margin}rem">
-				<img
-					src="/header/missy-midwest-logo.png"
-					alt="Missy Midwest"
-					style="transform: scale({scale}) translate(0, {translateY});"
-				/>
-			</div>
-
-			<!-- Right side routes -->
-			{#each rightRoutes as route}
-				<li class="px-1 pt-1 lg:px-8 2xl:px-16">
-					<a class="xl:text-lg" href={route.href}>
-						{route.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	{/if}
+<nav>
+	<ul class="flex items-center gap-5 lg:gap-8">
+		{#each routes as route (route.href)}
+			<li>
+				<a
+					href={route.href}
+					class="nav-link"
+					aria-current={page.url.pathname === route.href ? 'page' : undefined}
+				>
+					{route.label}
+				</a>
+			</li>
+		{/each}
+	</ul>
 </nav>
 
 <style>
-	a {
+	.nav-link {
+		font-family: var(--font-cochin);
+		font-size: 0.8rem;
+		letter-spacing: 0.14em;
 		color: var(--color-slate-50);
 	}
-
-	a:hover {
+	.nav-link:hover,
+	.nav-link[aria-current='page'] {
 		color: var(--color-missy-classic-lavender);
-	}
-
-	ul {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		list-style: none;
-		font-family: var(--font-cochin);
-	}
-
-	.mobile > ul {
-		position: fixed;
-		left: 0;
-		width: 100%;
-		bottom: 0;
-		height: 4rem;
-	}
-
-	li {
-		z-index: 1;
-	}
-
-	.mobile li {
-		padding: 1rem 0.5rem;
-		text-align: center;
-	}
-
-	.logo {
-		transition: margin 0.05s ease-out;
-		min-width: 3rem;
-		max-width: 9.5rem;
-	}
-
-	.logo img {
-		object-fit: contain;
-		transition: transform 0.05s ease-out;
-	}
-
-	.mobile-logo {
-		margin: 0 1.4rem !important;
+		border-bottom: none;
 	}
 </style>

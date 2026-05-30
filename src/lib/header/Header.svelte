@@ -1,105 +1,14 @@
 <script lang="ts">
 	import Nav from '$lib/header/Nav.svelte';
-	import {
-		SiSoundcloud,
-		SiTiktok,
-		SiTwitch,
-		SiInstagram,
-		SiFacebook,
-		SiYoutube
-	} from '@icons-pack/svelte-simple-icons';
-
-	let navWidth: number;
-
-	$: mobileNav = navWidth < 1024;
-	$: socialSize = mobileNav ? 24 : 26;
+	import SocialLinks from '$lib/components/SocialLinks.svelte';
 </script>
 
-<svelte:window bind:innerWidth={navWidth} />
-
 <header
-	class={mobileNav && mobileNav
-		? 'mobile bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-8'
-		: 'bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-6'}
+	class="sticky top-0 z-30 w-full bg-missy-deep-purple/85 backdrop-blur-md border-b border-missy-classic-lavender/15"
 >
-	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
-		<div class="social m-auto">
-			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
-				<SiSoundcloud size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.tiktok.com/@missy.midwestofficial" target="_blank" rel="noreferrer">
-				<SiTiktok size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">
-				<SiTwitch size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-	</div>
-
-	<Nav {navWidth} {mobileNav} />
-
-	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
-		<div class="social m-auto">
-			<a href="https://www.instagram.com/missy.midwest/" target="_blank" rel="noreferrer">
-				<SiInstagram size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.facebook.com/MissyMidwest/" target="_blank" rel="noreferrer">
-				<SiFacebook size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a
-				href="https://www.youtube.com/channel/UCG4fK0SGXZpW6FJfGblgIqg"
-				target="_blank"
-				rel="noreferrer"
-			>
-				<SiYoutube size={socialSize + 5} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
+	<div class="max-w-screen-2xl mx-auto h-16 px-4 md:px-8 flex items-center justify-between">
+		<div class="hidden md:block"><SocialLinks size={22} /></div>
+		<a href="/" class="missy-header text-lg md:text-xl tracking-wide text-white">MISSY MIDWEST</a>
+		<Nav />
 	</div>
 </header>
-
-<style>
-	header {
-		/* display: grid;
-		grid-template-columns: repeat(3, 1fr) 3fr repeat(3, 1fr);
-		gap: 0.5rem; */
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex: 1 1 auto;
-		/* background-color: var(--missy-white-100); */
-		position: sticky;
-		top: 0;
-		width: 100%;
-		height: 4rem;
-		z-index: 10;
-	}
-
-	.mobile {
-		padding: 0 1rem;
-	}
-
-	.social-wrap {
-		display: grid;
-		align-items: center;
-		grid-template-columns: repeat(3, 1fr);
-		max-width: 16rem;
-	}
-
-	.mobile > .social-wrap {
-		width: 33%;
-		max-width: 40%;
-	}
-
-	.social:hover {
-		transform: scale(1.1);
-		transition: transform 0.1s ease-out;
-	}
-</style>

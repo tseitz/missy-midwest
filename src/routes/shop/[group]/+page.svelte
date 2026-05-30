@@ -1,7 +1,8 @@
 <script lang="ts">
 	import VariantSelector from '$lib/shop/VariantSelector.svelte';
 	import StockBadge from '$lib/shop/StockBadge.svelte';
-	import { formatPrice } from '$lib/shop/format';
+	import { formatPrice, stockStatus } from '$lib/shop/format';
+	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
 	import type { PageData } from './$types';
 
@@ -10,6 +11,12 @@
 	// Writable derived: defaults to the first variant and resets on navigation
 	// to a different group, while still allowing the toggle to override it.
 	let selected = $derived<Variant>(data.group.variants[0]);
+	const soldOut = $derived(stockStatus(selected.stock).soldOut);
+
+	function addToCart() {
+		cart.add(selected, data.group);
+		cart.open = true;
+	}
 </script>
 
 <svelte:head>
@@ -43,5 +50,14 @@
 				/>
 			</div>
 		{/if}
+
+		<button
+			type="button"
+			disabled={soldOut}
+			onclick={addToCart}
+			class="bg-missy-classic-lavender mt-8 rounded-full px-8 py-3 font-semibold text-[#3a1233] disabled:cursor-not-allowed disabled:opacity-50"
+		>
+			{soldOut ? 'Sold out' : 'Add to cart'}
+		</button>
 	</div>
 </section>

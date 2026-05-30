@@ -2,6 +2,65 @@
 
 SvelteKit + Svelte 5 (runes mode) project. Styling via Tailwind CSS v4.
 
+## Package manager: pnpm (canonical)
+
+**Always use `pnpm`** — never `npm` or `yarn`. Mixing managers reshuffles
+`node_modules` and corrupts tooling (prettier/eslint version skew). Pinned via
+the `packageManager` field in `package.json`; lockfile is `pnpm-lock.yaml`
+(there is no `package-lock.json`).
+
+- Install / add: `pnpm install`, `pnpm add <pkg>` (`-D` for dev).
+- Scripts / binaries: `pnpm <script>`, `pnpm exec <bin>`.
+- Build-script allowlist lives in `pnpm-workspace.yaml` (`onlyBuiltDependencies`);
+  add a package there if its postinstall must run, then `pnpm rebuild`.
+- Non-interactive runs (agents/CI): prefix with `CI=true` so pnpm never blocks
+  on a TTY prompt (`.npmrc` also sets `confirm-modules-purge=false`).
+
+## Design system
+
+Styling is **Tailwind CSS v4 + a thin shared-component layer**. Reuse the
+existing primitives instead of hand-rolling markup — that's what keeps the site
+consistent.
+
+**Shared components** (`src/lib/components/`):
+
+- `Section.svelte` — the standard section shell. Encodes
+  `w-full max-w-screen-2xl px-8 py-16 md:px-14` + optional scroll-reveal +
+  optional `SectionHeading` + optional right-side `action` snippet. **Use this
+  for every page/home section** rather than re-typing the shell string.
+  Props: `label?`, `title?`, `reveal?=true`, `id?`, `class?`, `action?` snippet.
+- `SectionHeading.svelte` — eyebrow label + `<h2>`. Props: `label`, `title`.
+  (Used internally by `Section`; use directly only outside a `Section`.)
+- `Button.svelte` — props `label`, `href?`, `variant?: 'fill' | 'outline'`.
+  `fill` = gradient primary CTA; `outline` = secondary. Always use for buttons/CTAs.
+- `Lightbox.svelte`, `SocialLinks.svelte`, `Footer.svelte` — as named.
+
+**Brand tokens** (defined in `src/app.css` `@theme`):
+
+- Fonts: `--font-cochin` (headings, serif), `--font-obviously` (body, sans),
+  `--font-algiers`, `--font-mono`. Headings (`h1–h6`) auto-use Cochin in lavender.
+- Colors (use the Tailwind class form, e.g. `text-missy-magenta`):
+  `missy-blush`, `missy-neon-lavender`, `missy-deep-purple` (page bg),
+  `missy-magenta`, `missy-plum`, `missy-classic-lavender` (default link/heading),
+  plus `lake-*` accents (`lake-sunrise` orange, `lake-sunset`, etc.).
+- Brand utilities: `.label-eyebrow` (orange uppercase eyebrow — `SectionHeading`
+  uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero gradient),
+  `.missy-header`.
+
+**Spacing rhythm** — stick to this scale; don't pick arbitrary values:
+
+- Section outer padding: handled by `Section` (`px-8 py-16 md:px-14`). Don't override unless there's a reason.
+- After a `SectionHeading`, body starts at `mt-2`.
+- Vertical gaps between stacked elements: `mt-4` (tight) / `mt-6` (default) / `mt-8` (loose, e.g. before a CTA).
+- Grid gaps: `gap-5` (cards) / `gap-8` (two-column splits).
+- Prefer standard utilities over arbitrary `[…]` values — Tailwind v4 can choke
+  on some bracket values (e.g. `min-h-[32rem]` crashed the compiler; use
+  `min-h-128`).
+
+**Responsive principle:** design the mobile stack first (single column,
+deliberate vertical order), then promote to columns at `md`/`lg`
+(`grid-cols-1 lg:grid-cols-2`). One stack that unfolds sideways — not two layouts.
+
 ## Svelte MCP server
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:

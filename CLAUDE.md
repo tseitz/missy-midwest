@@ -61,6 +61,24 @@ consistent.
 deliberate vertical order), then promote to columns at `md`/`lg`
 (`grid-cols-1 lg:grid-cols-2`). One stack that unfolds sideways — not two layouts.
 
+## Images & static assets
+
+Static images live in **`static/<feature>/`** (e.g. `static/bio/`, `static/landing/`,
+`static/archive/gig-photos/`) and are served at the site root. SvelteKit does **not**
+use `public/` — there is no `public/` or `src/assets/` directory.
+
+- **Reference them via `asset()` from `$app/paths`**, never bare strings:
+  `<img src={asset('/bio/jordan.webp')} />`. For CSS backgrounds use an inline
+  `style="background-image: url({asset('/landing/x.webp')})"` rather than a
+  `bg-[url(...)]` arbitrary class (which can crash the Tailwind v4 compiler).
+- **Exception — `og:image`/JSON-LD:** these need an absolute URL, so `Seo.svelte`
+  and `jsonld.ts` build `origin + path` themselves. Leave those as path strings.
+- Data-driven filenames (e.g. gig photos keyed by event slug, the event-poster
+  default) stay in `static/` and are referenced by path — they can't be imported.
+- Build-time-known _design_ images that need responsive `srcset`/AVIF would move
+  to `src/lib/assets/` and be imported — only once `@sveltejs/enhanced-img` is added
+  (not in use today).
+
 ## Svelte MCP server
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:

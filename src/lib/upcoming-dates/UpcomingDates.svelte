@@ -1,54 +1,11 @@
 <script lang="ts">
-	// import PreviousEvents from '$lib/previous-events/PreviousEvents.svelte';
+	import { formatDate, formatDateTime } from '$lib/utils/date';
 	import type { CalendarEvent } from '$lib/types/index';
 
-	export let events: CalendarEvent[];
-
-	// Helper function to get ordinal suffix
-	function getOrdinalSuffix(day: number): string {
-		if (day > 3 && day < 21) return 'th';
-		switch (day % 10) {
-			case 1:
-				return 'st';
-			case 2:
-				return 'nd';
-			case 3:
-				return 'rd';
-			default:
-				return 'th';
-		}
+	interface Props {
+		events: CalendarEvent[];
 	}
-
-	// Helper function to format dates as "Month Day, Year"
-	// Date-only strings (YYYY-MM-DD) are parsed as UTC midnight by JS, which causes
-	// off-by-one in timezones behind UTC. Parse them as local date instead.
-	function formatDate(dateString: string): string {
-		const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(dateString);
-		let date: Date;
-		if (isDateOnly) {
-			const [y, m, d] = dateString.split('-').map(Number);
-			date = new Date(y, m - 1, d); // month is 0-indexed
-		} else {
-			date = new Date(dateString);
-		}
-		const month = date.toLocaleDateString('en-US', { month: 'long' });
-		const day = date.getDate();
-		const year = date.getFullYear();
-		const ordinal = getOrdinalSuffix(day);
-		return `${month} ${day}${ordinal} ${year}`;
-	}
-
-	// Helper function to format date and time
-	function formatDateTime(dateTimeString: string): string {
-		const date = new Date(dateTimeString);
-		const formattedDate = formatDate(dateTimeString);
-		const time = date.toLocaleTimeString('en-US', {
-			hour: 'numeric',
-			minute: '2-digit',
-			hour12: true
-		});
-		return `${formattedDate} at ${time}`;
-	}
+	let { events }: Props = $props();
 </script>
 
 <section id="dates" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
@@ -58,7 +15,7 @@
 		</p>{/if}
 	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
 		{#if events.length > 0}
-			{#each events as show}
+			{#each events as show (show.id)}
 				{#if show.attachments}
 					<a
 						href={show.htmlLink}

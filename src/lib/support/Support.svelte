@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { asset } from '$app/paths';
+</script>
+
 <section id="support" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
 	<div>
 		<h2 class="mb-12 text-4xl">Support</h2>
@@ -13,7 +17,11 @@
 		</div>
 		<div class="grid grid-cols-2 gap-10 lg:grid-cols-3">
 			<div>
-				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img rounded-md opacity-90" />
+				<img
+					src={asset('/support/venmo.webp')}
+					alt="Missy Midwest"
+					class="bio-img rounded-md opacity-90"
+				/>
 				<div class="mt-2">
 					<a href="https://venmo.com/u/missymidwest" target="_blank" rel="noreferrer"
 						>@missymidwest</a
@@ -22,7 +30,7 @@
 			</div>
 			<div>
 				<img
-					src="/support/cashapp.webp"
+					src={asset('/support/cashapp.webp')}
 					alt="Missy Midwest"
 					class="bio-img rounded-md opacity-90"
 				/>

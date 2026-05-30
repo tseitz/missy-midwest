@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { reveal } from '$lib/motion/reveal';
@@ -22,7 +22,7 @@
 	>
 		<div class="lg:min-h-128">
 			<img
-				src="/bio/jordan.webp"
+				src={asset('/bio/jordan.webp')}
 				alt="Missy Midwest"
 				class="h-72 w-full object-cover sm:h-96 lg:h-full"
 			/>

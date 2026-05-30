@@ -39,7 +39,7 @@
 				{/if}
 				<img
 					class="m-auto w-full"
-					src="/press-kit/missy-midwest-press-kit.png"
+					src={asset('/press-kit/missy-midwest-press-kit.png')}
 					alt="Missy Press Kit"
 				/>
 			</a>
@@ -67,7 +67,11 @@
 						</svg>
 					</div>
 				{/if}
-				<img class="m-auto w-full" src="/press-kit/missy-presskit-bio.webp" alt="Missy Bio" />
+				<img
+					class="m-auto w-full"
+					src={asset('/press-kit/missy-presskit-bio.webp')}
+					alt="Missy Bio"
+				/>
 			</a>
 		</div>
 		<div class="bg-base-100 w-full rounded-md">
@@ -93,7 +97,11 @@
 						</svg>
 					</div>
 				{/if}
-				<img class="my-auto w-full" src="/header/missy-midwest-logo.png" alt="Missy Logo" />
+				<img
+					class="my-auto w-full"
+					src={asset('/header/missy-midwest-logo.png')}
+					alt="Missy Logo"
+				/>
 			</a>
 		</div>
 		<div class="bg-base-100 w-full rounded-md">
@@ -119,7 +127,11 @@
 						</svg>
 					</div>
 				{/if}
-				<img class="w-full rounded-md" src="/press-kit/missy-fan.webp" alt="Missy Artist Pic" />
+				<img
+					class="w-full rounded-md"
+					src={asset('/press-kit/missy-fan.webp')}
+					alt="Missy Artist Pic"
+				/>
 			</a>
 		</div>
 		<div class="bg-base-100 w-full rounded-md">
@@ -147,7 +159,7 @@
 				{/if}
 				<img
 					class="w-full rounded-md"
-					src="/press-kit/missy-profile.webp"
+					src={asset('/press-kit/missy-profile.webp')}
 					alt="Missy Artist Pic 2"
 				/>
 			</a>

@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import Button from '$lib/components/Button.svelte';
 </script>
 
 <section class="bg-glow-warm relative w-full overflow-hidden" style="min-height: 78vh;">
 	<div
-		class="absolute inset-0 bg-[url('/landing/missy-fan-crop.webp')] bg-cover bg-center opacity-40 mix-blend-luminosity"
+		class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity"
+		style="background-image: url({asset('/landing/missy-fan-crop.webp')})"
 		aria-hidden="true"
 	></div>
 	<div

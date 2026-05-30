@@ -18,7 +18,7 @@
 		</h1>
 		<p class="hero-subcopy mt-5 max-w-lg text-base text-white/95 md:text-lg">
 			Bad bitch bass for Midwest baddies. Genre-bending sets from the Lake of the Ozarks to the
-			festival main stage. Feel every drop.
+			festival main stage.
 		</p>
 		<div class="mt-7 flex flex-wrap gap-4">
 			<Button href={resolve('/music')} label="▶ Listen now" variant="fill" />

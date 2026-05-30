@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { resolve } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import {
 		eventStartDate,
 		formatWeekdayShort,
@@ -15,6 +15,9 @@
 		events: CalendarEvent[];
 	}
 	let { events }: Props = $props();
+
+	// Branded fallback shown when an event has no poster, or its Drive poster fails to load.
+	const DEFAULT_POSTER = asset('/shows/default-event.webp');
 
 	// The next one or two shows are featured poster-forward; the rest become a
 	// month-grouped agenda. The feed already arrives sorted ascending by start.
@@ -78,12 +81,24 @@
 					rel="noopener noreferrer"
 					class="group from-missy-neon-lavender to-missy-magenta hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br transition hover:shadow-lg"
 				>
-					{#if poster}
-						<div
-							class="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-							style="background-image: url({poster})"
-						></div>
-					{/if}
+					<img
+						src={poster ?? DEFAULT_POSTER}
+						alt=""
+						aria-hidden="true"
+						loading="lazy"
+						decoding="async"
+						class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+						onerror={(e) => {
+							const img = e.currentTarget as HTMLImageElement;
+							if (img.dataset.fallback) {
+								// The default poster itself failed — hide it and let the gradient show.
+								img.style.display = 'none';
+							} else {
+								img.dataset.fallback = 'true';
+								img.src = DEFAULT_POSTER;
+							}
+						}}
+					/>
 					<div
 						class="absolute top-3 left-3 rounded-lg bg-black/40 px-3 py-1.5 text-center leading-none backdrop-blur-sm"
 					>

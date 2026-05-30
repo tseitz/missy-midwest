@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
 	import { fade } from 'svelte/transition';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
 
 	let show = -1;
 
@@ -12,8 +13,8 @@
 </script>
 
 <section id="press" class="w-full max-w-screen-2xl pt-12 pb-24 lg:pt-20">
-	<h2 class="mb-12 text-4xl">Press Kit</h2>
-	<div class="xs:grid-cols-1 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+	<SectionHeading label="Press" title="Download the kit" />
+	<div class="xs:grid-cols-1 mt-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 		<div class="bg-base-100 w-full rounded-md">
 			<a
 				class="hover:shadow-missy-classic-lavender/20 relative flex h-full flex-col justify-center hover:shadow-lg"

@@ -1,45 +1,31 @@
-# create-svelte
+# Missy Midwest
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+SvelteKit + Svelte 5 (runes) site for DJ Missy Midwest. Tailwind CSS v4, deployed on Netlify.
 
-## Creating a project
+## Pages
 
-If you're seeing this, you've probably already done this step. Congrats!
+- `/` Home — hero, about, shop & shows teasers, Instagram feed
+- `/music` — featured mix + auto-updating SoundCloud profile feed
+- `/shows` — Google Calendar dates + past-event gallery
+- `/shop` — merch (Stripe — Phase 2)
+- `/contact` — booking form (Turnstile) + press kit
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+## Scripts
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+- `npm run dev` — dev server
+- `npm test` — unit/component tests (Vitest)
+- `npm run test:e2e` — Playwright smoke
+- `npm run check` — svelte-check
+- `npm run build` — production build
 
-> Note: the `@next` is temporary
+## Environment
 
-## Developing
+Copy `.env.example` to `.env` and fill in the values (Google Calendar service
+account, Cloudflare Turnstile, EmailJS). Production values live in Netlify's
+environment settings.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Integrations
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
-
-
-## Getting Icons
-
-Go to https://www.flaticon.com/ or https://www.svgrepo.com/, use missy midwest dark for color
-
-Would like to convert these to custom svg and change colors on hover in the future
+Google Calendar (shows), Cloudflare Turnstile + EmailJS (contact), SoundCloud
+(music). See `docs/superpowers/specs/` for the full redesign spec and
+`docs/superpowers/plans/` for the phased implementation plans.

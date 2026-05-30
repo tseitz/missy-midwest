@@ -1,11 +1,9 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 
-	export let error: Error & { status?: number };
-	export let status: number;
-
-	$: errorMessage = error?.message || 'Something went wrong';
-	$: is404 = status === 404 || status === undefined;
+	const errorMessage = $derived(page.error?.message || 'Something went wrong');
+	const is404 = $derived(page.status === 404);
 
 	function goHome() {
 		goto('/');

@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/sveltekit';
 import { env } from '$env/dynamic/private';
 import { parseFeed, type InstagramPost } from '$lib/home/instagram';
 
@@ -25,12 +26,14 @@ export function __clearInstagramCache(): void {
 }
 
 /**
- * Single seam for feed failures. Today it logs; later this is where Sentry /
- * email alerting plugs in so a broken or drifted feed actively notifies us.
+ * Single seam for feed failures: logs server-side and reports to Sentry (a
+ * no-op when Sentry isn't initialized, e.g. local dev / tests). A drifted or
+ * broken feed surfaces as an alert rather than silently rendering empty.
  */
 function reportFeedFailure(detail: string): void {
-	// TODO(monitoring): forward to alerting (Sentry/email) once wired.
-	console.error(`Instagram feed failure: ${detail}`);
+	const message = `Instagram feed failure: ${detail}`;
+	console.error(message);
+	Sentry.captureMessage(message, 'error');
 }
 
 /** Fetch + validate the Behold feed (cached for 30 minutes). */

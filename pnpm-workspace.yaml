@@ -1,17 +1,11 @@
-allowBuilds:
-  cwebp-bin: set this to true or false
-  esbuild: set this to true or false
-  gifsicle: set this to true or false
-  jpegtran-bin: set this to true or false
-  mozjpeg: set this to true or false
-  optipng-bin: set this to true or false
-  pngquant-bin: set this to true or false
 # pnpm is the canonical package manager for this project (see CLAUDE.md).
 # Build scripts are blocked by default in pnpm; only these are allowed to run
 # their install/postinstall steps. The imagemin binaries power the production
-# image-optimization step in vite.config.ts (vite-plugin-imagemin).
+# image-optimization step in vite.config.js (vite-plugin-imagemin); @sentry/cli
+# uploads source maps at build time.
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
+  - '@sentry/cli'
   - esbuild
   - cwebp-bin
   - gifsicle

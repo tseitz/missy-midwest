@@ -2,8 +2,12 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { beholdFeedFixture } from '$lib/home/instagram.fixture';
 
 // vi.mock is hoisted above module init, so the mutable env must be hoisted too.
-const { env } = vi.hoisted(() => ({ env: {} as Record<string, string | undefined> }));
+const { env, captureMessage } = vi.hoisted(() => ({
+	env: {} as Record<string, string | undefined>,
+	captureMessage: vi.fn()
+}));
 vi.mock('$env/dynamic/private', () => ({ env }));
+vi.mock('@sentry/sveltekit', () => ({ captureMessage }));
 
 import { getInstagramFeed, __clearInstagramCache } from './instagram';
 
@@ -17,6 +21,7 @@ describe('getInstagramFeed', () => {
 	beforeEach(() => {
 		__clearInstagramCache();
 		for (const key of Object.keys(env)) delete env[key];
+		captureMessage.mockClear();
 	});
 	afterEach(() => {
 		vi.unstubAllGlobals();
@@ -63,6 +68,8 @@ describe('getInstagramFeed', () => {
 		const result = await getInstagramFeed();
 		expect(result.posts).toEqual([]);
 		expect(result.error).toMatch(/503/);
+		// The failure is reported to Sentry, not silently swallowed.
+		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/503/), 'error');
 	});
 
 	it('fails soft with an error when the fetch throws', async () => {

@@ -20,11 +20,10 @@
 			and timeless club classics to keep the dance floor alive.
 			<br />
 			<br />
-			Her journey has been picking up speed as she releases mixes and original tracks each month. As
-			a vocalist and producer, Missy Midwest infuses her sets with original flair and takes pride in
-			crafting immersive experiences tailored to each event. Ready to ignite the festival stages this
-			fall, Missy Midwest is set to deliver performance after performance meant to induce confidence
-			& creative living.
+			Her journey has been picking up speed as she releases mixes and original tracks each month. As a
+			vocalist and producer, Missy Midwest infuses her sets with original flair and takes pride in crafting
+			immersive experiences tailored to each event. Ready to ignite the festival stages this fall, Missy
+			Midwest is set to deliver performance after performance meant to induce confidence & creative living.
 		</p>
 	</div>
 	<div class="flex justify-center">

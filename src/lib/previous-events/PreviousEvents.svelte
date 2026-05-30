@@ -1,27 +1,48 @@
 <script lang="ts">
-	// Curated past-gig photos already in /static/archive/gig-photos
-	const photos = [
-		'electric-forest',
-		'backwoods-2023',
-		'camp-taco',
-		'united-groove',
-		'her-set-her-sound',
-		'paradise',
-		'neon-taco',
-		'tuckers-shuckers'
+	import Lightbox from '$lib/components/Lightbox.svelte';
+
+	const events = [
+		{ slug: 'electric-forest', caption: 'Electric Forest' },
+		{ slug: 'backwoods-2023', caption: 'Backwoods 2023' },
+		{ slug: 'camp-taco', caption: 'Camp Taco' },
+		{ slug: 'united-groove', caption: 'United Groove' },
+		{ slug: 'her-set-her-sound', caption: 'Her Set Her Sound' },
+		{ slug: 'paradise', caption: 'Paradise' },
+		{ slug: 'neon-taco', caption: 'Neon Taco' },
+		{ slug: 'tuckers-shuckers', caption: "Tucker's Shuckers" }
 	];
+	const photos = events.map((event) => ({
+		src: `/archive/gig-photos/${event.slug}.webp`,
+		caption: event.caption
+	}));
+
+	let open = $state<number | null>(null);
 </script>
 
 <section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
 	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-		{#each photos as slug (slug)}
-			<img
-				src={`/archive/gig-photos/${slug}.webp`}
-				alt={`Missy Midwest live — ${slug.replaceAll('-', ' ')}`}
-				loading="lazy"
-				class="aspect-square w-full rounded-lg object-cover opacity-90 transition-opacity hover:opacity-100"
-			/>
+		{#each photos as photo, i (photo.src)}
+			<button
+				type="button"
+				aria-label={`View ${photo.caption}`}
+				onclick={() => (open = i)}
+				class="group block overflow-hidden rounded-lg"
+			>
+				<img
+					src={photo.src}
+					alt={`Missy Midwest live — ${photo.caption}`}
+					loading="lazy"
+					class="aspect-square w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
+				/>
+			</button>
 		{/each}
 	</div>
 </section>
+
+<Lightbox
+	{photos}
+	index={open}
+	onClose={() => (open = null)}
+	onNavigate={(next) => (open = next)}
+/>

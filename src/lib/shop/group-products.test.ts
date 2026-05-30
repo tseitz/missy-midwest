@@ -117,6 +117,50 @@ describe('groupProducts', () => {
 		expect(group.variants[0].stock).toBe(0);
 	});
 
+	it('groups size variants and keeps sold-out sizes', () => {
+		const [group] = groupProducts([
+			product({
+				id: 's',
+				metadata: {
+					group: 'tee',
+					groupName: 'Tour Tee',
+					variant: 'S',
+					variantType: 'size',
+					stock: '5',
+					sort: '1'
+				}
+			}),
+			product({
+				id: 'm',
+				metadata: {
+					group: 'tee',
+					groupName: 'Tour Tee',
+					variant: 'M',
+					variantType: 'size',
+					stock: '0',
+					sort: '2'
+				}
+			}),
+			product({
+				id: 'l',
+				metadata: {
+					group: 'tee',
+					groupName: 'Tour Tee',
+					variant: 'L',
+					variantType: 'size',
+					stock: '9',
+					sort: '3'
+				}
+			})
+		]);
+		expect(group.variantType).toBe('size');
+		expect(group.variants.map((v) => [v.label, v.stock])).toEqual([
+			['S', 5],
+			['M', 0],
+			['L', 9]
+		]);
+	});
+
 	it('sorts groups alphabetically by name', () => {
 		const groups = groupProducts([
 			product({

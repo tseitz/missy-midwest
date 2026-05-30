@@ -30,6 +30,11 @@ export async function listGroups(): Promise<CatalogResult> {
 			limit: 100,
 			expand: ['data.default_price']
 		});
+		if (res.has_more) {
+			// No silent cap: surface that the catalog exceeds one page so variants
+			// don't quietly vanish. Add pagination if the lineup grows past 100.
+			console.warn('Stripe returned more than 100 active products; some variants are not shown.');
+		}
 		return { groups: groupProducts(res.data.map(toInput)) };
 	} catch (error) {
 		console.error('Stripe catalog error:', error);

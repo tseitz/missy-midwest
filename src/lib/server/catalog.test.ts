@@ -58,6 +58,17 @@ describe('listGroups', () => {
 		expect(error).toBe('stripe down');
 	});
 
+	it('warns when Stripe reports more products than one page', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		listMock.mockResolvedValue({
+			has_more: true,
+			data: [stripeProduct({ id: 'p1', group: 'g', variant: 'A', stock: '1' })]
+		});
+		await listGroups();
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining('more than 100'));
+		warn.mockRestore();
+	});
+
 	it('handles an unexpanded (string) default_price by skipping the variant', async () => {
 		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
 		listMock.mockResolvedValue({

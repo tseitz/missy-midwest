@@ -22,3 +22,25 @@ test('contact page renders the booking form', async ({ page }) => {
 	await expect(page.getByLabel('Name')).toBeVisible();
 	await expect(page.getByRole('button', { name: /submit/i })).toBeVisible();
 });
+
+test('sitemap.xml is served and lists routes', async ({ request }) => {
+	const res = await request.get('/sitemap.xml');
+	expect(res.status()).toBe(200);
+	const body = await res.text();
+	expect(body).toContain('<urlset');
+	expect(body).toContain('/shop');
+});
+
+test('robots.txt points at the sitemap', async ({ request }) => {
+	const res = await request.get('/robots.txt');
+	expect(res.status()).toBe(200);
+	expect(await res.text()).toContain('Sitemap:');
+});
+
+test('previous-events lightbox opens and closes', async ({ page }) => {
+	await page.goto('/shows');
+	await page.getByRole('button', { name: /view electric forest/i }).click();
+	await expect(page.getByRole('dialog')).toBeVisible();
+	await page.keyboard.press('Escape');
+	await expect(page.getByRole('dialog')).toHaveCount(0);
+});

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { Turnstile } from 'svelte-turnstile';
 	import { enhance } from '$app/forms';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	const turnstileSiteKey = import.meta.env['VITE_TURNSTILE_SITE_KEY'] as string;
 
@@ -68,148 +70,147 @@
 	}
 </script>
 
-<section
-	id="contact"
-	class="grid w-full max-w-screen-2xl grid-cols-1 gap-8 pt-12 pb-16 md:grid-cols-2 md:gap-16 lg:pt-20"
->
-	<div>
-		<h2 class="mb-8 text-4xl md:mb-12">Contact</h2>
-		<p>
-			For festival bookings, residencies, workshop offerings or any other inquires please fill out
-			this form.
-			<br />
-			<br />
-			You can also visit the linktree below for all her latest music, ticket information and more.
-			<br />
-			<br />
-			<a href="https://linktr.ee/missymidwest" target="_blank">https://linktr.ee/missymidwest</a>
-		</p>
-	</div>
-	<div class="bg-missy-classic-lavender rounded-md p-8">
-		<form
-			method="POST"
-			action="?/contact"
-			use:enhance={() => {
-				submitAttempted = true;
-
-				if (!validateForm()) {
-					return ({ update }) => update({ reset: false });
-				}
-
-				isSubmitting = true;
-
-				return async ({ result, update }) => {
-					if (result.type === 'success' || result.type === 'failure') {
-						form = result.data as ContactResult;
-					} else {
-						form = { success: false, message: 'Something went wrong. Please try again.' };
-					}
-
-					isSubmitting = false;
-					resetTurnstile();
-
-					if (form?.success) {
-						formData = { name: '', email: '', phone: '', message: '' };
-						submitAttempted = false;
-					}
-
-					await update({ reset: false });
-				};
-			}}
+<section id="contact" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
+	<SectionHeading label="Booking" title="Get in touch" />
+	<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+		<div>
+			<p class="leading-relaxed opacity-85">
+				For festival bookings, residencies, workshop offerings or any other inquires please fill out
+				this form.
+				<br />
+				<br />
+				You can also visit the linktree below for all her latest music, ticket information and more.
+				<br />
+				<br />
+				<a href="https://linktr.ee/missymidwest" target="_blank" class="text-missy-blush"
+					>https://linktr.ee/missymidwest</a
+				>
+			</p>
+		</div>
+		<div
+			class="rounded-xl border border-missy-classic-lavender/15 bg-missy-deep-purple/55 p-8 backdrop-blur-sm"
 		>
-			<label class="mb-2 text-xl" for="name">Name</label>
-			<input
-				id="name"
-				name="name"
-				type="text"
-				class="text-missy-deep-purple bg-slate-50"
-				bind:value={formData.name}
-				required
-			/>
-			{#if submitAttempted && errors.name}
-				<small class="text-missy-magenta">{errors.name}</small>
-			{/if}
+			<form
+				method="POST"
+				action="?/contact"
+				use:enhance={() => {
+					submitAttempted = true;
 
-			<label class="mt-4 mb-2 text-xl" for="email">Email</label>
-			<input
-				id="email"
-				name="email"
-				type="email"
-				class="text-missy-deep-purple bg-slate-50"
-				bind:value={formData.email}
-				required
-			/>
-			{#if submitAttempted && errors.email}
-				<small class="text-missy-magenta">{errors.email}</small>
-			{/if}
+					if (!validateForm()) {
+						return ({ update }) => update({ reset: false });
+					}
 
-			<label class="mt-4 mb-2 text-xl" for="phone">Phone (Optional)</label>
-			<input
-				id="phone"
-				name="phone"
-				type="text"
-				class="text-missy-deep-purple bg-slate-50"
-				bind:value={formData.phone}
-			/>
-			{#if submitAttempted && errors.phone}
-				<small class="text-missy-magenta">{errors.phone}</small>
-			{/if}
+					isSubmitting = true;
 
-			<label class="mt-4 mb-2 text-xl" for="message">Message</label>
-			<textarea
-				id="message"
-				name="message"
-				rows="7"
-				class="text-missy-deep-purple bg-slate-50"
-				bind:value={formData.message}
-				required
-			></textarea>
-			{#if submitAttempted && errors.message}
-				<small class="text-missy-magenta">{errors.message}</small>
-			{/if}
+					return async ({ result, update }) => {
+						if (result.type === 'success' || result.type === 'failure') {
+							form = result.data as ContactResult;
+						} else {
+							form = { success: false, message: 'Something went wrong. Please try again.' };
+						}
 
-			<div class="mt-4">
-				{#key turnstileKey}
-					<Turnstile siteKey={turnstileSiteKey} theme="auto" />
-				{/key}
-			</div>
+						isSubmitting = false;
+						resetTurnstile();
 
-			{#if form}
-				<p
-					role="status"
-					aria-live="polite"
-					class="mt-4 rounded-md px-4 py-3 text-sm font-medium {form.success
-						? 'bg-missy-deep-purple/80 text-slate-50'
-						: 'bg-missy-magenta/90 text-slate-50'}"
+						if (form?.success) {
+							formData = { name: '', email: '', phone: '', message: '' };
+							submitAttempted = false;
+						}
+
+						await update({ reset: false });
+					};
+				}}
+			>
+				<label class="mb-2 block text-sm font-medium text-missy-classic-lavender" for="name"
+					>Name</label
 				>
-					{form.message}
-				</p>
-			{/if}
+				<input
+					id="name"
+					name="name"
+					type="text"
+					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					bind:value={formData.name}
+					required
+				/>
+				{#if submitAttempted && errors.name}
+					<small class="text-missy-magenta">{errors.name}</small>
+				{/if}
 
-			<div class="mt-4 flex justify-end">
-				<button
-					class="bg-missy-deep-purple/80 shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-missy-classic-lavender/30 focus:ring-missy-classic-lavender/50 rounded-lg px-6 py-3 font-semibold text-slate-50 shadow-lg backdrop-blur-lg transition-all duration-300 ease-out hover:cursor-pointer hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-					type="submit"
-					disabled={isSubmitting}
+				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="email"
+					>Email</label
 				>
-					{isSubmitting ? 'Sending...' : 'Submit'}
-				</button>
-			</div>
-		</form>
+				<input
+					id="email"
+					name="email"
+					type="email"
+					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					bind:value={formData.email}
+					required
+				/>
+				{#if submitAttempted && errors.email}
+					<small class="text-missy-magenta">{errors.email}</small>
+				{/if}
+
+				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="phone"
+					>Phone (Optional)</label
+				>
+				<input
+					id="phone"
+					name="phone"
+					type="text"
+					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					bind:value={formData.phone}
+				/>
+				{#if submitAttempted && errors.phone}
+					<small class="text-missy-magenta">{errors.phone}</small>
+				{/if}
+
+				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="message"
+					>Message</label
+				>
+				<textarea
+					id="message"
+					name="message"
+					rows="7"
+					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					bind:value={formData.message}
+					required
+				></textarea>
+				{#if submitAttempted && errors.message}
+					<small class="text-missy-magenta">{errors.message}</small>
+				{/if}
+
+				<div class="mt-4">
+					{#key turnstileKey}
+						<Turnstile siteKey={turnstileSiteKey} theme="auto" />
+					{/key}
+				</div>
+
+				{#if form}
+					<p
+						role="status"
+						aria-live="polite"
+						class="mt-6 rounded-md px-4 py-3 text-sm font-medium {form.success
+							? 'bg-missy-deep-purple/80 text-slate-50'
+							: 'bg-missy-magenta/90 text-slate-50'}"
+					>
+						{form.message}
+					</p>
+				{/if}
+
+				<div class="mt-6 flex justify-end">
+					<Button
+						type="submit"
+						disabled={isSubmitting}
+						label={isSubmitting ? 'Sending…' : 'Send message'}
+					/>
+				</div>
+			</form>
+		</div>
 	</div>
 </section>
 
 <style>
-	input,
-	textarea {
-		padding: 12px;
-		width: 100%;
-	}
-
-	label {
-		display: block;
-	}
-
 	small {
 		display: block;
 		font-size: 14px;

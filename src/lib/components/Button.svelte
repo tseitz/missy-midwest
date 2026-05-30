@@ -36,26 +36,39 @@
 		font-weight: 700;
 		font-size: 0.85rem;
 		padding: 0.7rem 1.4rem;
+		border: 1px solid transparent;
 		border-radius: 999px;
 		text-decoration: none;
 		cursor: pointer;
 		transition:
 			transform 0.15s ease-out,
-			box-shadow 0.15s ease-out;
+			box-shadow 0.15s ease-out,
+			background-color 0.15s ease-out,
+			border-color 0.15s ease-out,
+			color 0.15s ease-out;
 	}
 	.btn:hover {
 		transform: translateY(-1px);
-		border-bottom: none;
 	}
 	.btn-fill {
 		background: linear-gradient(90deg, var(--color-missy-blush), var(--color-lake-sunrise));
 		color: #3a1233;
 		box-shadow: 0 6px 22px rgba(248, 151, 29, 0.4);
 	}
+	.btn-fill:hover {
+		border-color: transparent;
+		box-shadow: 0 8px 28px rgba(248, 151, 29, 0.55);
+	}
 	.btn-outline {
 		background: transparent;
-		border: 1px solid var(--color-missy-classic-lavender);
+		border-color: var(--color-missy-classic-lavender);
 		color: var(--color-missy-classic-lavender);
+	}
+	.btn-outline:hover {
+		border-color: var(--color-missy-blush);
+		color: var(--color-missy-blush);
+		background: color-mix(in srgb, var(--color-missy-classic-lavender) 14%, transparent);
+		box-shadow: 0 4px 18px rgba(199, 168, 234, 0.2);
 	}
 	.btn:disabled {
 		opacity: 0.5;

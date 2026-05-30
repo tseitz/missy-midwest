@@ -36,7 +36,7 @@
 {#snippet body()}
 	{#if title}
 		{#if action}
-			<div class="flex items-end justify-between">
+			<div class="flex items-center justify-between">
 				<SectionHeading {label} {title} />
 				{@render action()}
 			</div>

@@ -25,15 +25,19 @@
 					href={show.htmlLink}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="border-missy-classic-lavender/15 bg-missy-deep-purple/40 hover:shadow-missy-classic-lavender/20 block rounded-xl border p-5 hover:shadow-lg"
+					class="group border-missy-classic-lavender/20 bg-missy-plum/20 hover:border-missy-classic-lavender/40 hover:bg-missy-plum/30 hover:shadow-missy-magenta/10 flex flex-col rounded-xl border p-5 transition hover:shadow-lg"
 				>
-					<p class="text-sm text-violet-200">
+					<p class="text-lake-sunrise text-sm font-medium">
 						{#if show.start.dateTime}{formatDateTime(show.start.dateTime)}{:else}{formatDate(
 								show.start?.date || ''
 							)}{/if}
 					</p>
 					<p class="missy-header mt-2 text-xl">{show.summary}</p>
 					<p class="mt-1 text-xs opacity-65">{show.location}</p>
+					<span
+						class="text-missy-classic-lavender/70 group-hover:text-missy-classic-lavender mt-4 text-xs transition"
+						>Details ↗</span
+					>
 				</a>
 			{/each}
 			<!-- eslint-enable svelte/no-navigation-without-resolve -->

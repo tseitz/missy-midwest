@@ -324,12 +324,10 @@ describe('CartDrawer', () => {
 
 	it('POSTs cart lines to the checkout endpoint and redirects', async () => {
 		seed();
-		const fetchMock = vi
-			.fn()
-			.mockResolvedValue({
-				ok: true,
-				json: async () => ({ url: 'https://checkout.stripe.com/x' })
-			});
+		const fetchMock = vi.fn().mockResolvedValue({
+			ok: true,
+			json: async () => ({ url: 'https://checkout.stripe.com/x' })
+		});
 		vi.stubGlobal('fetch', fetchMock);
 		const location = { href: '' };
 		vi.stubGlobal('location', location as Location);

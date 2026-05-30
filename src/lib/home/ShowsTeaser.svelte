@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import Section from '$lib/components/Section.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { formatDate, formatDateTime } from '$lib/utils/date';
 	import type { CalendarEvent } from '$lib/types/index';
-	import { reveal } from '$lib/motion/reveal';
 
 	interface Props {
 		events: CalendarEvent[];
@@ -12,11 +11,10 @@
 	let { events }: Props = $props();
 </script>
 
-<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14" use:reveal>
-	<div class="flex items-end justify-between">
-		<SectionHeading label="Live" title="Upcoming shows" />
+<Section label="Live" title="Upcoming shows">
+	{#snippet action()}
 		<Button href={resolve('/shows')} label="All dates →" variant="outline" />
-	</div>
+	{/snippet}
 
 	{#if events.length > 0}
 		<div class="mt-2 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -45,4 +43,4 @@
 			No scheduled shows right now — <a href={resolve('/contact')}>book Missy</a>.
 		</p>
 	{/if}
-</section>
+</Section>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import Section from '$lib/components/Section.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import ProductCard from '$lib/shop/ProductCard.svelte';
 	import { resolve } from '$app/paths';
@@ -14,9 +14,7 @@
 	description="Official Missy Midwest merch — hats, tees, and more."
 />
 
-<section class="w-full max-w-screen-2xl px-8 py-20 md:px-14">
-	<SectionHeading label="Shop" title="Rep the brand" />
-
+<Section label="Shop" title="Rep the brand" reveal={false}>
 	{#if data.loadError}
 		<p class="opacity-85">The shop is temporarily unavailable. Please check back soon.</p>
 		<div class="mt-6">
@@ -35,4 +33,4 @@
 			{/each}
 		</div>
 	{/if}
-</section>
+</Section>

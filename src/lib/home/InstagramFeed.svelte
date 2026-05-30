@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { reveal } from '$lib/motion/reveal';
-	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import Section from '$lib/components/Section.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import type { InstagramPost } from '$lib/home/instagram';
 
@@ -12,11 +11,10 @@
 	const placeholders = Array.from({ length: 6 }, (_, i) => i);
 </script>
 
-<section use:reveal class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
-	<div class="flex items-end justify-between">
-		<SectionHeading label="@missy.midwest" title="From the feed" />
+<Section label="@missy.midwest" title="From the feed">
+	{#snippet action()}
 		<Button href="https://www.instagram.com/missy.midwest/" label="Follow →" variant="outline" />
-	</div>
+	{/snippet}
 	{#if posts.length > 0}
 		<!-- external Instagram permalinks; resolve() is for internal routes only -->
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -54,4 +52,4 @@
 			{/each}
 		</div>
 	{/if}
-</section>
+</Section>

@@ -26,3 +26,5 @@ credentials.json
 /raw-images
 # Playwright MCP scratch output
 /.playwright-mcp/
+# Local-only photo candidates / shareable originals (not for the build)
+/bio-candidates

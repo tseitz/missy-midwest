@@ -18,7 +18,7 @@
 	{#if posts.length > 0}
 		<!-- external Instagram permalinks; resolve() is for internal routes only -->
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
-		<div class="mt-2 grid grid-cols-3 gap-2.5 md:grid-cols-6">
+		<div class="mt-2 grid grid-cols-2 gap-3 md:grid-cols-3">
 			{#each posts as post (post.id)}
 				<a
 					href={post.permalink}
@@ -43,7 +43,7 @@
 		</div>
 		<!-- eslint-enable svelte/no-navigation-without-resolve -->
 	{:else}
-		<div class="mt-2 grid grid-cols-3 gap-2.5 md:grid-cols-6">
+		<div class="mt-2 grid grid-cols-2 gap-3 md:grid-cols-3">
 			{#each placeholders as i (i)}
 				<div
 					data-testid="ig-placeholder"

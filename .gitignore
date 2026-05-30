@@ -21,3 +21,6 @@ credentials.json
 /playwright-report
 /.playwright
 /coverage
+
+# raw image drop zone — run `pnpm images` to convert these into static/*.webp
+/raw-images

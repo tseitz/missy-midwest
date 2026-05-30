@@ -13,6 +13,11 @@ export interface GigDate {
 	featured?: boolean;
 }
 
+export interface UpcomingEventsResult {
+	events: CalendarEvent[];
+	error?: string;
+}
+
 export interface CalendarEvent {
 	attachments?: Attachment[];
 	kind: string;

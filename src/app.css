@@ -152,3 +152,58 @@ a:hover {
 	font-weight: 700;
 	color: var(--color-lake-sunrise);
 }
+
+/* ---- Surface system ----
+   One family of panels unified by a lavender hairline + warm-pink accent.
+   Compose: `panel-glass` (surface) + optionally `glow-hover` (tappable) or
+   `glow-feature` (the single hero panel). Tiles that keep their own radius
+   (e.g. Instagram) can take `glow-hover` on its own. */
+
+/* Base panel: subtly lifted translucent surface, lavender hairline, soft resting shadow. */
+@utility panel-glass {
+	border-radius: 1rem; /* = rounded-2xl, the one panel radius */
+	border: 1px solid color-mix(in srgb, var(--color-missy-classic-lavender) 18%, transparent);
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-missy-plum) 28%, transparent) 0%,
+		color-mix(in srgb, var(--color-missy-deep-purple) 50%, transparent) 100%
+	);
+	box-shadow:
+		0 18px 44px -30px rgba(0, 0, 0, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Tappable panels/tiles: rest calm, bloom warm-pink on hover/focus. */
+@utility glow-hover {
+	transition:
+		border-color 0.25s ease,
+		box-shadow 0.25s ease,
+		transform 0.25s ease;
+	&:hover,
+	&:focus-visible {
+		border-color: color-mix(in srgb, var(--color-missy-blush) 55%, transparent);
+		box-shadow:
+			0 0 24px -6px color-mix(in srgb, var(--color-missy-blush) 45%, transparent),
+			0 0 64px -18px color-mix(in srgb, var(--color-missy-magenta) 38%, transparent),
+			0 18px 40px -24px rgba(0, 0, 0, 0.6);
+		transform: translateY(-2px);
+	}
+}
+
+/* The single hero panel (Bio): a gentle always-on warm-pink glow — same language, turned up. */
+@utility glow-feature {
+	box-shadow:
+		0 0 26px -10px color-mix(in srgb, var(--color-missy-blush) 38%, transparent),
+		0 0 80px -22px color-mix(in srgb, var(--color-missy-magenta) 30%, transparent),
+		0 20px 50px -28px rgba(0, 0, 0, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.glow-hover {
+		transition: none;
+	}
+	.glow-hover:hover,
+	.glow-hover:focus-visible {
+		transform: none;
+	}
+}

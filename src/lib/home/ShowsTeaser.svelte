@@ -25,7 +25,7 @@
 					href={show.htmlLink}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="group border-missy-classic-lavender/20 bg-missy-plum/20 hover:border-missy-classic-lavender/40 hover:bg-missy-plum/30 hover:shadow-missy-magenta/10 flex flex-col rounded-xl border p-5 transition hover:shadow-lg"
+					class="group panel-glass glow-hover flex flex-col p-5"
 				>
 					<p class="text-lake-sunrise text-sm font-medium">
 						{#if show.start.dateTime}{formatDateTime(show.start.dateTime)}{:else}{formatDate(

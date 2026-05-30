@@ -14,7 +14,7 @@
 
 <a
 	href={resolve('/shop/[group]', { group: group.slug })}
-	class="border-missy-classic-lavender/12 group block overflow-hidden rounded-2xl border bg-[#1d1830]"
+	class="group panel-glass glow-hover block overflow-hidden"
 >
 	<div class="bg-missy-deep-purple/40 relative aspect-square">
 		{#if group.image}

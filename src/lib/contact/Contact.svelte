@@ -87,9 +87,7 @@
 				>
 			</p>
 		</div>
-		<div
-			class="rounded-xl border border-missy-classic-lavender/15 bg-missy-deep-purple/55 p-8 backdrop-blur-sm"
-		>
+		<div class="panel-glass p-8">
 			<form
 				method="POST"
 				action="?/contact"

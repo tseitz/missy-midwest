@@ -18,11 +18,11 @@
 
 <section id="bio" class="w-full max-w-screen-2xl px-8 py-16 md:px-14" use:reveal>
 	<div
-		class="grid grid-cols-1 items-stretch gap-8 overflow-hidden rounded-2xl lg:grid-cols-2 lg:gap-0"
+		class="panel-glass glow-feature grid grid-cols-1 items-stretch gap-8 overflow-hidden lg:grid-cols-2 lg:gap-0"
 	>
 		<div class="lg:min-h-128">
 			<img
-				src={asset('/bio/jordan.webp')}
+				src={asset('/bio/missy-stairs.webp')}
 				alt="Missy Midwest"
 				class="h-72 w-full object-cover sm:h-96 lg:h-full"
 			/>

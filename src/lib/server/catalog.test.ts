@@ -30,7 +30,9 @@ function stripeProduct(over: {
 	};
 }
 
-beforeEach(() => listMock.mockReset());
+beforeEach(() => {
+	listMock.mockReset();
+});
 
 describe('listGroups', () => {
 	it('maps and groups active Stripe products', async () => {

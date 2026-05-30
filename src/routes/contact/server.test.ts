@@ -70,4 +70,26 @@ describe('contact action', () => {
 		const res = await actions.contact(form(valid));
 		expect(res).toMatchObject({ status: 502 });
 	});
+
+	it('strips newlines from single-line fields to prevent email header injection', async () => {
+		await actions.contact(
+			form({
+				...valid,
+				name: 'Ada\r\nBcc: evil@example.com',
+				email: 'ada@example.com\r\n',
+				phone: '555-1212\nX'
+			})
+		);
+		const sent = sendContactMock.mock.calls[0][0];
+		expect(sent.name).not.toMatch(/[\r\n]/);
+		expect(sent.email).not.toMatch(/[\r\n]/);
+		expect(sent.phone).not.toMatch(/[\r\n]/);
+		expect(sent.email).toBe('ada@example.com');
+	});
+
+	it('rejects an over-long name with 400', async () => {
+		const res = await actions.contact(form({ ...valid, name: 'A'.repeat(201) }));
+		expect(res).toMatchObject({ status: 400 });
+		expect(sendContactMock).not.toHaveBeenCalled();
+	});
 });

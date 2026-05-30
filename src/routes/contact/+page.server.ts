@@ -5,13 +5,19 @@ import type { Actions } from './$types';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_MESSAGE = 10000;
+const MAX_NAME = 200;
+
+/** Collapse newlines to a space so single-line fields can't inject email headers (Subject/Reply-To). */
+function singleLine(value: string): string {
+	return value.replace(/[\r\n]+/g, ' ').trim();
+}
 
 export const actions: Actions = {
 	contact: async ({ request }) => {
 		const formData = await request.formData();
-		const name = (formData.get('name')?.toString() ?? '').trim();
-		const email = (formData.get('email')?.toString() ?? '').trim();
-		const phone = (formData.get('phone')?.toString() ?? '').trim();
+		const name = singleLine(formData.get('name')?.toString() ?? '');
+		const email = singleLine(formData.get('email')?.toString() ?? '');
+		const phone = singleLine(formData.get('phone')?.toString() ?? '');
 		const message = (formData.get('message')?.toString() ?? '').trim();
 		const turnstileToken = formData.get('cf-turnstile-response')?.toString() ?? '';
 
@@ -20,6 +26,9 @@ export const actions: Actions = {
 				success: false,
 				message: 'Please fill in your name, email, and message.'
 			});
+		}
+		if (name.length > MAX_NAME) {
+			return fail(400, { success: false, message: 'Please use a shorter name.' });
 		}
 		if (!EMAIL_RE.test(email)) {
 			return fail(400, { success: false, message: 'Please enter a valid email address.' });

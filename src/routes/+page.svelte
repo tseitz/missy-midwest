@@ -29,5 +29,5 @@
 	<Bio />
 	<ShopTeaser groups={data.shopGroups} />
 	<ShowsTeaser events={data.nextShows} />
-	<InstagramFeed />
+	<InstagramFeed posts={data.instagramPosts} />
 </div>

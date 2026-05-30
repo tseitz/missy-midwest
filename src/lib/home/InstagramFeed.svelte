@@ -1,22 +1,15 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { env } from '$env/dynamic/public';
 	import { reveal } from '$lib/motion/reveal';
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import type { InstagramPost } from '$lib/home/instagram';
 
-	const feedId = env.PUBLIC_BEHOLD_FEED_ID;
-	const tiles = Array.from({ length: 6 }, (_, i) => i);
+	interface Props {
+		posts: InstagramPost[];
+	}
+	let { posts }: Props = $props();
 
-	onMount(() => {
-		if (!feedId) return;
-		const src = 'https://w.behold.so/widget.js';
-		if (document.querySelector(`script[src="${src}"]`)) return;
-		const script = document.createElement('script');
-		script.type = 'module';
-		script.src = src;
-		document.head.appendChild(script);
-	});
+	const placeholders = Array.from({ length: 6 }, (_, i) => i);
 </script>
 
 <section use:reveal class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
@@ -24,14 +17,38 @@
 		<SectionHeading label="@missy.midwest" title="From the feed" />
 		<Button href="https://www.instagram.com/missy.midwest/" label="Follow →" variant="outline" />
 	</div>
-	{#if feedId}
-		<div class="mt-2">
-			<behold-widget feed-id={feedId}></behold-widget>
+	{#if posts.length > 0}
+		<!-- external Instagram permalinks; resolve() is for internal routes only -->
+		<!-- eslint-disable svelte/no-navigation-without-resolve -->
+		<div class="mt-2 grid grid-cols-3 gap-2.5 md:grid-cols-6">
+			{#each posts as post (post.id)}
+				<a
+					href={post.permalink}
+					target="_blank"
+					rel="noopener noreferrer"
+					data-testid="ig-post"
+					aria-label={post.caption ? `View Instagram post: ${post.caption}` : 'View Instagram post'}
+					class="group relative aspect-square overflow-hidden rounded-lg"
+				>
+					<img
+						src={post.imageUrl}
+						alt={post.caption || 'Instagram post'}
+						loading="lazy"
+						decoding="async"
+						class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+					/>
+					{#if post.isVideo}
+						<span class="absolute top-2 right-2 text-white drop-shadow" aria-hidden="true">▶</span>
+					{/if}
+				</a>
+			{/each}
 		</div>
+		<!-- eslint-enable svelte/no-navigation-without-resolve -->
 	{:else}
 		<div class="mt-2 grid grid-cols-3 gap-2.5 md:grid-cols-6">
-			{#each tiles as i (i)}
+			{#each placeholders as i (i)}
 				<div
+					data-testid="ig-placeholder"
 					class="from-missy-neon-lavender to-missy-magenta aspect-square rounded-lg bg-gradient-to-br opacity-80"
 				></div>
 			{/each}

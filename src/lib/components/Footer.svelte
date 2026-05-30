@@ -1,0 +1,55 @@
+<script lang="ts">
+	import Button from './Button.svelte';
+	import SocialLinks from './SocialLinks.svelte';
+
+	const year = 2026;
+	const explore = [
+		{ href: '/music', label: 'Music' },
+		{ href: '/shows', label: 'Shows' },
+		{ href: '/shop', label: 'Shop' },
+		{ href: '/contact', label: 'Contact' }
+	];
+</script>
+
+<footer class="w-full bg-[#100c1a] border-t border-missy-classic-lavender/15">
+	<div class="max-w-screen-2xl w-full mx-auto px-8 md:px-14 py-12 grid gap-10 md:grid-cols-3">
+		<div>
+			<div class="missy-header text-2xl text-white">Missy Midwest</div>
+			<p class="mt-3 max-w-xs text-sm opacity-80">
+				Booking, residencies &amp; workshops — let's make something loud.
+			</p>
+			<div class="mt-4">
+				<Button href="/contact" label="Book Missy →" variant="fill" />
+			</div>
+		</div>
+
+		<div>
+			<h4 class="label-eyebrow mb-3">Explore</h4>
+			<ul class="space-y-2 text-sm">
+				{#each explore as link (link.href)}
+					<li><a href={link.href}>{link.label}</a></li>
+				{/each}
+			</ul>
+		</div>
+
+		<div>
+			<h4 class="label-eyebrow mb-3">Support &amp; Follow</h4>
+			<ul class="space-y-2 text-sm">
+				<li>
+					<a href="https://venmo.com/u/missymidwest" target="_blank" rel="noreferrer"
+						>Venmo @missymidwest</a
+					>
+				</li>
+				<li>
+					<a href="https://cash.app/$missymidwest" target="_blank" rel="noreferrer"
+						>Cash App $missymidwest</a
+					>
+				</li>
+			</ul>
+			<div class="mt-4"><SocialLinks size={22} /></div>
+		</div>
+	</div>
+	<div class="text-center text-xs opacity-50 py-4 bg-[#0c0913]">
+		© {year} Missy Midwest · Jordan Brooke Music LLC
+	</div>
+</footer>

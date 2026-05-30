@@ -4,100 +4,112 @@
 
 /* Load Cochin font from static folder */
 @font-face {
-  font-family: 'Cochin';
-  src: url('/fonts/Cochin.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Cochin';
+	src: url('/fonts/Cochin.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* Load Obviously font from static folder */
 @font-face {
-  font-family: 'Obviously';
-  src: url('/fonts/obviously.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Obviously';
+	src: url('/fonts/obviously.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 /* Load Algiers font from static folder */
 @font-face {
-  font-family: 'Algiers';
-  src: url('/fonts/Algiers.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Algiers';
+	src: url('/fonts/Algiers.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
-  --font-cochin: 'Cochin', serif;
-  --font-obviously: 'Obviously', sans-serif;
-  --font-algiers: 'Algiers', serif;
-  --font-mono: 'Fira Mono', monospace;
-  --color-lake-sunrise: #F8971D;
-  --color-lake-summer-blue: #435DEF;
-  --color-lake-cotton-candy: #FF93C1;
-  --color-lake-sunset: #FF580C;
-  --color-lake-neon-lavender: #7B5CFA;
-  --color-lake-classic-lavender: #C8B3F6;
-  --color-missy-blush: #F3A8D6;
-  --color-missy-neon-lavender: #7B5CFA;
-  --color-missy-deep-purple: #2D1C7F;
-  --color-missy-magenta: #B72365;
-  --color-missy-plum: #70235B;
-  --color-missy-classic-lavender: #C8B3F6;
+	--font-cochin: 'Cochin', serif;
+	--font-obviously: 'Obviously', sans-serif;
+	--font-algiers: 'Algiers', serif;
+	--font-mono: 'Fira Mono', monospace;
+	--color-lake-sunrise: #f8971d;
+	--color-lake-summer-blue: #435def;
+	--color-lake-cotton-candy: #ff93c1;
+	--color-lake-sunset: #ff580c;
+	--color-lake-neon-lavender: #7b5cfa;
+	--color-lake-classic-lavender: #c8b3f6;
+	--color-missy-blush: #f3a8d6;
+	--color-missy-neon-lavender: #7b5cfa;
+	--color-missy-deep-purple: #2d1c7f;
+	--color-missy-magenta: #b72365;
+	--color-missy-plum: #70235b;
+	--color-missy-classic-lavender: #c8b3f6;
 }
 
-h1, h2, h3, h4, h5, h6, .missy-header {
-  font-family: var(--font-cochin);
-  font-weight: 600;
-  color: var(--color-missy-classic-lavender);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.missy-header {
+	font-family: var(--font-cochin);
+	font-weight: 600;
+	color: var(--color-missy-classic-lavender);
 }
 
-p, label {
-  font-family: var(--font-obviously);
+p,
+label {
+	font-family: var(--font-obviously);
 }
 
 html {
 	scroll-behavior: smooth;
 	font-family: var(--font-obviously);
-  color: var(--color-slate-50);
+	color: var(--color-slate-50);
 }
 
 a {
-  color: var(--color-missy-classic-lavender);
+	color: var(--color-missy-classic-lavender);
 }
 a:hover {
-  border-bottom: 1px solid var(--color-missy-classic-lavender);
+	border-bottom: 1px solid var(--color-missy-classic-lavender);
 }
 
 @media (max-width: 768px) {
-  .grecaptcha-badge {
-    /* visibility: hidden; */
-    bottom: 4.5rem !important;
-  }
+	.grecaptcha-badge {
+		/* visibility: hidden; */
+		bottom: 4.5rem !important;
+	}
 }
 
 /* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
 .text-glow {
-  text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
+	text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
 }
 .bg-glow-warm {
-  background:
-    radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
-    linear-gradient(180deg, var(--color-missy-deep-purple) 0%, var(--color-missy-plum) 52%, var(--color-lake-sunset) 124%);
+	background:
+		radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
+		linear-gradient(
+			180deg,
+			var(--color-missy-deep-purple) 0%,
+			var(--color-missy-plum) 52%,
+			var(--color-lake-sunset) 124%
+		);
 }
 .text-gradient-sun {
-  background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+	background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 .label-eyebrow {
-  font-family: var(--font-obviously);
-  font-size: 0.7rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--color-lake-sunrise);
+	font-family: var(--font-obviously);
+	font-size: 0.7rem;
+	letter-spacing: 0.26em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--color-lake-sunrise);
 }

@@ -15,6 +15,7 @@
 ## File structure (created/modified in this phase)
 
 **Tooling**
+
 - `vite.config.js` (modify) — add Vitest `test` config + browser resolve condition.
 - `vitest.setup.ts` (create) — jest-dom matchers.
 - `playwright.config.ts` (create) — E2E config.
@@ -22,6 +23,7 @@
 - `e2e/smoke.spec.ts` (create) — navigation smoke test.
 
 **Design system**
+
 - `src/app.css` (modify) — gradient/glow utilities, button base, accent usage.
 - `src/lib/components/Button.svelte` (create) — fill/outline CTA (anchor or button).
 - `src/lib/components/SectionHeading.svelte` (create) — label + serif title.
@@ -29,17 +31,20 @@
 - `src/lib/components/SocialLinks.svelte` (create) — extracted social icon row.
 
 **Shared data / utils**
+
 - `src/lib/utils/date.ts` (create) — `getOrdinalSuffix`, `formatDate`, `formatDateTime` (moved out of `UpcomingDates.svelte`).
 - `src/lib/server/calendar.ts` (modify) — typed return + in-memory TTL cache + `getNextEvents(n)`.
 - `src/lib/types/index.ts` (modify) — add `UpcomingEventsResult` type.
 
 **Layout & navigation**
+
 - `src/lib/header/Header.svelte` (modify) — sticky wordmark + page-link nav + socials.
 - `src/lib/header/Nav.svelte` (modify) — page links (runes), drop scroll-logo math.
 - `src/routes/+layout.svelte` (modify) — add `Footer`, runes `$props`.
 - `src/routes/+layout.server.ts` (create) — load shared calendar events once.
 
 **Pages**
+
 - `src/routes/+page.svelte` (modify) — Home: Hero → About → ShopTeaser → ShowsTeaser → Instagram.
 - `src/routes/+page.server.ts` (modify) — pass next-4 events to Home.
 - `src/lib/landing/Hero.svelte` (create, replaces `Landing.svelte`) — redesigned hero.
@@ -54,6 +59,7 @@
 - `src/routes/+error.svelte` (modify) — runes + footer-aware layout.
 
 **Removed**
+
 - `src/routes/music/_audius_api.ts` (delete — dead commented stub).
 - `src/lib/landing/Landing.svelte` (delete after Hero replaces it).
 - Old single-page imports of `Music`, `Bio`, `Contact`, `Support` from `+page.svelte`.
@@ -63,6 +69,7 @@
 ## Task 1: Test toolchain (Vitest + Testing Library)
 
 **Files:**
+
 - Modify: `package.json`
 - Modify: `vite.config.js`
 - Create: `vitest.setup.ts`
@@ -71,14 +78,17 @@
 - [ ] **Step 1: Install dev dependencies**
 
 Run:
+
 ```bash
 npm install -D vitest@^2 jsdom @testing-library/svelte@^5 @testing-library/jest-dom @vitest/coverage-v8
 ```
+
 Expected: packages added to `devDependencies`, no errors.
 
 - [ ] **Step 2: Add test scripts to `package.json`**
 
 In the `"scripts"` block add:
+
 ```json
 "test": "vitest run",
 "test:unit": "vitest",
@@ -88,6 +98,7 @@ In the `"scripts"` block add:
 - [ ] **Step 3: Configure Vitest in `vite.config.js`**
 
 Replace the file contents with:
+
 ```js
 import tailwindcss from '@tailwindcss/vite';
 import devtoolsJson from 'vite-plugin-devtools-json';
@@ -144,6 +155,7 @@ git commit -m "chore: add vitest + testing-library toolchain"
 ## Task 2: Playwright E2E scaffold + smoke test
 
 **Files:**
+
 - Modify: `package.json`
 - Create: `playwright.config.ts`
 - Create: `e2e/smoke.spec.ts`
@@ -152,15 +164,18 @@ git commit -m "chore: add vitest + testing-library toolchain"
 - [ ] **Step 1: Install Playwright**
 
 Run:
+
 ```bash
 npm install -D @playwright/test
 npx playwright install chromium
 ```
+
 Expected: chromium browser downloaded.
 
 - [ ] **Step 2: Add E2E script to `package.json`**
 
 In `"scripts"` add:
+
 ```json
 "test:e2e": "playwright test"
 ```
@@ -195,6 +210,7 @@ test('home page loads and shows the brand wordmark', async ({ page }) => {
 - [ ] **Step 5: Ignore Playwright artifacts in `.gitignore`**
 
 Append:
+
 ```
 /test-results
 /playwright-report
@@ -218,46 +234,54 @@ git commit -m "chore: add playwright e2e smoke scaffold"
 ## Task 3: Design tokens & global utilities
 
 **Files:**
+
 - Modify: `src/app.css`
 - Modify: `src/app.html`
 
 - [ ] **Step 1: Add gradient/glow/button utilities to `src/app.css`**
 
 Append below the existing `@media` block:
+
 ```css
 /* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
 .text-glow {
-  text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
+	text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
 }
 .bg-glow-warm {
-  background:
-    radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
-    linear-gradient(180deg, var(--color-missy-deep-purple) 0%, var(--color-missy-plum) 52%, var(--color-lake-sunset) 124%);
+	background:
+		radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
+		linear-gradient(
+			180deg,
+			var(--color-missy-deep-purple) 0%,
+			var(--color-missy-plum) 52%,
+			var(--color-lake-sunset) 124%
+		);
 }
 .text-gradient-sun {
-  background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+	background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
 }
 .label-eyebrow {
-  font-family: var(--font-obviously);
-  font-size: 0.7rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--color-lake-sunrise);
+	font-family: var(--font-obviously);
+	font-size: 0.7rem;
+	letter-spacing: 0.26em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--color-lake-sunrise);
 }
 ```
 
 - [ ] **Step 2: Fix stale `<meta name="description">` in `src/app.html`**
 
 Replace line 5 (`content="Svelte demo app"`) with:
+
 ```html
-		<meta
-			name="description"
-			content="Missy Midwest — open-format DJ, vocalist & producer. Music, shows, merch & booking."
-		/>
+<meta
+	name="description"
+	content="Missy Midwest — open-format DJ, vocalist & producer. Music, shows, merch & booking."
+/>
 ```
 
 - [ ] **Step 3: Verify the dev server still compiles**
@@ -277,6 +301,7 @@ git commit -m "feat: add brand gradient/glow utilities and fix meta description"
 ## Task 4: `Button` component
 
 **Files:**
+
 - Create: `src/lib/components/Button.svelte`
 - Create: `src/lib/components/Button.test.ts`
 
@@ -394,6 +419,7 @@ git commit -m "feat: add Button component"
 ## Task 5: `SectionHeading` component
 
 **Files:**
+
 - Create: `src/lib/components/SectionHeading.svelte`
 - Create: `src/lib/components/SectionHeading.test.ts`
 
@@ -452,6 +478,7 @@ git commit -m "feat: add SectionHeading component"
 ## Task 6: `SocialLinks` + `Footer` components
 
 **Files:**
+
 - Create: `src/lib/components/SocialLinks.svelte`
 - Create: `src/lib/components/Footer.svelte`
 - Create: `src/lib/components/Footer.test.ts`
@@ -611,6 +638,7 @@ git commit -m "feat: add SocialLinks and Footer components"
 ## Task 7: Date utilities (extracted + tested)
 
 **Files:**
+
 - Create: `src/lib/utils/date.ts`
 - Create: `src/lib/utils/date.test.ts`
 - Delete: `src/lib/utils/sanity.test.ts`
@@ -725,6 +753,7 @@ git commit -m "feat: extract and test date utilities"
 ## Task 8: Typed, cached calendar service + shared layout load
 
 **Files:**
+
 - Modify: `src/lib/types/index.ts`
 - Modify: `src/lib/server/calendar.ts`
 - Create: `src/lib/server/calendar.test.ts`
@@ -733,6 +762,7 @@ git commit -m "feat: extract and test date utilities"
 - [ ] **Step 1: Add the result type to `src/lib/types/index.ts`**
 
 Append:
+
 ```ts
 export interface UpcomingEventsResult {
 	events: CalendarEvent[];
@@ -897,6 +927,7 @@ git commit -m "feat: typed cached calendar service + shared layout load"
 ## Task 9: Redesigned Header/Nav (page links) + layout with Footer
 
 **Files:**
+
 - Modify: `src/lib/header/Nav.svelte`
 - Modify: `src/lib/header/Header.svelte`
 - Modify: `src/routes/+layout.svelte`
@@ -1003,6 +1034,7 @@ git commit -m "feat: page-link header/nav with sticky wordmark and footer layout
 ## Task 10: Hero + Home page rebuild
 
 **Files:**
+
 - Create: `src/lib/landing/Hero.svelte`
 - Create: `src/lib/home/ShopTeaser.svelte`
 - Create: `src/lib/home/InstagramFeed.svelte`
@@ -1222,6 +1254,7 @@ git commit -m "feat: rebuild Home (hero, about, shop/shows teasers, instagram)"
 ## Task 11: `/shows` page (full calendar + previous-events gallery)
 
 **Files:**
+
 - Create: `src/routes/shows/+page.server.ts`
 - Create: `src/routes/shows/+page.svelte`
 - Modify: `src/lib/upcoming-dates/UpcomingDates.svelte`
@@ -1242,6 +1275,7 @@ export const load: PageServerLoad = async () => {
 - [ ] **Step 2: Refactor `src/lib/upcoming-dates/UpcomingDates.svelte` to use the date utils + runes props (via svelte-file-editor subagent)**
 
 Replace the `<script>` block's inline date helpers with imports, and switch to `$props()`:
+
 ```svelte
 <script lang="ts">
 	import { formatDate, formatDateTime } from '$lib/utils/date';
@@ -1253,6 +1287,7 @@ Replace the `<script>` block's inline date helpers with imports, and switch to `
 	let { events }: Props = $props();
 </script>
 ```
+
 Keep the existing `<section id="dates">` markup and the attachment/thumbnail logic exactly as-is below the script (it already renders event cards with Google Drive thumbnails).
 
 - [ ] **Step 3: Revive `src/lib/previous-events/PreviousEvents.svelte` as a static responsive gallery (via svelte-file-editor subagent)**
@@ -1330,6 +1365,7 @@ git commit -m "feat: add /shows page with full calendar and previous-events gall
 ## Task 12: `/music` page (featured embed + auto SoundCloud feed)
 
 **Files:**
+
 - Create: `src/lib/music/SoundCloudFeed.svelte`
 - Create: `src/lib/music/SoundCloudFeed.test.ts`
 - Create: `src/routes/music/+page.svelte`
@@ -1453,6 +1489,7 @@ git commit -m "feat: add /music page with featured embed and auto SoundCloud fee
 ## Task 13: `/contact` page (move Contact form + Press Kit)
 
 **Files:**
+
 - Create: `src/routes/contact/+page.server.ts`
 - Create: `src/routes/contact/+page.svelte`
 - Modify: `src/lib/contact/Contact.svelte` (only if `svelte-check` flags issues after the move)
@@ -1532,6 +1569,7 @@ git commit -m "feat: move contact form and press kit to /contact"
 ## Task 14: `/shop` placeholder + `/error` refresh + cleanup
 
 **Files:**
+
 - Create: `src/routes/shop/+page.svelte`
 - Modify: `src/routes/+error.svelte`
 - Modify: `README.md`
@@ -1565,6 +1603,7 @@ git commit -m "feat: move contact form and press kit to /contact"
 - [ ] **Step 2: Convert `src/routes/+error.svelte` to runes (via svelte-file-editor subagent)**
 
 Replace the `<script>` block (keep the rest of the markup/styles):
+
 ```svelte
 <script lang="ts">
 	import { page } from '$app/state';
@@ -1578,17 +1617,20 @@ Replace the `<script>` block (keep the rest of the markup/styles):
 	}
 </script>
 ```
+
 Then update the two button handlers' markup to use `onclick={goHome}` and `onclick={() => history.back()}` (already present), and replace `{errorMessage}` / `{is404}` usages — they now reference the `$derived` values directly.
 
 - [ ] **Step 3: Update `README.md` with the new structure**
 
 Replace the README body with a short project overview:
+
 ```markdown
 # Missy Midwest
 
 SvelteKit + Svelte 5 (runes) site for DJ Missy Midwest. Tailwind CSS v4, deployed on Netlify.
 
 ## Pages
+
 - `/` Home — hero, about, shop & shows teasers, Instagram feed
 - `/music` — featured mix + auto-updating SoundCloud profile feed
 - `/shows` — Google Calendar dates + past-event gallery
@@ -1596,6 +1638,7 @@ SvelteKit + Svelte 5 (runes) site for DJ Missy Midwest. Tailwind CSS v4, deploye
 - `/contact` — booking form (Turnstile) + press kit
 
 ## Scripts
+
 - `npm run dev` — dev server
 - `npm test` — unit/component tests (Vitest)
 - `npm run test:e2e` — Playwright smoke
@@ -1603,6 +1646,7 @@ SvelteKit + Svelte 5 (runes) site for DJ Missy Midwest. Tailwind CSS v4, deploye
 - `npm run build` — production build
 
 ## Integrations
+
 Google Calendar (shows), Cloudflare Turnstile + EmailJS (contact), SoundCloud (music).
 See `docs/superpowers/specs/` for the full redesign spec and `docs/superpowers/plans/` for phased plans.
 ```
@@ -1639,4 +1683,7 @@ git commit -m "feat: add shop placeholder, modernize error page, update README"
 - **Runes migration:** Nav, Header, layout, error page, reused section components moved to runes (Tasks 9, 11, 13, 14). ✓
 - **Type consistency:** `UpcomingEventsResult { events; error? }` defined in Task 8 and consumed identically in `+layout.server.ts`, `+page.server.ts`, `shows/+page.server.ts`. `getNextEvents(n)` signature matches its use in Task 10. `Button` props (`label/href/variant/type/disabled/onclick`) used consistently in Tasks 6, 10, 14. ✓
 - **Placeholder scan:** no TBD/TODO; deferred items are explicitly labeled as later phases with rationale, not omitted work. ✓
+
+```
+
 ```

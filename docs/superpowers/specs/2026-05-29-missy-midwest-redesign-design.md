@@ -11,6 +11,7 @@
 Transform the current single-page DJ site into an impactful, modern, **multi-page** experience and add a **Stripe-powered shop** so Missy can sell merch and manage her own inventory. Preserve every existing feature, improve the integrations that were "cobbled together," and give the brand a polished, energetic look.
 
 **Success criteria**
+
 - A redesigned, multi-page site live with all current features intact.
 - A working shop where customers can buy apparel (hats by color/style, shirts by size) and Missy manages products + stock herself in the Stripe Dashboard.
 - Cleaner integration architecture (server-side email, auto-updating music feed) with **no database to run**.
@@ -23,7 +24,7 @@ Transform the current single-page DJ site into an impactful, modern, **multi-pag
 - **One page** (`src/routes/+page.svelte`): blurred hero → Bio → Upcoming Dates (Google Calendar) → Contact (EmailJS + Cloudflare Turnstile) → Support (Venmo/Cash App).
 - **Built but dormant:** `Music.svelte` (hardcoded SoundCloud track embeds), `PressKit.svelte` (downloads), `PreviousEvents.svelte` (carousel stub), `/music` Audius route stub.
 - **Brand:** deep purple / lavender / magenta + unused warm "lake" sunrise/sunset/cotton-candy tokens. Fonts: Cochin (headers), Obviously (body), Algiers (display), Fira Mono.
-- **Pain points:** hash-anchor nav; contact flow is convoluted (server validates Turnstile, then the *browser* sends mail via EmailJS with client-exposed keys); music requires manual updates; several components use legacy Svelte syntax (`export let`, `$:`).
+- **Pain points:** hash-anchor nav; contact flow is convoluted (server validates Turnstile, then the _browser_ sends mail via EmailJS with client-exposed keys); music requires manual updates; several components use legacy Svelte syntax (`export let`, `$:`).
 
 ---
 
@@ -37,6 +38,7 @@ Validated via mockups in the brainstorming session.
 - **Photography:** place photos generously where they earn impact (hero, about, section accents, show cards, product shots). Missy has many assets; design with clearly-marked photo slots she can fill.
 
 ### Design system
+
 - **Tokens** (`src/app.css` `@theme`): keep existing `missy-*` palette; actually use the `lake-*` warm accents; add gradient + glow shadow utilities.
 - **Reusable components (Svelte 5 runes):** `Button` (fill/outline), `SectionHeading` (uppercase label + serif title), `ProductCard`, `ShowCard`, `Footer`, plus shop-specific components below.
 - Migrate retained legacy components to runes (notably the `Nav` scroll logic). New components are runes-only. Delegate `.svelte` work to the `svelte-file-editor` subagent per project CLAUDE.md.
@@ -47,17 +49,18 @@ Validated via mockups in the brainstorming session.
 
 Move from hash anchors to real SvelteKit routes under a shared layout (sticky header + new footer).
 
-| Route | Purpose |
-|---|---|
-| `/` **Home** | Hero → About → Shop teaser → Shows teaser → Instagram feed → footer |
-| `/music` | Curated featured embed + **auto-updating SoundCloud profile feed** |
-| `/shows` | Full Google Calendar list + previous-events photo gallery |
-| `/shop` | Stripe catalog (one card per style) |
-| `/shop/[group]` | Product detail page — color/size variant toggle, photo swap, per-variant stock/sold-out, add to cart |
-| `/shop/success`, `/shop/cancel` | Post-checkout return pages |
-| `/contact` | Booking form (Resend + Turnstile) + Press Kit / EPK downloads |
+| Route                           | Purpose                                                                                              |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `/` **Home**                    | Hero → About → Shop teaser → Shows teaser → Instagram feed → footer                                  |
+| `/music`                        | Curated featured embed + **auto-updating SoundCloud profile feed**                                   |
+| `/shows`                        | Full Google Calendar list + previous-events photo gallery                                            |
+| `/shop`                         | Stripe catalog (one card per style)                                                                  |
+| `/shop/[group]`                 | Product detail page — color/size variant toggle, photo swap, per-variant stock/sold-out, add to cart |
+| `/shop/success`, `/shop/cancel` | Post-checkout return pages                                                                           |
+| `/contact`                      | Booking form (Resend + Turnstile) + Press Kit / EPK downloads                                        |
 
 **Server endpoints**
+
 - `src/routes/shop/checkout/+server.ts` — creates a Stripe Checkout Session.
 - `src/routes/api/stripe/webhook/+server.ts` — verifies Stripe events, decrements stock, triggers order email.
 - Contact handled by a server action on `/contact` (Resend + Turnstile).
@@ -71,6 +74,7 @@ Move from hash anchors to real SvelteKit routes under a shared layout (sticky he
 **Principle:** Stripe is the single source of truth and Missy's admin panel. **No database.**
 
 ### 5.1 Product + variant model (storage)
+
 - **One Stripe entry per variant** — e.g. "Trucker — Lavender," "Trucker — Black," "Tour Tee — S/M/L/XL." Each carries its own **photo, price, and `stock`**, plus shared metadata:
   - `group` — clusters variants of one style (e.g. `trucker`).
   - `groupName` — display name ("Classic Trucker").
@@ -82,17 +86,20 @@ Move from hash anchors to real SvelteKit routes under a shared layout (sticky he
 - Rationale: lets a **single size/color be independently sold out** and have its **own image**, all from native Dashboard fields. Styles without variants are simply a `group` with one entry.
 
 ### 5.2 Display (decoupled from storage)
+
 - **`/shop`** — storefront fetches all active products server-side and **groups by `group`**, rendering **one card per style** (representative image + price/"from" price).
 - **`/shop/[group]`** — detail page with a **variant toggle**: selecting a color/size swaps the photo, shows that variant's **"X left" / Sold out**, and sets the add-to-cart target.
 - **Home teaser** — curated; may feature specific variants as individual tiles for visual variety. Links to `/shop`.
 
 ### 5.3 Inventory countdown (no database)
+
 - Stock lives in each product's **`stock` metadata**, editable in the Dashboard (restocks, in-person sales).
 - The **webhook** (`checkout.session.completed`, line items expanded) subtracts purchased quantities and writes the new `stock` back via the Stripe API.
 - Storefront reads `stock` to show "only N left" and disable Sold-out variants.
-- **Known limitation:** stock reflects *completed* online sales; it does not *reserve* during checkout. Simultaneous purchase of the last unit could oversell by one — acceptable at merch scale; hardenable later (e.g. a reservation store) if needed. This limitation must be stated, not silently ignored.
+- **Known limitation:** stock reflects _completed_ online sales; it does not _reserve_ during checkout. Simultaneous purchase of the last unit could oversell by one — acceptable at merch scale; hardenable later (e.g. a reservation store) if needed. This limitation must be stated, not silently ignored.
 
 ### 5.4 Cart + checkout
+
 - **Cart:** lightweight Svelte 5 runes store persisted to `localStorage` (line = Stripe Price ID, variant label, qty, cached name/image/price for display). Cart drawer/badge in header.
 - **Checkout:** POST cart line items to `shop/checkout/+server.ts`, which (using `STRIPE_SECRET_KEY`, server-only) creates a **Stripe Checkout Session** with:
   - Shipping address collection.
@@ -101,20 +108,21 @@ Move from hash anchors to real SvelteKit routes under a shared layout (sticky he
 - Redirect to Stripe-hosted Checkout. **No card data touches our server.** Server re-reads prices from Stripe (never trusts client-sent amounts).
 
 ### 5.5 Order confirmation + fulfillment
+
 - Webhook also triggers a **confirmation email via Resend** (to customer and/or Missy) and Missy fulfills from the Stripe **Orders/Payments** view. Stripe's own receipts can be enabled as a backstop.
 
 ---
 
 ## 6. Integrations (cleaned up)
 
-| Concern | Today | New design |
-|---|---|---|
-| **Transactional email** | EmailJS (client-side, keys exposed; convoluted two-step flow) | **Resend**, server-side. One service for **contact form + order confirmations**. Clean single server step. |
-| **Spam protection** | Turnstile (partly server-validated) | Turnstile, **fully server-validated**. |
-| **Shows** | Google Calendar service-account JWT | Keep (she manages shows where she already does); add **light caching** to avoid per-visit API calls. |
-| **Music** | Hardcoded SoundCloud track embeds, manual updates | **SoundCloud profile widget** pointed at `soundcloud.com/missymidwest` → **auto-lists latest uploads, no API keys, no manual updates**, + one optional curated featured embed. |
-| **Instagram** | none | **Behold.so** embeddable feed widget on Home. |
-| **Tips** | Venmo/Cash App section | Venmo/Cash App links in the footer. |
+| Concern                 | Today                                                         | New design                                                                                                                                                                     |
+| ----------------------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Transactional email** | EmailJS (client-side, keys exposed; convoluted two-step flow) | **Resend**, server-side. One service for **contact form + order confirmations**. Clean single server step.                                                                     |
+| **Spam protection**     | Turnstile (partly server-validated)                           | Turnstile, **fully server-validated**.                                                                                                                                         |
+| **Shows**               | Google Calendar service-account JWT                           | Keep (she manages shows where she already does); add **light caching** to avoid per-visit API calls.                                                                           |
+| **Music**               | Hardcoded SoundCloud track embeds, manual updates             | **SoundCloud profile widget** pointed at `soundcloud.com/missymidwest` → **auto-lists latest uploads, no API keys, no manual updates**, + one optional curated featured embed. |
+| **Instagram**           | none                                                          | **Behold.so** embeddable feed widget on Home.                                                                                                                                  |
+| **Tips**                | Venmo/Cash App section                                        | Venmo/Cash App links in the footer.                                                                                                                                            |
 
 **SoundCloud note:** the official API stopped accepting new app registrations years ago; unofficial `client_id` scraping violates ToS and is brittle. The profile-widget approach intentionally avoids the API. A fully custom-rendered track grid is explicitly **out of scope** for reliability reasons.
 
@@ -160,7 +168,7 @@ Move from hash anchors to real SvelteKit routes under a shared layout (sticky he
 
 ## 11. Delivery phases (each its own implementation plan)
 
-1. **Foundation + redesign** — multi-page routing, shared header/footer, design system tokens/components, move & restyle existing sections (Home, Music, Shows, Contact), revive Music (profile widget) & Press Kit, migrate retained components to runes. *Ships a fully redesigned site with no Stripe.*
+1. **Foundation + redesign** — multi-page routing, shared header/footer, design system tokens/components, move & restyle existing sections (Home, Music, Shows, Contact), revive Music (profile widget) & Press Kit, migrate retained components to runes. _Ships a fully redesigned site with no Stripe._
 2. **Shop** — Stripe product/variant model, `/shop` + `/shop/[group]`, cart, checkout endpoint, webhook (stock + order email), success/cancel, Home shop teaser. Switch contact email to **Resend**.
 3. **Polish** — Behold Instagram feed, previous-events gallery, motion/animation pass, SEO/meta, performance + image optimization.
 

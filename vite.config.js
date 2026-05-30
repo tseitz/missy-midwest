@@ -8,7 +8,9 @@ const isTest = !!process.env.VITEST;
 
 export default defineConfig({
 	// imagemin + devtools-json are build/dev-only and crash under Vitest on some Node versions
-	plugins: isTest ? [tailwindcss(), sveltekit()] : [tailwindcss(), sveltekit(), devtoolsJson(), viteImagemin()],
+	plugins: isTest
+		? [tailwindcss(), sveltekit()]
+		: [tailwindcss(), sveltekit(), devtoolsJson(), viteImagemin()],
 	test: {
 		environment: 'jsdom',
 		globals: true,

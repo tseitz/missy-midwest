@@ -24,3 +24,5 @@ credentials.json
 
 # raw image drop zone — run `pnpm images` to convert these into static/*.webp
 /raw-images
+# Playwright MCP scratch output
+/.playwright-mcp/

@@ -232,6 +232,12 @@ One shared spec, three branches off `redesign` (each its own PR, merges back):
 5. Enable Stripe automatic customer receipts in the Dashboard.
 6. Populate `.env` (dev) and Netlify env vars (prod) with all keys above.
 7. Repeat product setup in **live mode** before go-live.
+8. **Checkout redirect origin (security):** the checkout endpoint builds
+   `success_url`/`cancel_url` from the request's `Host` header (`url.origin`).
+   Netlify routes by `Host`, so a forged header cannot reach this site in
+   production — confirm this holds on the live domain. If the deployment target
+   ever changes, harden by sourcing the origin from a server-controlled env var
+   (e.g. `PUBLIC_ORIGIN`) with `url.origin` as a dev-only fallback.
 
 ## 14. Out of scope (v1)
 

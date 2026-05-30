@@ -9,7 +9,7 @@
 
 <Header />
 
-<main class="bg-missy-deep-purple flex min-h-screen w-full flex-col items-center">
+<main class="bg-missy-deep-purple flex min-h-screen w-full flex-col items-center pt-16">
 	{@render children()}
 </main>
 

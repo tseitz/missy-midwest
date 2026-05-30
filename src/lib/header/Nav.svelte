@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import SocialLinks from '$lib/components/SocialLinks.svelte';
+	import Button from '$lib/components/Button.svelte';
 
 	const routes = [
 		{ href: '/music', label: 'MUSIC' },
@@ -12,8 +14,7 @@
 	const menuId = 'mobile-nav-menu';
 
 	// The path the menu was last opened on. The menu is considered open only
-	// while the current path still matches it, so navigating away (which
-	// changes page.url.pathname) closes the menu without an $effect.
+	// while the current path still matches it, so navigating away closes it.
 	let openedOnPath = $state<string | null>(null);
 	const open = $derived(openedOnPath === page.url.pathname);
 
@@ -26,17 +27,59 @@
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			close();
+		if (event.key === 'Escape') close();
+	}
+
+	// Lock background scroll while the full-screen menu is open.
+	$effect(() => {
+		if (!open) return;
+		document.body.style.overflow = 'hidden';
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
+
+	// Keep keyboard focus inside the open menu, and return it to the trigger on close.
+	// Attachment: runs when the menu mounts, cleans up (and restores focus) on unmount.
+	function trapFocus(node: HTMLElement) {
+		const previouslyFocused = document.activeElement as HTMLElement | null;
+		const selector =
+			'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+		const focusable = () =>
+			Array.from(node.querySelectorAll<HTMLElement>(selector)).filter(
+				(el) => el.offsetParent !== null
+			);
+
+		focusable()[0]?.focus();
+
+		function onKeydown(event: KeyboardEvent) {
+			if (event.key !== 'Tab') return;
+			const items = focusable();
+			if (items.length === 0) return;
+			const first = items[0];
+			const last = items[items.length - 1];
+			if (event.shiftKey && document.activeElement === first) {
+				event.preventDefault();
+				last.focus();
+			} else if (!event.shiftKey && document.activeElement === last) {
+				event.preventDefault();
+				first.focus();
+			}
 		}
+
+		node.addEventListener('keydown', onKeydown);
+		return () => {
+			node.removeEventListener('keydown', onKeydown);
+			previouslyFocused?.focus();
+		};
 	}
 </script>
 
 <svelte:window onkeydown={open ? handleKeydown : undefined} />
 
 <nav>
-	<!-- Desktop nav: inline links, unchanged from the original. -->
-	<ul class="hidden items-center gap-5 md:flex lg:gap-8">
+	<!-- Desktop: inline links on the right. -->
+	<ul class="hidden items-center gap-6 md:flex lg:gap-9">
 		{#each routes as route (route.href)}
 			<li>
 				<a
@@ -53,34 +96,69 @@
 	<!-- Mobile: hamburger toggle. -->
 	<button
 		type="button"
-		class="hamburger md:hidden"
-		aria-label={open ? 'Close menu' : 'Open menu'}
+		class="icon-btn md:hidden"
+		aria-label="Open menu"
 		aria-expanded={open}
 		aria-controls={menuId}
 		onclick={toggle}
 	>
-		<span aria-hidden="true">{open ? '✕' : '☰'}</span>
+		<svg
+			class="h-6 w-6"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			stroke-width="1.8"
+			stroke-linecap="round"
+			aria-hidden="true"
+		>
+			<path d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+		</svg>
 	</button>
 
-	<!-- Mobile dropdown panel, full-width below the sticky header. -->
+	<!-- Mobile: full-screen overlay menu. -->
 	{#if open}
-		<ul
+		<div
 			id={menuId}
-			class="bg-missy-deep-purple border-missy-classic-lavender/15 fixed top-16 right-0 left-0 z-20 flex flex-col border-b px-4 py-2 shadow-lg md:hidden"
+			{@attach trapFocus}
+			class="mobile-menu fixed inset-0 z-40 flex flex-col md:hidden"
 		>
-			{#each routes as route (route.href)}
-				<li>
-					<a
-						href={resolve(route.href)}
-						class="nav-link block py-3"
-						aria-current={page.url.pathname === route.href ? 'page' : undefined}
-						onclick={close}
+			<div class="flex h-16 items-center justify-between px-4">
+				<span class="missy-header text-lg tracking-wide text-white">MISSY MIDWEST</span>
+				<button type="button" class="icon-btn" aria-label="Close menu" onclick={close}>
+					<svg
+						class="h-6 w-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						stroke-linecap="round"
+						aria-hidden="true"
 					>
-						{route.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
+						<path d="M6 6l12 12M18 6 6 18" />
+					</svg>
+				</button>
+			</div>
+
+			<ul class="flex flex-1 flex-col items-center justify-center gap-8">
+				{#each routes as route (route.href)}
+					<li>
+						<a
+							href={resolve(route.href)}
+							class="mobile-link"
+							aria-current={page.url.pathname === route.href ? 'page' : undefined}
+							onclick={close}
+						>
+							{route.label}
+						</a>
+					</li>
+				{/each}
+			</ul>
+
+			<div class="flex flex-col items-center gap-6 px-4 pb-12">
+				<Button href={resolve('/contact')} label="Book Missy →" variant="fill" />
+				<SocialLinks size={24} />
+			</div>
+		</div>
 	{/if}
 </nav>
 
@@ -90,18 +168,53 @@
 		font-size: 0.8rem;
 		letter-spacing: 0.14em;
 		color: var(--color-slate-50);
+		transition: color 0.2s ease;
 	}
 	.nav-link:hover,
 	.nav-link[aria-current='page'] {
-		color: var(--color-missy-classic-lavender);
+		color: var(--color-missy-blush);
 		border-bottom: none;
 	}
-	.hamburger {
-		font-size: 1.25rem;
-		line-height: 1;
+	.icon-btn {
 		color: var(--color-slate-50);
+		transition: color 0.2s ease;
 	}
-	.hamburger:hover {
-		color: var(--color-missy-classic-lavender);
+	.icon-btn:hover {
+		color: var(--color-missy-blush);
+	}
+	.mobile-link {
+		font-family: var(--font-cochin);
+		font-size: 2rem;
+		letter-spacing: 0.08em;
+		color: var(--color-slate-50);
+		transition: color 0.2s ease;
+	}
+	.mobile-link:hover,
+	.mobile-link[aria-current='page'] {
+		color: var(--color-missy-blush);
+		border-bottom: none;
+	}
+	/* Cohesive purple menu with a warm-pink glow — no clashing orange wash. */
+	.mobile-menu {
+		background:
+			radial-gradient(
+				120% 75% at 82% 0%,
+				color-mix(in srgb, var(--color-missy-blush) 36%, transparent) 0%,
+				transparent 58%
+			),
+			linear-gradient(180deg, var(--color-missy-deep-purple) 0%, var(--color-missy-plum) 100%);
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.mobile-menu {
+			animation: menu-in 0.25s ease-out both;
+		}
+	}
+	@keyframes menu-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 </style>

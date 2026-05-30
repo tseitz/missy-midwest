@@ -116,4 +116,18 @@ describe('groupProducts', () => {
 		]);
 		expect(group.variants[0].stock).toBe(0);
 	});
+
+	it('sorts groups alphabetically by name', () => {
+		const groups = groupProducts([
+			product({
+				id: 'z',
+				metadata: { group: 'zed', groupName: 'Zed Hat', variant: 'One', stock: '1' }
+			}),
+			product({
+				id: 'a',
+				metadata: { group: 'ace', groupName: 'Ace Tee', variant: 'One', stock: '1' }
+			})
+		]);
+		expect(groups.map((g) => g.name)).toEqual(['Ace Tee', 'Zed Hat']);
+	});
 });

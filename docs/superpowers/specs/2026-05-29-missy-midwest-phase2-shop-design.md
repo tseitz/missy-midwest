@@ -161,28 +161,32 @@ image, unitPrice, qty }`. Cached display fields only — the **server re-derives
   Dashboard — no code). v1 sends no custom customer email.
 - **Missy:** receives a **Resend order-notification** email (line items,
   quantities, shipping address, total) so she can fulfill. One internal
-  template, sent from a verified Resend domain to `ORDER_NOTIFY_EMAIL`.
+  template, sent **From `RESEND_FROM_EMAIL`** (a verified-domain address) **To
+  `ORDER_NOTIFY_EMAIL`**.
 - **`src/lib/server/email.ts`** wraps Resend and exposes `sendOrderNotification`
   and `sendContactMessage`. Replaces the EmailJS path.
 
 ### Contact-form swap (EmailJS → Resend)
 
 The contact form moves from client-side EmailJS to a server-side Resend send via
-the existing form action, reusing Turnstile for spam protection. The
-`@emailjs/browser` dependency and its public key are removed. Validation stays at
-the server boundary with user-friendly errors and no secrets in messages.
+the existing form action, reusing Turnstile for spam protection. The email is
+sent **From `RESEND_FROM_EMAIL`**, **To `CONTACT_TO_EMAIL`**, with **Reply-To set
+to the submitter's address** so Missy can reply directly. The `@emailjs/browser`
+dependency and its public key are removed. Validation stays at the server
+boundary with user-friendly errors and no secrets in messages.
 
 ## 10. Environment & security
 
 New env vars (server-only unless noted):
 
-| Var                     | Purpose                                                                                            |
-| ----------------------- | -------------------------------------------------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`     | **Restricted key** (`rk_`): Products read+write, Prices read, Checkout write, Payment Intents read |
-| `STRIPE_WEBHOOK_SECRET` | Webhook signature verification                                                                     |
-| `RESEND_API_KEY`        | Resend transactional email                                                                         |
-| `ORDER_NOTIFY_EMAIL`    | Where order notifications go (Missy)                                                               |
-| `CONTACT_TO_EMAIL`      | Where contact-form messages go                                                                     |
+| Var                     | Purpose                                                                                              |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`     | **Restricted key** (`rk_`): Products read+write, Prices read, Checkout write, Payment Intents read   |
+| `STRIPE_WEBHOOK_SECRET` | Webhook signature verification                                                                       |
+| `RESEND_API_KEY`        | Resend transactional email                                                                           |
+| `RESEND_FROM_EMAIL`     | From address for both emails — must be on a Resend-verified domain (e.g. `noreply@missymidwest.com`) |
+| `ORDER_NOTIFY_EMAIL`    | To address for order notifications (Missy)                                                           |
+| `CONTACT_TO_EMAIL`      | To address for contact-form messages (may be the same inbox as above)                                |
 
 - No publishable key — hosted-redirect checkout needs no client Stripe.js.
 - Secrets server-only; `.env` for dev, Netlify env vars for prod.
@@ -223,7 +227,8 @@ One shared spec, three branches off `redesign` (each its own PR, merges back):
 2. Generate the **restricted key** with the scopes in §10.
 3. Register the webhook endpoint; capture `STRIPE_WEBHOOK_SECRET` (use the
    Stripe CLI for local testing).
-4. Create a **Resend** account, verify a sending domain, generate the API key.
+4. Create a **Resend** account, verify a sending domain, generate the API key,
+   and pick the `RESEND_FROM_EMAIL` address on that domain.
 5. Enable Stripe automatic customer receipts in the Dashboard.
 6. Populate `.env` (dev) and Netlify env vars (prod) with all keys above.
 7. Repeat product setup in **live mode** before go-live.

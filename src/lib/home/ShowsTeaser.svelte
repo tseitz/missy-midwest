@@ -4,6 +4,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import { formatDate, formatDateTime } from '$lib/utils/date';
 	import type { CalendarEvent } from '$lib/types/index';
+	import { reveal } from '$lib/motion/reveal';
 
 	interface Props {
 		events: CalendarEvent[];
@@ -11,7 +12,7 @@
 	let { events }: Props = $props();
 </script>
 
-<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14" use:reveal>
 	<div class="flex items-end justify-between">
 		<SectionHeading label="Live" title="Upcoming shows" />
 		<Button href={resolve('/shows')} label="All dates →" variant="outline" />

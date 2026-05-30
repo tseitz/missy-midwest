@@ -9,7 +9,7 @@
 		aria-hidden="true"
 	></div>
 	<div
-		class="relative z-10 mx-auto flex max-w-screen-2xl flex-col justify-center px-8 md:px-14"
+		class="hero-rise relative z-10 mx-auto flex max-w-screen-2xl flex-col justify-center px-8 md:px-14"
 		style="min-height: 78vh;"
 	>
 		<div class="label-eyebrow mb-3">Open-Format DJ · Vocalist · Producer</div>

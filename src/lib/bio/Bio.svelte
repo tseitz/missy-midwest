@@ -1,6 +1,11 @@
+<script lang="ts">
+	import { reveal } from '$lib/motion/reveal';
+</script>
+
 <section
 	id="bio"
 	class="grid w-full max-w-screen-2xl grid-cols-1 gap-8 pt-12 pb-12 md:gap-16 md:pb-16 lg:grid-cols-2 lg:pt-20"
+	use:reveal
 >
 	<div>
 		<h2 class="mb-6 text-4xl md:mb-10">Bio</h2>

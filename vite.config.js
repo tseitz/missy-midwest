@@ -4,8 +4,11 @@ import viteImagemin from 'vite-plugin-imagemin';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 
+const isTest = !!process.env.VITEST;
+
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit(), devtoolsJson(), viteImagemin()],
+	// imagemin + devtools-json are build/dev-only and crash under Vitest on some Node versions
+	plugins: isTest ? [tailwindcss(), sveltekit()] : [tailwindcss(), sveltekit(), devtoolsJson(), viteImagemin()],
 	test: {
 		environment: 'jsdom',
 		globals: true,

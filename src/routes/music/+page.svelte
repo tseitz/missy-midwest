@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import SoundCloudFeed from '$lib/music/SoundCloudFeed.svelte';
+	import Seo from '$lib/seo/Seo.svelte';
 
 	// Curated featured track/mix (swap the track id anytime).
 	const featuredTrack = '2107042845';
@@ -9,9 +10,10 @@
 		`&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=true`;
 </script>
 
-<svelte:head>
-	<title>Music — Missy Midwest</title>
-</svelte:head>
+<Seo
+	title="Music — Missy Midwest"
+	description="Stream Missy Midwest's latest DJ sets and tracks."
+/>
 
 <div class="flex w-full max-w-screen-2xl flex-col items-center px-8 py-16 md:px-14">
 	<div class="w-full">

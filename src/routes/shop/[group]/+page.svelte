@@ -4,6 +4,7 @@
 	import { formatPrice, stockStatus } from '$lib/shop/format';
 	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
+	import Seo from '$lib/seo/Seo.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -19,9 +20,11 @@
 	}
 </script>
 
-<svelte:head>
-	<title>{data.group.name} — Missy Midwest</title>
-</svelte:head>
+<Seo
+	title={`${data.group.name} — Missy Midwest`}
+	description={data.group.description || `Shop the ${data.group.name} from Missy Midwest.`}
+	image={data.group.image}
+/>
 
 <section class="grid w-full max-w-screen-2xl gap-10 px-8 py-20 md:grid-cols-2 md:px-14">
 	<div class="bg-missy-deep-purple/40 aspect-square overflow-hidden rounded-2xl">

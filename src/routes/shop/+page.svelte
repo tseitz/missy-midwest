@@ -3,14 +3,16 @@
 	import Button from '$lib/components/Button.svelte';
 	import ProductCard from '$lib/shop/ProductCard.svelte';
 	import { resolve } from '$app/paths';
+	import Seo from '$lib/seo/Seo.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>Shop — Missy Midwest</title>
-</svelte:head>
+<Seo
+	title="Shop — Missy Midwest"
+	description="Official Missy Midwest merch — hats, tees, and more."
+/>
 
 <section class="w-full max-w-screen-2xl px-8 py-20 md:px-14">
 	<SectionHeading label="Shop" title="Rep the brand" />

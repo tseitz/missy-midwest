@@ -58,7 +58,6 @@
 		"*.{css,html,json,md}": "prettier --write"
 	},
 	"dependencies": {
-		"@emailjs/browser": "^3.10.0",
 		"@fontsource/fira-mono": "^4.5.10",
 		"@icons-pack/svelte-simple-icons": "^5.0.0",
 		"googleapis": "^127.0.0",

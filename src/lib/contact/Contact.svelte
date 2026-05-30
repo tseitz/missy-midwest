@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { Turnstile } from 'svelte-turnstile';
 	import { enhance } from '$app/forms';
-	import { sendEmail } from '$lib/email';
-	import { browser } from '$app/environment';
 
 	const turnstileSiteKey = import.meta.env['VITE_TURNSTILE_SITE_KEY'] as string;
-	const emailServiceId = import.meta.env['VITE_EMAILJS_SERVICE_ID'] as string;
-	const emailTemplateId = import.meta.env['VITE_EMAILJS_TEMPLATE_ID'] as string;
-	const emailPublicKey = import.meta.env['VITE_EMAILJS_PUBLIC_KEY'] as string;
 
 	const phoneRegExp =
 		/^(((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?)?$/;
@@ -35,13 +30,7 @@
 	let turnstileKey = $state(0);
 
 	function validateForm() {
-		errors = {
-			name: '',
-			email: '',
-			phone: '',
-			message: ''
-		};
-
+		errors = { name: '', email: '', phone: '', message: '' };
 		let isValid = true;
 
 		if (!formData.name.trim()) {
@@ -74,31 +63,9 @@
 	}
 
 	function resetTurnstile() {
-		// Reset Turnstile by incrementing key to force re-render
-		// This ensures a fresh token is generated for the next submission
+		// Force a fresh Turnstile token for the next submission by re-rendering the widget.
 		turnstileKey++;
 	}
-
-	$effect(() => {
-		if (form) {
-			if (form.success) {
-				alert(form.message || 'Message sent! Thanks for your submission :)');
-				formData = {
-					name: '',
-					email: '',
-					phone: '',
-					message: ''
-				};
-				submitAttempted = false;
-				resetTurnstile();
-			} else {
-				alert(form.message || 'Something went wrong. Please try again.');
-				resetTurnstile();
-			}
-
-			form = null;
-		}
-	});
 </script>
 
 <section
@@ -116,8 +83,6 @@
 			<br />
 			<br />
 			<a href="https://linktr.ee/missymidwest" target="_blank">https://linktr.ee/missymidwest</a>
-			<!-- Missy also streams every morning at 8 a.m. Find her on Twitch
-			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>. -->
 		</p>
 	</div>
 	<div class="bg-missy-classic-lavender rounded-md p-8">
@@ -134,41 +99,20 @@
 				isSubmitting = true;
 
 				return async ({ result, update }) => {
-					// If Turnstile validation passed, send email from client
-					if (result.type === 'success' && browser) {
-						try {
-							const emailSent = await sendEmail(
-								formData,
-								emailServiceId,
-								emailTemplateId,
-								emailPublicKey
-							);
-
-							if (emailSent) {
-								form = result.data as ContactResult;
-							} else {
-								form = {
-									success: false,
-									message:
-										'Something went wrong. You can email Missy directly at missy.midwestofficial@gmail.com'
-								};
-							}
-						} catch (error) {
-							console.error('Email send error:', error);
-							form = {
-								success: false,
-								message: 'Something went wrong. Please try again.'
-							};
-						}
-					} else if (result.type === 'success') {
+					if (result.type === 'success' || result.type === 'failure') {
 						form = result.data as ContactResult;
-					} else if (result.type === 'failure') {
-						// Turnstile validation failed or other server error - reset CAPTCHA
-						form = result.data as ContactResult;
-						resetTurnstile();
+					} else {
+						form = { success: false, message: 'Something went wrong. Please try again.' };
 					}
 
 					isSubmitting = false;
+					resetTurnstile();
+
+					if (form?.success) {
+						formData = { name: '', email: '', phone: '', message: '' };
+						submitAttempted = false;
+					}
+
 					await update({ reset: false });
 				};
 			}}
@@ -229,6 +173,18 @@
 					<Turnstile siteKey={turnstileSiteKey} theme="auto" />
 				{/key}
 			</div>
+
+			{#if form}
+				<p
+					role="status"
+					aria-live="polite"
+					class="mt-4 rounded-md px-4 py-3 text-sm font-medium {form.success
+						? 'bg-missy-deep-purple/80 text-slate-50'
+						: 'bg-missy-magenta/90 text-slate-50'}"
+				>
+					{form.message}
+				</p>
+			{/if}
 
 			<div class="mt-4 flex justify-end">
 				<button

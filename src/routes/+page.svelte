@@ -14,7 +14,7 @@
 </svelte:head>
 
 <Hero />
-<div class="w-full flex flex-col items-center">
+<div class="flex w-full flex-col items-center">
 	<Bio />
 	<ShopTeaser />
 	<ShowsTeaser events={data.nextShows} />

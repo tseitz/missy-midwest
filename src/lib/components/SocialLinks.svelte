@@ -30,6 +30,8 @@
 
 <div class="flex items-center gap-4">
 	{#each socials as { href, Icon, label } (href)}
+		<!-- external social profile URLs; resolve() is for internal routes only -->
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 		<a {href} target="_blank" rel="noreferrer" aria-label={label} class="social">
 			<Icon {size} {color} />
 		</a>

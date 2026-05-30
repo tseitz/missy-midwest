@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
 	const routes = [
 		{ href: '/music', label: 'MUSIC' },
 		{ href: '/shows', label: 'SHOWS' },
 		{ href: '/shop', label: 'SHOP' },
 		{ href: '/contact', label: 'CONTACT' }
-	];
+	] as const;
 </script>
 
 <nav>
@@ -14,7 +15,7 @@
 		{#each routes as route (route.href)}
 			<li>
 				<a
-					href={route.href}
+					href={resolve(route.href)}
 					class="nav-link"
 					aria-current={page.url.pathname === route.href ? 'page' : undefined}
 				>

@@ -29,7 +29,9 @@
 	let submitAttempted = $state(false);
 	let isSubmitting = $state(false);
 
-	let form = $state<{ success: boolean; message?: string } | null>(null);
+	type ContactResult = { success: boolean; message?: string };
+
+	let form = $state<ContactResult | null>(null);
 	let turnstileKey = $state(0);
 
 	function validateForm() {
@@ -101,10 +103,10 @@
 
 <section
 	id="contact"
-	class="max-w-screen-2xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-16"
+	class="grid w-full max-w-screen-2xl grid-cols-1 gap-8 pt-12 pb-16 md:grid-cols-2 md:gap-16 lg:pt-20"
 >
 	<div>
-		<h2 class="text-4xl mb-8 md:mb-12">Contact</h2>
+		<h2 class="mb-8 text-4xl md:mb-12">Contact</h2>
 		<p>
 			For festival bookings, residencies, workshop offerings or any other inquires please fill out
 			this form.
@@ -118,7 +120,7 @@
 			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">here</a>. -->
 		</p>
 	</div>
-	<div class="rounded-md p-8 bg-missy-classic-lavender">
+	<div class="bg-missy-classic-lavender rounded-md p-8">
 		<form
 			method="POST"
 			action="?/contact"
@@ -143,7 +145,7 @@
 							);
 
 							if (emailSent) {
-								form = result.data as any;
+								form = result.data as ContactResult;
 							} else {
 								form = {
 									success: false,
@@ -159,10 +161,10 @@
 							};
 						}
 					} else if (result.type === 'success') {
-						form = result.data as any;
+						form = result.data as ContactResult;
 					} else if (result.type === 'failure') {
 						// Turnstile validation failed or other server error - reset CAPTCHA
-						form = result.data as any;
+						form = result.data as ContactResult;
 						resetTurnstile();
 					}
 
@@ -171,12 +173,12 @@
 				};
 			}}
 		>
-			<label class="text-xl mb-2" for="name">Name</label>
+			<label class="mb-2 text-xl" for="name">Name</label>
 			<input
 				id="name"
 				name="name"
 				type="text"
-				class="bg-slate-50 text-missy-deep-purple"
+				class="text-missy-deep-purple bg-slate-50"
 				bind:value={formData.name}
 				required
 			/>
@@ -184,12 +186,12 @@
 				<small class="text-missy-magenta">{errors.name}</small>
 			{/if}
 
-			<label class="text-xl mt-4 mb-2" for="email">Email</label>
+			<label class="mt-4 mb-2 text-xl" for="email">Email</label>
 			<input
 				id="email"
 				name="email"
 				type="email"
-				class="bg-slate-50 text-missy-deep-purple"
+				class="text-missy-deep-purple bg-slate-50"
 				bind:value={formData.email}
 				required
 			/>
@@ -197,24 +199,24 @@
 				<small class="text-missy-magenta">{errors.email}</small>
 			{/if}
 
-			<label class="text-xl mt-4 mb-2" for="phone">Phone (Optional)</label>
+			<label class="mt-4 mb-2 text-xl" for="phone">Phone (Optional)</label>
 			<input
 				id="phone"
 				name="phone"
 				type="text"
-				class="bg-slate-50 text-missy-deep-purple"
+				class="text-missy-deep-purple bg-slate-50"
 				bind:value={formData.phone}
 			/>
 			{#if submitAttempted && errors.phone}
 				<small class="text-missy-magenta">{errors.phone}</small>
 			{/if}
 
-			<label class="text-xl mt-4 mb-2" for="message">Message</label>
+			<label class="mt-4 mb-2 text-xl" for="message">Message</label>
 			<textarea
 				id="message"
 				name="message"
 				rows="7"
-				class="bg-slate-50 text-missy-deep-purple"
+				class="text-missy-deep-purple bg-slate-50"
 				bind:value={formData.message}
 				required
 			></textarea>
@@ -228,9 +230,9 @@
 				{/key}
 			</div>
 
-			<div class="flex justify-end mt-4">
+			<div class="mt-4 flex justify-end">
 				<button
-					class="px-6 py-3 bg-missy-deep-purple/80 backdrop-blur-lg text-slate-50 font-semibold rounded-lg shadow-lg shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-xl hover:shadow-missy-classic-lavender/30 transition-all duration-300 ease-out focus:outline-none focus:ring-2 focus:ring-missy-classic-lavender/50 focus:ring-offset-2 focus:ring-offset-transparent hover:cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+					class="bg-missy-deep-purple/80 shadow-missy-classic-lavender/20 hover:bg-missy-deep-purple/90 hover:shadow-missy-classic-lavender/30 focus:ring-missy-classic-lavender/50 rounded-lg px-6 py-3 font-semibold text-slate-50 shadow-lg backdrop-blur-lg transition-all duration-300 ease-out hover:cursor-pointer hover:shadow-xl focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
 					type="submit"
 					disabled={isSubmitting}
 				>

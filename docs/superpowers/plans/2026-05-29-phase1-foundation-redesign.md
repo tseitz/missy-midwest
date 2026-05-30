@@ -379,7 +379,9 @@ Expected: FAIL — cannot resolve `./Button.svelte`.
 		border-radius: 999px;
 		text-decoration: none;
 		cursor: pointer;
-		transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+		transition:
+			transform 0.15s ease-out,
+			box-shadow 0.15s ease-out;
 	}
 	.btn:hover {
 		transform: translateY(-1px);
@@ -577,8 +579,8 @@ Expected: FAIL — cannot resolve component.
 	];
 </script>
 
-<footer class="w-full bg-[#100c1a] border-t border-missy-classic-lavender/15">
-	<div class="max-w-screen-2xl w-full mx-auto px-8 md:px-14 py-12 grid gap-10 md:grid-cols-3">
+<footer class="border-missy-classic-lavender/15 w-full border-t bg-[#100c1a]">
+	<div class="mx-auto grid w-full max-w-screen-2xl gap-10 px-8 py-12 md:grid-cols-3 md:px-14">
 		<div>
 			<div class="missy-header text-2xl text-white">Missy Midwest</div>
 			<p class="mt-3 max-w-xs text-sm opacity-80">
@@ -615,7 +617,7 @@ Expected: FAIL — cannot resolve component.
 			<div class="mt-4"><SocialLinks size={22} /></div>
 		</div>
 	</div>
-	<div class="text-center text-xs opacity-50 py-4 bg-[#0c0913]">
+	<div class="bg-[#0c0913] py-4 text-center text-xs opacity-50">
 		© {year} Missy Midwest · Jordan Brooke Music LLC
 	</div>
 </footer>
@@ -986,11 +988,11 @@ git commit -m "feat: typed cached calendar service + shared layout load"
 </script>
 
 <header
-	class="sticky top-0 z-30 w-full bg-missy-deep-purple/85 backdrop-blur-md border-b border-missy-classic-lavender/15"
+	class="bg-missy-deep-purple/85 border-missy-classic-lavender/15 sticky top-0 z-30 w-full border-b backdrop-blur-md"
 >
-	<div class="max-w-screen-2xl mx-auto h-16 px-4 md:px-8 flex items-center justify-between">
+	<div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-8">
 		<div class="hidden md:block"><SocialLinks size={22} /></div>
-		<a href="/" class="missy-header text-lg md:text-xl tracking-wide text-white">MISSY MIDWEST</a>
+		<a href="/" class="missy-header text-lg tracking-wide text-white md:text-xl">MISSY MIDWEST</a>
 		<Nav />
 	</div>
 </header>
@@ -1009,7 +1011,7 @@ git commit -m "feat: typed cached calendar service + shared layout load"
 
 <Header />
 
-<main class="flex flex-col items-center w-full min-h-screen bg-missy-deep-purple">
+<main class="bg-missy-deep-purple flex min-h-screen w-full flex-col items-center">
 	{@render children()}
 </main>
 
@@ -1050,20 +1052,20 @@ git commit -m "feat: page-link header/nav with sticky wordmark and footer layout
 	import Button from '$lib/components/Button.svelte';
 </script>
 
-<section class="relative w-full overflow-hidden bg-glow-warm" style="min-height: 78vh;">
+<section class="bg-glow-warm relative w-full overflow-hidden" style="min-height: 78vh;">
 	<div
 		class="absolute inset-0 bg-[url('/landing/missy-fan-crop.webp')] bg-cover bg-center opacity-40 mix-blend-luminosity"
 		aria-hidden="true"
 	></div>
 	<div
-		class="relative z-10 max-w-screen-2xl mx-auto px-8 md:px-14 flex flex-col justify-center"
+		class="relative z-10 mx-auto flex max-w-screen-2xl flex-col justify-center px-8 md:px-14"
 		style="min-height: 78vh;"
 	>
 		<div class="label-eyebrow mb-3">Open-Format DJ · Vocalist · Producer</div>
-		<h1 class="missy-header text-glow text-6xl md:text-8xl lg:text-9xl leading-[0.86] text-white">
+		<h1 class="missy-header text-glow text-6xl leading-[0.86] text-white md:text-8xl lg:text-9xl">
 			Missy <span class="text-gradient-sun">Midwest</span>
 		</h1>
-		<p class="mt-5 max-w-md text-base md:text-lg opacity-90">
+		<p class="mt-5 max-w-md text-base opacity-90 md:text-lg">
 			Genre-blending energy from the Heart of IL to the Lake of the Ozarks and festival stages
 			beyond.
 		</p>
@@ -1090,28 +1092,28 @@ git commit -m "feat: page-link header/nav with sticky wordmark and footer layout
 	let { events }: Props = $props();
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<div class="flex items-end justify-between">
 		<SectionHeading label="Live" title="Upcoming shows" />
 		<Button href="/shows" label="All dates →" variant="outline" />
 	</div>
 
 	{#if events.length > 0}
-		<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 mt-2">
+		<div class="mt-2 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
 			{#each events as show (show.id)}
 				<a
 					href={show.htmlLink}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="block rounded-xl border border-missy-classic-lavender/15 bg-missy-deep-purple/40 p-5 hover:shadow-lg hover:shadow-missy-classic-lavender/20"
+					class="border-missy-classic-lavender/15 bg-missy-deep-purple/40 hover:shadow-missy-classic-lavender/20 block rounded-xl border p-5 hover:shadow-lg"
 				>
-					<p class="text-violet-200 text-sm">
+					<p class="text-sm text-violet-200">
 						{#if show.start.dateTime}{formatDateTime(show.start.dateTime)}{:else}{formatDate(
 								show.start?.date || ''
 							)}{/if}
 					</p>
-					<p class="missy-header text-xl mt-2">{show.summary}</p>
-					<p class="text-xs opacity-65 mt-1">{show.location}</p>
+					<p class="missy-header mt-2 text-xl">{show.summary}</p>
+					<p class="mt-1 text-xs opacity-65">{show.location}</p>
 				</a>
 			{/each}
 		</div>
@@ -1136,21 +1138,21 @@ git commit -m "feat: page-link header/nav with sticky wordmark and footer layout
 	];
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<div class="flex items-end justify-between">
 		<SectionHeading label="Shop" title="Rep the brand" />
 		<Button href="/shop" label="View all →" variant="outline" />
 	</div>
-	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-2">
+	<div class="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 		{#each featured as item (item.name)}
 			<a
 				href="/shop"
-				class="rounded-2xl overflow-hidden border border-missy-classic-lavender/12 bg-[#1d1830]"
+				class="border-missy-classic-lavender/12 overflow-hidden rounded-2xl border bg-[#1d1830]"
 			>
 				<div class={`h-52 bg-gradient-to-br ${item.grad}`}></div>
 				<div class="flex items-center justify-between px-4 py-4">
 					<div>
-						<div class="font-semibold text-sm">{item.name}</div>
+						<div class="text-sm font-semibold">{item.name}</div>
 						<div class="text-missy-classic-lavender text-sm">{item.price}</div>
 					</div>
 				</div>
@@ -1171,19 +1173,15 @@ git commit -m "feat: page-link header/nav with sticky wordmark and footer layout
 	const tiles = Array.from({ length: 6 });
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<div class="flex items-end justify-between">
 		<SectionHeading label="@missy.midwest" title="From the feed" />
-		<Button
-			href="https://www.instagram.com/missy.midwest/"
-			label="Follow →"
-			variant="outline"
-		/>
+		<Button href="https://www.instagram.com/missy.midwest/" label="Follow →" variant="outline" />
 	</div>
-	<div class="grid grid-cols-3 md:grid-cols-6 gap-2.5 mt-2">
+	<div class="mt-2 grid grid-cols-3 gap-2.5 md:grid-cols-6">
 		{#each tiles as _, i (i)}
 			<div
-				class="aspect-square rounded-lg bg-gradient-to-br from-missy-neon-lavender to-missy-magenta opacity-80"
+				class="from-missy-neon-lavender to-missy-magenta aspect-square rounded-lg bg-gradient-to-br opacity-80"
 			></div>
 		{/each}
 	</div>
@@ -1221,7 +1219,7 @@ export const load: PageServerLoad = async () => {
 </svelte:head>
 
 <Hero />
-<div class="w-full flex flex-col items-center">
+<div class="flex w-full flex-col items-center">
 	<Bio />
 	<ShopTeaser />
 	<ShowsTeaser events={data.nextShows} />
@@ -1307,15 +1305,15 @@ Keep the existing `<section id="dates">` markup and the attachment/thumbnail log
 	];
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
-	<h3 class="missy-header text-2xl mb-6">Previous events</h3>
-	<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
+	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
+	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 		{#each photos as slug (slug)}
 			<img
 				src={`/archive/gig-photos/${slug}.webp`}
 				alt={`Missy Midwest live — ${slug.replaceAll('-', ' ')}`}
 				loading="lazy"
-				class="aspect-square w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity"
+				class="aspect-square w-full rounded-lg object-cover opacity-90 transition-opacity hover:opacity-100"
 			/>
 		{/each}
 	</div>
@@ -1337,7 +1335,7 @@ Keep the existing `<section id="dates">` markup and the attachment/thumbnail log
 	<title>Shows — Missy Midwest</title>
 </svelte:head>
 
-<div class="w-full flex flex-col items-center">
+<div class="flex w-full flex-col items-center">
 	<UpcomingDates events={data.events} />
 	<PreviousEvents />
 </div>
@@ -1409,7 +1407,7 @@ Expected: FAIL — cannot resolve component.
 		`&show_user=true&show_reposts=false&show_teaser=false&visual=true`;
 </script>
 
-<div class="w-full max-w-3xl mx-auto">
+<div class="mx-auto w-full max-w-3xl">
 	<iframe
 		title="Missy Midwest — latest on SoundCloud"
 		width="100%"
@@ -1446,10 +1444,10 @@ Expected: PASS.
 	<title>Music — Missy Midwest</title>
 </svelte:head>
 
-<div class="max-w-screen-2xl w-full px-8 md:px-14 py-16 flex flex-col items-center">
+<div class="flex w-full max-w-screen-2xl flex-col items-center px-8 py-16 md:px-14">
 	<div class="w-full">
 		<SectionHeading label="Featured" title="Latest mix" />
-		<div class="w-full max-w-3xl mx-auto mb-16">
+		<div class="mx-auto mb-16 w-full max-w-3xl">
 			<iframe
 				title="Featured mix"
 				width="100%"
@@ -1537,7 +1535,7 @@ export const actions: Actions = {
 	<title>Contact &amp; Booking — Missy Midwest</title>
 </svelte:head>
 
-<div class="w-full flex flex-col items-center px-8 md:px-14">
+<div class="flex w-full flex-col items-center px-8 md:px-14">
 	<Contact />
 	<PressKit />
 </div>
@@ -1586,9 +1584,7 @@ git commit -m "feat: move contact form and press kit to /contact"
 	<title>Shop — Missy Midwest</title>
 </svelte:head>
 
-<section
-	class="max-w-screen-2xl w-full px-8 md:px-14 py-28 flex flex-col items-center text-center"
->
+<section class="flex w-full max-w-screen-2xl flex-col items-center px-8 py-28 text-center md:px-14">
 	<SectionHeading label="Shop" title="Merch is on the way" />
 	<p class="max-w-md opacity-85">
 		Hats and tees are dropping soon. In the meantime, catch a show or say hi.

@@ -8,7 +8,7 @@
 		`&show_user=true&show_reposts=false&show_teaser=false&visual=true`;
 </script>
 
-<div class="w-full max-w-3xl mx-auto">
+<div class="mx-auto w-full max-w-3xl">
 	<iframe
 		title="Missy Midwest — latest on SoundCloud"
 		width="100%"

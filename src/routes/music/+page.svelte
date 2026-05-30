@@ -13,10 +13,10 @@
 	<title>Music — Missy Midwest</title>
 </svelte:head>
 
-<div class="max-w-screen-2xl w-full px-8 md:px-14 py-16 flex flex-col items-center">
+<div class="flex w-full max-w-screen-2xl flex-col items-center px-8 py-16 md:px-14">
 	<div class="w-full">
 		<SectionHeading label="Featured" title="Latest mix" />
-		<div class="w-full max-w-3xl mx-auto mb-16">
+		<div class="mx-auto mb-16 w-full max-w-3xl">
 			<iframe
 				title="Featured mix"
 				width="100%"

@@ -1,9 +1,9 @@
 <section
 	id="bio"
-	class="max-w-screen-2xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 pt-12 lg:pt-20 pb-12 md:pb-16"
+	class="grid w-full max-w-screen-2xl grid-cols-1 gap-8 pt-12 pb-12 md:gap-16 md:pb-16 lg:grid-cols-2 lg:pt-20"
 >
 	<div>
-		<h2 class="text-4xl mb-6 md:mb-10">Bio</h2>
+		<h2 class="mb-6 text-4xl md:mb-10">Bio</h2>
 		<p class="mb-6 text-sm md:text-base">
 			<span class="text-lg text-violet-200">✨ Music Artist & Resident DJ ✨</span>
 			<br />
@@ -23,7 +23,7 @@
 		</p>
 	</div>
 	<div class="flex justify-center">
-		<img src="/bio/jordan.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+		<img src="/bio/jordan.webp" alt="Missy Midwest" class="bio-img rounded-md opacity-90" />
 	</div>
 </section>
 

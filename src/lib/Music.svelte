@@ -1,9 +1,9 @@
 <section
 	id="music"
-	class="max-w-screen-2xl w-full grid lg:grid-cols-2 md:grid-cols-1 gap-8 pt-20 pb-12"
+	class="grid w-full max-w-screen-2xl gap-8 pt-20 pb-12 md:grid-cols-1 lg:grid-cols-2"
 >
 	<div class="mb-6 md:mb-0">
-		<h2 class="text-4xl mb-8 md:mb-10 text-center">Featured Track</h2>
+		<h2 class="mb-8 text-center text-4xl md:mb-10">Featured Track</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				title="Missy Midwest - What I Want (Morgan Wallen Cover)"
@@ -17,7 +17,7 @@
 	</div>
 
 	<div>
-		<h2 class="text-4xl mb-8 md:mb-10 text-center">Featured Mix</h2>
+		<h2 class="mb-8 text-center text-4xl md:mb-10">Featured Mix</h2>
 		<div class="frame-wrapper flex justify-center">
 			<iframe
 				title="Full Tree House Set at Franky &amp; Louies - May 2025"

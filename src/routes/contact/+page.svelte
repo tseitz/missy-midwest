@@ -7,7 +7,7 @@
 	<title>Contact &amp; Booking — Missy Midwest</title>
 </svelte:head>
 
-<div class="w-full flex flex-col items-center px-8 md:px-14">
+<div class="flex w-full flex-col items-center px-8 md:px-14">
 	<Contact />
 	<PressKit />
 </div>

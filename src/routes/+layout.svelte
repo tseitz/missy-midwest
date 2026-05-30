@@ -8,7 +8,7 @@
 
 <Header />
 
-<main class="flex flex-col items-center w-full min-h-screen bg-missy-deep-purple">
+<main class="bg-missy-deep-purple flex min-h-screen w-full flex-col items-center">
 	{@render children()}
 </main>
 

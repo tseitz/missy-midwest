@@ -15,4 +15,3 @@ export async function validateTurnstileToken(token: string): Promise<boolean> {
 	const data = await response.json();
 	return data.success;
 }
-

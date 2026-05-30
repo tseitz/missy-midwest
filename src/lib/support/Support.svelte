@@ -1,9 +1,9 @@
-<section id="support" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
+<section id="support" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
 	<div>
-		<h2 class="text-4xl mb-12">Support</h2>
+		<h2 class="mb-12 text-4xl">Support</h2>
 		<div class="mb-8">
 			If you would like to send your support, here are the following FREE ways to do so:
-			<ul class="list-disc pl-6 mt-2 mb-2 space-y-1">
+			<ul class="mt-2 mb-2 list-disc space-y-1 pl-6">
 				<li>Share / Like / Comment on social media posts</li>
 				<li>Repost her music on Soundcloud</li>
 				<li>Use code "MISSY" on all qualifying ticket sales</li>
@@ -11,9 +11,9 @@
 			<br />
 			If you'd like to go above and beyond, you can use the links below!
 		</div>
-		<div class="grid grid-cols-2 lg:grid-cols-3 gap-10">
+		<div class="grid grid-cols-2 gap-10 lg:grid-cols-3">
 			<div>
-				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img opacity-90 rounded-md" />
+				<img src="/support/venmo.webp" alt="Missy Midwest" class="bio-img rounded-md opacity-90" />
 				<div class="mt-2">
 					<a href="https://venmo.com/u/missymidwest" target="_blank" rel="noreferrer"
 						>@missymidwest</a
@@ -24,7 +24,7 @@
 				<img
 					src="/support/cashapp.webp"
 					alt="Missy Midwest"
-					class="bio-img opacity-90 rounded-md"
+					class="bio-img rounded-md opacity-90"
 				/>
 				<div class="mt-2">
 					<a href="https://cash.app/$missymidwest" target="_blank" rel="noreferrer" class="mt-6"

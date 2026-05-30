@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
 
@@ -10,21 +11,21 @@
 	];
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<div class="flex items-end justify-between">
 		<SectionHeading label="Shop" title="Rep the brand" />
-		<Button href="/shop" label="View all →" variant="outline" />
+		<Button href={resolve('/shop')} label="View all →" variant="outline" />
 	</div>
-	<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-2">
+	<div class="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 		{#each featured as item (item.name)}
 			<a
-				href="/shop"
-				class="rounded-2xl overflow-hidden border border-missy-classic-lavender/12 bg-[#1d1830]"
+				href={resolve('/shop')}
+				class="border-missy-classic-lavender/12 overflow-hidden rounded-2xl border bg-[#1d1830]"
 			>
 				<div class={`h-52 bg-gradient-to-br ${item.grad}`}></div>
 				<div class="flex items-center justify-between px-4 py-4">
 					<div>
-						<div class="font-semibold text-sm">{item.name}</div>
+						<div class="text-sm font-semibold">{item.name}</div>
 						<div class="text-missy-classic-lavender text-sm">{item.price}</div>
 					</div>
 				</div>

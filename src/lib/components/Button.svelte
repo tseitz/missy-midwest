@@ -20,6 +20,8 @@
 </script>
 
 {#if href}
+	<!-- href is already final: callers pass resolve()/asset() output or an external URL -->
+	<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 	<a {href} class={cls}>{label}</a>
 {:else}
 	<button class={cls} {type} {disabled} {onclick}>{label}</button>
@@ -37,7 +39,9 @@
 		border-radius: 999px;
 		text-decoration: none;
 		cursor: pointer;
-		transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+		transition:
+			transform 0.15s ease-out,
+			box-shadow 0.15s ease-out;
 	}
 	.btn:hover {
 		transform: translateY(-1px);

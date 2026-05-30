@@ -12,15 +12,15 @@
 	];
 </script>
 
-<section class="max-w-screen-2xl w-full px-8 md:px-14 py-16">
-	<h3 class="missy-header text-2xl mb-6">Previous events</h3>
-	<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
+	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
+	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 		{#each photos as slug (slug)}
 			<img
 				src={`/archive/gig-photos/${slug}.webp`}
 				alt={`Missy Midwest live — ${slug.replaceAll('-', ' ')}`}
 				loading="lazy"
-				class="aspect-square w-full object-cover rounded-lg opacity-90 hover:opacity-100 transition-opacity"
+				class="aspect-square w-full rounded-lg object-cover opacity-90 transition-opacity hover:opacity-100"
 			/>
 		{/each}
 	</div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import CartDrawer from '$lib/shop/CartDrawer.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -13,3 +14,4 @@
 </main>
 
 <Footer />
+<CartDrawer />

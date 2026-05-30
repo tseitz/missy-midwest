@@ -47,6 +47,13 @@
 	function timeLabel(event: CalendarEvent): string {
 		return event.start.dateTime ? formatTime(event.start.dateTime) : 'All Day';
 	}
+
+	/** Split a Google Calendar location into the venue name (before the first comma) and the rest. */
+	function splitLocation(location: string): { venue: string; address: string } {
+		const comma = location.indexOf(',');
+		if (comma === -1) return { venue: location.trim(), address: '' };
+		return { venue: location.slice(0, comma).trim(), address: location.slice(comma + 1).trim() };
+	}
 </script>
 
 <Section id="dates" label="Live" title="Upcoming shows" reveal={false}>
@@ -64,6 +71,7 @@
 		<div class="mt-6 grid gap-5 sm:grid-cols-2">
 			{#each featured as event (event.id)}
 				{@const poster = posterUrl(event)}
+				{@const loc = splitLocation(event.location ?? '')}
 				<a
 					href={event.htmlLink}
 					target="_blank"
@@ -87,7 +95,8 @@
 					<div class="bg-missy-deep-purple/85 relative px-6 py-4 backdrop-blur-md">
 						<p class="missy-header text-2xl">{event.summary}</p>
 						<p class="mt-1 text-sm text-violet-200">{fullDate(event)}</p>
-						{#if event.location}<p class="mt-1 text-xs opacity-70">{event.location}</p>{/if}
+						{#if loc.venue}<p class="mt-1 text-sm font-medium text-violet-100">{loc.venue}</p>{/if}
+						{#if loc.address}<p class="text-xs opacity-60">{loc.address}</p>{/if}
 					</div>
 				</a>
 			{/each}
@@ -99,6 +108,7 @@
 				<p class="label-eyebrow">{group.label}</p>
 				<ul class="mt-2">
 					{#each group.events as event (event.id)}
+						{@const loc = splitLocation(event.location ?? '')}
 						<li>
 							<a
 								href={event.htmlLink}
@@ -115,10 +125,11 @@
 								>
 									<div class="min-w-0">
 										<p class="missy-header text-xl">{event.summary}</p>
-										{#if event.location}<p
-												class="mt-0.5 truncate text-sm text-violet-200 opacity-90"
-											>
-												{event.location}
+										{#if loc.venue}<p class="mt-0.5 truncate text-sm font-medium text-violet-100">
+												{loc.venue}
+											</p>{/if}
+										{#if loc.address}<p class="truncate text-xs text-violet-200 opacity-60">
+												{loc.address}
 											</p>{/if}
 									</div>
 									<div

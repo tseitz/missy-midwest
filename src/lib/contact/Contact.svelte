@@ -68,6 +68,10 @@
 		// Force a fresh Turnstile token for the next submission by re-rendering the widget.
 		turnstileKey++;
 	}
+
+	const inputClass =
+		'w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none';
+	const labelClass = 'mb-2 block text-sm font-medium text-missy-classic-lavender';
 </script>
 
 <section id="contact" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
@@ -119,14 +123,12 @@
 					};
 				}}
 			>
-				<label class="mb-2 block text-sm font-medium text-missy-classic-lavender" for="name"
-					>Name</label
-				>
+				<label class={labelClass} for="name">Name</label>
 				<input
 					id="name"
 					name="name"
 					type="text"
-					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					class={inputClass}
 					bind:value={formData.name}
 					required
 				/>
@@ -134,14 +136,12 @@
 					<small class="text-missy-magenta">{errors.name}</small>
 				{/if}
 
-				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="email"
-					>Email</label
-				>
+				<label class="mt-5 {labelClass}" for="email">Email</label>
 				<input
 					id="email"
 					name="email"
 					type="email"
-					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					class={inputClass}
 					bind:value={formData.email}
 					required
 				/>
@@ -149,28 +149,18 @@
 					<small class="text-missy-magenta">{errors.email}</small>
 				{/if}
 
-				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="phone"
-					>Phone (Optional)</label
-				>
-				<input
-					id="phone"
-					name="phone"
-					type="text"
-					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
-					bind:value={formData.phone}
-				/>
+				<label class="mt-5 {labelClass}" for="phone">Phone (Optional)</label>
+				<input id="phone" name="phone" type="text" class={inputClass} bind:value={formData.phone} />
 				{#if submitAttempted && errors.phone}
 					<small class="text-missy-magenta">{errors.phone}</small>
 				{/if}
 
-				<label class="mt-5 mb-2 block text-sm font-medium text-missy-classic-lavender" for="message"
-					>Message</label
-				>
+				<label class="mt-5 {labelClass}" for="message">Message</label>
 				<textarea
 					id="message"
 					name="message"
 					rows="7"
-					class="w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none"
+					class={inputClass}
 					bind:value={formData.message}
 					required
 				></textarea>

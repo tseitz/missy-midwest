@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve, asset } from '$app/paths';
+	import Section from '$lib/components/Section.svelte';
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import { reveal } from '$lib/motion/reveal';
 
 	const genres = [
 		'UKG',
@@ -16,7 +16,7 @@
 	];
 </script>
 
-<section id="bio" class="w-full max-w-screen-2xl px-8 py-16 md:px-14" use:reveal>
+<Section id="bio">
 	<div
 		class="panel-glass glow-feature grid grid-cols-1 items-stretch gap-8 overflow-hidden lg:grid-cols-2 lg:gap-0"
 	>
@@ -59,4 +59,4 @@
 			</div>
 		</div>
 	</div>
-</section>
+</Section>

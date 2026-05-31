@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Section from '$lib/components/Section.svelte';
 	import Lightbox from '$lib/components/Lightbox.svelte';
 
 	const events = [
@@ -19,7 +20,7 @@
 	let open = $state<number | null>(null);
 </script>
 
-<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
+<Section reveal={false}>
 	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
 	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 		{#each photos as photo, i (photo.src)}
@@ -38,7 +39,7 @@
 			</button>
 		{/each}
 	</div>
-</section>
+</Section>
 
 <Lightbox
 	{photos}

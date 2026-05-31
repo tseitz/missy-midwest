@@ -1,10 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const { listMock } = vi.hoisted(() => ({ listMock: vi.fn() }));
+const { listMock, captureMessage } = vi.hoisted(() => ({
+	listMock: vi.fn(),
+	captureMessage: vi.fn()
+}));
 
 vi.mock('$lib/server/stripe', () => ({
 	stripe: { products: { list: listMock } }
 }));
+
+vi.mock('@sentry/sveltekit', () => ({ captureMessage }));
 
 import { listGroups, getGroup } from './catalog';
 
@@ -32,6 +37,7 @@ function stripeProduct(over: {
 
 beforeEach(() => {
 	listMock.mockReset();
+	captureMessage.mockClear();
 });
 
 describe('listGroups', () => {
@@ -51,11 +57,13 @@ describe('listGroups', () => {
 		);
 	});
 
-	it('returns an empty catalog and an error message on failure', async () => {
+	it('returns an empty catalog and an error message on failure, and alerts', async () => {
+		vi.spyOn(console, 'error').mockImplementation(() => {});
 		listMock.mockRejectedValue(new Error('stripe down'));
 		const { groups, error } = await listGroups();
 		expect(groups).toEqual([]);
 		expect(error).toBe('stripe down');
+		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/stripe down/), 'error');
 	});
 
 	it('warns when Stripe reports more products than one page', async () => {

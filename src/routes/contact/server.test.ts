@@ -1,12 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const { validateMock, sendContactMock } = vi.hoisted(() => ({
+const { validateMock, sendContactMock, captureMessage } = vi.hoisted(() => ({
 	validateMock: vi.fn(),
-	sendContactMock: vi.fn()
+	sendContactMock: vi.fn(),
+	captureMessage: vi.fn()
 }));
 
 vi.mock('$lib/server/turnstile', () => ({ validateTurnstileToken: validateMock }));
 vi.mock('$lib/server/email', () => ({ sendContactMessage: sendContactMock }));
+vi.mock('@sentry/sveltekit', () => ({ captureMessage }));
 
 import { actions } from './+page.server';
 
@@ -32,6 +34,7 @@ const valid = {
 beforeEach(() => {
 	validateMock.mockReset().mockResolvedValue(true);
 	sendContactMock.mockReset().mockResolvedValue(undefined);
+	captureMessage.mockClear();
 });
 
 describe('contact action', () => {
@@ -65,10 +68,12 @@ describe('contact action', () => {
 		expect(sendContactMock).not.toHaveBeenCalled();
 	});
 
-	it('fails with 502 when the email send throws', async () => {
+	it('fails with 502 when the email send throws, and alerts', async () => {
+		vi.spyOn(console, 'error').mockImplementation(() => {});
 		sendContactMock.mockRejectedValue(new Error('resend down'));
 		const res = await actions.contact(form(valid));
 		expect(res).toMatchObject({ status: 502 });
+		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/resend down/), 'error');
 	});
 
 	it('strips newlines from single-line fields to prevent email header injection', async () => {

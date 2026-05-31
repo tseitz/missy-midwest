@@ -1,6 +1,6 @@
-import * as Sentry from '@sentry/sveltekit';
 import { env } from '$env/dynamic/private';
 import { parseFeed, type InstagramPost } from '$lib/home/instagram';
+import { reportFailure, errorMessage } from './report';
 
 /**
  * Server-side fetcher for the Behold Instagram JSON feed.
@@ -25,16 +25,7 @@ export function __clearInstagramCache(): void {
 	cache = null;
 }
 
-/**
- * Single seam for feed failures: logs server-side and reports to Sentry (a
- * no-op when Sentry isn't initialized, e.g. local dev / tests). A drifted or
- * broken feed surfaces as an alert rather than silently rendering empty.
- */
-function reportFeedFailure(detail: string): void {
-	const message = `Instagram feed failure: ${detail}`;
-	console.error(message);
-	Sentry.captureMessage(message, 'error');
-}
+const FAILURE_CONTEXT = 'Instagram feed failure';
 
 /** Fetch + validate the Behold feed (cached for 30 minutes). */
 export async function getInstagramFeed(): Promise<InstagramFeedResult> {
@@ -53,14 +44,14 @@ export async function getInstagramFeed(): Promise<InstagramFeedResult> {
 		}
 		const raw: unknown = await response.json();
 		const { posts, error } = parseFeed(raw);
-		if (error) reportFeedFailure(error);
+		if (error) reportFailure(FAILURE_CONTEXT, error);
 
 		const result: InstagramFeedResult = { posts, error };
 		cache = { at: Date.now(), result };
 		return result;
 	} catch (error) {
-		const message = error instanceof Error ? error.message : 'Unknown error';
-		reportFeedFailure(message);
+		const message = errorMessage(error);
+		reportFailure(FAILURE_CONTEXT, message);
 		return { posts: [], error: message };
 	}
 }

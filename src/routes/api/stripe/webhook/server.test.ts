@@ -1,16 +1,25 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const { constructEventMock, retrieveMock, updateMock, sendOrderMock } = vi.hoisted(() => ({
+const {
+	constructEventMock,
+	retrieveMock,
+	updateSessionMock,
+	updateMock,
+	sendOrderMock,
+	captureMessage
+} = vi.hoisted(() => ({
 	constructEventMock: vi.fn(),
 	retrieveMock: vi.fn(),
+	updateSessionMock: vi.fn(),
 	updateMock: vi.fn(),
-	sendOrderMock: vi.fn()
+	sendOrderMock: vi.fn(),
+	captureMessage: vi.fn()
 }));
 
 vi.mock('$lib/server/stripe', () => ({
 	stripe: {
 		webhooks: { constructEvent: constructEventMock },
-		checkout: { sessions: { retrieve: retrieveMock } },
+		checkout: { sessions: { retrieve: retrieveMock, update: updateSessionMock } },
 		products: { update: updateMock }
 	}
 }));
@@ -18,6 +27,8 @@ vi.mock('$lib/server/stripe', () => ({
 vi.mock('$lib/server/email', () => ({ sendOrderNotification: sendOrderMock }));
 
 vi.mock('$env/dynamic/private', () => ({ env: { STRIPE_WEBHOOK_SECRET: 'whsec_test' } }));
+
+vi.mock('@sentry/sveltekit', () => ({ captureMessage }));
 
 import { POST } from './+server';
 
@@ -34,8 +45,11 @@ function event(body = '{}', signature = 'sig') {
 beforeEach(() => {
 	constructEventMock.mockReset();
 	retrieveMock.mockReset();
+	updateSessionMock.mockReset();
 	updateMock.mockReset();
 	sendOrderMock.mockReset();
+	captureMessage.mockClear();
+	updateSessionMock.mockResolvedValue({});
 	updateMock.mockResolvedValue({});
 	sendOrderMock.mockResolvedValue(undefined);
 });
@@ -88,9 +102,30 @@ describe('POST /api/stripe/webhook', () => {
 		});
 		expect(updateMock).toHaveBeenCalledWith('prod_a', { metadata: { stock: '6' } });
 		expect(sendOrderMock).toHaveBeenCalledTimes(1);
+		// Marks the session fulfilled so redeliveries are idempotent.
+		expect(updateSessionMock).toHaveBeenCalledWith('cs_123', { metadata: { fulfilled: 'true' } });
 	});
 
-	it('still returns 200 if the order email throws', async () => {
+	it('skips an already-fulfilled session (idempotent redelivery)', async () => {
+		constructEventMock.mockReturnValue({
+			id: 'evt_dup',
+			type: 'checkout.session.completed',
+			data: { object: { id: 'cs_dup' } }
+		});
+		retrieveMock.mockResolvedValue({
+			id: 'cs_dup',
+			metadata: { fulfilled: 'true' },
+			line_items: { data: [{ price: { product: { id: 'prod_a', metadata: { stock: '8' } } } }] }
+		});
+		const res = await POST(event());
+		expect(res.status).toBe(200);
+		expect(updateMock).not.toHaveBeenCalled();
+		expect(sendOrderMock).not.toHaveBeenCalled();
+		expect(updateSessionMock).not.toHaveBeenCalled();
+	});
+
+	it('still returns 200 if the order email throws, and alerts', async () => {
+		vi.spyOn(console, 'error').mockImplementation(() => {});
 		constructEventMock.mockReturnValue({
 			id: 'evt_3',
 			type: 'checkout.session.completed',
@@ -100,5 +135,6 @@ describe('POST /api/stripe/webhook', () => {
 		sendOrderMock.mockRejectedValue(new Error('resend down'));
 		const res = await POST(event());
 		expect(res.status).toBe(200);
+		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/resend down/), 'error');
 	});
 });

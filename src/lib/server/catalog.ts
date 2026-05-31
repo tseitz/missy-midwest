@@ -1,6 +1,7 @@
 import type Stripe from 'stripe';
 import { stripe } from './stripe';
 import { groupProducts } from '$lib/shop/group-products';
+import { reportFailure, errorMessage } from './report';
 import type { CatalogProductInput, ProductGroup } from '$lib/shop/types';
 
 export interface CatalogResult {
@@ -37,8 +38,9 @@ export async function listGroups(): Promise<CatalogResult> {
 		}
 		return { groups: groupProducts(res.data.map(toInput)) };
 	} catch (error) {
-		console.error('Stripe catalog error:', error);
-		return { groups: [], error: error instanceof Error ? error.message : 'Unknown error' };
+		const message = errorMessage(error);
+		reportFailure('Stripe catalog error', message);
+		return { groups: [], error: message };
 	}
 }
 

@@ -4,6 +4,7 @@ import { stripe } from '$lib/server/stripe';
 import { env } from '$env/dynamic/private';
 import { sendOrderNotification } from '$lib/server/email';
 import { stockUpdatesFromLineItems, orderFromSession } from '$lib/server/fulfillment';
+import { reportFailure, errorMessage } from '$lib/server/report';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -23,30 +24,46 @@ export const POST: RequestHandler = async ({ request }) => {
 	}
 
 	const session = event.data.object as Stripe.Checkout.Session;
-	// Best-effort idempotency: log the event id (no database — duplicate deliveries are tolerated).
-	console.info(`Fulfilling Stripe checkout session ${session.id} (event ${event.id})`);
-
 	const full = await stripe.checkout.sessions.retrieve(session.id, {
 		expand: ['line_items.data.price.product']
 	});
+
+	// Idempotency without a database: Stripe retries delivery (on timeouts/5xx), so
+	// we stamp the session once fulfilled and skip on redelivery — preventing double
+	// stock-decrement and duplicate order emails. (Concurrent checkouts of the *same*
+	// SKU can still race on the shared stock metadata; that's an inherent limit of
+	// using Stripe metadata as the inventory store, acceptable at this volume.)
+	if (full.metadata?.fulfilled === 'true') {
+		return json({ received: true });
+	}
+	console.info(`Fulfilling Stripe checkout session ${session.id} (event ${event.id})`);
+
 	const items = full.line_items?.data ?? [];
 
-	// Decrement stock per item. Stripe merges metadata by key, so other keys are preserved.
-	// Each update is independent: a single failure is logged but doesn't abort the rest.
+	// Decrement stock per item. Stripe merges metadata by key, so other keys are
+	// preserved. Each update is independent: a failure is alerted but doesn't abort
+	// the rest (partial fulfillment beats none).
 	for (const update of stockUpdatesFromLineItems(items)) {
 		try {
 			await stripe.products.update(update.productId, {
 				metadata: { stock: String(update.stock) }
 			});
 		} catch (err) {
-			console.error(`Failed to update stock for product ${update.productId}:`, err);
+			reportFailure(`Stock update failed for product ${update.productId}`, errorMessage(err));
 		}
 	}
 
 	try {
 		await sendOrderNotification(orderFromSession(full, items));
 	} catch (err) {
-		console.error('Failed to send order notification email:', err);
+		reportFailure('Order notification email failed', errorMessage(err));
+	}
+
+	// Stamp last, so an uncaught crash mid-fulfillment retries rather than skipping.
+	try {
+		await stripe.checkout.sessions.update(session.id, { metadata: { fulfilled: 'true' } });
+	} catch (err) {
+		reportFailure(`Failed to mark session ${session.id} fulfilled`, errorMessage(err));
 	}
 
 	return json({ received: true });

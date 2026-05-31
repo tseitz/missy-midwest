@@ -1,25 +1,15 @@
 import { json, error } from '@sveltejs/kit';
 import type Stripe from 'stripe';
+import { z } from 'zod';
 import { stripe } from '$lib/server/stripe';
 import { stockFromProduct } from '$lib/shop/stock';
 import type { RequestHandler } from './$types';
 
 const SHIPPING_RATE_CENTS = 600;
 
-interface CheckoutLine {
-	priceId: string;
-	quantity: number;
-}
-
-function isValidLine(line: unknown): line is CheckoutLine {
-	return (
-		typeof line === 'object' &&
-		line !== null &&
-		typeof (line as CheckoutLine).priceId === 'string' &&
-		Number.isInteger((line as CheckoutLine).quantity) &&
-		(line as CheckoutLine).quantity >= 1
-	);
-}
+const checkoutBodySchema = z
+	.array(z.object({ priceId: z.string().min(1), quantity: z.number().int().min(1) }))
+	.min(1);
 
 export const POST: RequestHandler = async ({ request, url }) => {
 	let body: unknown;
@@ -29,14 +19,14 @@ export const POST: RequestHandler = async ({ request, url }) => {
 		error(400, 'Invalid request.');
 	}
 
-	if (!Array.isArray(body) || body.length === 0) {
-		error(400, 'Your cart is empty.');
-	}
-	if (!body.every(isValidLine)) {
+	const parsed = checkoutBodySchema.safeParse(body);
+	if (!parsed.success) {
+		// Keep the user-facing distinction the storefront relies on.
+		if (Array.isArray(body) && body.length === 0) error(400, 'Your cart is empty.');
 		error(400, 'Your cart contains an invalid item.');
 	}
 
-	const lines = body as CheckoutLine[];
+	const lines = parsed.data;
 	const lineItems: { price: string; quantity: number }[] = [];
 
 	for (const line of lines) {

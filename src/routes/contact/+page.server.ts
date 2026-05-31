@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
 import { validateTurnstileToken } from '$lib/server/turnstile';
 import { sendContactMessage } from '$lib/server/email';
+import { reportFailure, errorMessage } from '$lib/server/report';
 import type { Actions } from './$types';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -49,7 +50,7 @@ export const actions: Actions = {
 		try {
 			await sendContactMessage({ name, email, phone, message });
 		} catch (err) {
-			console.error('Contact email send failed:', err);
+			reportFailure('Contact email send failed', errorMessage(err));
 			return fail(502, {
 				success: false,
 				message:

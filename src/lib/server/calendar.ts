@@ -1,9 +1,27 @@
 import { google } from 'googleapis';
+import { z } from 'zod';
 import { MISSY_CALENDAR_CLIENT_EMAIL, MISSY_CALENDAR_PRIVATE_KEY } from '$env/static/private';
 import type { CalendarEvent, UpcomingEventsResult } from '$lib/types/index';
+import { reportFailure, errorMessage } from './report';
 
 const calendar = google.calendar('v3');
 const CACHE_TTL_MS = 5 * 60 * 1000;
+
+/**
+ * The fields every event consumer depends on. We validate these at the trust
+ * boundary and drop (and alert on) anything that doesn't match, rather than
+ * blind-casting Google's payload and letting a malformed event crash a render.
+ * Extra fields (location, attachments, htmlLink, …) pass through untouched, so
+ * the consumer-facing `CalendarEvent` type is unchanged.
+ */
+const calendarEventSchema = z.object({
+	id: z.string(),
+	summary: z.string(),
+	start: z.object({
+		dateTime: z.string().optional(),
+		date: z.string().optional()
+	})
+});
 
 let cache: { at: number; result: UpcomingEventsResult } | null = null;
 
@@ -34,17 +52,32 @@ export async function getUpcomingEvents(): Promise<UpcomingEventsResult> {
 			orderBy: 'startTime'
 		});
 
-		const result: UpcomingEventsResult = {
-			events: (response.data.items ?? []) as CalendarEvent[]
-		};
+		const rawItems = response.data.items ?? [];
+		const events: CalendarEvent[] = [];
+		let dropped = 0;
+		for (const item of rawItems) {
+			// Validate the shape we depend on, but keep the original item so the
+			// extra fields consumers read (location, attachments, htmlLink) survive.
+			if (calendarEventSchema.safeParse(item).success) {
+				events.push(item as unknown as CalendarEvent);
+			} else {
+				dropped++;
+			}
+		}
+		if (dropped > 0) {
+			reportFailure(
+				'Calendar feed validation',
+				`${dropped} of ${rawItems.length} event(s) failed validation — possible schema drift`
+			);
+		}
+
+		const result: UpcomingEventsResult = { events };
 		cache = { at: Date.now(), result };
 		return result;
 	} catch (error) {
-		console.error('Calendar API error:', error);
-		return {
-			events: [],
-			error: error instanceof Error ? error.message : 'Unknown error'
-		};
+		const message = errorMessage(error);
+		reportFailure('Calendar API error', message);
+		return { events: [], error: message };
 	}
 }
 

@@ -52,7 +52,7 @@
 	}
 	.btn-fill {
 		background: linear-gradient(90deg, var(--color-missy-blush), var(--color-lake-sunrise));
-		color: #3a1233;
+		color: var(--color-missy-ink);
 		box-shadow: 0 6px 22px rgba(248, 151, 29, 0.4);
 	}
 	.btn-fill:hover {

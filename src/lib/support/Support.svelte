@@ -17,11 +17,7 @@
 		</div>
 		<div class="grid grid-cols-2 gap-10 lg:grid-cols-3">
 			<div>
-				<img
-					src={asset('/support/venmo.webp')}
-					alt="Missy Midwest"
-					class="bio-img rounded-md opacity-90"
-				/>
+				<img src={asset('/support/venmo.webp')} alt="Missy Midwest" class="rounded-md opacity-90" />
 				<div class="mt-2">
 					<a href="https://venmo.com/u/missymidwest" target="_blank" rel="noreferrer"
 						>@missymidwest</a
@@ -32,7 +28,7 @@
 				<img
 					src={asset('/support/cashapp.webp')}
 					alt="Missy Midwest"
-					class="bio-img rounded-md opacity-90"
+					class="rounded-md opacity-90"
 				/>
 				<div class="mt-2">
 					<a href="https://cash.app/$missymidwest" target="_blank" rel="noreferrer" class="mt-6"

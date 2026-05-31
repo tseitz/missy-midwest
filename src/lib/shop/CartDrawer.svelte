@@ -100,7 +100,7 @@
 					type="button"
 					disabled={submitting}
 					onclick={checkout}
-					class="bg-missy-classic-lavender mt-4 w-full rounded-full py-3 font-semibold text-[#3a1233] disabled:opacity-50"
+					class="bg-missy-classic-lavender mt-4 w-full rounded-full py-3 font-semibold text-missy-ink disabled:opacity-50"
 				>
 					{submitting ? 'Redirecting…' : 'Checkout →'}
 				</button>

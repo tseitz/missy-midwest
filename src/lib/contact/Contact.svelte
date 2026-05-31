@@ -71,10 +71,10 @@
 </script>
 
 <section id="contact" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
-	<SectionHeading label="Booking" title="Get in touch" />
-	<div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
+	<div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-16">
 		<div>
-			<p class="leading-relaxed opacity-85">
+			<SectionHeading label="Booking" title="Get in touch" />
+			<p class="mt-6 leading-relaxed opacity-85">
 				For festival bookings, residencies, workshop offerings or any other inquires please fill out
 				this form.
 				<br />

@@ -9,7 +9,7 @@
 	let { group }: Props = $props();
 
 	const soldOut = $derived(group.variants.every((variant) => variant.stock <= 0));
-	const multi = $derived(group.variants.length > 1);
+	const priceVaries = $derived(new Set(group.variants.map((variant) => variant.price)).size > 1);
 </script>
 
 <a
@@ -31,7 +31,7 @@
 	<div class="px-4 py-4">
 		<div class="text-sm font-semibold">{group.name}</div>
 		<div class="text-missy-classic-lavender text-sm">
-			{multi ? 'from ' : ''}{formatPrice(group.fromPrice)}
+			{priceVaries ? 'from ' : ''}{formatPrice(group.fromPrice)}
 		</div>
 	</div>
 </a>

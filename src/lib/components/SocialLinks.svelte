@@ -7,6 +7,7 @@
 		SiFacebook,
 		SiYoutube
 	} from '@icons-pack/svelte-simple-icons';
+	import { SOCIAL_LINKS } from '$lib/social';
 
 	interface Props {
 		size?: number;
@@ -14,25 +15,22 @@
 	let { size = 24 }: Props = $props();
 
 	const color = 'var(--color-missy-classic-lavender)';
-	const socials = [
-		{ href: 'https://soundcloud.com/missymidwest', Icon: SiSoundcloud, label: 'SoundCloud' },
-		{ href: 'https://www.instagram.com/missy.midwest/', Icon: SiInstagram, label: 'Instagram' },
-		{ href: 'https://www.tiktok.com/@missy.midwestofficial', Icon: SiTiktok, label: 'TikTok' },
-		{ href: 'https://www.twitch.tv/missymidwest', Icon: SiTwitch, label: 'Twitch' },
-		{ href: 'https://www.facebook.com/MissyMidwest/', Icon: SiFacebook, label: 'Facebook' },
-		{
-			href: 'https://www.youtube.com/channel/UCG4fK0SGXZpW6FJfGblgIqg',
-			Icon: SiYoutube,
-			label: 'YouTube'
-		}
-	];
+	const icons = {
+		soundcloud: SiSoundcloud,
+		instagram: SiInstagram,
+		tiktok: SiTiktok,
+		twitch: SiTwitch,
+		facebook: SiFacebook,
+		youtube: SiYoutube
+	};
 </script>
 
 <div class="flex items-center gap-4">
-	{#each socials as { href, Icon, label } (href)}
+	{#each SOCIAL_LINKS as social (social.href)}
+		{@const Icon = icons[social.key]}
 		<!-- external social profile URLs; resolve() is for internal routes only -->
 		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-		<a {href} target="_blank" rel="noreferrer" aria-label={label} class="social">
+		<a href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} class="social">
 			<Icon {size} {color} />
 		</a>
 	{/each}

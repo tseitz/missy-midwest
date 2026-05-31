@@ -1,4 +1,5 @@
 import type Stripe from 'stripe';
+import { parseStock } from '$lib/shop/stock';
 import type { OrderEmailData, OrderEmailLine } from './email-templates';
 
 export interface StockUpdate {
@@ -14,7 +15,7 @@ export function stockUpdatesFromLineItems(items: Stripe.LineItem[]): StockUpdate
 		if (!product || typeof product === 'string' || ('deleted' in product && product.deleted)) {
 			continue;
 		}
-		const current = Number.parseInt(product.metadata?.stock ?? '0', 10) || 0;
+		const current = parseStock(product.metadata?.stock);
 		const stock = Math.max(0, current - (item.quantity ?? 0));
 		updates.push({ productId: product.id, stock });
 	}

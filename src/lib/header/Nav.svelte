@@ -3,13 +3,8 @@
 	import { resolve } from '$app/paths';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Button from '$lib/components/Button.svelte';
-
-	const routes = [
-		{ href: '/music', label: 'MUSIC' },
-		{ href: '/shows', label: 'SHOWS' },
-		{ href: '/shop', label: 'SHOP' },
-		{ href: '/contact', label: 'CONTACT' }
-	] as const;
+	import { trapFocus } from '$lib/a11y/focus-trap';
+	import { NAV_LINKS } from '$lib/nav';
 
 	const menuId = 'mobile-nav-menu';
 
@@ -38,41 +33,6 @@
 			document.body.style.overflow = '';
 		};
 	});
-
-	// Keep keyboard focus inside the open menu, and return it to the trigger on close.
-	// Attachment: runs when the menu mounts, cleans up (and restores focus) on unmount.
-	function trapFocus(node: HTMLElement) {
-		const previouslyFocused = document.activeElement as HTMLElement | null;
-		const selector =
-			'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
-		const focusable = () =>
-			Array.from(node.querySelectorAll<HTMLElement>(selector)).filter(
-				(el) => el.offsetParent !== null
-			);
-
-		focusable()[0]?.focus();
-
-		function onKeydown(event: KeyboardEvent) {
-			if (event.key !== 'Tab') return;
-			const items = focusable();
-			if (items.length === 0) return;
-			const first = items[0];
-			const last = items[items.length - 1];
-			if (event.shiftKey && document.activeElement === first) {
-				event.preventDefault();
-				last.focus();
-			} else if (!event.shiftKey && document.activeElement === last) {
-				event.preventDefault();
-				first.focus();
-			}
-		}
-
-		node.addEventListener('keydown', onKeydown);
-		return () => {
-			node.removeEventListener('keydown', onKeydown);
-			previouslyFocused?.focus();
-		};
-	}
 </script>
 
 <svelte:window onkeydown={open ? handleKeydown : undefined} />
@@ -80,7 +40,7 @@
 <nav>
 	<!-- Desktop: inline links on the right. -->
 	<ul class="hidden items-center gap-6 md:flex lg:gap-9">
-		{#each routes as route (route.href)}
+		{#each NAV_LINKS as route (route.href)}
 			<li>
 				<a
 					href={resolve(route.href)}
@@ -140,7 +100,7 @@
 			</div>
 
 			<ul class="flex flex-1 flex-col items-center justify-center gap-8">
-				{#each routes as route (route.href)}
+				{#each NAV_LINKS as route (route.href)}
 					<li>
 						<a
 							href={resolve(route.href)}
@@ -169,6 +129,7 @@
 		letter-spacing: 0.14em;
 		color: var(--color-slate-50);
 		transition: color 0.2s ease;
+		text-transform: uppercase;
 	}
 	.nav-link:hover,
 	.nav-link[aria-current='page'] {
@@ -188,6 +149,7 @@
 		letter-spacing: 0.08em;
 		color: var(--color-slate-50);
 		transition: color 0.2s ease;
+		text-transform: uppercase;
 	}
 	.mobile-link:hover,
 	.mobile-link[aria-current='page'] {

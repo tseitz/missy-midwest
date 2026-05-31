@@ -1,9 +1,5 @@
 import type { CatalogProductInput, ProductGroup, Variant, VariantType } from './types';
-
-function parseStock(raw: string | undefined): number {
-	const n = Number.parseInt(raw ?? '', 10);
-	return Number.isFinite(n) && n > 0 ? n : 0;
-}
+import { parseStock } from './stock';
 
 function isVariantType(raw: string | undefined): raw is VariantType {
 	return raw === 'color' || raw === 'size';

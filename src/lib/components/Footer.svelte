@@ -2,14 +2,9 @@
 	import { resolve } from '$app/paths';
 	import Button from './Button.svelte';
 	import SocialLinks from './SocialLinks.svelte';
+	import { NAV_LINKS } from '$lib/nav';
 
 	const year = 2026;
-	const explore = [
-		{ href: '/music', label: 'Music' },
-		{ href: '/shows', label: 'Shows' },
-		{ href: '/shop', label: 'Shop' },
-		{ href: '/contact', label: 'Contact' }
-	] as const;
 </script>
 
 <footer class="border-missy-classic-lavender/15 w-full border-t bg-[#100c1a]">
@@ -27,7 +22,7 @@
 		<div>
 			<h4 class="label-eyebrow mb-3">Explore</h4>
 			<ul class="space-y-2 text-sm">
-				{#each explore as link (link.href)}
+				{#each NAV_LINKS as link (link.href)}
 					<li><a href={resolve(link.href)}>{link.label}</a></li>
 				{/each}
 			</ul>

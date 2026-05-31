@@ -1,6 +1,7 @@
 import { json, error } from '@sveltejs/kit';
 import type Stripe from 'stripe';
 import { stripe } from '$lib/server/stripe';
+import { stockFromProduct } from '$lib/shop/stock';
 import type { RequestHandler } from './$types';
 
 const SHIPPING_RATE_CENTS = 600;
@@ -18,12 +19,6 @@ function isValidLine(line: unknown): line is CheckoutLine {
 		Number.isInteger((line as CheckoutLine).quantity) &&
 		(line as CheckoutLine).quantity >= 1
 	);
-}
-
-function stockOf(product: Stripe.Price['product']): number {
-	if (typeof product === 'string') return 0;
-	if ('deleted' in product && product.deleted) return 0;
-	return Number.parseInt(product.metadata.stock ?? '0', 10) || 0;
 }
 
 export const POST: RequestHandler = async ({ request, url }) => {
@@ -54,7 +49,7 @@ export const POST: RequestHandler = async ({ request, url }) => {
 		if (!price.active) {
 			error(400, 'An item in your cart is no longer available.');
 		}
-		if (stockOf(price.product) < line.quantity) {
+		if (stockFromProduct(price.product) < line.quantity) {
 			error(400, 'An item in your cart just sold out.');
 		}
 		lineItems.push({ price: line.priceId, quantity: line.quantity });

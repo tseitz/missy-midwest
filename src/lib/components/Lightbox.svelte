@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { wrapTabFocus } from '$lib/a11y/focus-trap';
+
 	export interface LightboxPhoto {
 		src: string;
 		caption: string;
@@ -28,19 +30,7 @@
 		if (event.key === 'Escape') return onClose();
 		if (event.key === 'ArrowLeft') return prev();
 		if (event.key === 'ArrowRight') return next();
-		if (event.key === 'Tab' && dialogEl) {
-			const focusable = dialogEl.querySelectorAll<HTMLButtonElement>('button');
-			if (focusable.length === 0) return;
-			const first = focusable[0];
-			const last = focusable[focusable.length - 1];
-			if (event.shiftKey && document.activeElement === first) {
-				event.preventDefault();
-				last.focus();
-			} else if (!event.shiftKey && document.activeElement === last) {
-				event.preventDefault();
-				first.focus();
-			}
-		}
+		if (event.key === 'Tab' && dialogEl) wrapTabFocus(dialogEl, event);
 	}
 
 	$effect(() => {

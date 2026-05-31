@@ -28,10 +28,10 @@
 			</span>
 		{/if}
 	</div>
-	<div class="px-4 py-4">
-		<div class="text-sm font-semibold">{group.name}</div>
-		<div class="text-missy-classic-lavender text-sm">
+	<div class="px-5 pt-4 pb-5">
+		<h3 class="text-lg leading-snug">{group.name}</h3>
+		<p class="text-missy-blush mt-1.5 text-base font-semibold">
 			{priceVaries ? 'from ' : ''}{formatPrice(group.fromPrice)}
-		</div>
+		</p>
 	</div>
 </a>

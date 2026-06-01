@@ -1,7 +1,7 @@
 import { google } from 'googleapis';
 import { z } from 'zod';
-import { MISSY_CALENDAR_CLIENT_EMAIL, MISSY_CALENDAR_PRIVATE_KEY } from '$env/static/private';
 import type { CalendarEvent, UpcomingEventsResult } from '$lib/types/index';
+import { createGoogleJwt } from './google-auth';
 import { reportFailure, errorMessage } from './report';
 
 const calendar = google.calendar('v3');
@@ -37,15 +37,8 @@ export async function getUpcomingEvents(): Promise<UpcomingEventsResult> {
 	}
 
 	try {
-		const client = new google.auth.JWT(
-			MISSY_CALENDAR_CLIENT_EMAIL,
-			undefined,
-			MISSY_CALENDAR_PRIVATE_KEY.replace(/\\n/g, '\n'),
-			['https://www.googleapis.com/auth/calendar.readonly']
-		);
-
 		const response = await calendar.events.list({
-			auth: client,
+			auth: createGoogleJwt(),
 			calendarId: 'missy.midwestofficial@gmail.com',
 			timeMin: new Date().toISOString(),
 			singleEvents: true,

@@ -24,10 +24,10 @@
 	const featured = $derived(events.slice(0, 2));
 	const months = $derived(groupEventsByMonth(events.slice(2), (event) => event.start));
 
-	/** Google Drive poster thumbnail, or null to fall back to the brand gradient. */
+	/** Our cached poster endpoint (proxies the Drive image), or null to fall back to the brand gradient. */
 	function posterUrl(event: CalendarEvent): string | null {
 		const fileId = event.attachments?.[0]?.fileId;
-		return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000` : null;
+		return fileId ? resolve('/api/event-poster/[fileId]', { fileId }) : null;
 	}
 
 	function dayNumber(event: CalendarEvent): string {

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { trapFocus } from '$lib/a11y/focus-trap';
-	import { NAV_LINKS } from '$lib/nav';
+	import { HEADER_NAV_LINKS } from '$lib/nav';
 
 	const menuId = 'mobile-nav-menu';
 
@@ -40,7 +40,7 @@
 <nav>
 	<!-- Desktop: inline links on the right. -->
 	<ul class="hidden items-center gap-6 md:flex lg:gap-9">
-		{#each NAV_LINKS as route (route.href)}
+		{#each HEADER_NAV_LINKS as route (route.href)}
 			<li>
 				<a
 					href={resolve(route.href)}
@@ -83,7 +83,13 @@
 			class="mobile-menu fixed inset-0 z-40 flex flex-col md:hidden"
 		>
 			<div class="flex h-16 items-center justify-between px-4">
-				<span class="missy-header text-lg tracking-wide text-white">MISSY MIDWEST</span>
+				<img
+					src={asset('/header/missy-midwest-logo-white.png')}
+					alt="Missy Midwest"
+					width="2551"
+					height="375"
+					class="h-7 w-auto"
+				/>
 				<button type="button" class="icon-btn" aria-label="Close menu" onclick={close}>
 					<svg
 						class="h-6 w-6"
@@ -100,7 +106,7 @@
 			</div>
 
 			<ul class="flex flex-1 flex-col items-center justify-center gap-8">
-				{#each NAV_LINKS as route (route.href)}
+				{#each HEADER_NAV_LINKS as route (route.href)}
 					<li>
 						<a
 							href={resolve(route.href)}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import Nav from '$lib/header/Nav.svelte';
 	import { cart } from '$lib/shop/cart.svelte';
 
@@ -12,15 +12,28 @@
 
 <header class="site-header fixed top-0 z-30 w-full" data-scrolled={scrolled}>
 	<div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 md:px-8">
-		<a href={resolve('/')} class="missy-header text-lg tracking-wide text-white md:text-xl">
-			MISSY MIDWEST
+		<a href={resolve('/')} class="brand" aria-label="Missy Midwest — home">
+			<img
+				src={asset('/header/missy-midwest-logo-white.png')}
+				alt="Missy Midwest"
+				width="2551"
+				height="375"
+				class="h-7 w-auto md:h-8"
+			/>
 		</a>
 		<div class="flex items-center gap-4">
 			<Nav />
 			<button
 				type="button"
-				aria-label="Open cart"
-				class="relative order-first text-lake-sunrise transition hover:text-lake-sunset md:order-none"
+				aria-label={cart.count > 0
+					? `Open cart, ${cart.count} item${cart.count === 1 ? '' : 's'}`
+					: 'Open cart'}
+				class={[
+					'relative order-first transition md:order-none',
+					cart.count > 0
+						? 'text-lake-sunrise hover:text-lake-sunset'
+						: 'text-slate-50 hover:text-missy-blush'
+				]}
 				onclick={() => (cart.open = true)}
 			>
 				<svg
@@ -51,6 +64,15 @@
 </header>
 
 <style>
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		transition: opacity 0.2s ease;
+	}
+	.brand:hover {
+		border-bottom: none;
+		opacity: 0.85;
+	}
 	.site-header {
 		border-bottom: 1px solid transparent;
 		transition:

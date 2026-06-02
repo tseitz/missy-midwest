@@ -30,7 +30,7 @@
 		<div class="flex flex-col justify-center p-2 sm:p-6 lg:p-10">
 			<SectionHeading label="ABOUT" title="Missy Midwest" />
 			<p class="text-lg text-violet-200">✨ Music Artist &amp; Resident DJ ✨</p>
-			<p class="mt-6 text-sm leading-relaxed text-missy-classic-lavender/90 md:text-base">
+			<p class="mt-6 text-sm leading-relaxed text-missy-pearl/90 md:text-base">
 				Hailing from a melting pot of music, the Heart of IL, Missy Midwest (she/her) is a
 				multitalented open-format DJ, vocalist, and music producer who has been captivating crowds
 				since 2021. With a residency in Lake of the Ozarks, MO, she brings unmatched energy and
@@ -38,7 +38,7 @@
 				and bass, 140 deep dub, pop, country, and timeless club classics to keep the dance floor
 				alive.
 			</p>
-			<p class="mt-4 text-sm leading-relaxed text-missy-classic-lavender/90 md:text-base">
+			<p class="mt-4 text-sm leading-relaxed text-missy-pearl/90 md:text-base">
 				Her journey has been picking up speed as she releases mixes and original tracks each month.
 				As a vocalist and producer, Missy Midwest infuses her sets with original flair and takes
 				pride in crafting immersive experiences tailored to each event. Ready to ignite the festival

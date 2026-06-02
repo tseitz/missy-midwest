@@ -20,8 +20,7 @@
 			Missy <span class="text-gradient-sun">Midwest</span>
 		</h1>
 		<p class="hero-subcopy mt-5 max-w-lg text-base text-white/95 md:text-lg">
-			Bad bitch bass for Midwest baddies. Genre-bending sets from the Lake of the Ozarks to the
-			festival main stage.
+			Genre-blending sets from the Lake of the Ozarks to the festival stage.
 		</p>
 		<div class="mt-7 flex flex-wrap gap-4">
 			<Button href={resolve('/music')} label="▶ Listen now" variant="fill" />
@@ -33,6 +32,6 @@
 <style>
 	/* Keep the subcopy legible where it crosses the brighter middle of the photo. */
 	.hero-subcopy {
-		text-shadow: 0 1px 12px rgba(45, 28, 127, 0.55);
+		text-shadow: 0 1px 12px rgba(7, 18, 56, 0.55);
 	}
 </style>

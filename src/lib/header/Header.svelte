@@ -86,7 +86,7 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background: linear-gradient(180deg, rgba(20, 10, 50, 0.5), transparent);
+		background: linear-gradient(180deg, rgba(8, 20, 52, 0.5), transparent);
 		opacity: 1;
 		transition: opacity 0.3s ease;
 		pointer-events: none;

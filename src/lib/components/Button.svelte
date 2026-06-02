@@ -53,11 +53,11 @@
 	.btn-fill {
 		background: linear-gradient(90deg, var(--color-missy-blush), var(--color-lake-sunrise));
 		color: var(--color-missy-ink);
-		box-shadow: 0 6px 22px rgba(248, 151, 29, 0.4);
+		box-shadow: 0 6px 22px color-mix(in srgb, var(--color-missy-blush) 42%, transparent);
 	}
 	.btn-fill:hover {
 		border-color: transparent;
-		box-shadow: 0 8px 28px rgba(248, 151, 29, 0.55);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-missy-blush) 55%, transparent);
 	}
 	.btn-outline {
 		background: transparent;

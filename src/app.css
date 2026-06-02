@@ -34,17 +34,22 @@
 	--font-obviously: 'Obviously', sans-serif;
 	--font-algiers: 'Algiers', serif;
 	--font-mono: 'Fira Mono', monospace;
-	--color-lake-sunrise: #f8971d;
-	--color-lake-summer-blue: #435def;
-	--color-lake-cotton-candy: #ff93c1;
-	--color-lake-sunset: #ff580c;
-	--color-missy-blush: #f3a8d6;
-	--color-missy-neon-lavender: #7b5cfa;
-	--color-missy-deep-purple: #2d1c7f;
-	--color-missy-magenta: #b72365;
-	--color-missy-plum: #70235b;
-	--color-missy-classic-lavender: #c8b3f6;
-	--color-missy-ink: #3a1233;
+	/* Summer palette: pink + sky-blue, with lilac as the UI/text accent.
+	   Token names are kept stable so existing utility classes recolor in
+	   place. A couple now read as mild misnomers (the "lake-sun*" tokens are
+	   blue, "neon-lavender" is periwinkle); noted inline. */
+	--color-lake-sunrise: #3f9bff; /* sky-blue highlight: dates, "in stock", live (was orange) */
+	--color-lake-summer-blue: #2f8fff; /* primary sky-blue */
+	--color-lake-cotton-candy: #ff93c1; /* soft pink */
+	--color-lake-sunset: #7ab8ff; /* lighter sky — hover of lake-sunrise (was orange) */
+	--color-missy-blush: #ff7ab8; /* lead pink: CTAs, glows, accents */
+	--color-missy-neon-lavender: #6f7cff; /* periwinkle — decorative gradients */
+	--color-missy-deep-purple: #0b1f4c; /* deep azure — page/surface base */
+	--color-missy-magenta: #e23f93; /* deep pink */
+	--color-missy-plum: #3f2d72; /* violet mid-tone, bridges blue <-> pink */
+	--color-missy-classic-lavender: #c9a8ff; /* lilac — headings, links, hairlines */
+	--color-missy-ink: #0a1438; /* deep navy ink on bright fills */
+	--color-missy-pearl: #fbf2f8; /* warm near-white — primary heading/text color */
 }
 
 h1,
@@ -56,7 +61,7 @@ h6,
 .missy-header {
 	font-family: var(--font-cochin);
 	font-weight: 600;
-	color: var(--color-missy-classic-lavender);
+	color: var(--color-missy-pearl); /* near-white headings; lavender is accent-only now */
 }
 
 p,
@@ -86,16 +91,27 @@ a:hover {
 
 /* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
 .text-glow {
-	text-shadow: 0 0 28px rgba(255, 147, 193, 0.35);
+	text-shadow: 0 0 28px rgba(255, 122, 184, 0.4);
 }
+/* Hero wash — cool at the top, warming into pink at the base. Name kept for
+   its callers; the gradient itself is now sky -> violet -> pink. */
 .bg-glow-warm {
 	background:
-		radial-gradient(120% 80% at 78% -10%, var(--color-missy-blush) 0%, transparent 50%),
+		radial-gradient(
+			95% 95% at 86% -8%,
+			color-mix(in srgb, var(--color-missy-blush) 80%, transparent) 0%,
+			transparent 54%
+		),
+		radial-gradient(
+			70% 85% at 2% 114%,
+			color-mix(in srgb, var(--color-lake-summer-blue) 75%, transparent) 0%,
+			transparent 52%
+		),
 		linear-gradient(
 			180deg,
-			var(--color-missy-deep-purple) 0%,
-			var(--color-missy-plum) 52%,
-			var(--color-lake-sunset) 124%
+			#14538f 0%,
+			var(--color-missy-plum) 48%,
+			var(--color-missy-magenta) 126%
 		);
 }
 .text-gradient-sun {
@@ -149,7 +165,7 @@ a:hover {
 	letter-spacing: 0.26em;
 	text-transform: uppercase;
 	font-weight: 700;
-	color: var(--color-lake-sunrise);
+	color: var(--color-missy-blush); /* pink accent — pops over the photo and on dark */
 }
 
 /* ---- Surface system ----
@@ -164,8 +180,8 @@ a:hover {
 	border: 1px solid color-mix(in srgb, var(--color-missy-classic-lavender) 18%, transparent);
 	background: linear-gradient(
 		180deg,
-		color-mix(in srgb, var(--color-missy-plum) 28%, transparent) 0%,
-		color-mix(in srgb, var(--color-missy-deep-purple) 50%, transparent) 100%
+		color-mix(in srgb, var(--color-missy-blush) 14%, transparent) 0%,
+		color-mix(in srgb, var(--color-lake-summer-blue) 11%, transparent) 100%
 	);
 	box-shadow:
 		0 18px 44px -30px rgba(0, 0, 0, 0.7),

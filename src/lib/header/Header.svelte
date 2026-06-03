@@ -2,6 +2,7 @@
 	import { asset, resolve } from '$app/paths';
 	import Nav from '$lib/header/Nav.svelte';
 	import { cart } from '$lib/shop/cart.svelte';
+	import { SHOP_ENABLED } from '$lib/shop/config';
 
 	// Transparent over the hero at the top of the page; condenses to a solid
 	// glass bar once the user scrolls past the threshold.
@@ -23,42 +24,44 @@
 		</a>
 		<div class="flex items-center gap-4">
 			<Nav />
-			<button
-				type="button"
-				aria-label={cart.count > 0
-					? `Open cart, ${cart.count} item${cart.count === 1 ? '' : 's'}`
-					: 'Open cart'}
-				class={[
-					'relative order-first transition md:order-none',
-					cart.count > 0
-						? 'text-lake-sunrise hover:text-lake-sunset'
-						: 'text-slate-50 hover:text-missy-blush'
-				]}
-				onclick={() => (cart.open = true)}
-			>
-				<svg
-					class="h-6 w-6"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="1.7"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					aria-hidden="true"
+			{#if SHOP_ENABLED}
+				<button
+					type="button"
+					aria-label={cart.count > 0
+						? `Open cart, ${cart.count} item${cart.count === 1 ? '' : 's'}`
+						: 'Open cart'}
+					class={[
+						'relative order-first transition md:order-none',
+						cart.count > 0
+							? 'text-lake-sunrise hover:text-lake-sunset'
+							: 'text-slate-50 hover:text-missy-blush'
+					]}
+					onclick={() => (cart.open = true)}
 				>
-					<circle cx="6" cy="19" r="2" />
-					<circle cx="17" cy="19" r="2" />
-					<path d="M17 17H6V3H4" />
-					<path d="M6 5l14 1-1 7H6" />
-				</svg>
-				{#if cart.count > 0}
-					<span
-						class="bg-missy-magenta absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+					<svg
+						class="h-6 w-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.7"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
 					>
-						{cart.count}
-					</span>
-				{/if}
-			</button>
+						<circle cx="6" cy="19" r="2" />
+						<circle cx="17" cy="19" r="2" />
+						<path d="M17 17H6V3H4" />
+						<path d="M6 5l14 1-1 7H6" />
+					</svg>
+					{#if cart.count > 0}
+						<span
+							class="bg-missy-magenta absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+						>
+							{cart.count}
+						</span>
+					{/if}
+				</button>
+			{/if}
 		</div>
 	</div>
 </header>

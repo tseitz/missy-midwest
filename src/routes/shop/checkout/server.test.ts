@@ -1,14 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-const { retrieveMock, createMock } = vi.hoisted(() => ({
+const { retrieveMock, createMock, shopConfig } = vi.hoisted(() => ({
 	retrieveMock: vi.fn(),
-	createMock: vi.fn()
+	createMock: vi.fn(),
+	shopConfig: { enabled: true }
 }));
 
 vi.mock('$lib/server/stripe', () => ({
 	stripe: {
 		prices: { retrieve: retrieveMock },
 		checkout: { sessions: { create: createMock } }
+	}
+}));
+
+vi.mock('$lib/shop/config', () => ({
+	get SHOP_ENABLED() {
+		return shopConfig.enabled;
 	}
 }));
 
@@ -37,6 +44,7 @@ function event(body: unknown) {
 beforeEach(() => {
 	retrieveMock.mockReset();
 	createMock.mockReset();
+	shopConfig.enabled = true;
 });
 
 describe('POST /shop/checkout', () => {
@@ -56,6 +64,15 @@ describe('POST /shop/checkout', () => {
 		expect(args.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(600);
 		expect(args.shipping_options[1].shipping_rate_data.fixed_amount.amount).toBe(0);
 		expect(args.shipping_address_collection.allowed_countries).toEqual(['US']);
+	});
+
+	it('rejects checkout with 503 when the shop is gated', async () => {
+		shopConfig.enabled = false;
+		await expect(POST(event([{ priceId: 'price_a', quantity: 1 }]))).rejects.toMatchObject({
+			status: 503
+		});
+		expect(retrieveMock).not.toHaveBeenCalled();
+		expect(createMock).not.toHaveBeenCalled();
 	});
 
 	it('rejects an empty cart with 400', async () => {

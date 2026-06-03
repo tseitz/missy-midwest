@@ -3,6 +3,7 @@ import type Stripe from 'stripe';
 import { z } from 'zod';
 import { stripe } from '$lib/server/stripe';
 import { stockFromProduct } from '$lib/shop/stock';
+import { SHOP_ENABLED } from '$lib/shop/config';
 import type { RequestHandler } from './$types';
 
 const SHIPPING_RATE_CENTS = 600;
@@ -12,6 +13,8 @@ const checkoutBodySchema = z
 	.min(1);
 
 export const POST: RequestHandler = async ({ request, url }) => {
+	if (!SHOP_ENABLED) error(503, 'The shop is not open yet.');
+
 	let body: unknown;
 	try {
 		body = await request.json();

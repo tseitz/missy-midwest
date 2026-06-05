@@ -1,4 +1,13 @@
 # pnpm is the canonical package manager for this project (see CLAUDE.md).
+#
+# Stale-deps behavior for `pnpm run`/`pnpm exec` (incl. the husky pre-commit
+# hook `pnpm exec lint-staged`). The pnpm default is `install`, which auto-
+# recreates node_modules before running and can wipe it if interrupted (that
+# recreate is what surfaces as "packages field is missing" on commit). `warn`
+# just prints a heads-up on a stale tree instead. NOTE: pnpm 10/11 reads this
+# from pnpm-workspace.yaml, NOT .npmrc (.npmrc only supplies auth/registry).
+verifyDepsBeforeRun: warn
+
 # Build scripts are blocked by default in pnpm; only these are allowed to run
 # their install/postinstall steps. The imagemin binaries power the production
 # image-optimization step in vite.config.js (vite-plugin-imagemin); @sentry/cli

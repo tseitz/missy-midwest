@@ -8,17 +8,26 @@
 # from pnpm-workspace.yaml, NOT .npmrc (.npmrc only supplies auth/registry).
 verifyDepsBeforeRun: warn
 
-# Build scripts are blocked by default in pnpm; only these are allowed to run
-# their install/postinstall steps. The imagemin binaries power the production
-# image-optimization step in vite.config.js (vite-plugin-imagemin); @sentry/cli
-# uploads source maps at build time.
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - '@sentry/cli'
-  - esbuild
-  - cwebp-bin
-  - gifsicle
-  - jpegtran-bin
-  - mozjpeg
-  - optipng-bin
-  - pngquant-bin
+# Dependency build-script allowlist. pnpm blocks postinstall/build scripts by
+# default; only packages set to `true` here may run them. In pnpm 11 this
+# `allowBuilds` map REPLACES the old `onlyBuiltDependencies` list — `pnpm
+# approve-builds` writes here, and any unreviewed build script makes install
+# re-inject a `set this to true or false` placeholder (and, under the default
+# strictDepBuilds, fail). All entries below are trusted build tooling we rely on:
+#   - @tailwindcss/oxide — Tailwind v4 native engine
+#   - @sentry/cli        — uploads source maps at build time
+#   - esbuild            — bundler native binary
+#   - sharp + the imagemin binaries (cwebp/gifsicle/jpegtran/mozjpeg/optipng/
+#     pngquant) — power the image pipeline (scripts/optimize-images.mjs and
+#     vite-plugin-imagemin in vite.config.js).
+allowBuilds:
+  '@sentry/cli': true
+  '@tailwindcss/oxide': true
+  cwebp-bin: true
+  esbuild: true
+  gifsicle: true
+  jpegtran-bin: true
+  mozjpeg: true
+  optipng-bin: true
+  pngquant-bin: true
+  sharp: true

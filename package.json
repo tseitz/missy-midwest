@@ -1,6 +1,6 @@
 {
 	"name": "missy-midwest",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"packageManager": "pnpm@11.5.0",
 	"scripts": {
 		"dev": "vite dev",

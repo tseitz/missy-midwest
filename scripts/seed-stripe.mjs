@@ -42,7 +42,7 @@ const lineup = [
 		groupName: 'Crop Hoodie',
 		description: 'Cropped MISSY MIDWEST hoodie in black.',
 		variantType: 'size',
-		images: ['missy-hoodie-crop.webp'],
+		images: ['missy-hoodie-crop-white.webp'],
 		variants: sizeVariants(3000, { M: 1 })
 	},
 	{
@@ -50,7 +50,7 @@ const lineup = [
 		groupName: 'Black Crop Tee',
 		description: 'Cropped MISSY MIDWEST tee in black.',
 		variantType: 'size',
-		images: ['missy-crop.webp'],
+		images: ['missy-crop-white.webp'],
 		variants: sizeVariants(2000, { L: 1 })
 	},
 	{
@@ -58,7 +58,7 @@ const lineup = [
 		groupName: 'Lake Tank',
 		description: 'Came for the beach, stayed for the DJ — Lake of the Ozarks tank.',
 		variantType: 'size',
-		images: ['lake-tank.webp'],
+		images: ['lake-tank-white.webp'],
 		variants: sizeVariants(2500, { S: 5, L: 2, XL: 1, XXL: 2 })
 	},
 	{
@@ -66,7 +66,7 @@ const lineup = [
 		groupName: 'Lake Tee',
 		description: 'Came for the beach, stayed for the DJ — Lake of the Ozarks tee.',
 		variantType: 'size',
-		images: ['missy-lake-tee-front.webp', 'missy-lake-tee-back.webp'],
+		images: ['missy-lake-tee-front-white.webp', 'missy-lake-tee-back-white.webp'],
 		variants: sizeVariants(2500, { XS: 1, S: 3, M: 1, XL: 2 })
 	},
 	{

@@ -7,7 +7,9 @@ import { handleErrorWithSentry } from '@sentry/sveltekit';
 if (env.PUBLIC_SENTRY_DSN) {
 	Sentry.init({
 		dsn: env.PUBLIC_SENTRY_DSN,
-		environment: env.PUBLIC_SENTRY_ENVIRONMENT ?? 'production',
+		// Mirror the server default: only an explicit deploy-set var marks real
+		// production, so local prod-mode runs report as 'development'.
+		environment: env.PUBLIC_SENTRY_ENVIRONMENT ?? 'development',
 		tracesSampleRate: 0
 	});
 }

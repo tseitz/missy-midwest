@@ -8,7 +8,11 @@ import { handleErrorWithSentry } from '@sentry/sveltekit';
 if (env.SENTRY_DSN) {
 	Sentry.init({
 		dsn: env.SENTRY_DSN,
-		environment: env.SENTRY_ENVIRONMENT ?? 'production',
+		// Default to 'development' so a run only counts as production when a deploy
+		// explicitly sets SENTRY_ENVIRONMENT (set per Netlify context). This keeps
+		// local prod-mode runs (vite preview / netlify dev) out of the production
+		// error feed even when a DSN is present in the local env.
+		environment: env.SENTRY_ENVIRONMENT ?? 'development',
 		tracesSampleRate: 0
 	});
 }

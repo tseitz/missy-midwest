@@ -1,30 +1,28 @@
-import { fail } from '@sveltejs/kit';
-import { validateTurnstileToken } from '$lib/server/turnstile';
-import { getUpcomingEvents } from '$lib/server/calendar';
+import { getNextEvents } from '$lib/server/calendar';
+import { listGroups } from '$lib/server/catalog';
+import { getInstagramFeed } from '$lib/server/instagram';
+import { SHOP_ENABLED } from '$lib/shop/config';
+import type { PageServerLoad } from './$types';
 
-export const load = async () => {
-	return await getUpcomingEvents();
-};
-
-export const actions = {
-	contact: async ({ request }) => {
-		const formData = await request.formData();
-
-		// Get Turnstile token
-		const turnstileToken = formData.get('cf-turnstile-response')?.toString() || '';
-
-		// Validate Turnstile token
-		if (!turnstileToken || !(await validateTurnstileToken(turnstileToken))) {
-			return fail(400, {
-				success: false,
-				message: 'Invalid CAPTCHA. Sorry robot. Please retry if you are in fact, human.'
-			});
-		}
-
-		// Return success - email will be sent from client-side
-		return {
-			success: true,
-			message: 'Message sent! Thanks for your submission :)'
-		};
-	}
+export const load: PageServerLoad = async ({ setHeaders }) => {
+	// Serve the home document from Netlify's edge: visitors get a cached copy
+	// instantly instead of waiting on the Calendar + Instagram round trips that
+	// run on a cold serverless start. `max-age=0` keeps browsers revalidating,
+	// while `s-maxage` lets the shared CDN hold it for 5 min (matching the
+	// calendar feed's own TTL) and `stale-while-revalidate` refreshes in the
+	// background so no user ever pays the SSR latency. The page carries no
+	// per-user data, so a shared/public cache is safe.
+	setHeaders({
+		'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400'
+	});
+	const [shows, instagram, catalog] = await Promise.all([
+		getNextEvents(4),
+		getInstagramFeed(),
+		SHOP_ENABLED ? listGroups() : Promise.resolve({ groups: [] })
+	]);
+	return {
+		nextShows: shows.events,
+		shopGroups: catalog.groups.slice(0, 3),
+		instagramPosts: instagram.posts
+	};
 };

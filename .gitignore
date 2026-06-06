@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+.pnpm-store
 /build
 /.svelte-kit
 /package
@@ -12,3 +13,18 @@ node_modules
 .netlify
 
 credentials.json
+
+.superpowers/
+# Transient superpowers planning docs/specs — not part of the deployed site
+docs/superpowers/
+.claude/worktrees/
+
+/test-results
+/playwright-report
+/.playwright
+/coverage
+
+# Playwright MCP scratch output
+/.playwright-mcp/
+# Local-only photo candidates / shareable originals (not for the build)
+/bio-candidates

@@ -1,105 +1,107 @@
 <script lang="ts">
+	import { asset, resolve } from '$app/paths';
 	import Nav from '$lib/header/Nav.svelte';
-	import {
-		SiSoundcloud,
-		SiTiktok,
-		SiTwitch,
-		SiInstagram,
-		SiFacebook,
-		SiYoutube
-	} from '@icons-pack/svelte-simple-icons';
+	import { cart } from '$lib/shop/cart.svelte';
+	import { SHOP_ENABLED } from '$lib/shop/config';
 
-	let navWidth: number;
-
-	$: mobileNav = navWidth < 1024;
-	$: socialSize = mobileNav ? 24 : 26;
+	// Transparent over the hero at the top of the page; condenses to a solid
+	// glass bar once the user scrolls past the threshold.
+	let scrolled = $state(false);
 </script>
 
-<svelte:window bind:innerWidth={navWidth} />
+<svelte:window onscroll={() => (scrolled = window.scrollY > 16)} />
 
-<header
-	class={mobileNav && mobileNav
-		? 'mobile bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-8'
-		: 'bg-missy-deep-purple shadow-lg shadow-missy-classic-lavender/20 px-2 md:px-4 lg:px-6'}
->
-	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
-		<div class="social m-auto">
-			<a href="https://soundcloud.com/missymidwest" target="_blank" rel="noreferrer">
-				<SiSoundcloud size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.tiktok.com/@missy.midwestofficial" target="_blank" rel="noreferrer">
-				<SiTiktok size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.twitch.tv/missymidwest" target="_blank" rel="noreferrer">
-				<SiTwitch size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-	</div>
-
-	<Nav {navWidth} {mobileNav} />
-
-	<div class="social-wrap gap-2 md:gap-6 xl:gap-10 2xl:gap-12">
-		<div class="social m-auto">
-			<a href="https://www.instagram.com/missy.midwest/" target="_blank" rel="noreferrer">
-				<SiInstagram size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a href="https://www.facebook.com/MissyMidwest/" target="_blank" rel="noreferrer">
-				<SiFacebook size={socialSize} color="var(--color-missy-classic-lavender)" />
-			</a>
-		</div>
-		<div class="social m-auto">
-			<a
-				href="https://www.youtube.com/channel/UCG4fK0SGXZpW6FJfGblgIqg"
-				target="_blank"
-				rel="noreferrer"
-			>
-				<SiYoutube size={socialSize + 5} color="var(--color-missy-classic-lavender)" />
-			</a>
+<header class="site-header fixed top-0 z-30 w-full" data-scrolled={scrolled}>
+	<div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 md:px-8">
+		<a href={resolve('/')} class="brand" aria-label="Missy Midwest — home">
+			<img
+				src={asset('/header/missy-midwest-logo-white.png')}
+				alt="Missy Midwest"
+				width="2551"
+				height="375"
+				class="h-7 w-auto md:h-8"
+			/>
+		</a>
+		<div class="flex items-center gap-4">
+			<Nav />
+			{#if SHOP_ENABLED}
+				<button
+					type="button"
+					aria-label={cart.count > 0
+						? `Open cart, ${cart.count} item${cart.count === 1 ? '' : 's'}`
+						: 'Open cart'}
+					class={[
+						'relative order-first transition md:order-none',
+						cart.count > 0
+							? 'text-lake-sunrise hover:text-lake-sunset'
+							: 'text-slate-50 hover:text-missy-blush'
+					]}
+					onclick={() => (cart.open = true)}
+				>
+					<svg
+						class="h-6 w-6"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.7"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<circle cx="6" cy="19" r="2" />
+						<circle cx="17" cy="19" r="2" />
+						<path d="M17 17H6V3H4" />
+						<path d="M6 5l14 1-1 7H6" />
+					</svg>
+					{#if cart.count > 0}
+						<span
+							class="bg-missy-magenta absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+						>
+							{cart.count}
+						</span>
+					{/if}
+				</button>
+			{/if}
 		</div>
 	</div>
 </header>
 
 <style>
-	header {
-		/* display: grid;
-		grid-template-columns: repeat(3, 1fr) 3fr repeat(3, 1fr);
-		gap: 0.5rem; */
-		display: flex;
-		justify-content: space-between;
+	.brand {
+		display: inline-flex;
 		align-items: center;
-		flex: 1 1 auto;
-		/* background-color: var(--missy-white-100); */
-		position: sticky;
-		top: 0;
-		width: 100%;
-		height: 4rem;
-		z-index: 10;
+		transition: opacity 0.2s ease;
 	}
-
-	.mobile {
-		padding: 0 1rem;
+	.brand:hover {
+		border-bottom: none;
+		opacity: 0.85;
 	}
-
-	.social-wrap {
-		display: grid;
-		align-items: center;
-		grid-template-columns: repeat(3, 1fr);
-		max-width: 16rem;
+	.site-header {
+		border-bottom: 1px solid transparent;
+		transition:
+			background-color 0.3s ease,
+			border-color 0.3s ease,
+			box-shadow 0.3s ease;
 	}
-
-	.mobile > .social-wrap {
-		width: 33%;
-		max-width: 40%;
+	/* Legibility scrim while transparent over the hero; fades as the solid bar takes over. */
+	.site-header::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(180deg, rgba(8, 20, 52, 0.5), transparent);
+		opacity: 1;
+		transition: opacity 0.3s ease;
+		pointer-events: none;
 	}
-
-	.social:hover {
-		transform: scale(1.1);
-		transition: transform 0.1s ease-out;
+	.site-header[data-scrolled='true'] {
+		background-color: color-mix(in srgb, var(--color-missy-deep-purple) 82%, transparent);
+		border-bottom-color: color-mix(in srgb, var(--color-missy-classic-lavender) 15%, transparent);
+		box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.65);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+	}
+	.site-header[data-scrolled='true']::before {
+		opacity: 0;
 	}
 </style>

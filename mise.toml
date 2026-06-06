@@ -1,0 +1,15 @@
+# Project toolchain, managed by mise (https://mise.jdx.dev).
+#
+# Pinned so the shell, GUI git hooks, and CI/Netlify all resolve the SAME
+# versions — this is what prevents the pnpm version skew that broke the
+# pre-commit hook (an older standalone pnpm choking on pnpm-workspace.yaml).
+#
+#   - pnpm 11.5.0 matches package.json "packageManager" and the
+#     netlify.toml PNPM_VERSION pin.
+#   - node 24 is the Active LTS line; mirrored to netlify.toml NODE_VERSION
+#     so local dev and the Netlify build share one runtime.
+#
+# Setup on a fresh checkout: `mise install`.
+[tools]
+node = "24"
+pnpm = "11.5.0"

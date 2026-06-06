@@ -1,43 +1,49 @@
 <script lang="ts">
-	// import Carousel from 'svelte-carousel';
-	import { browser } from '$app/environment';
+	import Section from '$lib/components/Section.svelte';
+	import Lightbox from '$lib/components/Lightbox.svelte';
 
-	export let events: any;
-	let innerWidth;
+	const events = [
+		{ slug: 'electric-forest', caption: 'Electric Forest' },
+		{ slug: 'backwoods-2023', caption: 'Backwoods 2023' },
+		{ slug: 'camp-taco', caption: 'Camp Taco' },
+		{ slug: 'united-groove', caption: 'United Groove' },
+		{ slug: 'her-set-her-sound', caption: 'Her Set Her Sound' },
+		{ slug: 'paradise', caption: 'Paradise' },
+		{ slug: 'neon-taco', caption: 'Neon Taco' },
+		{ slug: 'tuckers-shuckers', caption: "Tucker's Shuckers" }
+	];
+	const photos = events.map((event) => ({
+		src: `/archive/gig-photos/${event.slug}.webp`,
+		caption: event.caption
+	}));
 
-	$: particles = innerWidth > 1600 ? 3 : innerWidth > 1024 ? 2 : 1;
+	let open = $state<number | null>(null);
 </script>
 
-<svelte:window bind:innerWidth />
+<Section reveal={false}>
+	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
+	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+		{#each photos as photo, i (photo.src)}
+			<button
+				type="button"
+				aria-label={`View ${photo.caption}`}
+				onclick={() => (open = i)}
+				class="group block overflow-hidden rounded-lg"
+			>
+				<img
+					src={photo.src}
+					alt={`Missy Midwest live — ${photo.caption}`}
+					loading="lazy"
+					class="aspect-square w-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
+				/>
+			</button>
+		{/each}
+	</div>
+</Section>
 
-<div class="grid grid-cols-1">
-	<h3 class="text-2xl mt-8 mb-4 md:mb-6">Previous Events</h3>
-	{#if browser}
-		<!-- <Carousel
-			autoplay
-			duration={1000}
-			autoplayDuration={4000}
-			pauseOnFocus
-			particlesToShow={particles}
-			class="rounded-md"
-		> -->
-		<!-- {#each dates.pastDates as date, i}
-				<div
-					class="h-96 w-full bg-slate-100 flex flex-col justify-end {date.imageClasses &&
-					date.imageClasses.length > 0
-						? date.imageClasses.join(' ')
-						: ''}"
-					style="background: url({date.image}) rgb(241 245 249) no-repeat center 36%;opacity:0.98;background-size: 100%;"
-				>
-					<div class="bg-slate-100 px-8 py-4 text-missy-500">
-						<p class="text-2xl missy-header">{date.title}</p>
-						<p class="text-lg">
-							{date.localeDate}
-						</p>
-						<p class="text-sm">{date.venue}</p>
-					</div>
-				</div>
-			{/each} -->
-		<!-- </Carousel> -->
-	{/if}
-</div>
+<Lightbox
+	{photos}
+	index={open}
+	onClose={() => (open = null)}
+	onNavigate={(next) => (open = next)}
+/>

@@ -1,124 +1,166 @@
 <script lang="ts">
-	// import PreviousEvents from '$lib/previous-events/PreviousEvents.svelte';
+	import Section from '$lib/components/Section.svelte';
+	import { resolve, asset } from '$app/paths';
+	import {
+		eventStartDate,
+		formatWeekdayShort,
+		formatTime,
+		formatDateTime,
+		formatDate,
+		groupEventsByMonth
+	} from '$lib/utils/date';
 	import type { CalendarEvent } from '$lib/types/index';
 
-	export let events: CalendarEvent[];
+	interface Props {
+		events: CalendarEvent[];
+	}
+	let { events }: Props = $props();
 
-	// Helper function to get ordinal suffix
-	function getOrdinalSuffix(day: number): string {
-		if (day > 3 && day < 21) return 'th';
-		switch (day % 10) {
-			case 1:
-				return 'st';
-			case 2:
-				return 'nd';
-			case 3:
-				return 'rd';
-			default:
-				return 'th';
-		}
+	// Branded fallback shown when an event has no poster, or its Drive poster fails to load.
+	const DEFAULT_POSTER = asset('/shows/default-event.webp');
+
+	// The next one or two shows are featured poster-forward; the rest become a
+	// month-grouped agenda. The feed already arrives sorted ascending by start.
+	const featured = $derived(events.slice(0, 2));
+	const months = $derived(groupEventsByMonth(events.slice(2), (event) => event.start));
+
+	/** Our cached poster endpoint (proxies the Drive image), or null to fall back to the brand gradient. */
+	function posterUrl(event: CalendarEvent): string | null {
+		const fileId = event.attachments?.[0]?.fileId;
+		return fileId ? resolve('/api/event-poster/[fileId]', { fileId }) : null;
 	}
 
-	// Helper function to format dates as "Month Day, Year"
-	// Date-only strings (YYYY-MM-DD) are parsed as UTC midnight by JS, which causes
-	// off-by-one in timezones behind UTC. Parse them as local date instead.
-	function formatDate(dateString: string): string {
-		const isDateOnly = /^\d{4}-\d{2}-\d{2}$/.test(dateString);
-		let date: Date;
-		if (isDateOnly) {
-			const [y, m, d] = dateString.split('-').map(Number);
-			date = new Date(y, m - 1, d); // month is 0-indexed
-		} else {
-			date = new Date(dateString);
-		}
-		const month = date.toLocaleDateString('en-US', { month: 'long' });
-		const day = date.getDate();
-		const year = date.getFullYear();
-		const ordinal = getOrdinalSuffix(day);
-		return `${month} ${day}${ordinal} ${year}`;
+	function dayNumber(event: CalendarEvent): string {
+		const date = eventStartDate(event.start);
+		return date ? String(date.getDate()) : '';
 	}
 
-	// Helper function to format date and time
-	function formatDateTime(dateTimeString: string): string {
-		const date = new Date(dateTimeString);
-		const formattedDate = formatDate(dateTimeString);
-		const time = date.toLocaleTimeString('en-US', {
-			hour: 'numeric',
-			minute: '2-digit',
-			hour12: true
-		});
-		return `${formattedDate} at ${time}`;
+	function weekday(event: CalendarEvent): string {
+		const date = eventStartDate(event.start);
+		return date ? formatWeekdayShort(date) : '';
+	}
+
+	/** Full human date line, e.g. "June 14th 2026 at 8:00 PM" or "June 14th 2026 · All Day". */
+	function fullDate(event: CalendarEvent): string {
+		if (event.start.dateTime) return formatDateTime(event.start.dateTime);
+		if (event.start.date) return `${formatDate(event.start.date)} · All Day`;
+		return '';
+	}
+
+	function timeLabel(event: CalendarEvent): string {
+		return event.start.dateTime ? formatTime(event.start.dateTime) : 'All Day';
+	}
+
+	/** Split a Google Calendar location into the venue name (before the first comma) and the rest. */
+	function splitLocation(location: string): { venue: string; address: string } {
+		const comma = location.indexOf(',');
+		if (comma === -1) return { venue: location.trim(), address: '' };
+		return { venue: location.slice(0, comma).trim(), address: location.slice(comma + 1).trim() };
 	}
 </script>
 
-<section id="dates" class="max-w-screen-2xl w-full pt-12 lg:pt-20 pb-16">
-	<h2 class="text-4xl mb-8 md:mb-12">Upcoming Dates</h2>
-	{#if events.length > 0}<p class="text-base lg:text-xl mb-4 md:mb-8">
-			Click the event to add it to your calendar!
-		</p>{/if}
-	<div class="grid xl:grid-cols-3 lg:grid-cols-2 gap-10">
-		{#if events.length > 0}
-			{#each events as show}
-				{#if show.attachments}
-					<a
-						href={show.htmlLink}
-						target="_blank"
-						rel="noopener noreferrer prefetch"
-						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end hover:shadow-lg hover:shadow-missy-classic-lavender/20"
-						style="background: url(https://drive.google.com/thumbnail?id={show.attachments[0]
-							.fileId}&sz=w1000) rgb(29, 35, 42) no-repeat center;background-size: cover;"
-					>
-						<div
-							class="bg-missy-deep-purple/80 backdrop-blur-md max-h-96 overflow-auto px-8 py-4 rounded-b-md"
-						>
-							<p class="text-2xl py-1 missy-header">{show.summary}</p>
-							{#if show.start.dateTime}
-								<p class="text-violet-200">{formatDateTime(show.start.dateTime)}</p>
-							{:else}
-								<p class="text-violet-200">
-									{formatDate(show.start?.date || '')} All Day
-								</p>
-							{/if}
-							<p class="text-sm py-2 text-violet-50">{show.location}</p>
-							<!-- {#if show.description}
-								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
-							{/if} -->
-						</div>
-					</a>
-				{:else}
-					<a
-						href={show.htmlLink}
-						target="_blank"
-						rel="noopener noreferrer prefetch"
-						class="event h-96 w-full bg-missy-deep-purple rounded-md flex flex-col justify-end hover:shadow-lg hover:shadow-missy-classic-lavender/20"
-					>
-						<div
-							class="bg-missy-deep-purple/80 backdrop-blur-md max-h-96 overflow-auto px-8 py-4 rounded-md"
-						>
-							<p class="text-2xl py-1 missy-header">{show.summary}</p>
-							{#if show.start.dateTime}
-								<p class="text-violet-200">{formatDateTime(show.start.dateTime)}</p>
-							{:else}
-								<p class="text-violet-200">{formatDate(show.start?.date || '')} All Day</p>
-							{/if}
-							<p class="text-sm py-2">{show.location}</p>
-							<!-- {#if show.description}
-								<p class="text-sm" style="white-space: pre-line">{show.description}</p>
-							{/if} -->
-						</div>
-					</a>
-				{/if}
-			{/each}
-		{:else}
-			No scheduled events at this time. Use the contact form below to book Missy!
-		{/if}
-	</div>
-	<!-- <PreviousEvents {events} /> -->
-</section>
+<Section id="dates" label="Live" title="Upcoming shows" reveal={false}>
+	{#if events.length === 0}
+		<p class="mt-2 opacity-80">
+			No scheduled shows right now — <a href={resolve('/contact')}>book Missy</a>.
+		</p>
+	{:else}
+		<p class="mt-2 opacity-80">Tap any show to add it to your calendar.</p>
 
-<style>
-	.event:hover {
-		transform: scale(1.02) rotate(-0.1deg);
-		transition: all 0.33s ease-out;
-	}
-</style>
+		<!-- event.htmlLink is an external Google Calendar URL; resolve() is for internal routes only -->
+		<!-- eslint-disable svelte/no-navigation-without-resolve -->
+
+		<!-- Featured: the next one or two shows, poster-forward -->
+		<div class="mt-6 grid gap-5 sm:grid-cols-2">
+			{#each featured as event (event.id)}
+				{@const poster = posterUrl(event)}
+				{@const loc = splitLocation(event.location ?? '')}
+				<a
+					href={event.htmlLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group from-missy-neon-lavender to-missy-magenta hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br transition hover:shadow-lg"
+				>
+					<img
+						src={poster ?? DEFAULT_POSTER}
+						alt=""
+						aria-hidden="true"
+						loading="lazy"
+						decoding="async"
+						class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+						onerror={(e) => {
+							const img = e.currentTarget as HTMLImageElement;
+							if (img.dataset.fallback) {
+								// The default poster itself failed — hide it and let the gradient show.
+								img.style.display = 'none';
+							} else {
+								img.dataset.fallback = 'true';
+								img.src = DEFAULT_POSTER;
+							}
+						}}
+					/>
+					<div
+						class="absolute top-3 left-3 rounded-lg bg-black/40 px-3 py-1.5 text-center leading-none backdrop-blur-sm"
+					>
+						<span class="font-cochin block text-2xl font-semibold text-white"
+							>{dayNumber(event)}</span
+						>
+						<span class="block text-xs tracking-widest text-white/85">{weekday(event)}</span>
+					</div>
+					<div class="bg-missy-deep-purple/85 relative px-6 py-4 backdrop-blur-md">
+						<p class="missy-header text-2xl">{event.summary}</p>
+						<p class="mt-1 text-sm text-violet-200">{fullDate(event)}</p>
+						{#if loc.venue}<p class="mt-1 text-sm font-medium text-violet-100">{loc.venue}</p>{/if}
+						{#if loc.address}<p class="text-xs opacity-60">{loc.address}</p>{/if}
+					</div>
+				</a>
+			{/each}
+		</div>
+
+		<!-- Agenda: the remaining shows, grouped by month -->
+		{#each months as group (group.label)}
+			<div class="mt-10">
+				<p class="label-eyebrow">{group.label}</p>
+				<ul class="mt-2">
+					{#each group.events as event (event.id)}
+						{@const loc = splitLocation(event.location ?? '')}
+						<li>
+							<a
+								href={event.htmlLink}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="border-missy-classic-lavender/15 hover:bg-missy-plum/15 flex items-center gap-4 rounded-lg border-t px-2 py-4 sm:gap-5"
+							>
+								<div class="text-missy-classic-lavender w-12 shrink-0 text-center leading-none">
+									<span class="missy-header block text-2xl">{dayNumber(event)}</span>
+									<span class="block text-xs tracking-widest opacity-70">{weekday(event)}</span>
+								</div>
+								<div
+									class="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
+								>
+									<div class="min-w-0">
+										<p class="missy-header text-xl">{event.summary}</p>
+										{#if loc.venue}<p class="mt-0.5 truncate text-sm font-medium text-violet-100">
+												{loc.venue}
+											</p>{/if}
+										{#if loc.address}<p class="truncate text-xs text-violet-200 opacity-60">
+												{loc.address}
+											</p>{/if}
+									</div>
+									<div
+										class="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-0.5 sm:text-right"
+									>
+										<span class="text-sm text-violet-100">{timeLabel(event)}</span>
+										<span class="text-lake-sunrise text-xs">Add to calendar ↗</span>
+									</div>
+								</div>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/each}
+
+		<!-- eslint-enable svelte/no-navigation-without-resolve -->
+	{/if}
+</Section>

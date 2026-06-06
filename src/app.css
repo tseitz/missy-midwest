@@ -1,79 +1,217 @@
 /* Write your global styles here, in PostCSS syntax */
-@import '@fontsource/fira-mono';
 @import 'tailwindcss';
 
-/* Load Cochin font from static folder */
+/* Load Cochin font from static folder — woff2 first (every modern browser),
+   ttf kept as a fallback. Only the woff2 is fetched in practice. */
 @font-face {
-  font-family: 'Cochin';
-  src: url('/fonts/Cochin.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Cochin';
+	src:
+		url('/fonts/Cochin.woff2') format('woff2'),
+		url('/fonts/Cochin.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
-/* Load Obviously font from static folder */
+/* Load Obviously font from static folder — woff2 first, otf as fallback. */
 @font-face {
-  font-family: 'Obviously';
-  src: url('/fonts/obviously.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Load Algiers font from static folder */
-@font-face {
-  font-family: 'Algiers';
-  src: url('/fonts/Algiers.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+	font-family: 'Obviously';
+	src:
+		url('/fonts/obviously.woff2') format('woff2'),
+		url('/fonts/obviously.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 @theme {
-  --font-cochin: 'Cochin', serif;
-  --font-obviously: 'Obviously', sans-serif;
-  --font-algiers: 'Algiers', serif;
-  --font-mono: 'Fira Mono', monospace;
-  --color-lake-sunrise: #F8971D;
-  --color-lake-summer-blue: #435DEF;
-  --color-lake-cotton-candy: #FF93C1;
-  --color-lake-sunset: #FF580C;
-  --color-lake-neon-lavender: #7B5CFA;
-  --color-lake-classic-lavender: #C8B3F6;
-  --color-missy-blush: #F3A8D6;
-  --color-missy-neon-lavender: #7B5CFA;
-  --color-missy-deep-purple: #2D1C7F;
-  --color-missy-magenta: #B72365;
-  --color-missy-plum: #70235B;
-  --color-missy-classic-lavender: #C8B3F6;
+	--font-cochin: 'Cochin', serif;
+	--font-obviously: 'Obviously', sans-serif;
+	/* Summer palette: pink + sky-blue, with lilac as the UI/text accent.
+	   Token names are kept stable so existing utility classes recolor in
+	   place. A couple now read as mild misnomers (the "lake-sun*" tokens are
+	   blue, "neon-lavender" is periwinkle); noted inline. */
+	--color-lake-sunrise: #3f9bff; /* sky-blue highlight: dates, "in stock", live (was orange) */
+	--color-lake-summer-blue: #2f8fff; /* primary sky-blue */
+	--color-lake-cotton-candy: #ff93c1; /* soft pink */
+	--color-lake-sunset: #7ab8ff; /* lighter sky — hover of lake-sunrise (was orange) */
+	--color-missy-blush: #ff7ab8; /* lead pink: CTAs, glows, accents */
+	--color-missy-neon-lavender: #6f7cff; /* periwinkle — decorative gradients */
+	--color-missy-deep-purple: #0b1f4c; /* deep azure — page/surface base */
+	--color-missy-magenta: #e23f93; /* deep pink */
+	--color-missy-plum: #3f2d72; /* violet mid-tone, bridges blue <-> pink */
+	--color-missy-classic-lavender: #c9a8ff; /* lilac — headings, links, hairlines */
+	--color-missy-ink: #0a1438; /* deep navy ink on bright fills */
+	--color-missy-pearl: #fbf2f8; /* warm near-white — primary heading/text color */
 }
 
-h1, h2, h3, h4, h5, h6, .missy-header {
-  font-family: var(--font-cochin);
-  font-weight: 600;
-  color: var(--color-missy-classic-lavender);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.missy-header {
+	font-family: var(--font-cochin);
+	font-weight: 600;
+	color: var(--color-missy-pearl); /* near-white headings; lavender is accent-only now */
 }
 
-p, label {
-  font-family: var(--font-obviously);
+p,
+label {
+	font-family: var(--font-obviously);
 }
 
 html {
 	scroll-behavior: smooth;
 	font-family: var(--font-obviously);
-  color: var(--color-slate-50);
+	color: var(--color-slate-50);
 }
 
 a {
-  color: var(--color-missy-classic-lavender);
+	color: var(--color-missy-classic-lavender);
 }
 a:hover {
-  border-bottom: 1px solid var(--color-missy-classic-lavender);
+	border-bottom: 1px solid var(--color-missy-classic-lavender);
 }
 
 @media (max-width: 768px) {
-  .grecaptcha-badge { 
-    /* visibility: hidden; */
-    bottom: 4.5rem !important;
-  }
+	.grecaptcha-badge {
+		/* visibility: hidden; */
+		bottom: 4.5rem !important;
+	}
+}
+
+/* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
+.text-glow {
+	text-shadow: 0 0 28px rgba(255, 122, 184, 0.4);
+}
+/* Hero wash — cool at the top, warming into pink at the base. Name kept for
+   its callers; the gradient itself is now sky -> violet -> pink. */
+.bg-glow-warm {
+	background:
+		radial-gradient(
+			95% 95% at 86% -8%,
+			color-mix(in srgb, var(--color-missy-blush) 80%, transparent) 0%,
+			transparent 54%
+		),
+		radial-gradient(
+			70% 85% at 2% 114%,
+			color-mix(in srgb, var(--color-lake-summer-blue) 75%, transparent) 0%,
+			transparent 52%
+		),
+		linear-gradient(
+			180deg,
+			#14538f 0%,
+			var(--color-missy-plum) 48%,
+			var(--color-missy-magenta) 126%
+		);
+}
+.text-gradient-sun {
+	background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+/* Scroll-reveal (set by the `reveal` action) + hero entrance, both reduced-motion aware. */
+[data-reveal] {
+	opacity: 0;
+	transform: translateY(12px);
+	transition:
+		opacity 0.6s ease-out,
+		transform 0.6s ease-out;
+}
+[data-reveal][data-revealed='true'] {
+	opacity: 1;
+	transform: none;
+}
+
+@keyframes hero-rise {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+.hero-rise {
+	animation: hero-rise 0.8s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-reveal],
+	[data-reveal][data-revealed='true'] {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+	.hero-rise {
+		animation: none;
+	}
+}
+
+.label-eyebrow {
+	font-family: var(--font-obviously);
+	font-size: 0.7rem;
+	letter-spacing: 0.26em;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--color-missy-blush); /* pink accent — pops over the photo and on dark */
+}
+
+/* ---- Surface system ----
+   One family of panels unified by a lavender hairline + warm-pink accent.
+   Compose: `panel-glass` (surface) + optionally `glow-hover` (tappable) or
+   `glow-feature` (the single hero panel). Tiles that keep their own radius
+   (e.g. Instagram) can take `glow-hover` on its own. */
+
+/* Base panel: subtly lifted translucent surface, lavender hairline, soft resting shadow. */
+@utility panel-glass {
+	border-radius: 1rem; /* = rounded-2xl, the one panel radius */
+	border: 1px solid color-mix(in srgb, var(--color-missy-classic-lavender) 18%, transparent);
+	background: linear-gradient(
+		180deg,
+		color-mix(in srgb, var(--color-missy-blush) 14%, transparent) 0%,
+		color-mix(in srgb, var(--color-lake-summer-blue) 11%, transparent) 100%
+	);
+	box-shadow:
+		0 18px 44px -30px rgba(0, 0, 0, 0.7),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Tappable panels/tiles: rest calm, bloom warm-pink on hover/focus. */
+@utility glow-hover {
+	transition:
+		border-color 0.25s ease,
+		box-shadow 0.25s ease,
+		transform 0.25s ease;
+	&:hover,
+	&:focus-visible {
+		border-color: color-mix(in srgb, var(--color-missy-blush) 55%, transparent);
+		box-shadow:
+			0 0 24px -6px color-mix(in srgb, var(--color-missy-blush) 45%, transparent),
+			0 0 64px -18px color-mix(in srgb, var(--color-missy-magenta) 38%, transparent),
+			0 18px 40px -24px rgba(0, 0, 0, 0.6);
+		transform: translateY(-2px);
+	}
+}
+
+/* The single hero panel (Bio): a gentle always-on warm-pink glow — same language, turned up. */
+@utility glow-feature {
+	box-shadow:
+		0 0 26px -10px color-mix(in srgb, var(--color-missy-blush) 38%, transparent),
+		0 0 80px -22px color-mix(in srgb, var(--color-missy-magenta) 30%, transparent),
+		0 20px 50px -28px rgba(0, 0, 0, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.glow-hover {
+		transition: none;
+	}
+	.glow-hover:hover,
+	.glow-hover:focus-visible {
+		transform: none;
+	}
 }

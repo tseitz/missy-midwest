@@ -22,8 +22,11 @@ export function netlifyImage(
 	{ width, format = 'webp', quality = 75 }: NetlifyImageOptions
 ): string {
 	if (dev) return path;
+	// SvelteKit relativizes SSR paths (e.g. "./api/…") for base-path portability;
+	// normalize back to root-absolute so the `url` param is unambiguous to Netlify.
+	const source = path.replace(/^\.?\//, '/');
 	const params = new URLSearchParams({
-		url: path,
+		url: source,
 		w: String(width),
 		fm: format,
 		q: String(quality)

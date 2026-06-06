@@ -20,6 +20,13 @@ describe('netlifyImage', () => {
 		expect(url).toBe('/.netlify/images?url=%2Fapi%2Fevent-poster%2Fabc123&w=1200&fm=webp&q=75');
 	});
 
+	it('normalizes a SvelteKit-relativized "./" path to root-absolute', () => {
+		const relative = netlifyImage('./api/event-poster/abc123', { width: 1200 });
+		const absolute = netlifyImage('/api/event-poster/abc123', { width: 1200 });
+		expect(relative).toBe(absolute);
+		expect(relative).toContain('url=%2Fapi%2Fevent-poster%2Fabc123');
+	});
+
 	it('honors format and quality overrides', () => {
 		const url = netlifyImage('/x.png', { width: 600, format: 'avif', quality: 60 });
 		expect(url).toBe('/.netlify/images?url=%2Fx.png&w=600&fm=avif&q=60');

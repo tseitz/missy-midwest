@@ -24,6 +24,18 @@ describe('mapSound', () => {
 			mapSound({ id: 2, title: 'T', duration: 0, permalink_url: 'p', artwork_url: null }).artworkUrl
 		).toBeNull();
 	});
+	it('falls back to the uploader avatar when the track has no artwork', () => {
+		expect(
+			mapSound({
+				id: 3,
+				title: 'T',
+				duration: 0,
+				permalink_url: 'p',
+				artwork_url: null,
+				user: { avatar_url: 'https://i1.sndcdn.com/avatar-large.jpg' }
+			}).artworkUrl
+		).toBe('https://i1.sndcdn.com/avatar-t500x500.jpg');
+	});
 });
 
 describe('createSoundCloudPlayer', () => {

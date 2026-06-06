@@ -12,6 +12,7 @@ interface SCSound {
 	duration: number;
 	permalink_url: string;
 	artwork_url: string | null;
+	user?: { avatar_url?: string | null };
 }
 
 export interface PlayerState {
@@ -23,13 +24,18 @@ export interface PlayerState {
 	artworkUrl: string | null;
 }
 
-/** Map a raw SoundCloud widget sound to our minimal Track, upsizing artwork. */
+/**
+ * Map a raw SoundCloud widget sound to our minimal Track, upsizing artwork.
+ * Tracks without a dedicated cover return `artwork_url: null`; SoundCloud then
+ * displays the uploader's avatar, so we mirror that fallback.
+ */
 export function mapSound(s: SCSound): Track {
+	const art = s.artwork_url ?? s.user?.avatar_url ?? null;
 	return {
 		id: s.id,
 		title: s.title,
 		durationMs: s.duration,
-		artworkUrl: s.artwork_url ? s.artwork_url.replace(/-(?:large|t\d+x\d+)\./, '-t500x500.') : null,
+		artworkUrl: art ? art.replace(/-(?:large|t\d+x\d+)\./, '-t500x500.') : null,
 		permalinkUrl: s.permalink_url
 	};
 }

@@ -74,6 +74,10 @@
 	const labelClass = 'mb-2 block text-sm font-medium text-missy-classic-lavender';
 </script>
 
+<svelte:head>
+	<link rel="preconnect" href="https://challenges.cloudflare.com" />
+</svelte:head>
+
 <section id="contact" class="w-full max-w-screen-2xl pt-12 pb-16 lg:pt-20">
 	<div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-16">
 		<div>
@@ -168,12 +172,6 @@
 					<small class="text-missy-magenta">{errors.message}</small>
 				{/if}
 
-				<div class="mt-4">
-					{#key turnstileKey}
-						<Turnstile siteKey={turnstileSiteKey} theme="auto" />
-					{/key}
-				</div>
-
 				{#if form}
 					<p
 						role="status"
@@ -186,7 +184,16 @@
 					</p>
 				{/if}
 
-				<div class="mt-6 flex justify-end">
+				<div
+					class="mt-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between"
+				>
+					<!-- Reserve the widget's height so its async render doesn't reflow the form.
+					     Inline min-height (not a Tailwind bracket value, which the v4 compiler can choke on). -->
+					<div style="min-height: 65px">
+						{#key turnstileKey}
+							<Turnstile siteKey={turnstileSiteKey} theme="auto" />
+						{/key}
+					</div>
 					<Button
 						type="submit"
 						disabled={isSubmitting}

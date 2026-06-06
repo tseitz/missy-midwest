@@ -88,7 +88,8 @@
 						sizes={poster ? '(min-width: 640px) 50vw, 100vw' : null}
 						alt=""
 						aria-hidden="true"
-						loading="lazy"
+						loading="eager"
+						fetchpriority="high"
 						decoding="async"
 						class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
 						onerror={(e) => {

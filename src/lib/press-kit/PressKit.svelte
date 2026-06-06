@@ -2,6 +2,7 @@
 	import { asset } from '$app/paths';
 	import { fade } from 'svelte/transition';
 	import SectionHeading from '$lib/components/SectionHeading.svelte';
+	import { netlifyImage } from '$lib/utils/netlify-image';
 
 	let active = $state(-1);
 
@@ -60,7 +61,13 @@
 							{@render downloadIcon()}
 						</div>
 					{/if}
-					<img class={item.imgClass} src={asset(item.src)} alt={item.alt} />
+					<img
+						class={item.imgClass}
+						src={netlifyImage(asset(item.src), { width: 700 })}
+						alt={item.alt}
+						loading="lazy"
+						decoding="async"
+					/>
 				</a>
 			</div>
 		{/each}

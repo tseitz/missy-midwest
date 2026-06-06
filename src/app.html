@@ -8,14 +8,32 @@
 		/>
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="preconnect" href="https://w.behold.so" />
-		<link rel="preconnect" href="https://w.soundcloud.com" />
 		<link rel="preconnect" href="https://files.stripe.com" />
+		<!-- Instagram tiles load below the fold from Instagram's CDN; resolve DNS
+		     early without spending a full connection up front. -->
+		<link rel="dns-prefetch" href="https://scontent.cdninstagram.com" />
 		<link
 			rel="preload"
 			as="image"
 			href="%sveltekit.assets%/landing/missy-fan-crop.webp"
 			fetchpriority="high"
+		/>
+		<!-- Render-critical self-hosted fonts: Cochin (hero heading / LCP text)
+		     and Obviously (body). crossorigin is required even same-origin so the
+		     preload matches the CORS font fetch and the file isn't fetched twice. -->
+		<link
+			rel="preload"
+			as="font"
+			type="font/woff2"
+			href="/fonts/Cochin.woff2"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="preload"
+			as="font"
+			type="font/woff2"
+			href="/fonts/obviously.woff2"
+			crossorigin="anonymous"
 		/>
 		%sveltekit.head%
 	</head>

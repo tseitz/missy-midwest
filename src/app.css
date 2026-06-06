@@ -1,29 +1,24 @@
 /* Write your global styles here, in PostCSS syntax */
-@import '@fontsource/fira-mono';
 @import 'tailwindcss';
 
-/* Load Cochin font from static folder */
+/* Load Cochin font from static folder — woff2 first (every modern browser),
+   ttf kept as a fallback. Only the woff2 is fetched in practice. */
 @font-face {
 	font-family: 'Cochin';
-	src: url('/fonts/Cochin.ttf') format('truetype');
+	src:
+		url('/fonts/Cochin.woff2') format('woff2'),
+		url('/fonts/Cochin.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
-/* Load Obviously font from static folder */
+/* Load Obviously font from static folder — woff2 first, otf as fallback. */
 @font-face {
 	font-family: 'Obviously';
-	src: url('/fonts/obviously.otf') format('opentype');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-/* Load Algiers font from static folder */
-@font-face {
-	font-family: 'Algiers';
-	src: url('/fonts/Algiers.ttf') format('truetype');
+	src:
+		url('/fonts/obviously.woff2') format('woff2'),
+		url('/fonts/obviously.otf') format('opentype');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -32,8 +27,6 @@
 @theme {
 	--font-cochin: 'Cochin', serif;
 	--font-obviously: 'Obviously', sans-serif;
-	--font-algiers: 'Algiers', serif;
-	--font-mono: 'Fira Mono', monospace;
 	/* Summer palette: pink + sky-blue, with lilac as the UI/text accent.
 	   Token names are kept stable so existing utility classes recolor in
 	   place. A couple now read as mild misnomers (the "lake-sun*" tokens are

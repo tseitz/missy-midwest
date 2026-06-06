@@ -10,6 +10,17 @@
 		`&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&show_user=true&visual=true`;
 </script>
 
+<svelte:head>
+	<!-- The SoundCloud players are this page's primary content; the embeds fan
+	     out to several origins, each needing its own handshake before the player
+	     paints. Warm the render-critical ones up front to cut the blank "pop-in". -->
+	<link rel="preconnect" href="https://w.soundcloud.com" />
+	<link rel="preconnect" href="https://widget.sndcdn.com" />
+	<link rel="preconnect" href="https://i1.sndcdn.com" />
+	<link rel="preconnect" href="https://api-widget.soundcloud.com" />
+	<link rel="dns-prefetch" href="https://cf-hls-media.sndcdn.com" />
+</svelte:head>
+
 <Seo
 	title="Music — Missy Midwest"
 	description="Stream Missy Midwest's latest DJ sets and tracks."

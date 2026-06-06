@@ -17,6 +17,7 @@
 		frameborder="no"
 		allow="autoplay; encrypted-media"
 		class="rounded-md"
+		loading="lazy"
 		{src}
 	></iframe>
 </div>

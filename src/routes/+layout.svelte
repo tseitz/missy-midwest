@@ -24,5 +24,5 @@
 <NowPlayingBar />
 {#if barVisible}
 	<!-- Reserve room so the fixed player never covers footer content. -->
-	<div class="h-24" aria-hidden="true"></div>
+	<div class="bg-missy-deep-purple h-24" aria-hidden="true"></div>
 {/if}

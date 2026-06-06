@@ -1,11 +1,10 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { getPlayerStore } from './player-context';
+	import { player } from './player.svelte';
 	import TrackRow from './TrackRow.svelte';
 	import SkeletonRows from './SkeletonRows.svelte';
 	import SoundCloudLink from './SoundCloudLink.svelte';
 
-	const player = getPlayerStore();
 	// Latest track is featured separately; list the rest.
 	const rest = $derived(player.tracks.slice(1));
 </script>

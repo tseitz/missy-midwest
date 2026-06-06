@@ -1,8 +1,7 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
-	import { getPlayerStore } from './player-context';
+	import { player } from './player.svelte';
 
-	const player = getPlayerStore();
 	const track = $derived(player.tracks[0]);
 	const isThis = $derived(!!track && player.state.currentUrl === track.permalinkUrl);
 	const playing = $derived(isThis && player.state.isPlaying);

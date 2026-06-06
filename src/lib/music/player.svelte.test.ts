@@ -8,7 +8,12 @@ const TRACKS: Track[] = [
 ];
 
 function fakeEngine() {
-	return { playTrack: vi.fn(), togglePlay: vi.fn(), seek: vi.fn() };
+	return {
+		init: vi.fn(async () => TRACKS),
+		playTrack: vi.fn(),
+		togglePlay: vi.fn(),
+		seek: vi.fn()
+	};
 }
 
 beforeEach(() => {

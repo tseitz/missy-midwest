@@ -2,14 +2,13 @@
 	import { asset } from '$app/paths';
 	import Section from '$lib/components/Section.svelte';
 	import { netlifyImage } from '$lib/utils/netlify-image';
-	import { getPlayerStore } from './player-context';
+	import { player } from './player.svelte';
 	import SoundCloudLink from './SoundCloudLink.svelte';
 	import type { FeaturedMix } from './soundcloud';
 
 	let { featuredMix }: { featuredMix: FeaturedMix | null } = $props();
 
 	const FALLBACK = asset('/press-kit/missy-midwest-artist-pic-render.webp');
-	const player = getPlayerStore();
 
 	const cover = $derived(featuredMix ? featuredMix.artworkUrl : FALLBACK);
 	const isThis = $derived(!!featuredMix && player.state.currentUrl === featuredMix.permalinkUrl);

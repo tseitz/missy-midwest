@@ -1,10 +1,9 @@
 <script lang="ts">
-	import { getPlayerStore } from './player-context';
+	import { player } from './player.svelte';
 	import { formatDuration } from './format-duration';
 	import type { Track } from './soundcloud-player';
 
 	let { track }: { track: Track } = $props();
-	const player = getPlayerStore();
 	const isThis = $derived(player.state.currentUrl === track.permalinkUrl);
 	const playing = $derived(isThis && player.state.isPlaying);
 </script>

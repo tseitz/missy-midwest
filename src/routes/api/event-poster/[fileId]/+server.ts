@@ -1,4 +1,3 @@
-import { redirect } from '@sveltejs/kit';
 import { asset } from '$app/paths';
 import { getUpcomingEvents } from '$lib/server/calendar';
 import { getPosterImage } from '$lib/server/drive';
@@ -6,6 +5,23 @@ import type { RequestHandler } from './$types';
 
 /** Branded fallback when an event has no readable poster (matches UpcomingDates). */
 const DEFAULT_POSTER = '/shows/default-event.webp';
+
+/**
+ * Redirect to the branded default, cached briefly. A plain `redirect()` ships
+ * `Cache-Control: no-cache`, so a missing or temporarily-broken poster would
+ * re-invoke this function (and re-fetch the calendar) on every single view.
+ * Caching the fallback stops that thrash; the modest TTL still lets a fixed or
+ * newly-shared poster recover within the hour.
+ */
+function fallbackRedirect(): Response {
+	return new Response(null, {
+		status: 302,
+		headers: {
+			location: asset(DEFAULT_POSTER),
+			'Cache-Control': 'public, max-age=300, s-maxage=3600, stale-while-revalidate=86400'
+		}
+	});
+}
 
 /**
  * Serve an event's poster image, proxied from Google Drive through the
@@ -22,12 +38,12 @@ export const GET: RequestHandler = async ({ params }) => {
 		event.attachments?.some((attachment) => attachment.fileId === fileId)
 	);
 	if (!isEventPoster) {
-		redirect(302, asset(DEFAULT_POSTER));
+		return fallbackRedirect();
 	}
 
 	const poster = await getPosterImage(fileId);
 	if (!poster) {
-		redirect(302, asset(DEFAULT_POSTER));
+		return fallbackRedirect();
 	}
 
 	return new Response(poster.bytes, {

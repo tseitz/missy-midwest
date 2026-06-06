@@ -6,11 +6,13 @@ const { filesGetMock, captureMessage } = vi.hoisted(() => ({
 	captureMessage: vi.fn()
 }));
 
-vi.mock('googleapis', () => ({
-	google: {
-		drive: () => ({ files: { get: filesGetMock } }),
-		auth: { JWT: class {} }
-	}
+vi.mock('@googleapis/drive', () => ({
+	drive: () => ({ files: { get: filesGetMock } })
+}));
+
+// drive.ts → createGoogleJwt() (google-auth.ts) constructs auth.JWT from here.
+vi.mock('@googleapis/calendar', () => ({
+	auth: { JWT: class {} }
 }));
 
 vi.mock('$env/static/private', () => ({

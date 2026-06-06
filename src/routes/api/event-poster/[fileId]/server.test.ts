@@ -41,20 +41,23 @@ describe('GET /api/event-poster/[fileId]', () => {
 		expect(Buffer.from(await res.arrayBuffer())).toEqual(bytes);
 	});
 
-	it('redirects to the default poster for a file id not attached to any event', async () => {
-		await expect(GET(request('unknownFileId123'))).rejects.toMatchObject({
-			status: 302,
-			location: DEFAULT_POSTER
-		});
+	it('redirects to the cached default poster for a file id not attached to any event', async () => {
+		const res = await GET(request('unknownFileId123'));
+
+		expect(res.status).toBe(302);
+		expect(res.headers.get('location')).toBe(DEFAULT_POSTER);
+		// Cached so a bad id doesn't re-invoke the function on every view.
+		expect(res.headers.get('cache-control')).toMatch(/s-maxage=\d+/);
 		expect(getPosterImageMock).not.toHaveBeenCalled();
 	});
 
-	it('redirects to the default poster when the Drive download fails', async () => {
+	it('redirects to the cached default poster when the Drive download fails', async () => {
 		getPosterImageMock.mockResolvedValue(null);
 
-		await expect(GET(request(KNOWN_ID))).rejects.toMatchObject({
-			status: 302,
-			location: DEFAULT_POSTER
-		});
+		const res = await GET(request(KNOWN_ID));
+
+		expect(res.status).toBe(302);
+		expect(res.headers.get('location')).toBe(DEFAULT_POSTER);
+		expect(res.headers.get('cache-control')).toMatch(/s-maxage=\d+/);
 	});
 });

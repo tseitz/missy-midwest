@@ -1,9 +1,9 @@
-import { google } from 'googleapis';
+import { drive as driveApi } from '@googleapis/drive';
 import { z } from 'zod';
 import { createGoogleJwt } from './google-auth';
 import { reportFailure, errorMessage } from './report';
 
-const drive = google.drive('v3');
+const drive = driveApi('v3');
 
 /** Google Drive file ids are URL-safe tokens; the param is URL-derived, so validate it. */
 const fileIdSchema = z.string().regex(/^[A-Za-z0-9_-]{10,128}$/);

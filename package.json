@@ -64,9 +64,10 @@
 	},
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.10",
+		"@googleapis/calendar": "^15.0.0",
+		"@googleapis/drive": "^20.2.0",
 		"@icons-pack/svelte-simple-icons": "^5.0.0",
 		"@sentry/sveltekit": "^10.55.0",
-		"googleapis": "^127.0.0",
 		"resend": "^6.12.4",
 		"stripe": "^22.2.0",
 		"svelte-turnstile": "^0.11.0",

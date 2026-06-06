@@ -3,47 +3,27 @@ export interface UpcomingEventsResult {
 	error?: string;
 }
 
+/**
+ * The projected shape every event consumer depends on — deliberately a small
+ * subset of Google's calendar event. `getUpcomingEvents` validates and projects
+ * to exactly this (see `src/lib/server/calendar.ts`), so Google's bulky extras
+ * (etag, organizer, reminders, attachment metadata, …) never reach the client
+ * or bloat the SSR hydration payload.
+ */
 export interface CalendarEvent {
-	attachments?: Attachment[];
-	kind: string;
-	etag: string;
 	id: string;
-	status: string;
-	htmlLink: string;
-	created: string;
-	updated: string;
 	summary: string;
-	description: string;
-	location: string;
-	creator: Creator;
-	organizer: Creator;
-	start: StartEnd;
-	end: StartEnd;
-	iCalUID: string;
-	sequence: number;
-	reminders: Reminders;
-	eventType: string;
+	start: EventStart;
+	htmlLink?: string;
+	location?: string;
+	attachments?: Attachment[];
+}
+
+export interface EventStart {
+	date?: string;
+	dateTime?: string;
 }
 
 export interface Attachment {
 	fileId: string;
-	fileUrl: string;
-	iconLink: string;
-	mimeType: string; // should make more specific later
-	title: string;
-}
-
-export interface Creator {
-	email: string;
-	self: boolean;
-}
-
-export interface StartEnd {
-	date?: string;
-	dateTime?: string;
-	timeZone?: string;
-}
-
-export interface Reminders {
-	useDefault: boolean;
 }

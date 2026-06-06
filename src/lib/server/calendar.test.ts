@@ -6,11 +6,10 @@ const { listMock, captureMessage } = vi.hoisted(() => ({
 	captureMessage: vi.fn()
 }));
 
-vi.mock('googleapis', () => ({
-	google: {
-		calendar: () => ({ events: { list: listMock } }),
-		auth: { JWT: class {} }
-	}
+// calendar.ts imports `calendar`; google-auth.ts imports `auth` — both from here.
+vi.mock('@googleapis/calendar', () => ({
+	calendar: () => ({ events: { list: listMock } }),
+	auth: { JWT: class {} }
 }));
 
 vi.mock('$env/static/private', () => ({
@@ -40,6 +39,49 @@ describe('getUpcomingEvents', () => {
 		expect(result.events).toHaveLength(2);
 		expect(result.error).toBeUndefined();
 		expect(captureMessage).not.toHaveBeenCalled();
+	});
+
+	it('projects each event to only the UI fields, stripping Google bloat', async () => {
+		listMock.mockResolvedValue({
+			data: {
+				items: [
+					{
+						id: '1',
+						summary: 'Beach Party',
+						start: { dateTime: '2026-06-14T20:00:00-05:00', timeZone: 'America/Chicago' },
+						htmlLink: 'https://cal/1',
+						location: 'The Lake, MN',
+						attachments: [
+							{ fileId: 'abc', fileUrl: 'u', iconLink: 'i', mimeType: 'image/png', title: 't' }
+						],
+						// Bulk Google fields that must not survive into the payload:
+						kind: 'calendar#event',
+						etag: '"123"',
+						status: 'confirmed',
+						created: '2026-05-05T15:46:51.000Z',
+						updated: '2026-05-05T15:46:51.209Z',
+						organizer: { email: 'o@x', self: true },
+						creator: { email: 'c@x', self: true },
+						reminders: { useDefault: true },
+						iCalUID: 'uid@google',
+						sequence: 0
+					}
+				]
+			}
+		});
+
+		const { events } = await getUpcomingEvents();
+
+		expect(events).toEqual([
+			{
+				id: '1',
+				summary: 'Beach Party',
+				start: { dateTime: '2026-06-14T20:00:00-05:00' },
+				htmlLink: 'https://cal/1',
+				location: 'The Lake, MN',
+				attachments: [{ fileId: 'abc' }]
+			}
+		]);
 	});
 
 	it('drops malformed events and reports possible schema drift', async () => {

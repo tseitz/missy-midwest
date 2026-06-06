@@ -1,18 +1,21 @@
-import { google } from 'googleapis';
+import { calendar as calendarApi } from '@googleapis/calendar';
 import { z } from 'zod';
 import type { CalendarEvent, UpcomingEventsResult } from '$lib/types/index';
 import { createGoogleJwt } from './google-auth';
 import { reportFailure, errorMessage } from './report';
 
-const calendar = google.calendar('v3');
+const calendar = calendarApi('v3');
 const CACHE_TTL_MS = 5 * 60 * 1000;
 
 /**
  * The fields every event consumer depends on. We validate these at the trust
- * boundary and drop (and alert on) anything that doesn't match, rather than
- * blind-casting Google's payload and letting a malformed event crash a render.
- * Extra fields (location, attachments, htmlLink, …) pass through untouched, so
- * the consumer-facing `CalendarEvent` type is unchanged.
+ * boundary and *project* to exactly this shape: malformed events are dropped
+ * (and alerted on) rather than crashing a render, and the rest of Google's bulky
+ * payload (etag, organizer, reminders, attachment metadata, …) is stripped.
+ * Zod strips unknown keys on parse, so `safeParse(item).data` is already the
+ * clean, minimal `CalendarEvent` — no blind cast, and nothing extra reaches the
+ * SSR hydration data. Only `id`, `summary`, and `start` are required; the
+ * optional display fields project through when present.
  */
 const calendarEventSchema = z.object({
 	id: z.string(),
@@ -20,7 +23,10 @@ const calendarEventSchema = z.object({
 	start: z.object({
 		dateTime: z.string().optional(),
 		date: z.string().optional()
-	})
+	}),
+	htmlLink: z.string().optional(),
+	location: z.string().optional(),
+	attachments: z.array(z.object({ fileId: z.string() })).optional()
 });
 
 let cache: { at: number; result: UpcomingEventsResult } | null = null;
@@ -49,10 +55,12 @@ export async function getUpcomingEvents(): Promise<UpcomingEventsResult> {
 		const events: CalendarEvent[] = [];
 		let dropped = 0;
 		for (const item of rawItems) {
-			// Validate the shape we depend on, but keep the original item so the
-			// extra fields consumers read (location, attachments, htmlLink) survive.
-			if (calendarEventSchema.safeParse(item).success) {
-				events.push(item as unknown as CalendarEvent);
+			// Validate and project in one step: the parsed data is the minimal
+			// CalendarEvent (Zod strips Google's extra keys), so nothing bulky leaks
+			// into the response or the SSR payload.
+			const parsed = calendarEventSchema.safeParse(item);
+			if (parsed.success) {
+				events.push(parsed.data);
 			} else {
 				dropped++;
 			}

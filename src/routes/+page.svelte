@@ -16,8 +16,8 @@
 </script>
 
 <Seo
-	title="Missy Midwest — DJ · Vocalist · Producer"
-	description="Open-format DJ, vocalist & producer — genre-blending energy from the Heart of IL to festival stages beyond."
+	title="Missy Midwest — DJ · Producer · Vocalist"
+	description="Open-format DJ, producer & vocalist — genre-blending energy from the Heart of IL to festival stages beyond."
 />
 <svelte:head>
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted self-generated JSON-LD; `<` is escaped to < above -->

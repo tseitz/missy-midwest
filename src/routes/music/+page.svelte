@@ -1,5 +1,5 @@
 <script lang="ts">
-	import MusicExperience from '$lib/music/MusicExperience.svelte';
+	import MusicSections from '$lib/music/MusicSections.svelte';
 	import Seo from '$lib/seo/Seo.svelte';
 	import type { PageData } from './$types';
 
@@ -20,4 +20,4 @@
 	description="Stream Missy Midwest's latest DJ sets and tracks."
 />
 
-<MusicExperience featuredMix={data.featuredMix} />
+<MusicSections featuredMix={data.featuredMix} />

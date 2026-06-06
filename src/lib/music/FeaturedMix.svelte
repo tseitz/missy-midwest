@@ -22,13 +22,13 @@
 	}
 </script>
 
-<Section label="Latest mix" title="Featured" reveal={false}>
+<Section label="Featured" title="Highlighted mix" reveal={false}>
 	<div class="mt-2 w-full max-w-3xl">
 		<button
 			type="button"
 			onclick={onClick}
 			class="group from-missy-neon-lavender to-missy-magenta relative block aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br"
-			aria-label={playing ? 'Pause latest mix' : 'Play latest mix'}
+			aria-label={playing ? 'Pause highlighted mix' : 'Play highlighted mix'}
 		>
 			<img
 				src={featuredMix ? cover : netlifyImage(cover, { width: 1280 })}

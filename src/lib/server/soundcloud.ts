@@ -7,7 +7,8 @@ export { PROFILE_URL, type FeaturedMix } from '$lib/music/soundcloud';
 import type { FeaturedMix } from '$lib/music/soundcloud';
 
 /** The one curated value to swap when featuring a different mix (a track permalink). */
-export const FEATURED_MIX_URL = 'https://soundcloud.com/missymidwest/sunset-set-live';
+export const FEATURED_MIX_URL =
+	'https://soundcloud.com/missymidwest/full-tree-house-set-at-franky-louies-may-2025';
 
 /** oEmbed gives us far more than we need; validate + keep only title + thumbnail. */
 const oembedSchema = z.object({
@@ -24,7 +25,7 @@ export function __clearFeaturedMixCache(): void {
 }
 
 /**
- * Resolve the curated "Latest mix" cover + title via SoundCloud's keyless oEmbed
+ * Resolve the curated highlighted-mix cover + title via SoundCloud's keyless oEmbed
  * endpoint (server-side, cached). Returns null on any failure — the page falls
  * back to a brand cover — and alerts via reportFailure, matching the boundary
  * pattern in calendar.ts / drive.ts.

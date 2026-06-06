@@ -6,3 +6,6 @@
   # pnpm is the canonical package manager (see CLAUDE.md). Netlify detects
   # pnpm-lock.yaml, but pin the version so local and CI resolve identically.
   PNPM_VERSION = "11.5.0"
+  # node pinned to match mise.toml (Active LTS) so local dev, GUI git hooks,
+  # and the Netlify build all run on the same runtime.
+  NODE_VERSION = "24"

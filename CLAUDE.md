@@ -2,6 +2,25 @@
 
 SvelteKit + Svelte 5 (runes mode) project. Styling via Tailwind CSS v4.
 
+## Project structure
+
+- `src/routes/` — pages plus `/api/*` server endpoints (the Stripe webhook and
+  the cached Google Drive event-poster proxy), and the `sitemap.xml` /
+  `robots.txt` route handlers.
+- `src/lib/<feature>/` — UI grouped by feature (`bio`, `home`, `shop`, `music`,
+  `landing`, `header`, `contact`, `seo`, `motion`, `a11y`, …); shared
+  single-source modules sit at the root (`nav.ts`, `social.ts`).
+- `src/lib/components/` — the shared design-system primitives (see below).
+- `src/lib/server/` — the integration/boundary layer: Stripe (`stripe`,
+  `catalog`, `fulfillment`), Resend email (`email`, `email-templates`), Google
+  Calendar/Drive (`calendar`, `drive`, `google-auth`), Behold (`instagram`),
+  Turnstile, and `report.ts`. Validate external data with **Zod** and funnel
+  failures through **`report.reportFailure`** (Sentry-gated) — that's the
+  pattern at every boundary.
+- Secrets: newer keys use `$env/dynamic/private` (so the branch builds before
+  they're set), the originals use `$env/static/private`. Each integration
+  degrades to a placeholder / no-op when its env var is unset.
+
 ## Package manager: pnpm (canonical)
 
 **Always use `pnpm`** — never `npm` or `yarn`. Mixing managers reshuffles
@@ -37,13 +56,21 @@ consistent.
 
 **Brand tokens** (defined in `src/app.css` `@theme`):
 
-- Fonts: `--font-cochin` (headings, serif), `--font-obviously` (body, sans),
-  `--font-algiers`, `--font-mono`. Headings (`h1–h6`) auto-use Cochin in lavender.
-- Colors (use the Tailwind class form, e.g. `text-missy-magenta`):
-  `missy-blush`, `missy-neon-lavender`, `missy-deep-purple` (page bg),
-  `missy-magenta`, `missy-plum`, `missy-classic-lavender` (default link/heading),
-  plus `lake-*` accents (`lake-sunrise` orange, `lake-sunset`, etc.).
-- Brand utilities: `.label-eyebrow` (orange uppercase eyebrow — `SectionHeading`
+- Fonts: `--font-cochin` (headings, serif) and `--font-obviously` (body, sans) —
+  these are the only two families. Headings (`h1–h6`) auto-use Cochin in
+  near-white (`missy-pearl`); lavender is an accent now, not the heading color.
+- Colors — **summer palette: pink + sky-blue**, with lilac as the text/UI accent.
+  Use the Tailwind class form (e.g. `text-missy-magenta`). Token _names_ are kept
+  stable so existing utilities recolor in place, which leaves a few mild
+  misnomers (the `lake-sun*` tokens are now blue; `neon-lavender` is periwinkle):
+  - `missy-blush` (lead pink — CTAs, glows), `missy-magenta` (deep pink),
+    `missy-pearl` (near-white — primary text/heading), `missy-classic-lavender`
+    (lilac — link/heading accent, hairlines), `missy-deep-purple` (deep azure —
+    page/surface base), `missy-ink` (navy ink on bright fills), `missy-plum`
+    (violet mid-tone), `missy-neon-lavender` (periwinkle — decorative gradients).
+  - `lake-sunrise` / `lake-sunset` / `lake-summer-blue` (sky-blues — dates,
+    "in stock", live state) and `lake-cotton-candy` (soft pink).
+- Brand utilities: `.label-eyebrow` (pink uppercase eyebrow — `SectionHeading`
   uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero gradient),
   `.missy-header`.
 
@@ -79,11 +106,30 @@ use `public/` — there is no `public/` or `src/assets/` directory.
   to `src/lib/assets/` and be imported — only once `@sveltejs/enhanced-img` is added
   (not in use today).
 
+## Shop gate
+
+`SHOP_ENABLED` (hardcoded in `src/lib/shop/config.ts`, default `false`) gates the
+entire shop. While off, `/shop` and the home teaser render a branded "Coming
+soon" (and skip the Stripe `listGroups()` call), the header cart icon is hidden,
+`/shop/[group]` + `/shop/success` + `/shop/cancel` redirect to `/shop`, and
+`POST /shop/checkout` returns `503`. The shop's real code is untouched —
+**launch = flip the flag to `true` + live Stripe keys + re-seed.** Tests exercise
+the live paths by mocking the flag with a `vi.hoisted` getter on
+`$lib/shop/config`.
+
+## Gotchas
+
+- `/contact` is an intentional outlier: it pads at the route wrapper rather than
+  wrapping its content in `<Section>`, so the booking form sits flush under the
+  header. Don't "normalize" it onto `<Section>`.
+- `Section`'s scroll-reveal stays invisible on a section taller than the
+  viewport — pass `reveal={false}` for top/long sections.
+
 ## Svelte MCP server
 
 You are able to use the Svelte MCP server, where you have access to comprehensive Svelte 5 and SvelteKit documentation. Here's how to use the available tools effectively:
 
-### Available Svelte MCP Tools:
+### Available Svelte MCP Tools
 
 #### 1. list-sections
 

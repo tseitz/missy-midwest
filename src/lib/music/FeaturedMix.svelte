@@ -4,7 +4,7 @@
 	import { netlifyImage } from '$lib/utils/netlify-image';
 	import { getPlayerStore } from './player-context';
 	import SoundCloudLink from './SoundCloudLink.svelte';
-	import type { FeaturedMix } from '$lib/server/soundcloud';
+	import type { FeaturedMix } from './soundcloud';
 
 	let { featuredMix }: { featuredMix: FeaturedMix | null } = $props();
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { PROFILE_URL, type FeaturedMix as FeaturedMixData } from '$lib/server/soundcloud';
+	import { PROFILE_URL, type FeaturedMix as FeaturedMixData } from './soundcloud';
 	import {
 		createSoundCloudPlayer,
 		type Track,

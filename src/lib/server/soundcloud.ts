@@ -1,17 +1,13 @@
 import { z } from 'zod';
 import { reportFailure, errorMessage } from './report';
 
-/** Missy's public SoundCloud profile — source for the latest track + catalog. */
-export const PROFILE_URL = 'https://soundcloud.com/missymidwest';
+// Client-safe constants/types live outside `$lib/server/` so browser components
+// can import them; re-export here so server-side callers keep one import site.
+export { PROFILE_URL, type FeaturedMix } from '$lib/music/soundcloud';
+import type { FeaturedMix } from '$lib/music/soundcloud';
 
 /** The one curated value to swap when featuring a different mix (a track permalink). */
 export const FEATURED_MIX_URL = 'https://soundcloud.com/missymidwest/sunset-set-live';
-
-export interface FeaturedMix {
-	title: string;
-	artworkUrl: string;
-	permalinkUrl: string;
-}
 
 /** oEmbed gives us far more than we need; validate + keep only title + thumbnail. */
 const oembedSchema = z.object({

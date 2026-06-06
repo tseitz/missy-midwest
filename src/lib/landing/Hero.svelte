@@ -6,9 +6,11 @@
 <section class="bg-glow-warm relative -mt-16 w-full overflow-hidden" style="min-height: 78vh;">
 	<div
 		class="absolute inset-0 bg-cover opacity-40 mix-blend-luminosity"
-		style="background-image: url({asset(
+		style="background-image: image-set(url({asset(
+			'/landing/missy-fan-crop.avif'
+		)}) type('image/avif'), url({asset(
 			'/landing/missy-fan-crop.webp'
-		)}); background-position: 50% 20%;"
+		)}) type('image/webp')); background-position: 50% 20%;"
 		aria-hidden="true"
 	></div>
 	<div

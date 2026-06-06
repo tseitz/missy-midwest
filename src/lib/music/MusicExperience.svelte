@@ -43,6 +43,7 @@
 	}
 
 	let started = false;
+	let pendingUrl: string | null = null;
 	async function start() {
 		if (started) return;
 		started = true;
@@ -53,8 +54,13 @@
 			player = createSoundCloudPlayer({ SC, iframe, onState: (s) => (playback = s) });
 			tracks = await player.init();
 			status = tracks.length > 0 ? 'ready' : 'error';
+			if (pendingUrl && player) {
+				player.playTrack(pendingUrl);
+				pendingUrl = null;
+			}
 		} catch {
 			status = 'error';
+			pendingUrl = null;
 		}
 	}
 
@@ -69,7 +75,12 @@
 			return playback;
 		},
 		play: (url: string) => {
-			void start().then(() => player?.playTrack(url));
+			if (player) {
+				player.playTrack(url);
+				return;
+			}
+			pendingUrl = url;
+			void start();
 		},
 		toggle: () => player?.togglePlay()
 	};

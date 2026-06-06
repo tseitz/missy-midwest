@@ -31,7 +31,7 @@
 			aria-label={playing ? 'Pause latest mix' : 'Play latest mix'}
 		>
 			<img
-				src={featuredMix ? netlifyImage(cover, { width: 1280 }) : cover}
+				src={featuredMix ? cover : netlifyImage(cover, { width: 1280 })}
 				alt=""
 				aria-hidden="true"
 				class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"

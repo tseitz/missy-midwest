@@ -73,6 +73,21 @@ describe('createSoundCloudPlayer', () => {
 		expect(tracks.map((t) => t.title)).toEqual(['A', 'B']);
 	});
 
+	it('init rejects when READY never fires before the timeout', async () => {
+		vi.useFakeTimers();
+		const w = fakeWidget();
+		const player = createSoundCloudPlayer({
+			SC: fakeSC(w),
+			iframe: {} as HTMLIFrameElement,
+			onState: vi.fn()
+		});
+		const ready = player.init(1000);
+		const assertion = expect(ready).rejects.toThrow(/timed out/);
+		vi.advanceTimersByTime(1000);
+		await assertion;
+		vi.useRealTimers();
+	});
+
 	it('playTrack loads the url with auto_play and emits playing state', async () => {
 		const w = fakeWidget();
 		const onState = vi.fn();

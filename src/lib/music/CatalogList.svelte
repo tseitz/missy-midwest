@@ -24,7 +24,7 @@
 					class="text-missy-blush"
 					href="https://soundcloud.com/missymidwest"
 					target="_blank"
-					rel="noopener">SoundCloud ↗</a
+					rel="noopener noreferrer">SoundCloud ↗</a
 				>
 			</p>
 		{:else}

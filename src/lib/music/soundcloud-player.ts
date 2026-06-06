@@ -27,7 +27,7 @@ export function mapSound(s: SCSound): Track {
 		id: s.id,
 		title: s.title,
 		durationMs: s.duration,
-		artworkUrl: s.artwork_url ? s.artwork_url.replace(/-large\./, '-t500x500.') : null,
+		artworkUrl: s.artwork_url ? s.artwork_url.replace(/-(?:large|t\d+x\d+)\./, '-t500x500.') : null,
 		permalinkUrl: s.permalink_url
 	};
 }
@@ -38,7 +38,6 @@ interface SCWidget {
 	load(url: string, options: { auto_play?: boolean; callback?: () => void }): void;
 	play(): void;
 	pause(): void;
-	seekTo(ms: number): void;
 }
 
 export interface SCApi {
@@ -78,10 +77,21 @@ export function createSoundCloudPlayer({ SC, iframe, onState }: PlayerDeps) {
 	});
 
 	return {
-		/** Resolve the profile's tracks once the widget is READY. */
-		init(): Promise<Track[]> {
-			return new Promise((resolve) => {
-				widget.bind(E.READY, () => widget.getSounds((sounds) => resolve(sounds.map(mapSound))));
+		/**
+		 * Resolve the profile's tracks once the widget is READY. Rejects after
+		 * `timeoutMs` if READY never fires (SoundCloud unreachable) so callers can
+		 * fall back instead of showing the skeleton forever.
+		 */
+		init(timeoutMs = 15000): Promise<Track[]> {
+			return new Promise((resolve, reject) => {
+				const timer = setTimeout(
+					() => reject(new Error('SoundCloud widget READY timed out')),
+					timeoutMs
+				);
+				widget.bind(E.READY, () => {
+					clearTimeout(timer);
+					widget.getSounds((sounds) => resolve(sounds.map(mapSound)));
+				});
 			});
 		},
 		/** Uniform play: load any track URL (mix or catalog item) and auto-play. */
@@ -93,9 +103,6 @@ export function createSoundCloudPlayer({ SC, iframe, onState }: PlayerDeps) {
 		togglePlay(): void {
 			if (state.isPlaying) widget.pause();
 			else widget.play();
-		},
-		seek(ms: number): void {
-			widget.seekTo(ms);
 		}
 	};
 }

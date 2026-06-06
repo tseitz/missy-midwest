@@ -102,6 +102,7 @@
 	aria-hidden="true"
 	tabindex="-1"
 	src={WIDGET_SRC}
+	allow="autoplay; encrypted-media"
 	style="position:absolute;width:1px;height:1px;left:-9999px;top:auto;border:0"
 ></iframe>
 

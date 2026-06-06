@@ -9,6 +9,7 @@
 		formatDate,
 		groupEventsByMonth
 	} from '$lib/utils/date';
+	import { netlifyImage, netlifyImageSrcset } from '$lib/utils/netlify-image';
 	import type { CalendarEvent } from '$lib/types/index';
 
 	interface Props {
@@ -82,7 +83,9 @@
 					class="group from-missy-neon-lavender to-missy-magenta hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br transition hover:shadow-lg"
 				>
 					<img
-						src={poster ?? DEFAULT_POSTER}
+						src={poster ? netlifyImage(poster, { width: 1280 }) : DEFAULT_POSTER}
+						srcset={poster ? netlifyImageSrcset(poster, [640, 1280]) : null}
+						sizes={poster ? '(min-width: 640px) 50vw, 100vw' : null}
 						alt=""
 						aria-hidden="true"
 						loading="lazy"
@@ -95,6 +98,8 @@
 								img.style.display = 'none';
 							} else {
 								img.dataset.fallback = 'true';
+								// Drop srcset so the browser honors the fallback src instead of re-picking a broken candidate.
+								img.removeAttribute('srcset');
 								img.src = DEFAULT_POSTER;
 							}
 						}}

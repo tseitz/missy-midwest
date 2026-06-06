@@ -20,7 +20,9 @@
 		currentUrl: null,
 		isPlaying: false,
 		positionMs: 0,
-		durationMs: 0
+		durationMs: 0,
+		title: null,
+		artworkUrl: null
 	});
 	let iframe: HTMLIFrameElement;
 	let player: ReturnType<typeof createSoundCloudPlayer> | null = null;

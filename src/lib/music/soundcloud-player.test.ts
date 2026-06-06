@@ -43,6 +43,16 @@ describe('createSoundCloudPlayer', () => {
 			play: vi.fn(),
 			pause: vi.fn(),
 			seekTo: vi.fn(),
+			getCurrentSound: vi.fn((cb: (s: unknown) => void) =>
+				cb({
+					id: 2,
+					title: 'B',
+					duration: 2000,
+					permalink_url: 'urlB',
+					artwork_url: 'https://i1.sndcdn.com/b-large.jpg'
+				})
+			),
+			getDuration: vi.fn((cb: (ms: number) => void) => cb(2000)),
 			__fire: (e: string, d?: unknown) => handlers[e]?.(d)
 		};
 	}
@@ -105,5 +115,43 @@ describe('createSoundCloudPlayer', () => {
 		expect(onState).toHaveBeenCalledWith(
 			expect.objectContaining({ currentUrl: 'urlB', isPlaying: true })
 		);
+	});
+
+	it('populates current-sound metadata and duration on play', async () => {
+		const w = fakeWidget();
+		const onState = vi.fn();
+		const player = createSoundCloudPlayer({
+			SC: fakeSC(w),
+			iframe: {} as HTMLIFrameElement,
+			onState
+		});
+		const ready = player.init();
+		w.__fire('ready');
+		await ready;
+		player.playTrack('urlB');
+		w.__fire('play');
+		expect(onState).toHaveBeenCalledWith(
+			expect.objectContaining({
+				title: 'B',
+				artworkUrl: 'https://i1.sndcdn.com/b-t500x500.jpg',
+				durationMs: 2000
+			})
+		);
+	});
+
+	it('seek forwards to the widget and optimistically updates position', async () => {
+		const w = fakeWidget();
+		const onState = vi.fn();
+		const player = createSoundCloudPlayer({
+			SC: fakeSC(w),
+			iframe: {} as HTMLIFrameElement,
+			onState
+		});
+		const ready = player.init();
+		w.__fire('ready');
+		await ready;
+		player.seek(1234);
+		expect(w.seekTo).toHaveBeenCalledWith(1234);
+		expect(onState).toHaveBeenCalledWith(expect.objectContaining({ positionMs: 1234 }));
 	});
 });

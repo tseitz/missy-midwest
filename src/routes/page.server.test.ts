@@ -18,8 +18,8 @@ vi.mock('$lib/shop/config', () => ({
 
 import { load } from './+page.server';
 
-function event() {
-	return {} as unknown as Parameters<typeof load>[0];
+function event(setHeaders = vi.fn()) {
+	return { setHeaders } as unknown as Parameters<typeof load>[0];
 }
 
 beforeEach(() => {
@@ -35,6 +35,16 @@ describe('home +page load', () => {
 		const data = await load(event());
 		expect(listGroupsMock).not.toHaveBeenCalled();
 		expect(data).toMatchObject({ shopGroups: [] });
+	});
+
+	it('sets a shared-CDN cache-control so the edge absorbs the SSR latency', async () => {
+		const setHeaders = vi.fn();
+		await load(event(setHeaders));
+		expect(setHeaders).toHaveBeenCalledWith(
+			expect.objectContaining({
+				'cache-control': expect.stringContaining('s-maxage=300')
+			})
+		);
 	});
 
 	it('loads up to 3 groups when live', async () => {

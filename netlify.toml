@@ -9,3 +9,45 @@
   # node pinned to match mise.toml (Active LTS) so local dev, GUI git hooks,
   # and the Netlify build all run on the same runtime.
   NODE_VERSION = "24"
+
+# Long-lived caching for static brand assets. adapter-netlify only stamps
+# `immutable` on the hashed `/_app/immutable/*` bundle; the images and fonts
+# under static/ otherwise ship with no Cache-Control, so Lighthouse flags them
+# and repeat visitors re-download them. These files are content-stable per
+# filename — swap a photo by changing its name (or hard-refresh) to bust.
+# Netlify applies rules from netlify.toml AND the generated build/_headers, so
+# this is additive, not a replacement.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/landing/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/bio/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/header/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/archive/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/shop/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/press-kit/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"

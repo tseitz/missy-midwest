@@ -3,7 +3,6 @@
 	import Section from '$lib/components/Section.svelte';
 	import { netlifyImage } from '$lib/utils/netlify-image';
 	import { player } from './player.svelte';
-	import SoundCloudLink from './SoundCloudLink.svelte';
 	import type { FeaturedMix } from './soundcloud';
 
 	let { featuredMix }: { featuredMix: FeaturedMix | null } = $props();
@@ -50,6 +49,5 @@
 				</span>
 			{/if}
 		</button>
-		<div class="mt-2"><SoundCloudLink /></div>
 	</div>
 </Section>

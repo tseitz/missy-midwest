@@ -21,6 +21,20 @@ SvelteKit + Svelte 5 (runes mode) project. Styling via Tailwind CSS v4.
   they're set), the originals use `$env/static/private`. Each integration
   degrades to a placeholder / no-op when its env var is unset.
 
+## Knowledge base (`docs/`)
+
+Durable business/product/ops knowledge lives in **`docs/`** (tracked). Start at
+**[`docs/README.md`](docs/README.md)** — the index. Check here for runbooks
+before reverse-engineering a workflow from the code.
+
+- [`docs/operations/shop-stripe.md`](docs/operations/shop-stripe.md) — Stripe
+  shop: inventory model, the `seed-stripe.mjs` / `set-stock.mjs` scripts, adding
+  products, and the test → live go-live runbook.
+
+Conventions: everything under `docs/` is committed **except `docs/superpowers/`**
+(transient plans/specs, gitignored). **Never put env-var _values_ in tracked
+docs** — Netlify's secrets scanner fails the build; use names + placeholders.
+
 ## Package manager: pnpm (canonical)
 
 **Always use `pnpm`** — never `npm` or `yarn`. Mixing managers reshuffles

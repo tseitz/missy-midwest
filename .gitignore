@@ -15,7 +15,8 @@ node_modules
 credentials.json
 
 .superpowers/
-# Transient superpowers planning docs/specs — not part of the deployed site
+# docs/ is a TRACKED knowledge base (runbooks, ops, product notes) — see docs/README.md.
+# Only the transient superpowers planning docs/specs are ignored:
 docs/superpowers/
 .claude/worktrees/
 

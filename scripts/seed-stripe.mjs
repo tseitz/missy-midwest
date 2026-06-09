@@ -74,10 +74,31 @@ const lineup = [
 		groupName: 'MISSY Snapback',
 		description: 'Upside-down MISSY snapback.',
 		variantType: 'color',
+		// Golden Brown + Chiefs Red are photographed; the rest carry the
+		// "Picture Coming Soon" placeholder until their shots land.
 		variants: [
-			{ variant: 'Olive', stock: 10, price: 3000, sort: 1, images: ['missy-olive-hat.webp'] },
-			{ variant: 'Arkansas Red', stock: 10, price: 3000, sort: 2, images: ['red-missy-hat.webp'] },
-			{ variant: 'Chiefs Red', stock: 10, price: 3000, sort: 3, images: ['red-missy-hat.webp'] }
+			{
+				variant: 'Golden Brown',
+				stock: 10,
+				price: 3000,
+				sort: 1,
+				images: ['missy-golden-brown-hat.webp']
+			},
+			{ variant: 'Chiefs Red', stock: 1, price: 3000, sort: 2, images: ['missy-chiefs-red.webp'] },
+			{
+				variant: 'Camo',
+				stock: 6,
+				price: 3000,
+				sort: 3,
+				images: ['picture-coming-soon.webp']
+			},
+			{
+				variant: 'Arkansas Red',
+				stock: 10,
+				price: 3000,
+				sort: 4,
+				images: ['picture-coming-soon.webp']
+			}
 		]
 	},
 	{
@@ -86,7 +107,7 @@ const lineup = [
 		description: 'MISSY MIDWEST Lake of the Ozarks corduroy hat in pink.',
 		variantType: null,
 		images: ['pink-loz-cord-hat.webp'],
-		variants: [{ variant: 'One Size', stock: 10, price: 3000, sort: 1 }]
+		variants: [{ variant: 'One Size', stock: 30, price: 3000, sort: 1 }]
 	}
 ];
 

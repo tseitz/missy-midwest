@@ -45,10 +45,12 @@ describe('ShopTeaser', () => {
 		expect(screen.queryByText('View all →')).not.toBeInTheDocument();
 	});
 
-	it('renders the product grid when live with groups', () => {
+	it('renders the product grid with per-color cards when live', () => {
 		render(ShopTeaser, { props: { groups: [group()] } });
 		expect(screen.getByText('Rep the brand')).toBeInTheDocument();
 		expect(screen.getByText('Classic Trucker')).toBeInTheDocument();
+		// The single color variant ("Lavender") now shows as its own subtitle.
+		expect(screen.getByText('Lavender')).toBeInTheDocument();
 	});
 
 	it('renders no section when live with no groups', () => {

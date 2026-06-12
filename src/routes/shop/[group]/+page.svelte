@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
+	import { replaceState } from '$app/navigation';
 	import VariantSelector from '$lib/shop/VariantSelector.svelte';
 	import StockBadge from '$lib/shop/StockBadge.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { formatPrice, stockStatus } from '$lib/shop/format';
+	import { pickInitialVariant, variantSlug } from '$lib/shop/shop-cards';
 	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
 	import Seo from '$lib/seo/Seo.svelte';
@@ -11,12 +14,26 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// Writable derived: defaults to the first in-stock variant (so we never land
-	// on a sold-out size) and resets on navigation, while the toggle can override.
+	// Writable derived: seeds from the ?variant= slug (the clicked card, even if
+	// sold out) on load and real navigation, else the first in-stock variant. The
+	// toggle overrides it directly — replaceState doesn't feed back into page.url
+	// reactively, so the local override is what drives the UI.
 	let selected = $derived<Variant>(
-		data.group.variants.find((variant) => variant.stock > 0) ?? data.group.variants[0]
+		pickInitialVariant(data.group, page.url.searchParams.get('variant'))
 	);
 	const soldOut = $derived(stockStatus(selected.stock).soldOut);
+
+	// Update the view immediately, then mirror the choice into the URL without
+	// adding history (Back → /shop, not through every color) so it stays
+	// shareable/refresh-safe.
+	function selectVariant(variant: Variant) {
+		selected = variant;
+		const url = new URL(page.url);
+		url.searchParams.set('variant', variantSlug(variant.label));
+		// Reuses the already-resolved current URL, only swapping the query — no route to resolve().
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
+		replaceState(url, {});
+	}
 
 	function addToCart() {
 		cart.add(selected, data.group);
@@ -65,7 +82,7 @@
 						variants={data.group.variants}
 						variantType={data.group.variantType}
 						{selected}
-						onSelect={(variant) => (selected = variant)}
+						onSelect={selectVariant}
 					/>
 				</div>
 			{/if}

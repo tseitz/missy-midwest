@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import { replaceState } from '$app/navigation';
 	import VariantSelector from '$lib/shop/VariantSelector.svelte';
 	import StockBadge from '$lib/shop/StockBadge.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { formatPrice, stockStatus } from '$lib/shop/format';
-	import { pickInitialVariant } from '$lib/shop/shop-cards';
+	import { pickInitialVariant, variantSlug } from '$lib/shop/shop-cards';
 	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
 	import Seo from '$lib/seo/Seo.svelte';
@@ -13,13 +14,23 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// Writable derived: honors a ?variant= slug from the clicked card (even if
-	// sold out), else the first in-stock variant; resets on navigation while the
-	// toggle can override.
+	// The ?variant= slug is the single source of truth: it honors the clicked
+	// card (even if sold out), else the first in-stock variant. The toggle writes
+	// it back via selectVariant so the URL stays shareable/refresh-safe.
 	let selected = $derived<Variant>(
 		pickInitialVariant(data.group, page.url.searchParams.get('variant'))
 	);
 	const soldOut = $derived(stockStatus(selected.stock).soldOut);
+
+	// Reflect the chosen color in the URL without adding history (Back → /shop,
+	// not through every color). `selected` re-derives from the updated URL.
+	function selectVariant(variant: Variant) {
+		const url = new URL(page.url);
+		url.searchParams.set('variant', variantSlug(variant.label));
+		// Reuses the already-resolved current URL, only swapping the query — no route to resolve().
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
+		replaceState(url, {});
+	}
 
 	function addToCart() {
 		cart.add(selected, data.group);
@@ -68,7 +79,7 @@
 						variants={data.group.variants}
 						variantType={data.group.variantType}
 						{selected}
-						onSelect={(variant) => (selected = variant)}
+						onSelect={selectVariant}
 					/>
 				</div>
 			{/if}

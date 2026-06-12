@@ -14,17 +14,20 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// The ?variant= slug is the single source of truth: it honors the clicked
-	// card (even if sold out), else the first in-stock variant. The toggle writes
-	// it back via selectVariant so the URL stays shareable/refresh-safe.
+	// Writable derived: seeds from the ?variant= slug (the clicked card, even if
+	// sold out) on load and real navigation, else the first in-stock variant. The
+	// toggle overrides it directly — replaceState doesn't feed back into page.url
+	// reactively, so the local override is what drives the UI.
 	let selected = $derived<Variant>(
 		pickInitialVariant(data.group, page.url.searchParams.get('variant'))
 	);
 	const soldOut = $derived(stockStatus(selected.stock).soldOut);
 
-	// Reflect the chosen color in the URL without adding history (Back → /shop,
-	// not through every color). `selected` re-derives from the updated URL.
+	// Update the view immediately, then mirror the choice into the URL without
+	// adding history (Back → /shop, not through every color) so it stays
+	// shareable/refresh-safe.
 	function selectVariant(variant: Variant) {
+		selected = variant;
 		const url = new URL(page.url);
 		url.searchParams.set('variant', variantSlug(variant.label));
 		// Reuses the already-resolved current URL, only swapping the query — no route to resolve().

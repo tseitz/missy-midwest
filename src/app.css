@@ -114,6 +114,10 @@ a:hover {
 	background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
 	-webkit-background-clip: text;
 	background-clip: text;
+	/* -webkit-text-fill-color is required for the gradient to clip to the glyphs
+	   on mobile Blink/WebKit; without it those engines ignore `color: transparent`
+	   here and the text renders washed out (only the text-glow halo shows). */
+	-webkit-text-fill-color: transparent;
 	color: transparent;
 }
 /* Scroll-reveal (set by the `reveal` action) + hero entrance, both reduced-motion aware. */

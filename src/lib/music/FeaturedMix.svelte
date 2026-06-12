@@ -2,6 +2,7 @@
 	import { asset } from '$app/paths';
 	import Section from '$lib/components/Section.svelte';
 	import { netlifyImage } from '$lib/utils/netlify-image';
+	import PlayPauseIcon from './PlayPauseIcon.svelte';
 	import { player } from './player.svelte';
 	import type { FeaturedMix } from './soundcloud';
 
@@ -36,9 +37,9 @@
 			/>
 			<span class="absolute inset-0 flex items-center justify-center">
 				<span
-					class="bg-missy-blush text-missy-ink flex h-16 w-16 items-center justify-center rounded-full text-2xl shadow-lg"
+					class="bg-missy-blush text-missy-ink flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl shadow-lg"
 				>
-					{playing ? '❚❚' : '►'}
+					<PlayPauseIcon {playing} />
 				</span>
 			</span>
 			{#if featuredMix}

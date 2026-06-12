@@ -32,6 +32,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.5rem;
+		white-space: nowrap;
 		font-family: var(--font-obviously);
 		font-weight: 700;
 		font-size: 0.85rem;

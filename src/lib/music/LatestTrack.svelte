@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Section from '$lib/components/Section.svelte';
 	import { player } from './player.svelte';
+	import PlayPauseIcon from './PlayPauseIcon.svelte';
 
 	const track = $derived(player.tracks[0]);
 	const isThis = $derived(!!track && player.state.currentUrl === track.permalinkUrl);
@@ -32,9 +33,9 @@
 				{/if}
 				<span class="absolute inset-0 flex items-center justify-center">
 					<span
-						class="bg-missy-blush text-missy-ink flex h-16 w-16 items-center justify-center rounded-full text-2xl shadow-lg"
+						class="bg-missy-blush text-missy-ink flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl shadow-lg"
 					>
-						{playing ? '❚❚' : '►'}
+						<PlayPauseIcon {playing} />
 					</span>
 				</span>
 				<span

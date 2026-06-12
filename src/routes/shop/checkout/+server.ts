@@ -6,7 +6,7 @@ import { stockFromProduct } from '$lib/shop/stock';
 import { SHOP_ENABLED } from '$lib/shop/config';
 import type { RequestHandler } from './$types';
 
-const SHIPPING_RATE_CENTS = 600;
+const SHIPPING_RATE_CENTS = 1000;
 
 const checkoutBodySchema = z
 	.array(z.object({ priceId: z.string().min(1), quantity: z.number().int().min(1) }))

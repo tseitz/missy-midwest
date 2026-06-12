@@ -42,7 +42,7 @@ const lineup = [
 		groupName: 'Crop Hoodie',
 		description: 'Cropped MISSY MIDWEST hoodie in black.',
 		variantType: 'size',
-		images: ['missy-hoodie-crop-white.webp'],
+		images: ['black-crop-hoodie/missy-hoodie-crop-white.webp'],
 		variants: sizeVariants(3000, { M: 1 })
 	},
 	{
@@ -50,7 +50,7 @@ const lineup = [
 		groupName: 'Black Crop Tee',
 		description: 'Cropped MISSY MIDWEST tee in black.',
 		variantType: 'size',
-		images: ['missy-crop-white.webp'],
+		images: ['black-crop/missy-crop-white.webp'],
 		variants: sizeVariants(2000, { L: 1 })
 	},
 	{
@@ -58,7 +58,7 @@ const lineup = [
 		groupName: 'Lake Tank',
 		description: 'Came for the beach, stayed for the DJ — Lake of the Ozarks tank.',
 		variantType: 'size',
-		images: ['lake-tank-white.webp'],
+		images: ['lake-tank/lake-tank-white.webp'],
 		variants: sizeVariants(2500, { S: 5, L: 2, XL: 1, XXL: 2 })
 	},
 	{
@@ -66,7 +66,7 @@ const lineup = [
 		groupName: 'Lake Tee',
 		description: 'Came for the beach, stayed for the DJ — Lake of the Ozarks tee.',
 		variantType: 'size',
-		images: ['missy-lake-tee-front-white.webp', 'missy-lake-tee-back-white.webp'],
+		images: ['lake-tee/missy-lake-tee-front-white.webp', 'lake-tee/missy-lake-tee-back-white.webp'],
 		variants: sizeVariants(2500, { XS: 1, S: 3, M: 1, XL: 2 })
 	},
 	{
@@ -74,40 +74,68 @@ const lineup = [
 		groupName: 'MISSY Snapback',
 		description: 'Upside-down MISSY snapback.',
 		variantType: 'color',
-		// Golden Brown + Chiefs Red are photographed; the rest carry the
-		// "Picture Coming Soon" placeholder until their shots land.
 		variants: [
 			{
 				variant: 'Golden Brown',
-				stock: 10,
+				stock: 8,
 				price: 3000,
 				sort: 1,
-				images: ['missy-golden-brown-hat.webp']
+				images: ['upside-missy-hat/golden-missy.webp']
 			},
-			{ variant: 'Chiefs Red', stock: 1, price: 3000, sort: 2, images: ['missy-chiefs-red.webp'] },
+			{
+				variant: 'Chiefs Red',
+				stock: 1,
+				price: 3000,
+				sort: 2,
+				images: ['upside-missy-hat/chiefs-red-missy.webp']
+			},
 			{
 				variant: 'Camo',
-				stock: 6,
+				stock: 2,
 				price: 3000,
 				sort: 3,
-				images: ['picture-coming-soon.webp']
+				images: ['upside-missy-hat/camo-missy.webp']
 			},
 			{
 				variant: 'Arkansas Red',
 				stock: 10,
 				price: 3000,
 				sort: 4,
-				images: ['picture-coming-soon.webp']
+				images: ['upside-missy-hat/arkansas-red-missy.webp']
 			}
 		]
 	},
 	{
+		// Plain "MISSY MIDWEST" corduroy — Blue + Purple share one design.
+		group: 'corduroy-hat',
+		groupName: 'Corduroy Hat',
+		description: 'MISSY MIDWEST corduroy hat.',
+		variantType: 'color',
+		variants: [
+			{
+				variant: 'Blue',
+				stock: 10,
+				price: 3000,
+				sort: 1,
+				images: ['corduroy-hat-logo/corduroy-blue.webp']
+			},
+			{
+				variant: 'Purple',
+				stock: 10,
+				price: 3000,
+				sort: 2,
+				images: ['corduroy-hat-logo/corduroy-purple.webp']
+			}
+		]
+	},
+	{
+		// The Lake of the Ozarks sunset-logo corduroy — its own design, pink only.
 		group: 'loz-cord-hat',
 		groupName: 'LOZ Corduroy Hat',
 		description: 'MISSY MIDWEST Lake of the Ozarks corduroy hat in pink.',
 		variantType: null,
-		images: ['pink-loz-cord-hat.webp'],
-		variants: [{ variant: 'One Size', stock: 30, price: 3000, sort: 1 }]
+		images: ['corduroy-hat-logo/corduroy-pink.webp'],
+		variants: [{ variant: 'One Size', stock: 10, price: 3000, sort: 1 }]
 	}
 ];
 

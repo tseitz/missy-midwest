@@ -29,3 +29,12 @@ docs/superpowers/
 /.playwright-mcp/
 # Local-only photo candidates / shareable originals (not for the build)
 /bio-candidates
+# Raw photo/video sources under shop/ — keep local as backups; ship the optimized .webp
+static/shop/**/*.JPG
+static/shop/**/*.jpg
+static/shop/**/*.jpeg
+static/shop/**/*.JPEG
+static/shop/**/*.MP4
+static/shop/**/*.mp4
+static/shop/**/*.MOV
+static/shop/**/*.mov

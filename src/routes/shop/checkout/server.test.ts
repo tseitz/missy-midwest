@@ -61,8 +61,9 @@ describe('POST /shop/checkout', () => {
 		expect(args.mode).toBe('payment');
 		expect(args.line_items).toEqual([{ price: 'price_a', quantity: 2 }]);
 		expect(args.shipping_options).toHaveLength(2);
-		expect(args.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(1000);
-		expect(args.shipping_options[1].shipping_rate_data.fixed_amount.amount).toBe(0);
+		// Local pickup first (default selection), flat-rate shipping second.
+		expect(args.shipping_options[0].shipping_rate_data.fixed_amount.amount).toBe(0);
+		expect(args.shipping_options[1].shipping_rate_data.fixed_amount.amount).toBe(1000);
 		expect(args.shipping_address_collection.allowed_countries).toEqual(['US']);
 	});
 

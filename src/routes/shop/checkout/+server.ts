@@ -52,19 +52,21 @@ export const POST: RequestHandler = async ({ request, url }) => {
 		mode: 'payment',
 		line_items: lineItems,
 		shipping_address_collection: { allowed_countries: ['US'] },
+		// Local pickup is listed first so Stripe Checkout pre-selects it — most
+		// buyers grab these in person at a gig; shipping is the opt-in.
 		shipping_options: [
-			{
-				shipping_rate_data: {
-					type: 'fixed_amount',
-					fixed_amount: { amount: SHIPPING_RATE_CENTS, currency: 'usd' },
-					display_name: 'Flat-rate shipping'
-				}
-			},
 			{
 				shipping_rate_data: {
 					type: 'fixed_amount',
 					fixed_amount: { amount: 0, currency: 'usd' },
 					display_name: 'Local pickup'
+				}
+			},
+			{
+				shipping_rate_data: {
+					type: 'fixed_amount',
+					fixed_amount: { amount: SHIPPING_RATE_CENTS, currency: 'usd' },
+					display_name: 'Flat-rate shipping'
 				}
 			}
 		],

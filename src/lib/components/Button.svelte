@@ -52,7 +52,7 @@
 		transform: translateY(-1px);
 	}
 	.btn-fill {
-		background: linear-gradient(90deg, var(--color-missy-blush), var(--color-lake-sunrise));
+		background: var(--gradient-brand);
 		/* Clip the gradient to the padding box. With the default border-box clip the
 		   gradient also paints under the 1px transparent border, and at the pill's
 		   rounded caps that clipped border ring samples the gradient ~1px off —

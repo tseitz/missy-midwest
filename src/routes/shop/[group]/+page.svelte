@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import VariantSelector from '$lib/shop/VariantSelector.svelte';
 	import StockBadge from '$lib/shop/StockBadge.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { formatPrice, stockStatus } from '$lib/shop/format';
+	import { pickInitialVariant } from '$lib/shop/shop-cards';
 	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
 	import Seo from '$lib/seo/Seo.svelte';
@@ -11,10 +13,11 @@
 
 	let { data }: { data: PageData } = $props();
 
-	// Writable derived: defaults to the first in-stock variant (so we never land
-	// on a sold-out size) and resets on navigation, while the toggle can override.
+	// Writable derived: honors a ?variant= slug from the clicked card (even if
+	// sold out), else the first in-stock variant; resets on navigation while the
+	// toggle can override.
 	let selected = $derived<Variant>(
-		data.group.variants.find((variant) => variant.stock > 0) ?? data.group.variants[0]
+		pickInitialVariant(data.group, page.url.searchParams.get('variant'))
 	);
 	const soldOut = $derived(stockStatus(selected.stock).soldOut);
 

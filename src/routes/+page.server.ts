@@ -10,10 +10,12 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	// run on a cold serverless start. `max-age=0` keeps browsers revalidating,
 	// while `s-maxage` lets the shared CDN hold it for 5 min (matching the
 	// calendar feed's own TTL) and `stale-while-revalidate` refreshes in the
-	// background so no user ever pays the SSR latency. The page carries no
-	// per-user data, so a shared/public cache is safe.
+	// background so no user ever pays the SSR latency. The SWR window is capped
+	// at 1h (matching /shows) so a removed or finished event can't linger in the
+	// edge cache for a full day. The page carries no per-user data, so a
+	// shared/public cache is safe.
 	setHeaders({
-		'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400'
+		'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600'
 	});
 	const [shows, instagram, catalog] = await Promise.all([
 		getNextEvents(4),

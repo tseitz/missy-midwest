@@ -84,6 +84,39 @@ describe('getUpcomingEvents', () => {
 		]);
 	});
 
+	it('drops events organized by someone else (personal invites on the calendar)', async () => {
+		listMock.mockResolvedValue({
+			data: {
+				items: [
+					{ ...calEvent('gig'), organizer: { email: 'svc@example.com', self: true } },
+					{
+						id: 'invite',
+						summary: 'Tax Return Review / Zoom',
+						start: { dateTime: '2026-06-12T10:30:00-05:00' },
+						organizer: { email: 'jnichols@external.com' }
+					}
+				]
+			}
+		});
+		const { events } = await getUpcomingEvents();
+		expect(events.map((e) => e.id)).toEqual(['gig']);
+		expect(captureMessage).not.toHaveBeenCalled();
+	});
+
+	it('keeps unattributed events (no organizer field) so it never hides a real gig', async () => {
+		listMock.mockResolvedValue({ data: { items: [calEvent('1'), calEvent('2')] } });
+		const { events } = await getUpcomingEvents();
+		expect(events).toHaveLength(2);
+	});
+
+	it('drops cancelled events', async () => {
+		listMock.mockResolvedValue({
+			data: { items: [calEvent('live'), { ...calEvent('gone'), status: 'cancelled' }] }
+		});
+		const { events } = await getUpcomingEvents();
+		expect(events.map((e) => e.id)).toEqual(['live']);
+	});
+
 	it('drops malformed events and reports possible schema drift', async () => {
 		vi.spyOn(console, 'error').mockImplementation(() => {});
 		listMock.mockResolvedValue({ data: { items: [calEvent('1'), { id: 'x' }] } });

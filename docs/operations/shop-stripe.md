@@ -48,6 +48,7 @@ routes redirect, and the webhook/checkout endpoints no-op. **Launch = set it to
 | `scripts/seed-stripe.mjs`                  | Stands up the catalog (create-only)             |
 | `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                  |
 | `scripts/set-priority.mjs`                 | Sets a group's /shop display order              |
+| `scripts/set-sort.mjs`                     | Orders colors/sizes within a group              |
 
 ## Inventory operations
 
@@ -98,6 +99,27 @@ node --env-file=.env scripts/set-priority.mjs loz-cord-hat 20
 Matches every active product in the group, rejects a non-integer priority, and
 errors on an unknown group. For live, point it at the live key:
 `STRIPE_SECRET_KEY=rk_live_xxx node scripts/set-priority.mjs ...`.
+
+**Two levers, don't confuse them:** `priority` orders whole product groups
+against each other; `sort` (below) orders the colors/sizes _within_ one group.
+
+### Order colors/sizes within a group → `set-sort.mjs`
+
+Each variant's place in its group's picker — and, once colors are split into
+cards, on /shop — comes from `metadata.sort` (lower first). Bump one variant to
+`0` to move it to the front of its group:
+
+```bash
+# See every variant and its current sort
+node --env-file=.env scripts/set-sort.mjs list
+
+# Put Camo first among the snapback colors
+node --env-file=.env scripts/set-sort.mjs missy-snapback "Camo" 0
+```
+
+Matches one product by `group` + `variant` (case-insensitive), rejects a
+non-integer sort, and refuses ambiguous/unknown matches. For live:
+`STRIPE_SECRET_KEY=rk_live_xxx node scripts/set-sort.mjs ...`.
 
 ### Add a new product or color
 

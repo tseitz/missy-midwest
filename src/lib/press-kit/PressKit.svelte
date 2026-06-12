@@ -44,9 +44,11 @@
 	<SectionHeading label="Press" title="Download the kit" />
 	<div class="xs:grid-cols-1 mt-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 		{#each assets as item, i (item.href)}
-			<div class="bg-base-100 w-full rounded-md">
+			<!-- Mat every asset in the standard panel so light document scans (the bio
+			     one-sheet) read as framed thumbnails instead of raw white blocks. -->
+			<div class="panel-glass glow-hover w-full p-3">
 				<a
-					class="hover:shadow-missy-classic-lavender/20 relative flex h-full flex-col justify-center hover:shadow-lg"
+					class="relative flex h-full items-center justify-center overflow-hidden rounded-lg"
 					href={asset(item.href)}
 					onmouseover={() => (active = i)}
 					onfocus={() => (active = i)}
@@ -56,7 +58,7 @@
 					{#if active === i}
 						<div
 							transition:fade={{ duration: 180 }}
-							class="bg-missy-deep-purple/50 absolute inset-0 z-10 flex items-center justify-center rounded-md"
+							class="bg-missy-deep-purple/60 absolute inset-0 z-10 flex items-center justify-center"
 						>
 							{@render downloadIcon()}
 						</div>
@@ -79,10 +81,3 @@
 		<path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-5 4h10v-2H7v2z" />
 	</svg>
 {/snippet}
-
-<style>
-	#press a:hover {
-		transform: scale(1.02) rotate(-0.1deg);
-		transition: all 0.33s ease-out;
-	}
-</style>

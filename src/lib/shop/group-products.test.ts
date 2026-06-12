@@ -174,4 +174,63 @@ describe('groupProducts', () => {
 		]);
 		expect(groups.map((g) => g.name)).toEqual(['Ace Tee', 'Zed Hat']);
 	});
+
+	it('orders groups by ascending priority before name', () => {
+		const groups = groupProducts([
+			product({
+				id: 'a',
+				metadata: { group: 'ace', groupName: 'Ace Tee', variant: 'One', stock: '1', priority: '20' }
+			}),
+			product({
+				id: 'z',
+				metadata: { group: 'zed', groupName: 'Zed Hat', variant: 'One', stock: '1', priority: '10' }
+			})
+		]);
+		// Zed wins despite the later name because its priority is lower.
+		expect(groups.map((g) => g.name)).toEqual(['Zed Hat', 'Ace Tee']);
+	});
+
+	it('sinks groups with no priority below prioritized ones, keeping them alphabetical', () => {
+		const groups = groupProducts([
+			product({
+				id: 'n1',
+				metadata: { group: 'bravo', groupName: 'Bravo', variant: 'One', stock: '1' }
+			}),
+			product({
+				id: 'p',
+				metadata: {
+					group: 'mike',
+					groupName: 'Mike',
+					variant: 'One',
+					stock: '1',
+					priority: '10'
+				}
+			}),
+			product({
+				id: 'n2',
+				metadata: { group: 'alpha', groupName: 'Alpha', variant: 'One', stock: '1' }
+			})
+		]);
+		// Prioritized "Mike" first; the two unset groups follow, alphabetically.
+		expect(groups.map((g) => g.name)).toEqual(['Mike', 'Alpha', 'Bravo']);
+	});
+
+	it('uses the lowest variant priority as the group priority', () => {
+		const groups = groupProducts([
+			product({
+				id: 'b-hi',
+				metadata: { group: 'beta', groupName: 'Beta', variant: 'A', stock: '1', priority: '30' }
+			}),
+			product({
+				id: 'b-lo',
+				metadata: { group: 'beta', groupName: 'Beta', variant: 'B', stock: '1', priority: '5' }
+			}),
+			product({
+				id: 'a',
+				metadata: { group: 'alpha', groupName: 'Alpha', variant: 'One', stock: '1', priority: '10' }
+			})
+		]);
+		// Beta's group priority is min(30, 5) = 5, so it beats Alpha's 10.
+		expect(groups.map((g) => g.name)).toEqual(['Beta', 'Alpha']);
+	});
 });

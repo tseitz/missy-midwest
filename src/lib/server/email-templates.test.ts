@@ -50,6 +50,14 @@ describe('renderOrderNotification', () => {
 		const { html } = renderOrderNotification(order({ shippingName: null, shippingAddress: null }));
 		expect(html).not.toContain('Ship to:');
 	});
+
+	it('labels pickup orders without the shipping address', () => {
+		const { html } = renderOrderNotification(order({ deliveryMethod: 'pickup' }));
+		expect(html).toContain('Local pickup');
+		expect(html).toContain('Jane Buyer'); // who's collecting
+		expect(html).not.toContain('Ship to:');
+		expect(html).not.toContain('123 Main St'); // address is noise for pickup
+	});
 });
 
 describe('renderOrderConfirmation', () => {
@@ -67,9 +75,10 @@ describe('renderOrderConfirmation', () => {
 		expect(html).not.toContain('Customer:');
 	});
 
-	it('falls back to a generic greeting when there is no name', () => {
+	it('drops the name clause entirely when there is no name', () => {
 		const { html } = renderOrderConfirmation(order({ shippingName: null }));
-		expect(html).toContain('Thanks for your order, there!');
+		expect(html).toContain('Thanks for your order!');
+		expect(html).not.toContain('Thanks for your order,');
 	});
 
 	it('tells shipping buyers Missy will follow up with details', () => {

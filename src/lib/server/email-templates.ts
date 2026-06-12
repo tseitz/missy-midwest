@@ -68,14 +68,20 @@ function itemTable(order: OrderEmailData): string {
 /** Merchant notification — sent to Missy when an order completes. */
 export function renderOrderNotification(order: OrderEmailData): RenderedEmail {
 	const itemCount = order.lines.reduce((sum, line) => sum + line.quantity, 0);
-	const shippingBlock = order.shippingName
-		? `<p style="margin:16px 0 4px"><strong>Ship to:</strong><br>${escapeHtml(order.shippingName)}` +
-			`<br>${escapeHtml(order.shippingAddress ?? '').replace(/\n/g, '<br>')}</p>`
-		: '';
+	const name = order.shippingName ? escapeHtml(order.shippingName) : '';
+	// Pickup orders still collect an address at checkout, but it's noise for Missy —
+	// show the method + who's collecting, and only print the address when shipping.
+	const deliveryBlock =
+		order.deliveryMethod === 'pickup'
+			? `<p style="margin:16px 0 4px"><strong>Local pickup</strong>${name ? ` — ${name}` : ''}</p>`
+			: name
+				? `<p style="margin:16px 0 4px"><strong>Ship to:</strong><br>${name}` +
+					`<br>${escapeHtml(order.shippingAddress ?? '').replace(/\n/g, '<br>')}</p>`
+				: '';
 	const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#1d1830">
 <h1 style="font-size:20px">New order — ${itemCount} item(s)</h1>
 ${itemTable(order)}
-${shippingBlock}
+${deliveryBlock}
 <p style="margin:4px 0"><strong>Customer:</strong> ${escapeHtml(order.customerEmail ?? 'unknown')}</p>
 </body></html>`;
 	const subject = `New order — ${itemCount} item(s), ${formatPrice(order.amountTotal)}`;
@@ -85,13 +91,13 @@ ${shippingBlock}
 /** Buyer-facing order confirmation — warm, branded, itemized. */
 export function renderOrderConfirmation(order: OrderEmailData): RenderedEmail {
 	const firstName = order.shippingName?.trim().split(/\s+/)[0];
-	const greeting = firstName ? escapeHtml(firstName) : 'there';
+	const greeting = firstName ? `, ${escapeHtml(firstName)}` : '';
 	const whatsNext =
 		order.deliveryMethod === 'shipping'
 			? 'Missy will be in touch with your shipping details.'
 			: 'Picking up in person? Head up to the treehouse or otherwise find Missy to get your stuff.';
 	const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#1d1830">
-<h1 style="font-size:20px">Thanks for your order, ${greeting}! 🏖️</h1>
+<h1 style="font-size:20px">Thanks for your order${greeting}! 🏖️</h1>
 <p style="margin:4px 0 16px">Your Missy Midwest order is confirmed — here's what you grabbed:</p>
 ${itemTable(order)}
 <p style="margin:16px 0 4px">${whatsNext}</p>

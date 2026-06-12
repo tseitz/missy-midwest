@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { variantSlug, toShopCards } from './shop-cards';
+import { variantSlug, toShopCards, pickInitialVariant } from './shop-cards';
 import type { ProductGroup, Variant } from './types';
 
 function variant(over: Partial<Variant> = {}): Variant {
@@ -131,5 +131,36 @@ describe('toShopCards', () => {
 			})
 		]);
 		expect(card.soldOut).toBe(true);
+	});
+});
+
+describe('pickInitialVariant', () => {
+	const g = group({
+		variants: [
+			variant({ priceId: 'pr1', label: 'Blue', stock: 0 }),
+			variant({ priceId: 'pr2', label: 'Purple', stock: 4 })
+		]
+	});
+
+	it('selects the variant matching the slug even when sold out', () => {
+		expect(pickInitialVariant(g, 'blue').priceId).toBe('pr1');
+	});
+
+	it('falls back to the first in-stock variant when the slug does not match', () => {
+		expect(pickInitialVariant(g, 'green').priceId).toBe('pr2');
+	});
+
+	it('falls back to the first in-stock variant when the slug is null', () => {
+		expect(pickInitialVariant(g, null).priceId).toBe('pr2');
+	});
+
+	it('falls back to the first variant when none are in stock', () => {
+		const allOut = group({
+			variants: [
+				variant({ priceId: 'pr1', label: 'Blue', stock: 0 }),
+				variant({ priceId: 'pr2', label: 'Purple', stock: 0 })
+			]
+		});
+		expect(pickInitialVariant(allOut, null).priceId).toBe('pr1');
 	});
 });

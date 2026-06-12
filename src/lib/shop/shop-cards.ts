@@ -1,4 +1,4 @@
-import type { ProductGroup } from './types';
+import type { ProductGroup, Variant } from './types';
 
 /** A flat, presentational card for the shop grid. */
 export interface ShopCard {
@@ -60,4 +60,17 @@ export function toShopCards(groups: ProductGroup[]): ShopCard[] {
 	}
 
 	return cards;
+}
+
+/**
+ * Choose which variant a product page opens on. An explicit `?variant=` slug
+ * wins even if that variant is sold out (the shopper clicked that card); else
+ * the first in-stock variant; else the first variant.
+ */
+export function pickInitialVariant(group: ProductGroup, slug: string | null): Variant {
+	if (slug) {
+		const matched = group.variants.find((v) => variantSlug(v.label) === slug);
+		if (matched) return matched;
+	}
+	return group.variants.find((v) => v.stock > 0) ?? group.variants[0];
 }

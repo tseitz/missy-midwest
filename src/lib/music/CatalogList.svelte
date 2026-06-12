@@ -9,8 +9,8 @@
 	const rest = $derived(player.tracks.slice(1));
 </script>
 
-<Section label="SoundCloud" title="The full catalog">
-	<div class="mt-2 w-full max-w-3xl">
+<Section label="SoundCloud" title="The full catalog" width="narrow">
+	<div class="mt-2 w-full">
 		{#if player.status === 'ready'}
 			{#each rest as track (track.id)}
 				<TrackRow {track} />

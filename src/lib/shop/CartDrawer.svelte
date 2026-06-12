@@ -79,7 +79,8 @@
 									type="button"
 									aria-label="Remove item"
 									onclick={() => cart.remove(line.priceId)}
-									class="ml-auto text-xs underline opacity-70">Remove</button
+									class="text-missy-muted hover:text-missy-secondary ml-auto text-xs underline transition"
+									>Remove</button
 								>
 							</div>
 						</div>
@@ -92,7 +93,7 @@
 					<span>Subtotal</span>
 					<span>{formatPrice(cart.subtotal)}</span>
 				</div>
-				<p class="mt-1 text-xs opacity-60">Shipping calculated at checkout.</p>
+				<p class="text-missy-muted mt-1 text-xs">Shipping calculated at checkout.</p>
 				{#if error}
 					<p class="mt-3 text-sm text-red-300">{error}</p>
 				{/if}

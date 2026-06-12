@@ -47,7 +47,7 @@
 			{#each placeholders as i (i)}
 				<div
 					data-testid="ig-placeholder"
-					class="from-missy-neon-lavender to-missy-magenta aspect-square rounded-lg bg-gradient-to-br opacity-80"
+					class="bg-brand-wash aspect-square rounded-lg opacity-80"
 				></div>
 			{/each}
 		</div>

@@ -21,10 +21,8 @@
 	>
 		{playing ? '❚❚' : '►'}
 	</span>
-	<span class="min-w-0 flex-1 truncate {isThis ? 'text-missy-pearl' : 'text-violet-100'}"
+	<span class="min-w-0 flex-1 truncate {isThis ? 'text-missy-pearl' : 'text-missy-secondary'}"
 		>{track.title}</span
 	>
-	<span class="text-missy-classic-lavender shrink-0 text-xs opacity-70"
-		>{formatDuration(track.durationMs)}</span
-	>
+	<span class="text-missy-muted shrink-0 text-xs">{formatDuration(track.durationMs)}</span>
 </button>

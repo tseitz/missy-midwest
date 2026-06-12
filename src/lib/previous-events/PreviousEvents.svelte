@@ -20,7 +20,7 @@
 	let open = $state<number | null>(null);
 </script>
 
-<Section reveal={false}>
+<Section reveal={false} width="narrow">
 	<h3 class="missy-header mb-6 text-2xl">Previous events</h3>
 	<div class="grid grid-cols-2 gap-3 md:grid-cols-4">
 		{#each photos as photo, i (photo.src)}

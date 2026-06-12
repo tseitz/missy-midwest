@@ -21,12 +21,12 @@
 	}
 </script>
 
-<Section label="Featured" title="Highlighted mix" reveal={false}>
-	<div class="mt-2 w-full max-w-3xl">
+<Section label="Featured" title="Highlighted mix" reveal={false} width="narrow">
+	<div class="mt-2 w-full">
 		<button
 			type="button"
 			onclick={onClick}
-			class="group from-missy-neon-lavender to-missy-magenta relative block aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br"
+			class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
 			aria-label={playing ? 'Pause highlighted mix' : 'Play highlighted mix'}
 		>
 			<img

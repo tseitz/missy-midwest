@@ -14,13 +14,13 @@
 	}
 </script>
 
-<Section label="Latest track" title="Newest upload" reveal={false}>
-	<div class="mt-2 w-full max-w-3xl">
+<Section label="Latest track" title="Newest upload" reveal={false} width="narrow">
+	<div class="mt-2 w-full">
 		{#if player.status === 'ready' && track}
 			<button
 				type="button"
 				onclick={onClick}
-				class="group from-missy-neon-lavender to-missy-magenta relative block aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br"
+				class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
 				aria-label={playing ? 'Pause newest upload' : 'Play newest upload'}
 			>
 				{#if track.artworkUrl}

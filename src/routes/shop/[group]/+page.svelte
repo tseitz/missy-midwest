@@ -50,7 +50,7 @@
 <section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<a
 		href={resolve('/shop')}
-		class="text-missy-classic-lavender/70 hover:text-missy-blush text-sm tracking-wide transition"
+		class="text-missy-classic-lavender/80 hover:text-missy-blush text-sm tracking-wide transition"
 	>
 		← Back to shop
 	</a>

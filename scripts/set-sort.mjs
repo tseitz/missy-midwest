@@ -25,7 +25,9 @@ import Stripe from 'stripe';
  */
 const key = process.env.STRIPE_SECRET_KEY;
 if (!key) {
-	console.error('STRIPE_SECRET_KEY is required. Run: node --env-file=.env scripts/set-sort.mjs ...');
+	console.error(
+		'STRIPE_SECRET_KEY is required. Run: node --env-file=.env scripts/set-sort.mjs ...'
+	);
 	process.exit(1);
 }
 const stripe = new Stripe(key);
@@ -57,7 +59,8 @@ if (groupArg === 'list' || !groupArg) {
 			sort: parseSort(p.metadata.sort)
 		}))
 		.sort(
-			(a, b) => a.group.localeCompare(b.group) || a.sort - b.sort || a.variant.localeCompare(b.variant)
+			(a, b) =>
+				a.group.localeCompare(b.group) || a.sort - b.sort || a.variant.localeCompare(b.variant)
 		);
 	console.log('group'.padEnd(18), 'variant'.padEnd(16), 'sort');
 	for (const r of rows) {

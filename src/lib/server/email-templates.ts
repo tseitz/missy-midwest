@@ -37,9 +37,10 @@ export function escapeHtml(value: string): string {
 }
 
 const CELL = 'padding:8px;border-bottom:1px solid #eee';
+const HEAD = 'padding:8px;border-bottom:2px solid #1d1830';
 
-export function renderOrderNotification(order: OrderEmailData): RenderedEmail {
-	const itemCount = order.lines.reduce((sum, line) => sum + line.quantity, 0);
+/** Shared itemized table (line items + grand total) used by both order emails. */
+function itemTable(order: OrderEmailData): string {
 	const rows = order.lines
 		.map(
 			(line) =>
@@ -48,24 +49,47 @@ export function renderOrderNotification(order: OrderEmailData): RenderedEmail {
 				`<td style="${CELL}" align="right">${formatPrice(line.amountTotal)}</td></tr>`
 		)
 		.join('');
+	return (
+		`<table style="border-collapse:collapse;width:100%;max-width:480px"><thead><tr>` +
+		`<th align="left" style="${HEAD}">Item</th>` +
+		`<th align="center" style="${HEAD}">Qty</th>` +
+		`<th align="right" style="${HEAD}">Total</th>` +
+		`</tr></thead><tbody>${rows}</tbody><tfoot><tr>` +
+		`<td colspan="2" align="right" style="padding:8px"><strong>Order total</strong></td>` +
+		`<td align="right" style="padding:8px"><strong>${formatPrice(order.amountTotal)}</strong></td>` +
+		`</tr></tfoot></table>`
+	);
+}
+
+/** Merchant notification — sent to Missy when an order completes. */
+export function renderOrderNotification(order: OrderEmailData): RenderedEmail {
+	const itemCount = order.lines.reduce((sum, line) => sum + line.quantity, 0);
 	const shippingBlock = order.shippingName
 		? `<p style="margin:16px 0 4px"><strong>Ship to:</strong><br>${escapeHtml(order.shippingName)}` +
 			`<br>${escapeHtml(order.shippingAddress ?? '').replace(/\n/g, '<br>')}</p>`
 		: '';
 	const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#1d1830">
 <h1 style="font-size:20px">New order — ${itemCount} item(s)</h1>
-<table style="border-collapse:collapse;width:100%;max-width:480px"><thead><tr>
-<th align="left" style="padding:8px;border-bottom:2px solid #1d1830">Item</th>
-<th align="center" style="padding:8px;border-bottom:2px solid #1d1830">Qty</th>
-<th align="right" style="padding:8px;border-bottom:2px solid #1d1830">Total</th>
-</tr></thead><tbody>${rows}</tbody><tfoot><tr>
-<td colspan="2" align="right" style="padding:8px"><strong>Order total</strong></td>
-<td align="right" style="padding:8px"><strong>${formatPrice(order.amountTotal)}</strong></td>
-</tr></tfoot></table>
+${itemTable(order)}
 ${shippingBlock}
 <p style="margin:4px 0"><strong>Customer:</strong> ${escapeHtml(order.customerEmail ?? 'unknown')}</p>
 </body></html>`;
 	const subject = `New order — ${itemCount} item(s), ${formatPrice(order.amountTotal)}`;
+	return { subject, html };
+}
+
+/** Buyer-facing order confirmation — warm, branded, itemized. */
+export function renderOrderConfirmation(order: OrderEmailData): RenderedEmail {
+	const firstName = order.shippingName?.trim().split(/\s+/)[0];
+	const greeting = firstName ? escapeHtml(firstName) : 'there';
+	const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#1d1830">
+<h1 style="font-size:20px">Thanks for your order, ${greeting}! 🏖️</h1>
+<p style="margin:4px 0 16px">Your Missy Midwest order is confirmed — here's what you grabbed:</p>
+${itemTable(order)}
+<p style="margin:16px 0 4px">Missy will be in touch about pickup or shipping. Catch you at the lake!</p>
+<p style="margin:16px 0 0;color:#6b6480;font-size:13px">Missy Midwest · Lake of the Ozarks</p>
+</body></html>`;
+	const subject = `Your Missy Midwest order is confirmed — ${formatPrice(order.amountTotal)}`;
 	return { subject, html };
 }
 

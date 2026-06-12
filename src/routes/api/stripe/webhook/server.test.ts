@@ -6,6 +6,7 @@ const {
 	updateSessionMock,
 	updateMock,
 	sendOrderMock,
+	sendConfirmationMock,
 	captureMessage
 } = vi.hoisted(() => ({
 	constructEventMock: vi.fn(),
@@ -13,6 +14,7 @@ const {
 	updateSessionMock: vi.fn(),
 	updateMock: vi.fn(),
 	sendOrderMock: vi.fn(),
+	sendConfirmationMock: vi.fn(),
 	captureMessage: vi.fn()
 }));
 
@@ -24,7 +26,10 @@ vi.mock('$lib/server/stripe', () => ({
 	}
 }));
 
-vi.mock('$lib/server/email', () => ({ sendOrderNotification: sendOrderMock }));
+vi.mock('$lib/server/email', () => ({
+	sendOrderNotification: sendOrderMock,
+	sendOrderConfirmation: sendConfirmationMock
+}));
 
 vi.mock('$env/dynamic/private', () => ({ env: { STRIPE_WEBHOOK_SECRET: 'whsec_test' } }));
 
@@ -48,10 +53,12 @@ beforeEach(() => {
 	updateSessionMock.mockReset();
 	updateMock.mockReset();
 	sendOrderMock.mockReset();
+	sendConfirmationMock.mockReset();
 	captureMessage.mockClear();
 	updateSessionMock.mockResolvedValue({});
 	updateMock.mockResolvedValue({});
 	sendOrderMock.mockResolvedValue(undefined);
+	sendConfirmationMock.mockResolvedValue(undefined);
 });
 
 describe('POST /api/stripe/webhook', () => {
@@ -102,6 +109,7 @@ describe('POST /api/stripe/webhook', () => {
 		});
 		expect(updateMock).toHaveBeenCalledWith('prod_a', { metadata: { stock: '6' } });
 		expect(sendOrderMock).toHaveBeenCalledTimes(1);
+		expect(sendConfirmationMock).toHaveBeenCalledTimes(1);
 		// Marks the session fulfilled so redeliveries are idempotent.
 		expect(updateSessionMock).toHaveBeenCalledWith('cs_123', { metadata: { fulfilled: 'true' } });
 	});
@@ -121,6 +129,7 @@ describe('POST /api/stripe/webhook', () => {
 		expect(res.status).toBe(200);
 		expect(updateMock).not.toHaveBeenCalled();
 		expect(sendOrderMock).not.toHaveBeenCalled();
+		expect(sendConfirmationMock).not.toHaveBeenCalled();
 		expect(updateSessionMock).not.toHaveBeenCalled();
 	});
 
@@ -136,5 +145,20 @@ describe('POST /api/stripe/webhook', () => {
 		const res = await POST(event());
 		expect(res.status).toBe(200);
 		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/resend down/), 'error');
+	});
+
+	it('still returns 200 and alerts if only the buyer confirmation throws', async () => {
+		vi.spyOn(console, 'error').mockImplementation(() => {});
+		constructEventMock.mockReturnValue({
+			id: 'evt_4',
+			type: 'checkout.session.completed',
+			data: { object: { id: 'cs_10' } }
+		});
+		retrieveMock.mockResolvedValue({ id: 'cs_10', line_items: { data: [] } });
+		sendConfirmationMock.mockRejectedValue(new Error('buyer bounce'));
+		const res = await POST(event());
+		expect(res.status).toBe(200);
+		expect(sendOrderMock).toHaveBeenCalledTimes(1); // merchant email still sent
+		expect(captureMessage).toHaveBeenCalledWith(expect.stringMatching(/buyer bounce/), 'error');
 	});
 });

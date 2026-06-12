@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
 	escapeHtml,
 	renderOrderNotification,
+	renderOrderConfirmation,
 	renderContactMessage,
 	type OrderEmailData,
 	type ContactEmailData
@@ -47,6 +48,27 @@ describe('renderOrderNotification', () => {
 	it('omits the shipping block when there is no shipping name', () => {
 		const { html } = renderOrderNotification(order({ shippingName: null, shippingAddress: null }));
 		expect(html).not.toContain('Ship to:');
+	});
+});
+
+describe('renderOrderConfirmation', () => {
+	it('greets the buyer by first name and totals the order in the subject', () => {
+		const { subject, html } = renderOrderConfirmation(order());
+		expect(subject).toBe('Your Missy Midwest order is confirmed — $98.00');
+		expect(html).toContain('Thanks for your order, Jane!');
+	});
+
+	it('lists the items and total but no internal customer/ship-to block', () => {
+		const { html } = renderOrderConfirmation(order());
+		expect(html).toContain('Classic Trucker — Lavender');
+		expect(html).toContain('$98.00');
+		expect(html).not.toContain('Ship to:');
+		expect(html).not.toContain('Customer:');
+	});
+
+	it('falls back to a generic greeting when there is no name', () => {
+		const { html } = renderOrderConfirmation(order({ shippingName: null }));
+		expect(html).toContain('Thanks for your order, there!');
 	});
 });
 

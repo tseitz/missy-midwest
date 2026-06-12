@@ -2,7 +2,7 @@ import { json, error } from '@sveltejs/kit';
 import type Stripe from 'stripe';
 import { stripe } from '$lib/server/stripe';
 import { env } from '$env/dynamic/private';
-import { sendOrderNotification } from '$lib/server/email';
+import { sendOrderNotification, sendOrderConfirmation } from '$lib/server/email';
 import { stockUpdatesFromLineItems, orderFromSession } from '$lib/server/fulfillment';
 import { reportFailure, errorMessage } from '$lib/server/report';
 import type { RequestHandler } from './$types';
@@ -53,10 +53,18 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 	}
 
+	// Two independent emails: Missy's order alert and the buyer's confirmation.
+	// Each is isolated so one failing still sends the other (and never 500s checkout).
+	const order = orderFromSession(full, items);
 	try {
-		await sendOrderNotification(orderFromSession(full, items));
+		await sendOrderNotification(order);
 	} catch (err) {
 		reportFailure('Order notification email failed', errorMessage(err));
+	}
+	try {
+		await sendOrderConfirmation(order);
+	} catch (err) {
+		reportFailure('Order confirmation email failed', errorMessage(err));
 	}
 
 	// Stamp last, so an uncaught crash mid-fulfillment retries rather than skipping.

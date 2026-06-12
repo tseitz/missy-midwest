@@ -2,6 +2,7 @@ import { Resend } from 'resend';
 import { env } from '$env/dynamic/private';
 import {
 	renderOrderNotification,
+	renderOrderConfirmation,
 	renderContactMessage,
 	type OrderEmailData,
 	type ContactEmailData
@@ -19,6 +20,22 @@ export async function sendOrderNotification(order: OrderEmailData): Promise<void
 		html
 	});
 	if (error) throw new Error(`Resend order email failed: ${error.message}`);
+}
+
+/**
+ * Email the buyer a branded order confirmation. No-op when the session carried
+ * no customer email (nothing to send to). Throws if Resend reports an error.
+ */
+export async function sendOrderConfirmation(order: OrderEmailData): Promise<void> {
+	if (!order.customerEmail) return;
+	const { subject, html } = renderOrderConfirmation(order);
+	const { error } = await resend.emails.send({
+		from: env.RESEND_FROM_EMAIL ?? '',
+		to: order.customerEmail,
+		subject,
+		html
+	});
+	if (error) throw new Error(`Resend confirmation email failed: ${error.message}`);
 }
 
 /** Forward a contact-form message to Missy with the submitter set as reply-to. */

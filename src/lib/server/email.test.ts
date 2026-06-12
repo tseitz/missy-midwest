@@ -15,7 +15,7 @@ vi.mock('$env/dynamic/private', () => ({
 	}
 }));
 
-import { sendOrderNotification, sendContactMessage } from './email';
+import { sendOrderNotification, sendOrderConfirmation, sendContactMessage } from './email';
 import type { OrderEmailData, ContactEmailData } from './email-templates';
 
 function order(): OrderEmailData {
@@ -50,6 +50,27 @@ describe('sendOrderNotification', () => {
 	it('throws when Resend returns an error', async () => {
 		sendMock.mockResolvedValue({ data: null, error: { message: 'bad key' } });
 		await expect(sendOrderNotification(order())).rejects.toThrow(/bad key/);
+	});
+});
+
+describe('sendOrderConfirmation', () => {
+	it('sends from the configured sender to the buyer', async () => {
+		await sendOrderConfirmation(order());
+		const arg = sendMock.mock.calls[0][0];
+		expect(arg.from).toBe('noreply@missy.test');
+		expect(arg.to).toBe('buyer@example.com');
+		expect(arg.subject).toContain('confirmed');
+		expect(arg.html).toContain('Hat');
+	});
+
+	it('is a no-op when the order has no customer email', async () => {
+		await sendOrderConfirmation({ ...order(), customerEmail: null });
+		expect(sendMock).not.toHaveBeenCalled();
+	});
+
+	it('throws when Resend returns an error', async () => {
+		sendMock.mockResolvedValue({ data: null, error: { message: 'bad key' } });
+		await expect(sendOrderConfirmation(order())).rejects.toThrow(/bad key/);
 	});
 });
 

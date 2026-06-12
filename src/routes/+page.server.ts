@@ -4,6 +4,11 @@ import { getInstagramFeed } from '$lib/server/instagram';
 import { SHOP_ENABLED } from '$lib/shop/config';
 import type { PageServerLoad } from './$types';
 
+// How many product groups the home teaser features (one card each, in priority
+// order). 6 fills the sm:2 / lg:3 grid evenly and reaches past the hats into a
+// couple of shirts; raise/lower to feature more or fewer.
+const HOME_TEASER_GROUPS = 6;
+
 export const load: PageServerLoad = async ({ setHeaders }) => {
 	// Serve the home document from Netlify's edge: visitors get a cached copy
 	// instantly instead of waiting on the Calendar + Instagram round trips that
@@ -24,7 +29,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	]);
 	return {
 		nextShows: shows.events,
-		shopGroups: catalog.groups.slice(0, 3),
+		shopGroups: catalog.groups.slice(0, HOME_TEASER_GROUPS),
 		instagramPosts: instagram.posts
 	};
 };

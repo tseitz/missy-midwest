@@ -3,6 +3,7 @@
 	import Section from '$lib/components/Section.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import ProductCard from '$lib/shop/ProductCard.svelte';
+	import { toShopCards } from '$lib/shop/shop-cards';
 	import { SHOP_ENABLED } from '$lib/shop/config';
 	import type { ProductGroup } from '$lib/shop/types';
 
@@ -27,8 +28,8 @@
 			<Button href={resolve('/shop')} label="View all →" variant="outline" />
 		{/snippet}
 		<div class="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-			{#each groups as group (group.slug)}
-				<ProductCard {group} />
+			{#each toShopCards(groups) as card (card.id)}
+				<ProductCard {card} />
 			{/each}
 		</div>
 	</Section>

@@ -49,6 +49,7 @@ describe('orderFromSession', () => {
 	function session(): Stripe.Checkout.Session {
 		return {
 			amount_total: 9800,
+			shipping_cost: { amount_total: 1000 },
 			customer_details: { email: 'buyer@example.com' },
 			collected_information: {
 				shipping_details: {
@@ -73,6 +74,7 @@ describe('orderFromSession', () => {
 		];
 		const order = orderFromSession(session(), items);
 		expect(order.amountTotal).toBe(9800);
+		expect(order.deliveryMethod).toBe('shipping'); // non-zero shipping_cost
 		expect(order.customerEmail).toBe('buyer@example.com');
 		expect(order.shippingName).toBe('Jane Buyer');
 		expect(order.shippingAddress).toContain('123 Main St');
@@ -93,5 +95,6 @@ describe('orderFromSession', () => {
 		expect(order.shippingName).toBeNull();
 		expect(order.shippingAddress).toBeNull();
 		expect(order.customerEmail).toBeNull();
+		expect(order.deliveryMethod).toBe('pickup'); // no shipping_cost → pickup
 	});
 });

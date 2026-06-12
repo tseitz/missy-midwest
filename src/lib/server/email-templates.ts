@@ -6,12 +6,16 @@ export interface OrderEmailLine {
 	amountTotal: number; // cents — line total
 }
 
+/** Which fulfillment the buyer chose at checkout — drives the confirmation copy. */
+export type DeliveryMethod = 'pickup' | 'shipping';
+
 export interface OrderEmailData {
 	lines: OrderEmailLine[];
 	amountTotal: number; // cents — order grand total (incl. shipping)
 	customerEmail: string | null;
 	shippingName: string | null;
 	shippingAddress: string | null; // newline-joined, e.g. "123 Main St\nChicago, IL 60601\nUS"
+	deliveryMethod: DeliveryMethod;
 }
 
 export interface ContactEmailData {
@@ -82,12 +86,17 @@ ${shippingBlock}
 export function renderOrderConfirmation(order: OrderEmailData): RenderedEmail {
 	const firstName = order.shippingName?.trim().split(/\s+/)[0];
 	const greeting = firstName ? escapeHtml(firstName) : 'there';
+	const whatsNext =
+		order.deliveryMethod === 'shipping'
+			? 'Missy will be in touch with your shipping details.'
+			: 'Picking up in person? Head up to the treehouse or otherwise find Missy to get your stuff.';
 	const html = `<!doctype html><html><body style="font-family:system-ui,sans-serif;color:#1d1830">
 <h1 style="font-size:20px">Thanks for your order, ${greeting}! 🏖️</h1>
 <p style="margin:4px 0 16px">Your Missy Midwest order is confirmed — here's what you grabbed:</p>
 ${itemTable(order)}
-<p style="margin:16px 0 4px">Missy will be in touch about pickup or shipping. Catch you at the lake!</p>
-<p style="margin:16px 0 0;color:#6b6480;font-size:13px">Missy Midwest · Lake of the Ozarks</p>
+<p style="margin:16px 0 4px">${whatsNext}</p>
+<p style="margin:4px 0">Catch you at the lake!</p>
+<p style="margin:16px 0 0;color:#6b6480;font-size:13px">Missy Midwest</p>
 </body></html>`;
 	const subject = `Your Missy Midwest order is confirmed — ${formatPrice(order.amountTotal)}`;
 	return { subject, html };

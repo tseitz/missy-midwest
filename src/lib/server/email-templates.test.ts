@@ -18,6 +18,7 @@ function order(over: Partial<OrderEmailData> = {}): OrderEmailData {
 		customerEmail: 'buyer@example.com',
 		shippingName: 'Jane Buyer',
 		shippingAddress: '123 Main St\nChicago, IL 60601\nUS',
+		deliveryMethod: 'shipping',
 		...over
 	};
 }
@@ -69,6 +70,24 @@ describe('renderOrderConfirmation', () => {
 	it('falls back to a generic greeting when there is no name', () => {
 		const { html } = renderOrderConfirmation(order({ shippingName: null }));
 		expect(html).toContain('Thanks for your order, there!');
+	});
+
+	it('tells shipping buyers Missy will follow up with details', () => {
+		const { html } = renderOrderConfirmation(order({ deliveryMethod: 'shipping' }));
+		expect(html).toContain('shipping details');
+		expect(html).not.toContain('treehouse');
+	});
+
+	it('points pickup buyers to the treehouse', () => {
+		const { html } = renderOrderConfirmation(order({ deliveryMethod: 'pickup' }));
+		expect(html).toContain('treehouse');
+		expect(html).not.toContain('shipping details');
+	});
+
+	it('signs off "Missy Midwest" without the Lake of the Ozarks line', () => {
+		const { html } = renderOrderConfirmation(order());
+		expect(html).toContain('Missy Midwest');
+		expect(html).not.toContain('Lake of the Ozarks');
 	});
 });
 

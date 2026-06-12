@@ -24,7 +24,8 @@ function order(): OrderEmailData {
 		amountTotal: 3800,
 		customerEmail: 'buyer@example.com',
 		shippingName: 'Jane',
-		shippingAddress: '1 Main St\nUS'
+		shippingAddress: '1 Main St\nUS',
+		deliveryMethod: 'shipping'
 	};
 }
 

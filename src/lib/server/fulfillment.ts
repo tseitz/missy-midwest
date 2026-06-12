@@ -1,6 +1,6 @@
 import type Stripe from 'stripe';
 import { parseStock } from '$lib/shop/stock';
-import type { OrderEmailData, OrderEmailLine } from './email-templates';
+import type { OrderEmailData, OrderEmailLine, DeliveryMethod } from './email-templates';
 
 export interface StockUpdate {
 	productId: string;
@@ -46,11 +46,16 @@ export function orderFromSession(
 		amountTotal: item.amount_total ?? 0
 	}));
 	const shipping = session.collected_information?.shipping_details ?? null;
+	// Our only paid shipping option is flat-rate; the free option is pickup. So a
+	// non-zero shipping cost means they chose to ship.
+	const deliveryMethod: DeliveryMethod =
+		(session.shipping_cost?.amount_total ?? 0) > 0 ? 'shipping' : 'pickup';
 	return {
 		lines,
 		amountTotal: session.amount_total ?? 0,
 		customerEmail: session.customer_details?.email ?? null,
 		shippingName: shipping?.name ?? null,
-		shippingAddress: formatAddress(shipping)
+		shippingAddress: formatAddress(shipping),
+		deliveryMethod
 	};
 }

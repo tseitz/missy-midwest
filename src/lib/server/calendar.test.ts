@@ -109,6 +109,21 @@ describe('getUpcomingEvents', () => {
 		expect(events).toHaveLength(2);
 	});
 
+	it('hides self-organized events marked Private or Confidential', async () => {
+		listMock.mockResolvedValue({
+			data: {
+				items: [
+					calEvent('gig'),
+					{ ...calEvent('personal'), visibility: 'private' },
+					{ ...calEvent('secret'), visibility: 'confidential' }
+				]
+			}
+		});
+		const { events } = await getUpcomingEvents();
+		expect(events.map((e) => e.id)).toEqual(['gig']);
+		expect(captureMessage).not.toHaveBeenCalled();
+	});
+
 	it('drops cancelled events', async () => {
 		listMock.mockResolvedValue({
 			data: { items: [calEvent('live'), { ...calEvent('gone'), status: 'cancelled' }] }

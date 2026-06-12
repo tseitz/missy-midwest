@@ -55,15 +55,21 @@ export async function getUpcomingEvents(): Promise<UpcomingEventsResult> {
 		const events: CalendarEvent[] = [];
 		let dropped = 0;
 		for (const item of rawItems) {
-			// Only surface real, active gigs. Two guards before validation:
+			// Only surface real, active gigs. Three guards before validation:
 			//  - skip cancelled events (a cancelled instance of a recurring series
 			//    is still returned, with status 'cancelled', when singleEvents=true);
 			//  - skip events organized by someone else — these are personal meeting
 			//    invites that merely landed on the account's calendar, not shows.
 			//    Self-organized (or unattributed) events are kept, so this can never
-			//    hide a gig the account created itself.
+			//    hide a gig the account created itself;
+			//  - honor the event's Visibility flag: anything the account marks
+			//    Private/Confidential in Google Calendar is hidden from the public
+			//    feed. Gigs stay on Default (the implicit ~50 we already have) and
+			//    show automatically — only personal self-created events need the
+			//    explicit Private opt-out.
 			if (item.status === 'cancelled') continue;
 			if (item.organizer && item.organizer.self !== true) continue;
+			if (item.visibility === 'private' || item.visibility === 'confidential') continue;
 
 			// Validate and project in one step: the parsed data is the minimal
 			// CalendarEvent (Zod strips Google's extra keys), so nothing bulky leaks

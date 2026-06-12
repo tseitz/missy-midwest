@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { variantSlug, toShopCards, pickInitialVariant } from './shop-cards';
+import { variantSlug, toShopCards, toGroupCards, pickInitialVariant } from './shop-cards';
 import type { ProductGroup, Variant } from './types';
 
 function variant(over: Partial<Variant> = {}): Variant {
@@ -131,6 +131,60 @@ describe('toShopCards', () => {
 			})
 		]);
 		expect(card.soldOut).toBe(true);
+	});
+});
+
+describe('toGroupCards', () => {
+	it('returns exactly one card per group, never expanding colors', () => {
+		const cards = toGroupCards([
+			group({
+				slug: 'corduroy-hat',
+				name: 'Corduroy Hat',
+				variantType: 'color',
+				image: 'https://img/blue.png',
+				fromPrice: 3500,
+				variants: [
+					variant({ priceId: 'pr1', label: 'Blue', image: 'https://img/blue.png', stock: 4 }),
+					variant({ priceId: 'pr2', label: 'Purple', image: 'https://img/purple.png', stock: 2 })
+				]
+			})
+		]);
+		expect(cards).toHaveLength(1);
+		expect(cards[0]).toMatchObject({
+			id: 'corduroy-hat',
+			slug: 'corduroy-hat',
+			name: 'Corduroy Hat',
+			image: 'https://img/blue.png', // the group's representative image, not a variant's
+			price: 3500,
+			priceVaries: false,
+			soldOut: false
+		});
+		expect(cards[0].variantSlug).toBeUndefined();
+		expect(cards[0].variantLabel).toBeUndefined();
+	});
+
+	it('preserves the incoming group order', () => {
+		const cards = toGroupCards([
+			group({ slug: 'b', name: 'Bravo' }),
+			group({ slug: 'a', name: 'Alpha' })
+		]);
+		expect(cards.map((c) => c.name)).toEqual(['Bravo', 'Alpha']);
+	});
+
+	it('flags a "from" price when a group has varying prices, and sold out when all are out', () => {
+		const cards = toGroupCards([
+			group({
+				slug: 'tour-tee',
+				name: 'Tour Tee',
+				variantType: 'size',
+				fromPrice: 2800,
+				variants: [
+					variant({ priceId: 'pr1', label: 'S', price: 2800, stock: 0 }),
+					variant({ priceId: 'pr2', label: 'M', price: 3000, stock: 0 })
+				]
+			})
+		]);
+		expect(cards[0]).toMatchObject({ price: 2800, priceVaries: true, soldOut: true });
 	});
 });
 

@@ -45,12 +45,12 @@ describe('ShopTeaser', () => {
 		expect(screen.queryByText('View all →')).not.toBeInTheDocument();
 	});
 
-	it('renders the product grid with per-color cards when live', () => {
+	it('renders one card per group (no color expansion) when live', () => {
 		render(ShopTeaser, { props: { groups: [group()] } });
 		expect(screen.getByText('Rep the brand')).toBeInTheDocument();
 		expect(screen.getByText('Classic Trucker')).toBeInTheDocument();
-		// The single color variant ("Lavender") now shows as its own subtitle.
-		expect(screen.getByText('Lavender')).toBeInTheDocument();
+		// The teaser shows the group, not its individual colors — no "Lavender" subtitle.
+		expect(screen.queryByText('Lavender')).not.toBeInTheDocument();
 	});
 
 	it('renders no section when live with no groups', () => {

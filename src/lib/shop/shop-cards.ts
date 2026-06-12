@@ -22,6 +22,23 @@ export function variantSlug(label: string): string {
 }
 
 /**
+ * One card representing a whole group — the group's representative image and
+ * "from" price, linking to the product page (no variant pre-selected). Used for
+ * size/single-variant groups on /shop and for every group on the home teaser.
+ */
+function toGroupCard(group: ProductGroup): ShopCard {
+	return {
+		id: group.slug,
+		slug: group.slug,
+		name: group.name,
+		image: group.image,
+		price: group.fromPrice,
+		priceVaries: new Set(group.variants.map((v) => v.price)).size > 1,
+		soldOut: group.variants.every((v) => v.stock <= 0)
+	};
+}
+
+/**
  * Flatten product groups into shop cards. Color groups expand into one card per
  * variant (so shoppers see every color on the grid); every other group stays a
  * single card. Pure — no Svelte, no network.
@@ -46,20 +63,19 @@ export function toShopCards(groups: ProductGroup[]): ShopCard[] {
 				});
 			}
 		} else {
-			const priceVaries = new Set(group.variants.map((v) => v.price)).size > 1;
-			cards.push({
-				id: group.slug,
-				slug: group.slug,
-				name: group.name,
-				image: group.image,
-				price: group.fromPrice,
-				priceVaries,
-				soldOut: group.variants.every((v) => v.stock <= 0)
-			});
+			cards.push(toGroupCard(group));
 		}
 	}
 
 	return cards;
+}
+
+/**
+ * One card per group, colors never expanded — the home teaser's representative
+ * view. Each card links to the product page where the colors are available.
+ */
+export function toGroupCards(groups: ProductGroup[]): ShopCard[] {
+	return groups.map(toGroupCard);
 }
 
 /**

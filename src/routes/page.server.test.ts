@@ -47,13 +47,16 @@ describe('home +page load', () => {
 		);
 	});
 
-	it('loads up to 3 groups when live', async () => {
+	it('features up to 6 groups (in priority order) when live', async () => {
 		listGroupsMock.mockResolvedValue({
-			groups: [{ slug: 'a' }, { slug: 'b' }, { slug: 'c' }, { slug: 'd' }],
+			groups: ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((slug) => ({ slug })),
 			error: null
 		});
 		const data = await load(event());
 		expect(listGroupsMock).toHaveBeenCalled();
-		expect(data).toMatchObject({ shopGroups: [{ slug: 'a' }, { slug: 'b' }, { slug: 'c' }] });
+		// toMatchObject checks array length too, so this also asserts the 7th is dropped.
+		expect(data).toMatchObject({
+			shopGroups: ['a', 'b', 'c', 'd', 'e', 'f'].map((slug) => ({ slug }))
+		});
 	});
 });

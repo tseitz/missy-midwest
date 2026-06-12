@@ -2,6 +2,7 @@
 	import Section from '$lib/components/Section.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import ProductCard from '$lib/shop/ProductCard.svelte';
+	import { toShopCards } from '$lib/shop/shop-cards';
 	import { resolve } from '$app/paths';
 	import Seo from '$lib/seo/Seo.svelte';
 	import type { PageData } from './$types';
@@ -37,8 +38,8 @@
 		</div>
 	{:else}
 		<div class="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-			{#each data.groups as group (group.slug)}
-				<ProductCard {group} />
+			{#each toShopCards(data.groups) as card (card.id)}
+				<ProductCard {card} />
 			{/each}
 		</div>
 	{/if}

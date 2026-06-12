@@ -69,8 +69,10 @@ consistent.
   heading, which `Section` renders above the body).
 - `SectionHeading.svelte` — eyebrow label + `<h2>`. Props: `label`, `title`.
   (Used internally by `Section`; use directly only outside a `Section`.)
-- `Button.svelte` — props `label`, `href?`, `variant?: 'fill' | 'outline'`.
-  `fill` = gradient primary CTA; `outline` = secondary. Always use for buttons/CTAs.
+- `Button.svelte` — props `label`, `href?`, `variant?: 'fill' | 'outline'`,
+  `block?` (full-width, centered — e.g. the cart checkout CTA), plus
+  `type?`/`disabled?`/`onclick?` for `<button>` use. `fill` = gradient primary
+  CTA; `outline` = secondary. Always use for buttons/CTAs.
 - `Lightbox.svelte`, `SocialLinks.svelte`, `Footer.svelte` — as named.
 
 **Brand tokens** (defined in `src/app.css` `@theme`):
@@ -94,6 +96,11 @@ consistent.
     **Use these for secondary text** instead of stacking `opacity-*` on inherited
     text or reaching for stock `violet-*` (a cooler off-key blue-violet). The
     link/accent role stays on `missy-classic-lavender`.
+  - `missy-error` (coral-red — form/validation errors; distinct from the pink
+    accents, AA on the surface). Takes dark `missy-ink` text as a filled banner.
+  - Surface scale (recession below the page base `missy-deep-purple`):
+    `missy-surface-sunken` (footer panels) and `missy-surface-deep` (the deepest
+    legal bar). Use these for dark recessed surfaces, not raw hex.
 - Brand utilities: `.label-eyebrow` (pink uppercase eyebrow — `SectionHeading`
   uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero gradient),
   `.missy-header`. Gradients are canonical: `--gradient-brand` (pink→blue) drives

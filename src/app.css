@@ -51,6 +51,15 @@
 	   with `missy-classic-lavender`, so links remain distinct from secondary text. */
 	--color-missy-secondary: #d6c8f0; /* secondary text: venues, dates, bylines (10.2:1) */
 	--color-missy-muted: #b3a6d4; /* tertiary metadata: addresses, captions (7.1:1) */
+	/* Coral-red error/danger — distinct from the pink accents so a validation
+	   failure reads as an error, not another accent. AA as text on the surface
+	   (5.76:1) and takes dark `missy-ink` text when used as a filled banner. */
+	--color-missy-error: #ff6b6b;
+	/* Surface scale — deliberate recession below the page base
+	   (`missy-deep-purple`). Footer panels sit one step down; the legal bar is
+	   deepest. Tokenized so recession is intentional, not four stray hex values. */
+	--color-missy-surface-sunken: #08182f; /* recessed panels — e.g. the footer */
+	--color-missy-surface-deep: #050f22; /* deepest — the legal/footer baseline bar */
 }
 
 h1,

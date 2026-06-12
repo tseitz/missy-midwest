@@ -6,6 +6,8 @@
 		type?: 'button' | 'submit';
 		disabled?: boolean;
 		onclick?: () => void;
+		/** Stretch to fill the container width (centered) — e.g. the cart checkout CTA. */
+		block?: boolean;
 	}
 	let {
 		label,
@@ -13,10 +15,11 @@
 		variant = 'fill',
 		type = 'button',
 		disabled = false,
-		onclick
+		onclick,
+		block = false
 	}: Props = $props();
 
-	const cls = $derived(`btn btn-${variant}`);
+	const cls = $derived(`btn btn-${variant}${block ? ' btn-block' : ''}`);
 </script>
 
 {#if href}
@@ -50,6 +53,11 @@
 	}
 	.btn:hover {
 		transform: translateY(-1px);
+	}
+	.btn-block {
+		display: flex;
+		width: 100%;
+		justify-content: center;
 	}
 	.btn-fill {
 		background: var(--gradient-brand);

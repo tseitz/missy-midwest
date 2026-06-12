@@ -119,6 +119,14 @@ a:hover {
 	   here and the text renders washed out (only the text-glow halo shows). */
 	-webkit-text-fill-color: transparent;
 	color: transparent;
+	/* background-clip:text clips the gradient to the element's line box, not the
+	   glyph ink. Under the hero's tight `leading-[0.86]` that box is shorter than
+	   the letters, so the bottom of the word ("Midwest") was sheared off on mobile.
+	   Give the span its own full-height box (inline-block + line-height:1) plus a
+	   sliver of vertical padding so the clip region always covers the glyphs. */
+	display: inline-block;
+	line-height: 1;
+	padding-block: 0.06em;
 }
 /* Scroll-reveal (set by the `reveal` action) + hero entrance, both reduced-motion aware. */
 [data-reveal] {

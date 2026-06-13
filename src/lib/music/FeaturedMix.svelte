@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import Section from '$lib/components/Section.svelte';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import { netlifyImage } from '$lib/utils/netlify-image';
 	import PlayPauseIcon from './PlayPauseIcon.svelte';
 	import { player } from './player.svelte';
@@ -21,7 +21,8 @@
 	}
 </script>
 
-<Section label="Featured" title="Highlighted mix" reveal={false} width="narrow">
+<div class="w-full">
+	<SectionHeading label="Featured" title="Highlighted mix" />
 	<div class="mt-2 w-full">
 		<button
 			type="button"
@@ -51,4 +52,4 @@
 			{/if}
 		</button>
 	</div>
-</Section>
+</div>

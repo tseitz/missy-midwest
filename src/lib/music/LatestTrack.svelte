@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Section from '$lib/components/Section.svelte';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import { player } from './player.svelte';
 	import PlayPauseIcon from './PlayPauseIcon.svelte';
 
@@ -14,7 +14,8 @@
 	}
 </script>
 
-<Section label="Latest track" title="Newest upload" reveal={false} width="narrow">
+<div class="w-full">
+	<SectionHeading label="Latest track" title="Newest upload" />
 	<div class="mt-2 w-full">
 		{#if player.status === 'ready' && track}
 			<button
@@ -58,4 +59,4 @@
 			<div class="bg-missy-classic-lavender/10 aspect-video w-full animate-pulse rounded-xl"></div>
 		{/if}
 	</div>
-</Section>
+</div>

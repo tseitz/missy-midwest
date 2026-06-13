@@ -19,7 +19,14 @@
 </script>
 
 <div class="flex w-full flex-col items-center">
-	<LatestTrack />
-	<FeaturedMix {featuredMix} />
+	<!-- The two featured players sit side-by-side on desktop (a tidy 2-up that
+	     keeps them card-sized) and stack on mobile. The grid shares the catalog's
+	     narrow column so the whole page lines up. -->
+	<section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
+		<div class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 md:grid-cols-2">
+			<LatestTrack />
+			<FeaturedMix {featuredMix} />
+		</div>
+	</section>
 	<CatalogList />
 </div>

@@ -30,7 +30,7 @@
 		{/if}
 	</div>
 	<div class="px-5 pt-4 pb-5">
-		<h3 class="text-lg leading-snug">{card.name}</h3>
+		<h3 class="text-xl leading-snug">{card.name}</h3>
 		{#if card.variantLabel}
 			<p class="text-missy-classic-lavender/80 mt-0.5 text-sm">{card.variantLabel}</p>
 		{/if}

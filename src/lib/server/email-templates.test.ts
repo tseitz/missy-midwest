@@ -58,6 +58,12 @@ describe('renderOrderNotification', () => {
 		expect(html).not.toContain('Ship to:');
 		expect(html).not.toContain('123 Main St'); // address is noise for pickup
 	});
+
+	it('wears the same branded header band as the buyer email', () => {
+		const { html } = renderOrderNotification(order());
+		expect(html).toContain('bgcolor="#0b1f4c"');
+		expect(html).toContain('/header/missy-midwest-logo-white.png');
+	});
 });
 
 describe('renderOrderConfirmation', () => {
@@ -97,6 +103,14 @@ describe('renderOrderConfirmation', () => {
 		const { html } = renderOrderConfirmation(order());
 		expect(html).toContain('Missy Midwest');
 		expect(html).not.toContain('Lake of the Ozarks');
+	});
+
+	it('leads with the branded navy band + white wordmark and a lilac signature', () => {
+		const { html } = renderOrderConfirmation(order());
+		expect(html).toContain('bgcolor="#0b1f4c"'); // dark brand band
+		expect(html).toContain('/header/missy-midwest-logo-white.png'); // white logo in band
+		expect(html).toContain('/header/missy-midwest-logo.png'); // lilac signature logo
+		expect(html).toContain('https://missymidwest.com'); // absolute URL, not a bare path
 	});
 });
 

@@ -80,6 +80,15 @@ consistent.
 - Fonts: `--font-cochin` (headings, serif) and `--font-obviously` (body, sans) —
   these are the only two families. Headings (`h1–h6`) auto-use Cochin in
   near-white (`missy-pearl`); lavender is an accent now, not the heading color.
+- Type scale (keep headings to these tiers — don't pick ad-hoc sizes):
+  - **Display / hero**: `text-6xl md:text-8xl lg:text-9xl` — the landing `<h1>` only.
+  - **Section title**: `text-4xl md:text-5xl` — every `SectionHeading` (and page
+    `<h1>`s like the shop group). This is the canonical section heading; use
+    `Section`/`SectionHeading` rather than re-rolling it.
+  - **Subsection / panel heading**: `text-2xl` — e.g. "Your Cart", "Previous
+    events", a featured-card title, the day-number display.
+  - **Card / item title**: `text-xl` — standard card, track, and list-row titles.
+  - **Body** `text-base`/`text-sm`, **meta** `text-xs`.
 - Colors — **summer palette: pink + sky-blue**, with lilac as the text/UI accent.
   Use the Tailwind class form (e.g. `text-missy-magenta`). Token _names_ are kept
   stable so existing utilities recolor in place, which leaves a few mild

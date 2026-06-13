@@ -137,7 +137,7 @@
 					required
 				/>
 				{#if submitAttempted && errors.name}
-					<small class="text-missy-magenta">{errors.name}</small>
+					<small class="text-missy-error">{errors.name}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="email">Email</label>
@@ -150,13 +150,13 @@
 					required
 				/>
 				{#if submitAttempted && errors.email}
-					<small class="text-missy-magenta">{errors.email}</small>
+					<small class="text-missy-error">{errors.email}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="phone">Phone (Optional)</label>
 				<input id="phone" name="phone" type="text" class={inputClass} bind:value={formData.phone} />
 				{#if submitAttempted && errors.phone}
-					<small class="text-missy-magenta">{errors.phone}</small>
+					<small class="text-missy-error">{errors.phone}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="message">Message</label>
@@ -169,7 +169,7 @@
 					required
 				></textarea>
 				{#if submitAttempted && errors.message}
-					<small class="text-missy-magenta">{errors.message}</small>
+					<small class="text-missy-error">{errors.message}</small>
 				{/if}
 
 				{#if form}
@@ -178,7 +178,7 @@
 						aria-live="polite"
 						class="mt-6 rounded-md px-4 py-3 text-sm font-medium {form.success
 							? 'bg-missy-deep-purple/80 text-slate-50'
-							: 'bg-missy-magenta/90 text-slate-50'}"
+							: 'bg-missy-error text-missy-ink'}"
 					>
 						{form.message}
 					</p>

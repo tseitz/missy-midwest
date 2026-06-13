@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cart } from './cart.svelte';
 	import { formatPrice } from './format';
+	import Button from '$lib/components/Button.svelte';
 
 	let error = $state('');
 	let submitting = $state(false);
@@ -79,7 +80,8 @@
 									type="button"
 									aria-label="Remove item"
 									onclick={() => cart.remove(line.priceId)}
-									class="ml-auto text-xs underline opacity-70">Remove</button
+									class="text-missy-muted hover:text-missy-secondary ml-auto text-xs underline transition"
+									>Remove</button
 								>
 							</div>
 						</div>
@@ -92,18 +94,20 @@
 					<span>Subtotal</span>
 					<span>{formatPrice(cart.subtotal)}</span>
 				</div>
-				<p class="mt-1 text-xs opacity-60">Shipping calculated at checkout.</p>
+				<p class="text-missy-muted mt-1 text-xs">Shipping calculated at checkout.</p>
 				{#if error}
-					<p class="mt-3 text-sm text-red-300">{error}</p>
+					<p class="text-missy-error mt-3 text-sm">{error}</p>
 				{/if}
-				<button
-					type="button"
-					disabled={submitting}
-					onclick={checkout}
-					class="bg-missy-classic-lavender mt-4 w-full rounded-full py-3 font-semibold text-missy-ink disabled:opacity-50"
-				>
-					{submitting ? 'Redirecting…' : 'Checkout →'}
-				</button>
+				<div class="mt-4">
+					<Button
+						label={submitting ? 'Redirecting…' : 'Checkout →'}
+						variant="fill"
+						type="button"
+						block
+						disabled={submitting}
+						onclick={checkout}
+					/>
+				</div>
 			</div>
 		{/if}
 	</aside>

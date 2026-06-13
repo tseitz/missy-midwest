@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import Section from '$lib/components/Section.svelte';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import { netlifyImage } from '$lib/utils/netlify-image';
 	import PlayPauseIcon from './PlayPauseIcon.svelte';
 	import { player } from './player.svelte';
@@ -21,12 +21,13 @@
 	}
 </script>
 
-<Section label="Featured" title="Highlighted mix" reveal={false}>
-	<div class="mt-2 w-full max-w-3xl">
+<div class="w-full">
+	<SectionHeading label="Featured" title="Highlighted mix" />
+	<div class="mt-2 w-full">
 		<button
 			type="button"
 			onclick={onClick}
-			class="group from-missy-neon-lavender to-missy-magenta relative block aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br"
+			class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
 			aria-label={playing ? 'Pause highlighted mix' : 'Play highlighted mix'}
 		>
 			<img
@@ -51,4 +52,4 @@
 			{/if}
 		</button>
 	</div>
-</Section>
+</div>

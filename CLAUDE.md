@@ -61,11 +61,18 @@ consistent.
   `w-full max-w-screen-2xl px-8 py-16 md:px-14` + optional scroll-reveal +
   optional `SectionHeading` + optional right-side `action` snippet. **Use this
   for every page/home section** rather than re-typing the shell string.
-  Props: `label?`, `title?`, `reveal?=true`, `id?`, `class?`, `action?` snippet.
+  Props: `label?`, `title?`, `reveal?=true`, `id?`, `class?`, `action?` snippet,
+  `width?: 'wide' | 'narrow'` (default `'wide'`). `'narrow'` centers the heading
+  **and** body together in a `max-w-5xl` reading column (even side margins on
+  large screens) — the standard for text/list-heavy pages (Shows, Music). Set it
+  on the `Section`; don't wrap the body in your own `max-w-*` (that misaligns the
+  heading, which `Section` renders above the body).
 - `SectionHeading.svelte` — eyebrow label + `<h2>`. Props: `label`, `title`.
   (Used internally by `Section`; use directly only outside a `Section`.)
-- `Button.svelte` — props `label`, `href?`, `variant?: 'fill' | 'outline'`.
-  `fill` = gradient primary CTA; `outline` = secondary. Always use for buttons/CTAs.
+- `Button.svelte` — props `label`, `href?`, `variant?: 'fill' | 'outline'`,
+  `block?` (full-width, centered — e.g. the cart checkout CTA), plus
+  `type?`/`disabled?`/`onclick?` for `<button>` use. `fill` = gradient primary
+  CTA; `outline` = secondary. Always use for buttons/CTAs.
 - `Lightbox.svelte`, `SocialLinks.svelte`, `Footer.svelte` — as named.
 
 **Brand tokens** (defined in `src/app.css` `@theme`):
@@ -81,12 +88,24 @@ consistent.
     `missy-pearl` (near-white — primary text/heading), `missy-classic-lavender`
     (lilac — link/heading accent, hairlines), `missy-deep-purple` (deep azure —
     page/surface base), `missy-ink` (navy ink on bright fills), `missy-plum`
-    (violet mid-tone), `missy-neon-lavender` (periwinkle — decorative gradients).
+    (violet mid-tone), `missy-neon-lavender` (periwinkle — currently unused).
   - `lake-sunrise` / `lake-sunset` / `lake-summer-blue` (sky-blues — dates,
     "in stock", live state) and `lake-cotton-candy` (soft pink).
+  - Secondary-text scale (warm lavender, contrast-checked): `missy-secondary`
+    (venues, dates, bylines) and `missy-muted` (addresses, captions, metadata).
+    **Use these for secondary text** instead of stacking `opacity-*` on inherited
+    text or reaching for stock `violet-*` (a cooler off-key blue-violet). The
+    link/accent role stays on `missy-classic-lavender`.
+  - `missy-error` (coral-red — form/validation errors; distinct from the pink
+    accents, AA on the surface). Takes dark `missy-ink` text as a filled banner.
+  - Surface scale (recession below the page base `missy-deep-purple`):
+    `missy-surface-sunken` (footer panels) and `missy-surface-deep` (the deepest
+    legal bar). Use these for dark recessed surfaces, not raw hex.
 - Brand utilities: `.label-eyebrow` (pink uppercase eyebrow — `SectionHeading`
   uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero gradient),
-  `.missy-header`.
+  `.missy-header`. Gradients are canonical: `--gradient-brand` (pink→blue) drives
+  both `.text-gradient-sun` and `.btn-fill`; `.bg-brand-wash` (sky→violet→pink, an
+  echo of the hero) is the on-brand backdrop behind media/poster fallbacks.
 
 **Spacing rhythm** — stick to this scale; don't pick arbitrary values:
 
@@ -94,6 +113,10 @@ consistent.
 - After a `SectionHeading`, body starts at `mt-2`.
 - Vertical gaps between stacked elements: `mt-4` (tight) / `mt-6` (default) / `mt-8` (loose, e.g. before a CTA).
 - Grid gaps: `gap-5` (cards) / `gap-8` (two-column splits).
+- Border-radius scale (keep it to these tiers): `rounded-full` (pills, badges,
+  play buttons) · `rounded-2xl` (panels — `panel-glass`) · `rounded-xl`
+  (media/image cards — Shows/music cards, IG tiles, gig photos) · `rounded-lg`
+  (inputs and small controls).
 - Prefer standard utilities over arbitrary `[…]` values — Tailwind v4 can choke
   on some bracket values (e.g. `min-h-[32rem]` crashed the compiler; use
   `min-h-128`).

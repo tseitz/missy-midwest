@@ -36,13 +36,30 @@
 	--color-lake-cotton-candy: #ff93c1; /* soft pink */
 	--color-lake-sunset: #7ab8ff; /* lighter sky — hover of lake-sunrise (was orange) */
 	--color-missy-blush: #ff7ab8; /* lead pink: CTAs, glows, accents */
-	--color-missy-neon-lavender: #6f7cff; /* periwinkle — decorative gradients */
+	--color-missy-neon-lavender: #6f7cff; /* periwinkle — currently unused (kept for stability) */
 	--color-missy-deep-purple: #0b1f4c; /* deep azure — page/surface base */
 	--color-missy-magenta: #e23f93; /* deep pink */
 	--color-missy-plum: #3f2d72; /* violet mid-tone, bridges blue <-> pink */
 	--color-missy-classic-lavender: #c9a8ff; /* lilac — headings, links, hairlines */
 	--color-missy-ink: #0a1438; /* deep navy ink on bright fills */
 	--color-missy-pearl: #fbf2f8; /* warm near-white — primary heading/text color */
+	/* Secondary text scale — warm lavender, contrast-checked on the deep-purple
+	   surface AND over the card photo-scrim. Use these for body/secondary text
+	   instead of stacking `opacity-*` on inherited text or reaching for stock
+	   `violet-*` (a cooler blue-violet, off-key from the brand lavender).
+	   Hierarchy: pearl (primary) > secondary > muted. The link/accent role stays
+	   with `missy-classic-lavender`, so links remain distinct from secondary text. */
+	--color-missy-secondary: #d6c8f0; /* secondary text: venues, dates, bylines (10.2:1) */
+	--color-missy-muted: #b3a6d4; /* tertiary metadata: addresses, captions (7.1:1) */
+	/* Coral-red error/danger — distinct from the pink accents so a validation
+	   failure reads as an error, not another accent. AA as text on the surface
+	   (5.76:1) and takes dark `missy-ink` text when used as a filled banner. */
+	--color-missy-error: #ff6b6b;
+	/* Surface scale — deliberate recession below the page base
+	   (`missy-deep-purple`). Footer panels sit one step down; the legal bar is
+	   deepest. Tokenized so recession is intentional, not four stray hex values. */
+	--color-missy-surface-sunken: #08182f; /* recessed panels — e.g. the footer */
+	--color-missy-surface-deep: #050f22; /* deepest — the legal/footer baseline bar */
 }
 
 h1,
@@ -85,6 +102,30 @@ a:hover {
 	}
 }
 
+/* ---- Canonical brand gradients ----
+   Two shared recipes so the site speaks one gradient language:
+   - `--gradient-brand`: the horizontal pink→blue line. Used by the hero title
+     (`.text-gradient-sun`) and the primary CTA (`.btn-fill`) — previously two
+     copies with reversed color order; now one source, pink-lead to match the CTA.
+   - `--gradient-brand-wash`: a diagonal sky→violet→pink that echoes the hero
+     `.bg-glow-warm` story. Used as the on-brand media backdrop (`.bg-brand-wash`)
+     behind posters/photos, replacing the off-key periwinkle→magenta that skipped
+     the blue. */
+:root {
+	--gradient-brand: linear-gradient(90deg, var(--color-missy-blush), var(--color-lake-sunrise));
+	--gradient-brand-wash: linear-gradient(
+		135deg,
+		var(--color-lake-summer-blue) 0%,
+		var(--color-missy-plum) 52%,
+		var(--color-missy-magenta) 100%
+	);
+}
+
+/* On-brand backdrop behind media (poster/photo fallbacks, IG placeholders). */
+@utility bg-brand-wash {
+	background: var(--gradient-brand-wash);
+}
+
 /* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
 .text-glow {
 	text-shadow: 0 0 28px rgba(255, 122, 184, 0.4);
@@ -111,7 +152,7 @@ a:hover {
 		);
 }
 .text-gradient-sun {
-	background: linear-gradient(90deg, var(--color-lake-sunrise), var(--color-missy-blush));
+	background: var(--gradient-brand);
 	-webkit-background-clip: text;
 	background-clip: text;
 	/* -webkit-text-fill-color is required for the gradient to clip to the glyphs

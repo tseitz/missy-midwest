@@ -33,9 +33,9 @@
 							)}{/if}
 					</p>
 					<p class="missy-header mt-2 text-xl">{show.summary}</p>
-					<p class="mt-1 text-xs opacity-65">{show.location}</p>
+					<p class="text-missy-muted mt-1 text-xs">{show.location}</p>
 					<span
-						class="text-missy-classic-lavender/70 group-hover:text-missy-classic-lavender mt-4 text-xs transition"
+						class="text-missy-classic-lavender/80 group-hover:text-missy-classic-lavender mt-4 text-xs transition"
 						>Details ↗</span
 					>
 				</a>

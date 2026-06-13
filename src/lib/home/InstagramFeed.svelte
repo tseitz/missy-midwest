@@ -26,7 +26,7 @@
 					rel="noopener noreferrer"
 					data-testid="ig-post"
 					aria-label={post.caption ? `View Instagram post: ${post.caption}` : 'View Instagram post'}
-					class="group glow-hover relative aspect-square overflow-hidden rounded-lg border border-missy-classic-lavender/15"
+					class="group glow-hover relative aspect-square overflow-hidden rounded-xl border border-missy-classic-lavender/15"
 				>
 					<img
 						src={post.imageUrl}
@@ -47,7 +47,7 @@
 			{#each placeholders as i (i)}
 				<div
 					data-testid="ig-placeholder"
-					class="from-missy-neon-lavender to-missy-magenta aspect-square rounded-lg bg-gradient-to-br opacity-80"
+					class="bg-brand-wash aspect-square rounded-xl opacity-80"
 				></div>
 			{/each}
 		</div>

@@ -60,7 +60,7 @@
 	}
 </script>
 
-<Section id="dates" label="Live" title="Upcoming shows" reveal={false}>
+<Section id="dates" label="Live" title="Upcoming shows" reveal={false} width="narrow">
 	{#if events.length === 0}
 		<p class="mt-2 opacity-80">
 			No scheduled shows right now — <a href={resolve('/contact')}>book Missy</a>.
@@ -80,7 +80,7 @@
 					href={event.htmlLink}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="group from-missy-neon-lavender to-missy-magenta hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl bg-gradient-to-br transition hover:shadow-lg"
+					class="group bg-brand-wash hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl transition hover:shadow-lg"
 				>
 					<img
 						src={poster ? netlifyImage(poster, { width: 1280 }) : DEFAULT_POSTER}
@@ -115,9 +115,11 @@
 					</div>
 					<div class="bg-missy-deep-purple/85 relative px-6 py-4 backdrop-blur-md">
 						<p class="missy-header text-2xl">{event.summary}</p>
-						<p class="mt-1 text-sm text-violet-200">{fullDate(event)}</p>
-						{#if loc.venue}<p class="mt-1 text-sm font-medium text-violet-100">{loc.venue}</p>{/if}
-						{#if loc.address}<p class="text-xs opacity-60">{loc.address}</p>{/if}
+						<p class="text-missy-secondary mt-1 text-sm">{fullDate(event)}</p>
+						{#if loc.venue}<p class="text-missy-secondary mt-1 text-sm font-medium">
+								{loc.venue}
+							</p>{/if}
+						{#if loc.address}<p class="text-missy-muted text-xs">{loc.address}</p>{/if}
 					</div>
 				</a>
 			{/each}
@@ -135,28 +137,32 @@
 								href={event.htmlLink}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="border-missy-classic-lavender/15 hover:bg-missy-plum/15 flex items-center gap-4 rounded-lg border-t px-2 py-4 sm:gap-5"
+								class="border-missy-classic-lavender/15 hover:border-missy-blush/40 hover:bg-missy-blush/10 flex items-center gap-4 rounded-lg border-t px-2 py-4 transition sm:gap-5"
 							>
 								<div class="text-missy-classic-lavender w-12 shrink-0 text-center leading-none">
 									<span class="missy-header block text-2xl">{dayNumber(event)}</span>
-									<span class="block text-xs tracking-widest opacity-70">{weekday(event)}</span>
+									<span class="text-missy-muted block text-xs tracking-widest"
+										>{weekday(event)}</span
+									>
 								</div>
 								<div
 									class="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
 								>
 									<div class="min-w-0">
 										<p class="missy-header text-xl">{event.summary}</p>
-										{#if loc.venue}<p class="mt-0.5 truncate text-sm font-medium text-violet-100">
+										{#if loc.venue}<p
+												class="text-missy-secondary mt-0.5 truncate text-sm font-medium"
+											>
 												{loc.venue}
 											</p>{/if}
-										{#if loc.address}<p class="truncate text-xs text-violet-200 opacity-60">
+										{#if loc.address}<p class="text-missy-muted truncate text-xs">
 												{loc.address}
 											</p>{/if}
 									</div>
 									<div
 										class="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-0.5 sm:text-right"
 									>
-										<span class="text-sm text-violet-100">{timeLabel(event)}</span>
+										<span class="text-missy-secondary text-sm">{timeLabel(event)}</span>
 										<span class="text-lake-sunrise text-xs">Add to calendar ↗</span>
 									</div>
 								</div>

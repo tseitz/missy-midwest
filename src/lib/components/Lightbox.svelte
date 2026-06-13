@@ -56,7 +56,7 @@
 			onclick={onClose}
 		></button>
 		<div class="relative z-10 flex max-h-full max-w-3xl flex-col items-center">
-			<img src={current.src} alt={current.caption} class="max-h-[80vh] w-auto rounded-lg" />
+			<img src={current.src} alt={current.caption} class="max-h-[80vh] w-auto rounded-xl" />
 			<p class="text-missy-classic-lavender mt-3 text-center text-sm">{current.caption}</p>
 		</div>
 		<button

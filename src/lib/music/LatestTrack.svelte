@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Section from '$lib/components/Section.svelte';
+	import SectionHeading from '$lib/components/SectionHeading.svelte';
 	import { player } from './player.svelte';
 	import PlayPauseIcon from './PlayPauseIcon.svelte';
 
@@ -14,13 +14,14 @@
 	}
 </script>
 
-<Section label="Latest track" title="Newest upload" reveal={false}>
-	<div class="mt-2 w-full max-w-3xl">
+<div class="w-full">
+	<SectionHeading label="Latest track" title="Newest upload" />
+	<div class="mt-2 w-full">
 		{#if player.status === 'ready' && track}
 			<button
 				type="button"
 				onclick={onClick}
-				class="group from-missy-neon-lavender to-missy-magenta relative block aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br"
+				class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
 				aria-label={playing ? 'Pause newest upload' : 'Play newest upload'}
 			>
 				{#if track.artworkUrl}
@@ -58,4 +59,4 @@
 			<div class="bg-missy-classic-lavender/10 aspect-video w-full animate-pulse rounded-xl"></div>
 		{/if}
 	</div>
-</Section>
+</div>

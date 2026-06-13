@@ -34,7 +34,7 @@
 		</div>
 		<div class="flex flex-col justify-center p-2 sm:p-6 lg:p-10">
 			<SectionHeading label="ABOUT" title="Missy Midwest" />
-			<p class="text-lg text-violet-200">✨ Music Artist &amp; Resident DJ ✨</p>
+			<p class="text-missy-secondary text-lg">✨ Music Artist &amp; Resident DJ ✨</p>
 			<p class="mt-6 text-sm leading-relaxed text-missy-pearl/90 md:text-base">
 				Hailing from a melting pot of music, the Heart of IL, Missy Midwest (she/her) is a
 				multitalented open-format DJ, vocalist, and music producer who has been captivating crowds

@@ -113,6 +113,10 @@ consistent.
 - After a `SectionHeading`, body starts at `mt-2`.
 - Vertical gaps between stacked elements: `mt-4` (tight) / `mt-6` (default) / `mt-8` (loose, e.g. before a CTA).
 - Grid gaps: `gap-5` (cards) / `gap-8` (two-column splits).
+- Border-radius scale (keep it to these tiers): `rounded-full` (pills, badges,
+  play buttons) · `rounded-2xl` (panels — `panel-glass`) · `rounded-xl`
+  (media/image cards — Shows/music cards, IG tiles, gig photos) · `rounded-lg`
+  (inputs and small controls).
 - Prefer standard utilities over arbitrary `[…]` values — Tailwind v4 can choke
   on some bracket values (e.g. `min-h-[32rem]` crashed the compiler; use
   `min-h-128`).

@@ -42,13 +42,13 @@
 
 <section id="press" class="w-full max-w-screen-2xl pt-12 pb-24 lg:pt-20">
 	<SectionHeading label="Press" title="Download the kit" />
-	<div class="xs:grid-cols-1 mt-8 grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+	<div class="xs:grid-cols-1 mt-8 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
 		{#each assets as item, i (item.href)}
 			<!-- Mat every asset in the standard panel so light document scans (the bio
 			     one-sheet) read as framed thumbnails instead of raw white blocks. -->
 			<div class="panel-glass glow-hover w-full p-3">
 				<a
-					class="relative flex h-full items-center justify-center overflow-hidden rounded-lg"
+					class="relative flex h-full items-center justify-center overflow-hidden rounded-xl"
 					href={asset(item.href)}
 					onmouseover={() => (active = i)}
 					onfocus={() => (active = i)}

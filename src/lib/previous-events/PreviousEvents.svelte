@@ -28,7 +28,7 @@
 				type="button"
 				aria-label={`View ${photo.caption}`}
 				onclick={() => (open = i)}
-				class="group block overflow-hidden rounded-lg"
+				class="group block overflow-hidden rounded-xl"
 			>
 				<img
 					src={photo.src}

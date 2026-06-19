@@ -5,10 +5,21 @@
 	import MusicEngine from '$lib/music/MusicEngine.svelte';
 	import NowPlayingBar from '$lib/music/NowPlayingBar.svelte';
 	import { player } from '$lib/music/player.svelte';
+	import { beforeNavigate } from '$app/navigation';
+	import { updated } from '$app/state';
 	import '../app.css';
 
 	let { children } = $props();
 	const barVisible = $derived(player.state.currentUrl !== null);
+
+	// When a new app version has been deployed, force a full-page navigation so the
+	// browser fetches the fresh hashed chunks instead of failing to import a stale,
+	// now-missing chunk ("Importing a module script failed").
+	beforeNavigate(({ willUnload, to }) => {
+		if (updated.current && !willUnload && to?.url) {
+			location.href = to.url.href;
+		}
+	});
 </script>
 
 <Header />

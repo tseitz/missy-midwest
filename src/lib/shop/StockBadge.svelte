@@ -3,16 +3,19 @@
 
 	interface Props {
 		stock: number;
+		restocking?: boolean;
 	}
-	let { stock }: Props = $props();
+	let { stock, restocking = false }: Props = $props();
 
-	const status = $derived(stockStatus(stock));
+	const status = $derived(stockStatus(stock, restocking));
 	const tone = $derived(
-		status.soldOut
-			? 'bg-zinc-700 text-zinc-300'
-			: status.low
-				? 'bg-lake-sunrise/15 text-lake-sunrise'
-				: 'bg-missy-classic-lavender/12 text-missy-classic-lavender'
+		status.comingSoon
+			? 'bg-lake-summer-blue/15 text-lake-summer-blue'
+			: status.soldOut
+				? 'bg-zinc-700 text-zinc-300'
+				: status.low
+					? 'bg-lake-sunrise/15 text-lake-sunrise'
+					: 'bg-missy-classic-lavender/12 text-missy-classic-lavender'
 	);
 </script>
 

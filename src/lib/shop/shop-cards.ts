@@ -11,6 +11,7 @@ export interface ShopCard {
 	price: number; // cents
 	priceVaries: boolean; // "from" prefix — group cards only
 	soldOut: boolean;
+	comingSoon: boolean; // out of stock but flagged restocking — "Coming soon", not "Sold out"
 }
 
 /** Slugify a variant label for use in URLs: "Sky Blue" -> "sky-blue". */
@@ -27,6 +28,7 @@ export function variantSlug(label: string): string {
  * size/single-variant groups on /shop and for every group on the home teaser.
  */
 function toGroupCard(group: ProductGroup): ShopCard {
+	const soldOut = group.variants.every((v) => v.stock <= 0);
 	return {
 		id: group.slug,
 		slug: group.slug,
@@ -34,7 +36,10 @@ function toGroupCard(group: ProductGroup): ShopCard {
 		image: group.image,
 		price: group.fromPrice,
 		priceVaries: new Set(group.variants.map((v) => v.price)).size > 1,
-		soldOut: group.variants.every((v) => v.stock <= 0)
+		soldOut,
+		// A group reads "Coming soon" only when it's fully out and at least one
+		// variant is flagged restocking (a plain sold-out group stays "Sold out").
+		comingSoon: soldOut && group.variants.some((v) => v.restocking)
 	};
 }
 
@@ -59,7 +64,8 @@ export function toShopCards(groups: ProductGroup[]): ShopCard[] {
 					image: variant.image,
 					price: variant.price,
 					priceVaries: false,
-					soldOut: variant.stock <= 0
+					soldOut: variant.stock <= 0,
+					comingSoon: variant.stock <= 0 && Boolean(variant.restocking)
 				});
 			}
 		} else {

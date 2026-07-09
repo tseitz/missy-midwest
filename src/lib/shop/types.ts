@@ -8,6 +8,7 @@ export interface Variant {
 	image: string;
 	price: number; // cents
 	stock: number;
+	restocking?: boolean; // out now but a restock is coming — renders "Coming soon" instead of "Sold out"
 }
 
 /** A style: 1+ variants sharing a `group` slug. */

@@ -44,7 +44,8 @@ export function groupProducts(products: CatalogProductInput[]): ProductGroup[] {
 			label: product.metadata.variant || product.name,
 			image: product.images[0] ?? '',
 			price: product.price.unitAmount,
-			stock: parseStock(product.metadata.stock)
+			stock: parseStock(product.metadata.stock),
+			restocking: product.metadata.restocking === 'true'
 		};
 		const sort = Number.parseInt(product.metadata.sort ?? '', 10) || 0;
 		const priority = parsePriority(product.metadata.priority);

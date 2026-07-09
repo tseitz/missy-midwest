@@ -21,7 +21,13 @@
 		{#if card.image}
 			<img src={card.image} alt={card.name} class="h-full w-full object-cover" />
 		{/if}
-		{#if card.soldOut}
+		{#if card.comingSoon}
+			<span
+				class="absolute top-3 left-3 rounded-full bg-lake-summer-blue/90 px-3 py-1 text-xs text-missy-ink"
+			>
+				Coming soon
+			</span>
+		{:else if card.soldOut}
 			<span
 				class="absolute top-3 left-3 rounded-full bg-zinc-900/80 px-3 py-1 text-xs text-zinc-200"
 			>

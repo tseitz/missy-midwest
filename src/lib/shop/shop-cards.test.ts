@@ -132,6 +132,35 @@ describe('toShopCards', () => {
 		]);
 		expect(card.soldOut).toBe(true);
 	});
+
+	it('flags a restocking out-of-stock color card as coming soon, plain sold-outs stay sold out', () => {
+		const [inStock, comingSoon, plainOut] = toShopCards([
+			group({
+				variants: [
+					variant({ priceId: 'pr1', label: 'Blue', stock: 4 }),
+					variant({ priceId: 'pr2', label: 'Camo', stock: 0, restocking: true }),
+					variant({ priceId: 'pr3', label: 'Purple', stock: 0 })
+				]
+			})
+		]);
+		expect(inStock).toMatchObject({ soldOut: false, comingSoon: false });
+		expect(comingSoon).toMatchObject({ soldOut: true, comingSoon: true });
+		expect(plainOut).toMatchObject({ soldOut: true, comingSoon: false });
+	});
+
+	it('flags a fully sold-out group as coming soon when any variant is restocking', () => {
+		const [card] = toShopCards([
+			group({
+				slug: 'tour-tee',
+				variantType: 'size',
+				variants: [
+					variant({ label: 'S', stock: 0, restocking: true }),
+					variant({ priceId: 'pr2', label: 'M', stock: 0 })
+				]
+			})
+		]);
+		expect(card).toMatchObject({ soldOut: true, comingSoon: true });
+	});
 });
 
 describe('toGroupCards', () => {

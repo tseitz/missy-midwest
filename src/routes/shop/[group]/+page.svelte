@@ -65,7 +65,7 @@
 		<div class="flex flex-col">
 			<h1 class="text-4xl md:text-5xl">{data.group.name}</h1>
 			<p class="text-missy-classic-lavender mt-2 text-2xl">{formatPrice(selected.price)}</p>
-			<div class="mt-4"><StockBadge stock={selected.stock} /></div>
+			<div class="mt-4"><StockBadge stock={selected.stock} restocking={selected.restocking} /></div>
 
 			{#if data.group.description}
 				<p class="text-missy-classic-lavender/90 mt-6 max-w-md leading-relaxed">

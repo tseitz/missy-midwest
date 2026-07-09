@@ -17,4 +17,14 @@ describe('StockBadge', () => {
 		render(StockBadge, { props: { stock: 12 } });
 		expect(screen.getByText('In stock')).toBeInTheDocument();
 	});
+
+	it('shows "Coming soon" when out of stock and restocking', () => {
+		render(StockBadge, { props: { stock: 0, restocking: true } });
+		expect(screen.getByText('Coming soon')).toBeInTheDocument();
+	});
+
+	it('still shows "Sold out" when out of stock and not restocking', () => {
+		render(StockBadge, { props: { stock: 0, restocking: false } });
+		expect(screen.getByText('Sold out')).toBeInTheDocument();
+	});
 });

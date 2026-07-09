@@ -14,6 +14,7 @@ function card(over: Partial<ShopCard> = {}): ShopCard {
 		price: 3500,
 		priceVaries: false,
 		soldOut: false,
+		comingSoon: false,
 		...over
 	};
 }
@@ -52,5 +53,11 @@ describe('ProductCard', () => {
 	it('shows a sold-out marker when the card is sold out', () => {
 		render(ProductCard, { props: { card: card({ soldOut: true }) } });
 		expect(screen.getByText('Sold out')).toBeInTheDocument();
+	});
+
+	it('shows "Coming soon" instead of "Sold out" when the card is restocking', () => {
+		render(ProductCard, { props: { card: card({ soldOut: true, comingSoon: true }) } });
+		expect(screen.getByText('Coming soon')).toBeInTheDocument();
+		expect(screen.queryByText('Sold out')).not.toBeInTheDocument();
 	});
 });

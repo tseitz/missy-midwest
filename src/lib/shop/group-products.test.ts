@@ -117,6 +117,25 @@ describe('groupProducts', () => {
 		expect(group.variants[0].stock).toBe(0);
 	});
 
+	it('maps the restocking flag from metadata (only "true" is truthy)', () => {
+		const [group] = groupProducts([
+			product({
+				id: 'on',
+				metadata: { group: 'g', variant: 'On', stock: '0', restocking: 'true', sort: '1' }
+			}),
+			product({ id: 'off', metadata: { group: 'g', variant: 'Off', stock: '0', sort: '2' } }),
+			product({
+				id: 'bad',
+				metadata: { group: 'g', variant: 'Bad', stock: '0', restocking: 'yes', sort: '3' }
+			})
+		]);
+		expect(group.variants.map((v) => [v.label, v.restocking])).toEqual([
+			['On', true],
+			['Off', false],
+			['Bad', false]
+		]);
+	});
+
 	it('groups size variants and keeps sold-out sizes', () => {
 		const [group] = groupProducts([
 			product({

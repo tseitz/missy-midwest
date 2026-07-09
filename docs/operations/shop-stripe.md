@@ -24,6 +24,7 @@ Each Stripe Product the storefront understands has this metadata:
 | `variant`     | `Camo`            | This variant's label (color or size)               |
 | `variantType` | `color` or `size` | Drives the picker; omit for single-variant items   |
 | `stock`       | `6`               | Units available; `0` (or missing) renders sold out |
+| `restocking`  | `true`            | With `stock` 0, renders "Coming soon" not sold out |
 | `sort`        | `3`               | Order within the group's picker                    |
 | `priority`    | `10`              | Group's place on /shop; lower first, unset sinks   |
 
@@ -49,6 +50,7 @@ routes redirect, and the webhook/checkout endpoints no-op. **Launch = set it to
 | `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                  |
 | `scripts/set-priority.mjs`                 | Sets a group's /shop display order              |
 | `scripts/set-sort.mjs`                     | Orders colors/sizes within a group              |
+| `scripts/set-restocking.mjs`               | Flags an out-of-stock variant as "Coming soon"  |
 
 ## Inventory operations
 
@@ -78,6 +80,29 @@ node --env-file=.env scripts/set-stock.mjs loz-cord-hat "One Size" +12
 Matches one product by `group` + `variant` (case-insensitive), floors at 0, and
 refuses ambiguous/unknown matches. For live, point it at the live key:
 `STRIPE_SECRET_KEY=rk_live_xxx node scripts/set-stock.mjs ...`.
+
+### Out of stock but restocking → `set-restocking.mjs`
+
+A variant at `stock` 0 renders a grey **"Sold out"**. Flag it as restocking to show
+a blue **"Coming soon"** instead (still not purchasable — it's a relabeled
+sold-out, not a preorder). Clear the flag when the restock lands, then set the
+real count with `set-stock.mjs`.
+
+```bash
+# See every variant and whether it's flagged
+node --env-file=.env scripts/set-restocking.mjs list
+
+# Camo is out but 15 are incoming — show "Coming soon"
+node --env-file=.env scripts/set-restocking.mjs missy-snapback "Camo" on
+
+# Restock arrived: clear the flag, then set the count
+node --env-file=.env scripts/set-restocking.mjs missy-snapback "Camo" off
+node --env-file=.env scripts/set-stock.mjs missy-snapback "Camo" 15
+```
+
+Matches one product by `group` + `variant` (case-insensitive) and refuses
+ambiguous/unknown matches. For live, point it at the live key:
+`STRIPE_SECRET_KEY=rk_live_xxx node scripts/set-restocking.mjs ...`.
 
 ### Re-order products on /shop → `set-priority.mjs`
 

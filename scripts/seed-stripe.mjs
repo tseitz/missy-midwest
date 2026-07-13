@@ -102,6 +102,13 @@ const lineup = [
 				price: 3000,
 				sort: 4,
 				images: ['upside-missy-hat/arkansas-red-missy.webp']
+			},
+			{
+				variant: 'Black',
+				stock: 10,
+				price: 3000,
+				sort: 5,
+				images: ['upside-missy-hat/black-missy.webp']
 			}
 		]
 	},

@@ -40,17 +40,18 @@ routes redirect, and the webhook/checkout endpoints no-op. **Launch = set it to
 
 ## Code map
 
-| Path                                       | Role                                            |
-| ------------------------------------------ | ----------------------------------------------- |
-| `src/lib/server/catalog.ts`                | Reads active products, clusters into groups     |
-| `src/lib/shop/group-products.ts`           | Pure grouping logic (unit-tested)               |
-| `src/routes/api/stripe/webhook/+server.ts` | Handles `checkout.session.completed`            |
-| `src/lib/server/fulfillment.ts`            | Computes stock decrements + order email payload |
-| `scripts/seed-stripe.mjs`                  | Stands up the catalog (create-only)             |
-| `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                  |
-| `scripts/set-priority.mjs`                 | Sets a group's /shop display order              |
-| `scripts/set-sort.mjs`                     | Orders colors/sizes within a group              |
-| `scripts/set-restocking.mjs`               | Flags an out-of-stock variant as "Coming soon"  |
+| Path                                       | Role                                              |
+| ------------------------------------------ | ------------------------------------------------- |
+| `src/lib/server/catalog.ts`                | Reads active products, clusters into groups       |
+| `src/lib/shop/group-products.ts`           | Pure grouping logic (unit-tested)                 |
+| `src/routes/api/stripe/webhook/+server.ts` | Handles `checkout.session.completed`              |
+| `src/lib/server/fulfillment.ts`            | Computes stock decrements + order email payload   |
+| `scripts/seed-stripe.mjs`                  | Stands up the catalog (create-only)               |
+| `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                    |
+| `scripts/set-priority.mjs`                 | Sets a group's /shop display order                |
+| `scripts/set-sort.mjs`                     | Orders colors/sizes within a group                |
+| `scripts/set-restocking.mjs`               | Flags an out-of-stock variant as "Coming soon"    |
+| `scripts/archive-group.mjs`                | Retires a whole product group (archives variants) |
 
 ## Inventory operations
 
@@ -163,6 +164,33 @@ re-seed to add one item. Instead:
    `variantType=color`. With 2+ variants sharing a `group`, the color picker
    appears automatically.
 
+### Retire a product for good → `archive-group.mjs`
+
+When a design won't come back, archive it rather than leaving it as a sold-out
+card. A group is one Stripe Product per variant, all sharing `metadata.group`,
+and the catalog reads only **active** products — so the group keeps rendering
+until **every** variant is archived (not just the sold-out size).
+`archive-group.mjs` archives them all at once. Archiving (`active: false`) is
+reversible: set `active: true` to bring a product back.
+
+```bash
+# See every group and its variant/stock count
+node --env-file=.env scripts/archive-group.mjs list
+
+# Preview what would be archived (no writes)
+node --env-file=.env scripts/archive-group.mjs crop-hoodie --dry-run
+
+# Archive the whole group — drops off /shop on the next load
+node --env-file=.env scripts/archive-group.mjs crop-hoodie
+```
+
+Errors on an unknown group (and lists the known ones). For live, point it at the
+live key: `STRIPE_SECRET_KEY=rk_live_xxx node scripts/archive-group.mjs ...`.
+
+**Also update the source of truth:** remove the group's entry from the
+`seed-stripe.mjs` lineup and delete its `static/shop/<product>/` images, so a
+future test `--reset` doesn't recreate it.
+
 ## Go-live: test → live cutover
 
 Stripe **test and live are separate environments** — nothing created in test
@@ -201,9 +229,17 @@ No `--reset` — live starts empty. Run once; **don't re-seed after sales start*
 
 ### 4. Set Netlify env (production context)
 
-Set `STRIPE_SECRET_KEY` (the `rk_live_xxx`) and `STRIPE_WEBHOOK_SECRET` (the live
-`whsec_xxx`). These must be in place **before** the `SHOP_ENABLED=true` deploy,
-or the production shop errors.
+Set `STRIPE_SECRET_KEY` (the **restricted `rk_live_xxx`** from step 2 — the same
+key runs the live site and every script; never a full `sk_live`) and
+`STRIPE_WEBHOOK_SECRET` (the live `whsec_xxx`). These must be in place **before**
+the `SHOP_ENABLED=true` deploy, or the production shop errors.
+
+> **A Netlify env change alone does nothing until you redeploy.**
+> `stripe.ts` reads `STRIPE_SECRET_KEY` at runtime via `$env/dynamic/private`, but
+> Netlify only injects env vars into the deployed functions at **deploy time** —
+> so setting/rotating the value in the Netlify UI doesn't reach the running site
+> until a fresh deploy (Deploys → Trigger deploy, or push a commit). Until then,
+> `/shop` and checkout keep using the old key and 401.
 
 ### 5. Flip the gate and deploy
 
@@ -223,11 +259,36 @@ the order email arrived.
   vars and placeholders.
 - Don't re-seed live once sales start; use `set-stock.mjs` for adjustments.
 
+## Rotating the live Stripe key
+
+Use a **restricted `rk_live` key everywhere** — Netlify runtime and every script.
+There is no reason to hold a full `sk_live` for this project; a restricted key
+with **Products: Write · Prices: Write · Checkout Sessions: Write** covers the
+whole site (catalog reads, checkout creation, webhook stock decrement) and all
+scripts. In Stripe's "create restricted key" flow, pick **"Choose your own"** and
+grant only those three scopes (everything else None) — the prebuilt templates
+grant 30+ permissions you don't use.
+
+To rotate:
+
+1. Create the new `rk_live` (three scopes above).
+2. Update `STRIPE_SECRET_KEY` in Netlify **and** your local `.env`.
+3. **Redeploy** (see the build-time-inlining note in go-live step 4) — the env
+   change is inert until a rebuild bakes the new key in.
+4. Delete the old key in Stripe once the deploy is green.
+
+> **Never select/expose the key value in your editor.** Opening `.env` and
+> selecting the `STRIPE_SECRET_KEY` line can surface its value to assistants and
+> logs, burning the key. Restricted keys keep the blast radius small when it
+> happens; deleting-and-replacing (not endless rotation) is the fix.
+
 ## Environment variables
 
 Names only (values live in `.env` locally / Netlify in prod; see `.env.example`):
 
-- `STRIPE_SECRET_KEY` — test (`sk_test`/`rk_test`) locally, live (`rk_live`) in prod.
+- `STRIPE_SECRET_KEY` — restricted key everywhere: `rk_test` locally, `rk_live`
+  in prod (never `sk_live`). Read at runtime via `$env/dynamic/private`; Netlify
+  injects it at deploy time, so a prod change needs a redeploy.
 - `STRIPE_WEBHOOK_SECRET` — from `stripe listen` locally, from the live endpoint in prod.
 - `SHOP_IMAGE_BASE_URL` — seed-only override for product image URLs (default
   `http://localhost:5173`; set to `https://missymidwest.com` when seeding live).

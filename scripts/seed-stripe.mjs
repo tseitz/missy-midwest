@@ -38,22 +38,6 @@ const sizeVariants = (price, stockBySize) =>
 // A variant's `images` overrides the group `images` (e.g. per-color hats).
 const lineup = [
 	{
-		group: 'crop-hoodie',
-		groupName: 'Crop Hoodie',
-		description: 'Cropped MISSY MIDWEST hoodie in black.',
-		variantType: 'size',
-		images: ['black-crop-hoodie/missy-hoodie-crop-white.webp'],
-		variants: sizeVariants(3000, { M: 1 })
-	},
-	{
-		group: 'black-crop-tee',
-		groupName: 'Black Crop Tee',
-		description: 'Cropped MISSY MIDWEST tee in black.',
-		variantType: 'size',
-		images: ['black-crop/missy-crop-white.webp'],
-		variants: sizeVariants(2000, { L: 1 })
-	},
-	{
 		group: 'lake-tank',
 		groupName: 'Lake Tank',
 		description: 'Came for the beach, stayed for the DJ — Lake of the Ozarks tank.',
@@ -113,21 +97,21 @@ const lineup = [
 		]
 	},
 	{
-		// Plain "MISSY MIDWEST" corduroy — Blue + Purple share one design.
+		// Plain "MISSY MIDWEST" flatbill corduroy — two colors share one design.
 		group: 'corduroy-hat',
-		groupName: 'Corduroy Hat',
+		groupName: 'Flatbill Corduroy Hat',
 		description: 'MISSY MIDWEST corduroy hat.',
 		variantType: 'color',
 		variants: [
 			{
-				variant: 'Blue',
+				variant: 'Electric Blue',
 				stock: 10,
 				price: 3000,
 				sort: 1,
 				images: ['corduroy-hat-logo/corduroy-blue.webp']
 			},
 			{
-				variant: 'Purple',
+				variant: 'Velvet Purple',
 				stock: 10,
 				price: 3000,
 				sort: 2,

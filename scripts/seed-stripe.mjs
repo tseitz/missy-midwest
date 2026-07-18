@@ -104,7 +104,7 @@ const lineup = [
 		variantType: 'color',
 		variants: [
 			{
-				variant: 'Electric Blue',
+				variant: 'Storm Blue',
 				stock: 10,
 				price: 3000,
 				sort: 1,

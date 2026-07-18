@@ -12,7 +12,7 @@
 		<div>
 			<div class="missy-header text-2xl text-white">Missy Midwest</div>
 			<p class="mt-3 max-w-xs text-sm opacity-80">
-				Booking, residencies &amp; workshops — let's make something loud.
+				Booking, residencies &amp; workshops — let's make something special.
 			</p>
 			<div class="mt-4">
 				<Button href={resolve('/contact')} label="Book Missy →" variant="fill" />

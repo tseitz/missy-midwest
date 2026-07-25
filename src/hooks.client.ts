@@ -24,16 +24,32 @@ if (env.PUBLIC_SENTRY_DSN) {
 // Graceful recovery for failed dynamic chunk imports. A route's hashed chunk
 // can fail to load when it's gone stale after a fresh deploy, or when a flaky
 // mobile connection drops the request — Vite surfaces both as a
-// `vite:preloadError`. We reload once to fetch the current chunks. A short
-// cooldown (tracked in sessionStorage) guards against an infinite reload loop:
-// if we already reloaded moments ago and an import *still* failed, the deployed
-// build is genuinely broken, so we let the error throw through to Sentry rather
-// than reload again. The proactive version-poll in the root layout prevents most
-// stale-chunk cases up front; this is the safety net for the rest.
+// `vite:preloadError`. We reload once to fetch the current chunks. The proactive
+// version-poll in the root layout prevents most stale-chunk cases up front; this
+// is the safety net for the rest.
+//
+// Two guards, answering different questions:
+//
+//   - `reloading` (in-flight): `location.reload()` doesn't stop the world, so the
+//     failed navigation keeps unwinding — SvelteKit falls back to its error page,
+//     whose own nodes live in the same stale build and fail to preload too. Those
+//     follow-on errors are pure noise from a page that's already on its way out,
+//     so swallow every one of them for this page's remaining life.
+//   - `PRELOAD_RELOAD_KEY` (cross-load cooldown): if we already reloaded moments
+//     ago and an import *still* fails on the fresh page, the deployed build is
+//     genuinely broken. Let that throw through to Sentry rather than reload again.
 const PRELOAD_RELOAD_KEY = 'sk:preload-reloaded-at';
 const PRELOAD_RELOAD_COOLDOWN_MS = 10_000;
 
-window.addEventListener('vite:preloadError', (event: Event) => {
+let reloading = false;
+
+export function handlePreloadError(event: Event) {
+	// Already tearing this page down — swallow the cascade.
+	if (reloading) {
+		event.preventDefault();
+		return;
+	}
+
 	let lastReload: number;
 	try {
 		lastReload = Number(sessionStorage.getItem(PRELOAD_RELOAD_KEY)) || 0;
@@ -52,9 +68,12 @@ window.addEventListener('vite:preloadError', (event: Event) => {
 	}
 
 	// Swallow the throw (keeps it out of Sentry) and reload into fresh chunks.
+	reloading = true;
 	event.preventDefault();
 	location.reload();
-});
+}
+
+window.addEventListener('vite:preloadError', handlePreloadError);
 
 // Captures unhandled client-side errors. Falls through to the default handler
 // when Sentry isn't initialized.

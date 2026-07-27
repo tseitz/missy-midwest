@@ -31,3 +31,6 @@ list of variable names lives in `.env.example`.
 - [operations/calendar-shows.md](operations/calendar-shows.md) — the Google
   Calendar → shows feed: how events are filtered (public/private, invites), the
   Missy workflow for hiding personal events, caching, and the inspect script.
+- [operations/instagram-behold.md](operations/instagram-behold.md) — the Behold
+  Instagram feed: why the cache TTL (not traffic) sets the bill, the free-tier
+  view cap and the 402 it throws, and the failure modes.

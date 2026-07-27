@@ -83,4 +83,83 @@ describe('getInstagramFeed', () => {
 		expect(result.posts).toEqual([]);
 		expect(result.error).toBe('network down');
 	});
+
+	// Behold's free tier bills per feed request and pauses the account past the
+	// cap, so every fetch we make has a real cost — including the ones that fail.
+	describe('cache TTLs', () => {
+		const HOUR = 60 * 60 * 1000;
+
+		beforeEach(() => {
+			vi.useFakeTimers();
+			env.BEHOLD_FEED_ID = 'feed-123';
+			vi.spyOn(console, 'error').mockImplementation(() => {});
+		});
+		afterEach(() => {
+			vi.useRealTimers();
+		});
+
+		function mockOk() {
+			return mockFetch(() => ({ ok: true, json: () => Promise.resolve(beholdFeedFixture) }));
+		}
+		function mockFail() {
+			return mockFetch(() => ({ ok: false, status: 402, statusText: 'Payment Required' }));
+		}
+
+		it('caches a failure so a paused feed is not re-fetched on every request', async () => {
+			const fetchSpy = mockFail();
+			await getInstagramFeed();
+			await getInstagramFeed();
+			await getInstagramFeed();
+			expect(fetchSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('reports a cached failure to Sentry only once, not per request', async () => {
+			mockFail();
+			await getInstagramFeed();
+			await getInstagramFeed();
+			expect(captureMessage).toHaveBeenCalledTimes(1);
+		});
+
+		it('still surfaces the error to the caller while the failure is cached', async () => {
+			mockFail();
+			await getInstagramFeed();
+			const cached = await getInstagramFeed();
+			expect(cached.posts).toEqual([]);
+			expect(cached.error).toMatch(/402/);
+		});
+
+		it('retries once the failure TTL expires', async () => {
+			const fetchSpy = mockFail();
+			await getInstagramFeed();
+			vi.advanceTimersByTime(HOUR + 1);
+			await getInstagramFeed();
+			expect(fetchSpy).toHaveBeenCalledTimes(2);
+		});
+
+		it('recovers with posts when the retry succeeds', async () => {
+			mockFail();
+			await getInstagramFeed();
+			vi.advanceTimersByTime(HOUR + 1);
+			mockOk();
+			const result = await getInstagramFeed();
+			expect(result.posts).toHaveLength(2);
+			expect(result.error).toBeUndefined();
+		});
+
+		it('holds a successful feed well past the failure TTL', async () => {
+			const fetchSpy = mockOk();
+			await getInstagramFeed();
+			vi.advanceTimersByTime(5 * HOUR);
+			await getInstagramFeed();
+			expect(fetchSpy).toHaveBeenCalledTimes(1);
+		});
+
+		it('refetches a successful feed once the success TTL expires', async () => {
+			const fetchSpy = mockOk();
+			await getInstagramFeed();
+			vi.advanceTimersByTime(6 * HOUR + 1);
+			await getInstagramFeed();
+			expect(fetchSpy).toHaveBeenCalledTimes(2);
+		});
+	});
 });

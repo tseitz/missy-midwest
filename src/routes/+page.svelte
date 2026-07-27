@@ -4,6 +4,7 @@
 	import ShopTeaser from '$lib/home/ShopTeaser.svelte';
 	import ShowsTeaser from '$lib/home/ShowsTeaser.svelte';
 	import InstagramFeed from '$lib/home/InstagramFeed.svelte';
+	import { INSTAGRAM_ENABLED } from '$lib/home/config';
 	import Seo from '$lib/seo/Seo.svelte';
 	import { page } from '$app/state';
 	import { musicGroupJsonLd } from '$lib/seo/jsonld';
@@ -29,5 +30,7 @@
 	<Bio />
 	<ShopTeaser groups={data.shopGroups} />
 	<ShowsTeaser events={data.nextShows} />
-	<InstagramFeed posts={data.instagramPosts} />
+	{#if INSTAGRAM_ENABLED}
+		<InstagramFeed posts={data.instagramPosts} />
+	{/if}
 </div>

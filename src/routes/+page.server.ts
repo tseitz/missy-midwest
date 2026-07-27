@@ -1,6 +1,7 @@
 import { getNextEvents } from '$lib/server/calendar';
 import { listGroups } from '$lib/server/catalog';
 import { getInstagramFeed } from '$lib/server/instagram';
+import { INSTAGRAM_ENABLED } from '$lib/home/config';
 import { SHOP_ENABLED } from '$lib/shop/config';
 import type { PageServerLoad } from './$types';
 
@@ -24,7 +25,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	});
 	const [shows, instagram, catalog] = await Promise.all([
 		getNextEvents(4),
-		getInstagramFeed(),
+		INSTAGRAM_ENABLED ? getInstagramFeed() : Promise.resolve({ posts: [] }),
 		SHOP_ENABLED ? listGroups() : Promise.resolve({ groups: [] })
 	]);
 	return {

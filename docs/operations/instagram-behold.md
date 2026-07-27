@@ -5,6 +5,21 @@ a hosted Instagram-feed service, fetched server-side in
 [`src/lib/server/instagram.ts`](../../src/lib/server/instagram.ts) and rendered by
 [`src/lib/home/InstagramFeed.svelte`](../../src/lib/home/InstagramFeed.svelte).
 
+## 🚧 Currently OFF — flip back on/after 2026-08-01
+
+`INSTAGRAM_ENABLED` in [`src/lib/home/config.ts`](../../src/lib/home/config.ts) is
+**`false`**. The Behold account hit its free-tier view cap on 2026-07-27 and is
+paused until the month rolls over, so the feed returns 402 and the section would
+render as six empty placeholder tiles. The gate hides the section outright and
+skips the doomed request (no wasted views, no Sentry reports).
+
+**To restore:** flip the constant to `true`, commit, push. Nothing else — no
+env-var or Behold-dashboard change. Same pattern as `SHOP_ENABLED`: the gate
+short-circuits `getInstagramFeed()` in
+[`+page.server.ts`](../../src/routes/+page.server.ts) and `{#if}`-wraps the
+section in [`+page.svelte`](../../src/routes/+page.svelte). The feed code itself
+is untouched and stays under test.
+
 ## Source
 
 - **Service:** Behold, public JSON feed at `https://feeds.behold.so/<feed-id>`.

@@ -40,20 +40,45 @@ routes redirect, and the webhook/checkout endpoints no-op. **Launch = set it to
 
 ## Code map
 
-| Path                                       | Role                                              |
-| ------------------------------------------ | ------------------------------------------------- |
-| `src/lib/server/catalog.ts`                | Reads active products, clusters into groups       |
-| `src/lib/shop/group-products.ts`           | Pure grouping logic (unit-tested)                 |
-| `src/routes/api/stripe/webhook/+server.ts` | Handles `checkout.session.completed`              |
-| `src/lib/server/fulfillment.ts`            | Computes stock decrements + order email payload   |
-| `scripts/seed-stripe.mjs`                  | Stands up the catalog (create-only)               |
-| `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                    |
-| `scripts/set-priority.mjs`                 | Sets a group's /shop display order                |
-| `scripts/set-sort.mjs`                     | Orders colors/sizes within a group                |
-| `scripts/set-restocking.mjs`               | Flags an out-of-stock variant as "Coming soon"    |
-| `scripts/archive-group.mjs`                | Retires a whole product group (archives variants) |
+| Path                                       | Role                                               |
+| ------------------------------------------ | -------------------------------------------------- |
+| `src/lib/server/catalog.ts`                | Reads active products, clusters into groups        |
+| `src/lib/shop/group-products.ts`           | Pure grouping logic (unit-tested)                  |
+| `src/routes/api/stripe/webhook/+server.ts` | Handles `checkout.session.completed`               |
+| `src/lib/server/fulfillment.ts`            | Computes stock decrements + order email payload    |
+| `scripts/seed-stripe.mjs`                  | Stands up the catalog (create-only)                |
+| `scripts/stripe-client.mjs`                | Shared Stripe client for the scripts (proxy-aware) |
+| `scripts/set-stock.mjs`                    | Adjusts a live variant's stock                     |
+| `scripts/set-priority.mjs`                 | Sets a group's /shop display order                 |
+| `scripts/set-sort.mjs`                     | Orders colors/sizes within a group                 |
+| `scripts/set-restocking.mjs`               | Flags an out-of-stock variant as "Coming soon"     |
+| `scripts/archive-group.mjs`                | Retires a whole product group (archives variants)  |
 
 ## Inventory operations
+
+### Running the scripts from a sandboxed shell (Claude Code)
+
+Every `scripts/*.mjs` tool below goes through `scripts/stripe-client.mjs`, which
+builds the Stripe client. From your own terminal nothing special is needed. From
+inside a **sandboxed agent session**, prefix with `NODE_USE_ENV_PROXY=1`:
+
+```bash
+NODE_USE_ENV_PROXY=1 node --env-file=.env scripts/set-stock.mjs list
+```
+
+Why: sandboxed shells route egress through an HTTP proxy advertised via
+`HTTPS_PROXY`. Stripe's default Node client calls `https.request` directly and
+ignores that variable, so DNS is attempted outside the tunnel and **every call
+fails with `getaddrinfo ENOTFOUND api.stripe.com`** — which looks like a firewall
+problem but isn't. When a proxy is detected `createStripe()` switches to Stripe's
+fetch-based client (undici honours the proxy), and Node only enables that
+honouring when `NODE_USE_ENV_PROXY=1` is set. Run without it and the script warns
+before failing.
+
+> **Stock changes are deltas, not idempotent.** `-2` applied twice removes 4.
+> If a command's outcome is unclear (a hang, a sandbox error, a lost terminal),
+> run `set-stock.mjs list` and compare against the expected count **before**
+> re-running it — and keep offline-sale adjustments to one operator at a time.
 
 ### Online sale → automatic
 
@@ -258,6 +283,8 @@ the order email arrived.
 - **Never** commit secret values (see [docs/README.md](../README.md)) — use env
   vars and placeholders.
 - Don't re-seed live once sales start; use `set-stock.mjs` for adjustments.
+- Don't run a stock delta twice "just in case" — verify with `list` first. See
+  [Running the scripts from a sandboxed shell](#running-the-scripts-from-a-sandboxed-shell-claude-code).
 
 ## Rotating the live Stripe key
 

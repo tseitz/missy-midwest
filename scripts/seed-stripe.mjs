@@ -1,4 +1,4 @@
-import Stripe from 'stripe';
+import { createStripe } from './stripe-client.mjs';
 
 /**
  * seed-stripe — populate Stripe with the Missy Midwest catalog (one Product per
@@ -18,12 +18,7 @@ import Stripe from 'stripe';
  * --reset in test to wipe + reseed. Stock is mutated by the purchase webhook
  * after launch, so don't re-seed live once sales start.
  */
-const key = process.env.STRIPE_SECRET_KEY;
-if (!key) {
-	console.error('STRIPE_SECRET_KEY is required. Run: node --env-file=.env scripts/seed-stripe.mjs');
-	process.exit(1);
-}
-const stripe = new Stripe(key);
+const stripe = createStripe();
 
 const BASE = (process.env.SHOP_IMAGE_BASE_URL ?? 'http://localhost:5173').replace(/\/$/, '');
 const imageUrl = (file) => `${BASE}/shop/${file}`;

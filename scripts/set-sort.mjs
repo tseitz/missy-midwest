@@ -1,4 +1,4 @@
-import Stripe from 'stripe';
+import { createStripe } from './stripe-client.mjs';
 
 /**
  * set-sort — reorder the colors/sizes *within* a product group.
@@ -23,14 +23,7 @@ import Stripe from 'stripe';
  * Go-live: point at the live key, e.g.
  *   STRIPE_SECRET_KEY=rk_live_xxx node scripts/set-sort.mjs ...
  */
-const key = process.env.STRIPE_SECRET_KEY;
-if (!key) {
-	console.error(
-		'STRIPE_SECRET_KEY is required. Run: node --env-file=.env scripts/set-sort.mjs ...'
-	);
-	process.exit(1);
-}
-const stripe = new Stripe(key);
+const stripe = createStripe();
 
 /** Fetch all active products (one page; warns if the catalog exceeds 100). */
 async function fetchActive() {

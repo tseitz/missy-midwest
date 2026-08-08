@@ -1,4 +1,4 @@
-import Stripe from 'stripe';
+import { createStripe } from './stripe-client.mjs';
 
 /**
  * archive-group — retire a whole product group from the storefront.
@@ -27,14 +27,7 @@ import Stripe from 'stripe';
  * Go-live: point at the live key, e.g.
  *   STRIPE_SECRET_KEY=rk_live_xxx node scripts/archive-group.mjs crop-hoodie
  */
-const key = process.env.STRIPE_SECRET_KEY;
-if (!key) {
-	console.error(
-		'STRIPE_SECRET_KEY is required. Run: node --env-file=.env scripts/archive-group.mjs ...'
-	);
-	process.exit(1);
-}
-const stripe = new Stripe(key);
+const stripe = createStripe();
 
 /** Fetch all active products (one page; warns if the catalog exceeds 100). */
 async function fetchActive() {

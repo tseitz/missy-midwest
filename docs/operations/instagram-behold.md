@@ -5,20 +5,20 @@ a hosted Instagram-feed service, fetched server-side in
 [`src/lib/server/instagram.ts`](../../src/lib/server/instagram.ts) and rendered by
 [`src/lib/home/InstagramFeed.svelte`](../../src/lib/home/InstagramFeed.svelte).
 
-## 🚧 Currently OFF — flip back on/after 2026-08-01
+## Kill switch
 
-`INSTAGRAM_ENABLED` in [`src/lib/home/config.ts`](../../src/lib/home/config.ts) is
-**`false`**. The Behold account hit its free-tier view cap on 2026-07-27 and is
-paused until the month rolls over, so the feed returns 402 and the section would
-render as six empty placeholder tiles. The gate hides the section outright and
-skips the doomed request (no wasted views, no Sentry reports).
+`INSTAGRAM_ENABLED` in [`src/lib/home/config.ts`](../../src/lib/home/config.ts)
+gates the whole section — currently **`true`** (live). Flipping it to `false`
+hides the section _and_ short-circuits `getInstagramFeed()` in
+[`+page.server.ts`](../../src/routes/+page.server.ts), so a paused feed costs no
+views and fires no Sentry reports. Same pattern as `SHOP_ENABLED`; the feed code
+itself is untouched either way and stays under test.
 
-**To restore:** flip the constant to `true`, commit, push. Nothing else — no
-env-var or Behold-dashboard change. Same pattern as `SHOP_ENABLED`: the gate
-short-circuits `getInstagramFeed()` in
-[`+page.server.ts`](../../src/routes/+page.server.ts) and `{#if}`-wraps the
-section in [`+page.svelte`](../../src/routes/+page.svelte). The feed code itself
-is untouched and stays under test.
+Reach for it when the account is paused at the view cap (below) and the grid
+would otherwise render as six empty placeholder tiles for days. It's a code
+change — flip the constant, commit, push. No env-var or Behold-dashboard change.
+
+_History: off from 2026-07-27 to 2026-08-08 after the July free-tier pause._
 
 ## Source
 

@@ -1,13 +1,17 @@
+import type { HandleClientError } from '@sveltejs/kit';
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest';
 
 // No DSN — Sentry stays uninitialized, which is orthogonal to the preload guard.
 vi.mock('$env/dynamic/public', () => ({ env: {} }));
 
+/** Sentry's reporter, hoisted so it survives the `vi.resetModules()` re-import. */
+const { reportError } = vi.hoisted(() => ({ reportError: vi.fn() }));
+
 // The real package is externalized by Vite and pulls in `$app/*` specifiers that
 // only exist inside a SvelteKit build. Nothing here exercises Sentry itself.
 vi.mock('@sentry/sveltekit', () => ({
 	init: vi.fn(),
-	handleErrorWithSentry: () => vi.fn()
+	handleErrorWithSentry: () => reportError
 }));
 
 const PRELOAD_RELOAD_KEY = 'sk:preload-reloaded-at';
@@ -47,6 +51,7 @@ let reload: ReturnType<typeof vi.fn>;
 let storage: Storage;
 
 beforeEach(() => {
+	reportError.mockClear();
 	reload = vi.fn();
 	storage = memoryStorage();
 	vi.stubGlobal('sessionStorage', storage);
@@ -130,5 +135,44 @@ describe('vite:preloadError recovery', () => {
 
 		expect(event.defaultPrevented).toBe(false);
 		expect(reload).not.toHaveBeenCalled();
+	});
+});
+
+describe('handleError', () => {
+	/** The crash SvelteKit hits after Vite hands it an `undefined` route node. */
+	const undefinedNodeError = () =>
+		({
+			error: new TypeError("Cannot read properties of undefined (reading 'universal')"),
+			event: { url: new URL('https://missymidwest.com/'), params: {}, route: { id: '/' } },
+			status: 500,
+			message: 'Internal Error'
+		}) as Parameters<HandleClientError>[0];
+
+	it('reports to Sentry on a page that is staying put', async () => {
+		const { handleError } = await loadHooks();
+
+		handleError(undefinedNodeError());
+
+		expect(reportError).toHaveBeenCalledOnce();
+	});
+
+	it('swallows the wreckage of a page that is already reloading', async () => {
+		const { handleError, handlePreloadError } = await loadHooks();
+		handlePreloadError(preloadError());
+
+		// Cancelling the event makes Vite's preload helper resolve the failed import
+		// to `undefined`, which SvelteKit then dereferences mid-hydration.
+		expect(handleError(undefinedNodeError())).toBeUndefined();
+		expect(reportError).not.toHaveBeenCalled();
+	});
+
+	it('still reports when the preload error was let through', async () => {
+		storage.setItem(PRELOAD_RELOAD_KEY, String(Date.now() - 1_000));
+		const { handleError, handlePreloadError } = await loadHooks();
+		handlePreloadError(preloadError());
+
+		handleError(undefinedNodeError());
+
+		expect(reportError).toHaveBeenCalledOnce();
 	});
 });

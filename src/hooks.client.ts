@@ -1,3 +1,4 @@
+import type { HandleClientError } from '@sveltejs/kit';
 import * as Sentry from '@sentry/sveltekit';
 import { env } from '$env/dynamic/public';
 import { handleErrorWithSentry } from '@sentry/sveltekit';
@@ -34,7 +35,8 @@ if (env.PUBLIC_SENTRY_DSN) {
 //     failed navigation keeps unwinding — SvelteKit falls back to its error page,
 //     whose own nodes live in the same stale build and fail to preload too. Those
 //     follow-on errors are pure noise from a page that's already on its way out,
-//     so swallow every one of them for this page's remaining life.
+//     so swallow every one of them for this page's remaining life. The same latch
+//     gates `handleError` below, which catches the unwinding by another route.
 //   - `PRELOAD_RELOAD_KEY` (cross-load cooldown): if we already reloaded moments
 //     ago and an import *still* fails on the fresh page, the deployed build is
 //     genuinely broken. Let that throw through to Sentry rather than reload again.
@@ -75,6 +77,22 @@ export function handlePreloadError(event: Event) {
 
 window.addEventListener('vite:preloadError', handlePreloadError);
 
+// Pin the generic: called bare, it widens to the client|server union and won't
+// accept a client-side `NavigationEvent`.
+const reportError = handleErrorWithSentry<HandleClientError>();
+
 // Captures unhandled client-side errors. Falls through to the default handler
 // when Sentry isn't initialized.
-export const handleError = handleErrorWithSentry();
+export const handleError: HandleClientError = (input) => {
+	// The third guard, and the reason `reloading` isn't only about preload events:
+	// Vite's helper is `baseModule().catch(handlePreloadError)`, and that handler
+	// only rethrows when the event *wasn't* cancelled. So cancelling above leaves
+	// the failed import resolving to `undefined`, and SvelteKit dereferences it —
+	// `node.universal` in `load_node`. The reload doesn't stop the world, so that
+	// TypeError still unwinds through hydration and lands here. It, and anything
+	// else this page throws on its way out, is noise. Returning nothing lets
+	// SvelteKit fall back to its default `{ message }`, which the reload discards.
+	if (reloading) return;
+
+	return reportError(input);
+};

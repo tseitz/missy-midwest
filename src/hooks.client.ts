@@ -18,7 +18,14 @@ if (env.PUBLIC_SENTRY_DSN) {
 		// connections. WebKit reports it as "Load failed", Chromium as "Failed
 		// to fetch". The router self-heals with a full-page navigation, so this
 		// is unactionable noise rather than a real error.
-		ignoreErrors: ['Load failed', 'Failed to fetch']
+		//
+		// Also drop "Java object is gone". That one is not ours at all: the
+		// Facebook in-app browser injects its own script, which messages the
+		// native Android app on `beforeunload`. The app has already dropped the
+		// bridge by then, so the call throws. Sentry's browserApiErrors
+		// integration wraps every addEventListener callback — including a foreign
+		// script's — so the throw arrives here attributed to us.
+		ignoreErrors: ['Load failed', 'Failed to fetch', 'Java object is gone']
 	});
 }
 

@@ -1,3 +1,9 @@
 {
-  "editor.fontSize": 14
+  "editor.fontSize": 14,
+
+  // Moved out of global user settings. Global, it made every .css file in every
+  // project a Tailwind file, which also stopped the [css] Prettier rule from running.
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

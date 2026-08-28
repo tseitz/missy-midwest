@@ -16,7 +16,8 @@ vi.mock('$lib/server/stripe', () => ({
 vi.mock('$lib/shop/config', () => ({
 	get SHOP_ENABLED() {
 		return shopConfig.enabled;
-	}
+	},
+	SHIPPING_RATE_CENTS: 1000
 }));
 
 import { POST } from './+server';

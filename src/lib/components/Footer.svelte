@@ -46,6 +46,7 @@
 		</div>
 	</div>
 	<div class="bg-missy-surface-deep py-4 text-center text-xs opacity-50">
-		© {year} Missy Midwest · Jordan Brooke Music LLC · Built with 💙 by Mr. Midwest
+		© {year} Missy Midwest · Jordan Brooke Music LLC ·
+		<a href={resolve('/shipping-returns')}>Shipping &amp; Returns</a> · Built with 💙 by Mr. Midwest
 	</div>
 </footer>

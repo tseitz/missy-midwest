@@ -1,7 +1,7 @@
 import { listGroups } from '$lib/server/catalog';
 import type { RequestHandler } from './$types';
 
-const STATIC_PATHS = ['/', '/music', '/shows', '/contact', '/shop'];
+const STATIC_PATHS = ['/', '/music', '/shows', '/contact', '/shop', '/shipping-returns'];
 
 export const GET: RequestHandler = async ({ url }) => {
 	const { groups } = await listGroups();

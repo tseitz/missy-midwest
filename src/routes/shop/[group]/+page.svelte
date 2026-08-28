@@ -10,9 +10,14 @@
 	import { cart } from '$lib/shop/cart.svelte';
 	import type { Variant } from '$lib/shop/types';
 	import Seo from '$lib/seo/Seo.svelte';
+	import { productJsonLd } from '$lib/seo/jsonld';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	const jsonld = $derived(
+		JSON.stringify(productJsonLd(data.group, page.url.origin)).replace(/</g, '\\u003c')
+	);
 
 	// Writable derived: seeds from the ?variant= slug (the clicked card, even if
 	// sold out) on load and real navigation, else the first in-stock variant. The
@@ -46,6 +51,11 @@
 	description={data.group.description || `Shop the ${data.group.name} from Missy Midwest.`}
 	image={data.group.image}
 />
+
+<svelte:head>
+	<!-- eslint-disable-next-line svelte/no-at-html-tags -- trusted self-generated JSON-LD; `<` is escaped to < above -->
+	{@html `<script type="application/ld+json">${jsonld}</` + `script>`}
+</svelte:head>
 
 <section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<a
@@ -95,6 +105,11 @@
 					onclick={addToCart}
 				/>
 			</div>
+
+			<p class="text-missy-muted mt-4 text-xs">
+				Ships in the US · free local pickup ·
+				<a href={resolve('/shipping-returns')}>Shipping &amp; Returns</a>
+			</p>
 		</div>
 	</div>
 </section>

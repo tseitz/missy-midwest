@@ -28,6 +28,9 @@ list of variable names lives in `.env.example`.
 - [operations/shop-stripe.md](operations/shop-stripe.md) — the Stripe-backed
   shop: how inventory works, the seed + stock scripts, adding products, and the
   test → live go-live runbook.
+- [operations/google-shopping.md](operations/google-shopping.md) — getting merch
+  onto Google's free Search Shopping tab: the Product structured data, the
+  required shipping/returns policy, and the Merchant Center setup runbook.
 - [operations/calendar-shows.md](operations/calendar-shows.md) — the Google
   Calendar → shows feed: how events are filtered (public/private, invites), the
   Missy workflow for hiding personal events, caching, and the inspect script.

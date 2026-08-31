@@ -117,9 +117,20 @@ Console for `missymidwest.com`.
    carousel — the website-crawl card hides behind the `>` arrow, and only
    appears at all once Google has detected structured data. Ignore it; see
    "Why a feed and not the website crawl" above.)
-5. **Set shipping.** _Shipping and returns_ → add a US service, flat rate,
-   matching `SHIPPING_RATE_CENTS`. Also add a **free** local-pickup service —
-   Stripe Checkout offers it and Merchant Center wants every option declared.
+5. **Set shipping.** Country United States. For delivery times pick **"Enter
+   specific delivery times manually"** — handling 1–3 business days, transit
+   3–7, which is what `/shipping-returns` promises. "By carrier" would let
+   Google estimate its own times, which can then contradict the page. Then set
+   the rate to a flat `SHIPPING_RATE_CENTS`.
+
+   **Do not try to declare local pickup here.** Stripe Checkout offers free
+   local pickup, but Merchant Center only exposes a pickup policy to accounts
+   enrolled in local inventory ads / free local listings, which needs a verified
+   Business Profile with real store locations and store codes. Missy has no
+   storefront, so pickup is unreachable and the shipping-only setup is correct.
+   The `$10` in the feed is the shipped price; pickup is a checkout-time
+   discount Google never needs to model.
+
 6. **Set the return policy.** _Shipping and returns_ → _Returns_ → "no returns
    accepted". This must match `/shipping-returns` word for word in meaning, or
    the account gets flagged.

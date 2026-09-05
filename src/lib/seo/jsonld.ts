@@ -29,10 +29,24 @@ interface Brand {
 	name: string;
 }
 
+interface DayRange {
+	'@type': 'QuantitativeValue';
+	minValue: number;
+	maxValue: number;
+	unitCode: 'DAY';
+}
+
+interface DeliveryTime {
+	'@type': 'ShippingDeliveryTime';
+	handlingTime: DayRange;
+	transitTime: DayRange;
+}
+
 interface ShippingDetails {
 	'@type': 'OfferShippingDetails';
 	shippingRate: { '@type': 'MonetaryAmount'; value: string; currency: 'USD' };
 	shippingDestination: { '@type': 'DefinedRegion'; addressCountry: 'US' };
+	deliveryTime: DeliveryTime;
 }
 
 interface ReturnPolicy {
@@ -56,6 +70,7 @@ interface Offer {
 interface VariantJsonLd {
 	'@type': 'Product';
 	name: string;
+	description: string;
 	sku: string;
 	image: string[];
 	color?: string;
@@ -95,7 +110,14 @@ const SHIPPING_DETAILS: ShippingDetails = {
 		value: dollars(SHIPPING_RATE_CENTS),
 		currency: 'USD'
 	},
-	shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' }
+	shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'US' },
+	// Must stay in step with the windows published on /shipping-returns — Google
+	// compares the two and flags a mismatch.
+	deliveryTime: {
+		'@type': 'ShippingDeliveryTime',
+		handlingTime: { '@type': 'QuantitativeValue', minValue: 0, maxValue: 3, unitCode: 'DAY' },
+		transitTime: { '@type': 'QuantitativeValue', minValue: 3, maxValue: 7, unitCode: 'DAY' }
+	}
 };
 
 const RETURN_POLICY: ReturnPolicy = {
@@ -174,6 +196,7 @@ export function productJsonLd(
 		hasVariant: group.variants.map((variant) => ({
 			'@type': 'Product' as const,
 			name: `${group.name} — ${variant.label}`,
+			description: group.description,
 			sku: variant.productId,
 			image: [variant.image || group.image].filter(Boolean),
 			...(group.variantType === 'size' ? { size: variant.label } : { color: variant.label }),

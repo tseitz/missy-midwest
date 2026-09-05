@@ -83,6 +83,26 @@ describe('productJsonLd', () => {
 		);
 	});
 
+	it('states the handling and transit windows published on /shipping-returns', () => {
+		const ld = productJsonLd(group(), ORIGIN);
+		const offer = 'offers' in ld ? ld.offers : undefined;
+		expect(offer?.shippingDetails.deliveryTime).toEqual({
+			'@type': 'ShippingDeliveryTime',
+			handlingTime: {
+				'@type': 'QuantitativeValue',
+				minValue: 0,
+				maxValue: 3,
+				unitCode: 'DAY'
+			},
+			transitTime: {
+				'@type': 'QuantitativeValue',
+				minValue: 3,
+				maxValue: 7,
+				unitCode: 'DAY'
+			}
+		});
+	});
+
 	it('emits a ProductGroup with one Product per variant when a group varies', () => {
 		const ld = productJsonLd(
 			group({
@@ -102,6 +122,8 @@ describe('productJsonLd', () => {
 		const variants = 'hasVariant' in ld ? ld.hasVariant : [];
 		expect(variants).toHaveLength(2);
 		expect(variants[0].name).toBe('Corduroy Hat — Blue');
+		expect(variants[0].description).toBe('Embroidered snapback.');
+		expect(variants[1].description).toBe('Embroidered snapback.');
 		expect(variants[0].sku).toBe('prod_blue');
 		expect(variants[0].offers.url).toBe('https://missymidwest.com/shop/corduroy-hat?variant=blue');
 		expect(variants[0].offers.availability).toBe('https://schema.org/InStock');

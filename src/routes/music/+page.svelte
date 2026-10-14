@@ -20,4 +20,4 @@
 	description="Stream Missy Midwest's latest DJ sets and tracks."
 />
 
-<MusicSections featuredMix={data.featuredMix} />
+<MusicSections guestMix={data.guestMix} featuredMix={data.featuredMix} />

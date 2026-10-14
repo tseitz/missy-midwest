@@ -6,7 +6,11 @@
 	import { player } from './player.svelte';
 	import type { FeaturedMix } from './soundcloud';
 
-	let { featuredMix }: { featuredMix: FeaturedMix | null } = $props();
+	let {
+		featuredMix,
+		label,
+		title
+	}: { featuredMix: FeaturedMix | null; label: string; title: string } = $props();
 
 	const FALLBACK = asset('/press-kit/missy-midwest-artist-pic-render.webp');
 
@@ -22,13 +26,13 @@
 </script>
 
 <div class="w-full">
-	<SectionHeading label="Featured" title="Highlighted mix" />
+	<SectionHeading {label} {title} />
 	<div class="mt-2 w-full">
 		<button
 			type="button"
 			onclick={onClick}
 			class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
-			aria-label={playing ? 'Pause highlighted mix' : 'Play highlighted mix'}
+			aria-label={`${playing ? 'Pause' : 'Play'} ${title}`}
 		>
 			<img
 				src={featuredMix ? cover : netlifyImage(cover, { width: 1280 })}

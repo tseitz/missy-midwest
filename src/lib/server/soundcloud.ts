@@ -6,9 +6,9 @@ import { reportFailure, errorMessage } from './report';
 export { PROFILE_URL, type FeaturedMix } from '$lib/music/soundcloud';
 import type { FeaturedMix } from '$lib/music/soundcloud';
 
-/** The one curated value to swap when featuring a different mix (a track permalink). */
-export const FEATURED_MIX_URL =
-	'https://soundcloud.com/missymidwest/full-tree-house-set-at-franky-louies-may-2025';
+/** The curated values to swap when featuring different mixes (track permalinks). */
+export const GUEST_MIX_URL = 'https://soundcloud.com/missymidwest/split-astral-radio';
+export const FEATURED_MIX_URL = 'https://soundcloud.com/missymidwest/january-minimix-2025';
 
 /** oEmbed gives us far more than we need; validate + keep only title + thumbnail. */
 const oembedSchema = z.object({
@@ -17,11 +17,11 @@ const oembedSchema = z.object({
 });
 
 const CACHE_TTL_MS = 60 * 60 * 1000;
-let cache: { at: number; value: FeaturedMix | null } | null = null;
+const cache = new Map<string, { at: number; value: FeaturedMix | null }>();
 
 /** Test-only: reset the in-memory cache. */
 export function __clearFeaturedMixCache(): void {
-	cache = null;
+	cache.clear();
 }
 
 /**
@@ -30,11 +30,12 @@ export function __clearFeaturedMixCache(): void {
  * back to a brand cover — and alerts via reportFailure, matching the boundary
  * pattern in calendar.ts / drive.ts.
  */
-export async function getFeaturedMix(): Promise<FeaturedMix | null> {
-	if (cache && Date.now() - cache.at < CACHE_TTL_MS) return cache.value;
+export async function getFeaturedMix(url: string = FEATURED_MIX_URL): Promise<FeaturedMix | null> {
+	const hit = cache.get(url);
+	if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.value;
 
 	try {
-		const endpoint = `https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(FEATURED_MIX_URL)}`;
+		const endpoint = `https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(url)}`;
 		const res = await fetch(endpoint);
 		if (!res.ok) throw new Error(`oEmbed responded ${res.status}`);
 
@@ -42,13 +43,13 @@ export async function getFeaturedMix(): Promise<FeaturedMix | null> {
 		const value: FeaturedMix = {
 			title: parsed.title,
 			artworkUrl: parsed.thumbnail_url.replace(/-t\d+x\d+\./, '-t500x500.'),
-			permalinkUrl: FEATURED_MIX_URL
+			permalinkUrl: url
 		};
-		cache = { at: Date.now(), value };
+		cache.set(url, { at: Date.now(), value });
 		return value;
 	} catch (error) {
 		reportFailure('SoundCloud featured mix', errorMessage(error));
-		cache = { at: Date.now(), value: null };
+		cache.set(url, { at: Date.now(), value: null });
 		return null;
 	}
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve, asset } from '$app/paths';
 	import Button from '$lib/components/Button.svelte';
+	import { BAD_BITCH_BASS_URL } from '$lib/music/soundcloud';
 </script>
 
 <section class="bg-glow-warm relative -mt-16 w-full overflow-hidden" style="min-height: 78vh;">
@@ -24,10 +25,10 @@
 			Missy <span class="text-gradient-sun">Midwest</span>
 		</h1>
 		<p class="hero-subcopy mt-5 max-w-lg text-base text-white/95 md:text-lg">
-			Genre-blending sets from the Lake of the Ozarks to the festival stage.
+			Bad Bitch Bass Volume 1 out now!
 		</p>
 		<div class="mt-7 flex flex-wrap gap-4">
-			<Button href={resolve('/music')} label="▶ Listen now" variant="fill" />
+			<Button href={BAD_BITCH_BASS_URL} label="▶ Listen now" variant="fill" />
 			<Button href={resolve('/shop')} label="Shop the merch" variant="outline" />
 		</div>
 	</div>

@@ -21,8 +21,14 @@
 		style="min-height: 78vh;"
 	>
 		<div class="label-eyebrow mb-3">DJ · Producer · Vocalist</div>
-		<h1 class="missy-header text-glow text-6xl leading-[0.86] text-white md:text-8xl lg:text-9xl">
-			Missy <span class="text-gradient-sun">Midwest</span>
+		<h1>
+			<img
+				src={asset('/header/missy-midwest-logo-white.png')}
+				alt="Missy Midwest"
+				width="2551"
+				height="375"
+				class="hero-logo w-full max-w-sm md:max-w-2xl lg:max-w-3xl"
+			/>
 		</h1>
 		<p class="hero-subcopy mt-5 max-w-lg text-base text-white/95 md:text-lg">
 			Bad Bitch Bass Volume 1 out now!
@@ -36,6 +42,9 @@
 
 <style>
 	/* Keep the subcopy legible where it crosses the brighter middle of the photo. */
+	.hero-logo {
+		filter: drop-shadow(0 0 28px rgba(255, 122, 184, 0.4));
+	}
 	.hero-subcopy {
 		text-shadow: 0 1px 12px rgba(7, 18, 56, 0.55);
 	}

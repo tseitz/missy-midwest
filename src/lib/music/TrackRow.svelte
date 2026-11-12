@@ -3,7 +3,8 @@
 	import { formatDuration } from './format-duration';
 	import type { Track } from './soundcloud-player';
 
-	let { track }: { track: Track } = $props();
+	let { track }: { track: Pick<Track, 'title' | 'permalinkUrl'> & { durationMs?: number } } =
+		$props();
 	const isThis = $derived(player.state.currentUrl === track.permalinkUrl);
 	const playing = $derived(isThis && player.state.isPlaying);
 </script>
@@ -15,14 +16,17 @@
 	aria-label={playing ? `Pause ${track.title}` : `Play ${track.title}`}
 >
 	<span
-		class="border-missy-classic-lavender/40 text-missy-classic-lavender flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-xs"
-		class:bg-missy-blush={isThis}
-		class:text-missy-ink={isThis}
+		class={[
+			'border-missy-classic-lavender/40 text-missy-classic-lavender flex h-9 w-9 shrink-0 items-center justify-center rounded-full border text-xs',
+			{ 'bg-missy-blush text-missy-ink': isThis }
+		]}
 	>
 		{playing ? '❚❚' : '►'}
 	</span>
 	<span class="min-w-0 flex-1 truncate {isThis ? 'text-missy-pearl' : 'text-missy-secondary'}"
 		>{track.title}</span
 	>
-	<span class="text-missy-muted shrink-0 text-xs">{formatDuration(track.durationMs)}</span>
+	{#if track.durationMs !== undefined}
+		<span class="text-missy-muted shrink-0 text-xs">{formatDuration(track.durationMs)}</span>
+	{/if}
 </button>

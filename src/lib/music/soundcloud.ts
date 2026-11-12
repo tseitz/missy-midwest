@@ -15,3 +15,14 @@ export interface FeaturedMix {
 	artworkUrl: string;
 	permalinkUrl: string;
 }
+
+export interface PlaylistTrack {
+	title: string;
+	permalinkUrl: string;
+}
+
+export interface FeaturedPlaylist extends FeaturedMix {
+	tracks: PlaylistTrack[];
+}
+
+export const BAD_BITCH_BASS_URL = 'https://soundcloud.com/missymidwest/sets/bad-bitch-bass-vol-1';

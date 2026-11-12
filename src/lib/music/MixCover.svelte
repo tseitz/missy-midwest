@@ -1,0 +1,49 @@
+<script lang="ts">
+	import { asset } from '$app/paths';
+	import { netlifyImage } from '$lib/utils/netlify-image';
+	import PlayPauseIcon from './PlayPauseIcon.svelte';
+	import { player } from './player.svelte';
+	import type { FeaturedMix } from './soundcloud';
+
+	let { mix, title }: { mix: FeaturedMix | null; title: string } = $props();
+
+	const FALLBACK = asset('/press-kit/missy-midwest-artist-pic-render.webp');
+
+	const cover = $derived(mix ? mix.artworkUrl : FALLBACK);
+	const isThis = $derived(!!mix && player.state.currentUrl === mix.permalinkUrl);
+	const playing = $derived(isThis && player.state.isPlaying);
+
+	function onClick() {
+		if (!mix) return;
+		if (isThis) player.toggle();
+		else player.play(mix.permalinkUrl);
+	}
+</script>
+
+<button
+	type="button"
+	onclick={onClick}
+	class="group bg-brand-wash relative block aspect-video w-full overflow-hidden rounded-xl"
+	aria-label={`${playing ? 'Pause' : 'Play'} ${title}`}
+>
+	<img
+		src={mix ? cover : netlifyImage(cover, { width: 1280 })}
+		alt=""
+		aria-hidden="true"
+		class="absolute inset-0 h-full w-full object-cover transition group-hover:scale-105"
+	/>
+	<span class="absolute inset-0 flex items-center justify-center">
+		<span
+			class="bg-missy-blush text-missy-ink flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl shadow-lg"
+		>
+			<PlayPauseIcon {playing} />
+		</span>
+	</span>
+	{#if mix}
+		<span
+			class="bg-missy-deep-purple/85 absolute right-0 bottom-0 left-0 px-5 py-3 text-left backdrop-blur-md"
+		>
+			<span class="missy-header block text-xl">{mix.title}</span>
+		</span>
+	{/if}
+</button>

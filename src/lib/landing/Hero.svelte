@@ -28,7 +28,7 @@
 			Bad Bitch Bass Volume 1 out now!
 		</p>
 		<div class="mt-7 flex flex-wrap gap-4">
-			<Button href={BAD_BITCH_BASS_URL} label="▶ Listen now" variant="fill" />
+			<Button href={BAD_BITCH_BASS_URL} label="▶ Listen now" variant="fill" external />
 			<Button href={resolve('/shop')} label="Shop the merch" variant="outline" />
 		</div>
 	</div>

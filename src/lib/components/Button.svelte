@@ -8,6 +8,7 @@
 		onclick?: () => void;
 		/** Stretch to fill the container width (centered) — e.g. the cart checkout CTA. */
 		block?: boolean;
+		external?: boolean;
 	}
 	let {
 		label,
@@ -16,7 +17,8 @@
 		type = 'button',
 		disabled = false,
 		onclick,
-		block = false
+		block = false,
+		external = false
 	}: Props = $props();
 
 	const cls = $derived(`btn btn-${variant}${block ? ' btn-block' : ''}`);
@@ -24,8 +26,14 @@
 
 {#if href}
 	<!-- href is already final: callers pass resolve()/asset() output or an external URL -->
-	<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-	<a {href} class={cls}>{label}</a>
+	<!-- eslint-disable svelte/no-navigation-without-resolve -->
+	<a
+		{href}
+		class={cls}
+		target={external ? '_blank' : undefined}
+		rel={external ? 'noopener noreferrer' : undefined}>{label}</a
+	>
+	<!-- eslint-enable svelte/no-navigation-without-resolve -->
 {:else}
 	<button class={cls} {type} {disabled} {onclick}>{label}</button>
 {/if}

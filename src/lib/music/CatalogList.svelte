@@ -17,7 +17,7 @@
 			{/each}
 			<div class="mt-4"><SoundCloudLink /></div>
 		{:else if player.status === 'error'}
-			<p class="opacity-80">
+			<p class="text-fg-secondary">
 				Browse everything on
 				<a
 					class="text-accent"

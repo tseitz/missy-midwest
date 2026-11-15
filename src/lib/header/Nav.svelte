@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { asset, resolve } from '$app/paths';
+	import { resolve } from '$app/paths';
+	import Logo from '$lib/components/Logo.svelte';
 	import SocialLinks from '$lib/components/SocialLinks.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import { trapFocus } from '$lib/a11y/focus-trap';
@@ -80,16 +81,10 @@
 		<div
 			id={menuId}
 			{@attach trapFocus}
-			class="mobile-menu fixed inset-0 z-40 flex flex-col md:hidden"
+			class="mobile-menu tone-sea fixed inset-0 z-40 flex flex-col md:hidden"
 		>
 			<div class="flex h-16 items-center justify-between px-4">
-				<img
-					src={asset('/header/missy-midwest-logo-white.png')}
-					alt="Missy Midwest"
-					width="2551"
-					height="375"
-					class="h-7 w-auto"
-				/>
+				<Logo class="text-fg h-7" />
 				<button type="button" class="icon-btn" aria-label="Close menu" onclick={close}>
 					<svg
 						class="h-6 w-6"
@@ -133,7 +128,7 @@
 		font-family: var(--font-cochin);
 		font-size: 0.8rem;
 		letter-spacing: 0.14em;
-		color: var(--color-slate-50);
+		color: var(--color-fg);
 		transition: color 0.2s ease;
 		text-transform: uppercase;
 	}
@@ -143,7 +138,7 @@
 		border-bottom: none;
 	}
 	.icon-btn {
-		color: var(--color-slate-50);
+		color: var(--color-fg);
 		transition: color 0.2s ease;
 	}
 	.icon-btn:hover {
@@ -153,7 +148,7 @@
 		font-family: var(--font-cochin);
 		font-size: 2rem;
 		letter-spacing: 0.08em;
-		color: var(--color-slate-50);
+		color: var(--color-fg);
 		transition: color 0.2s ease;
 		text-transform: uppercase;
 	}

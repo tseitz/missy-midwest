@@ -12,7 +12,7 @@
 <button
 	type="button"
 	onclick={() => (isThis ? player.toggle() : player.play(track.permalinkUrl))}
-	class="hover:bg-midtone/15 border-trim/10 flex w-full items-center gap-4 border-t px-2 py-3 text-left"
+	class="hover:bg-surface-sunken border-trim/10 flex w-full items-center gap-4 border-t px-2 py-3 text-left"
 	aria-label={playing ? `Pause ${track.title}` : `Play ${track.title}`}
 >
 	<span

@@ -29,7 +29,7 @@
 			</span>
 		{:else if card.soldOut}
 			<span
-				class="absolute top-3 left-3 rounded-full bg-zinc-900/80 px-3 py-1 text-xs text-zinc-200"
+				class="absolute top-3 left-3 rounded-full bg-surface-raised/90 px-3 py-1 text-xs text-fg-secondary"
 			>
 				Sold out
 			</span>

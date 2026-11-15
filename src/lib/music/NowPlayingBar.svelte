@@ -10,7 +10,7 @@
 
 {#if visible}
 	<div
-		class="border-trim/15 bg-surface/90 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-md"
+		class="tone-sea border-trim/15 bg-surface/90 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-md"
 		style="padding-bottom:env(safe-area-inset-bottom)"
 	>
 		<ProgressBar
@@ -38,7 +38,7 @@
 			<a href={resolve('/music')} class="text-fg min-w-0 flex-1 truncate text-sm">
 				{player.state.title ?? 'Loading…'}
 			</a>
-			<span class="text-trim shrink-0 text-xs tabular-nums opacity-80">
+			<span class="text-fg-muted shrink-0 text-xs tabular-nums">
 				{formatDuration(player.state.positionMs)} / {formatDuration(player.state.durationMs)}
 			</span>
 		</div>

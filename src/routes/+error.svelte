@@ -20,14 +20,14 @@
 		<div class="mx-auto max-w-2xl">
 			{#if is404}
 				<h1 class="text-trim mb-6 text-6xl font-bold md:text-8xl">404</h1>
-				<h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Page Not Found</h2>
-				<p class="mb-8 text-xl text-gray-300">
+				<h2 class="mb-4 text-3xl font-bold text-fg md:text-4xl">Page Not Found</h2>
+				<p class="mb-8 text-xl text-fg-secondary">
 					Oops! The page you're looking for doesn't exist. Maybe it got lost in the music?
 				</p>
 			{:else}
 				<h1 class="text-trim mb-6 text-6xl font-bold md:text-8xl">Error</h1>
-				<h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">Something Went Wrong</h2>
-				<p class="mb-8 text-xl text-gray-300">
+				<h2 class="mb-4 text-3xl font-bold text-fg md:text-4xl">Something Went Wrong</h2>
+				<p class="mb-8 text-xl text-fg-secondary">
 					{errorMessage}
 				</p>
 			{/if}
@@ -35,13 +35,13 @@
 			<div class="flex flex-col justify-center gap-4 sm:flex-row">
 				<button
 					onclick={goHome}
-					class="border-trim text-trim hover:bg-trim rounded-lg border-2 bg-transparent px-8 py-3 font-bold transition-colors duration-200 hover:cursor-pointer hover:text-white"
+					class="border-trim text-trim hover:bg-trim rounded-lg border-2 bg-transparent px-8 py-3 font-bold transition-colors duration-200 hover:cursor-pointer hover:text-on-accent"
 				>
 					Go Home
 				</button>
 				<button
 					onclick={() => window.history.back()}
-					class="border-trim text-trim hover:bg-trim rounded-lg border-2 bg-transparent px-8 py-3 font-bold transition-colors duration-200 hover:cursor-pointer hover:text-white"
+					class="border-trim text-trim hover:bg-trim rounded-lg border-2 bg-transparent px-8 py-3 font-bold transition-colors duration-200 hover:cursor-pointer hover:text-on-accent"
 				>
 					Go Back
 				</button>

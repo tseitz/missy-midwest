@@ -1,26 +1,31 @@
 <script lang="ts">
-	import { asset, resolve } from '$app/paths';
+	import { resolve } from '$app/paths';
+	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import Nav from '$lib/header/Nav.svelte';
+	import Logo from '$lib/components/Logo.svelte';
 	import { cart } from '$lib/shop/cart.svelte';
 	import { SHOP_ENABLED } from '$lib/shop/config';
 
-	// Transparent over the hero at the top of the page; condenses to a solid
-	// glass bar once the user scrolls past the threshold.
+	// Transparent (and dark-scoped) only over the home hero photo; a solid cream
+	// bar everywhere else and once the user scrolls.
 	let scrolled = $state(false);
+	const overHero = $derived(page.url.pathname === resolve('/') && !scrolled);
+	function syncScrolled() {
+		scrolled = window.scrollY > 16;
+	}
+	onMount(syncScrolled);
 </script>
 
-<svelte:window onscroll={() => (scrolled = window.scrollY > 16)} />
+<svelte:window onscroll={syncScrolled} />
 
-<header class="site-header fixed top-0 z-30 w-full" data-scrolled={scrolled}>
+<header
+	class={['site-header fixed top-0 z-30 w-full', overHero && 'tone-sea']}
+	data-solid={!overHero}
+>
 	<div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 md:px-8">
 		<a href={resolve('/')} class="brand" aria-label="Missy Midwest — home">
-			<img
-				src={asset('/header/missy-midwest-logo-white.png')}
-				alt="Missy Midwest"
-				width="2551"
-				height="375"
-				class="h-7 w-auto md:h-8"
-			/>
+			<Logo class="text-fg h-7 md:h-8" />
 		</a>
 		<div class="flex items-center gap-4">
 			<Nav />
@@ -34,7 +39,7 @@
 						'relative order-first transition md:order-none',
 						cart.count > 0
 							? 'text-highlight hover:text-highlight-soft'
-							: 'text-slate-50 hover:text-accent'
+							: 'text-fg hover:text-accent'
 					]}
 					onclick={() => (cart.open = true)}
 				>
@@ -55,7 +60,7 @@
 					</svg>
 					{#if cart.count > 0}
 						<span
-							class="bg-accent-deep absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+							class="bg-accent absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-on-accent text-[10px] font-bold"
 						>
 							{cart.count}
 						</span>
@@ -83,7 +88,7 @@
 			border-color 0.3s ease,
 			box-shadow 0.3s ease;
 	}
-	/* Legibility scrim while transparent over the hero; fades as the solid bar takes over. */
+	/* Legibility scrim while transparent over the hero photo; fades as the solid bar takes over. */
 	.site-header::before {
 		content: '';
 		position: absolute;
@@ -98,14 +103,14 @@
 		transition: opacity 0.3s ease;
 		pointer-events: none;
 	}
-	.site-header[data-scrolled='true'] {
-		background-color: color-mix(in srgb, var(--color-surface) 82%, transparent);
-		border-bottom-color: color-mix(in srgb, var(--color-trim) 15%, transparent);
-		box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.65);
+	.site-header[data-solid='true'] {
+		background-color: color-mix(in srgb, var(--color-surface) 90%, transparent);
+		border-bottom-color: color-mix(in srgb, var(--color-fg) 10%, transparent);
+		box-shadow: 0 10px 30px -20px color-mix(in srgb, var(--color-surface-deep) 45%, transparent);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);
 	}
-	.site-header[data-scrolled='true']::before {
+	.site-header[data-solid='true']::before {
 		opacity: 0;
 	}
 </style>

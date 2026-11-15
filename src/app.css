@@ -28,27 +28,53 @@
 	--font-cochin: 'Cochin', serif;
 	--font-obviously: 'Obviously', sans-serif;
 	/* Role names, not hue names, so a recolor never leaves a misnomer.
-	   Every text color here is AA (4.5:1+) on `surface`; re-check on any change. */
-	--color-surface: #06263a;
-	--color-surface-sunken: #041c2c;
-	--color-surface-deep: #02121e;
-	--color-sky: #0b4a6e;
-	--color-accent: #ff9a3c;
-	--color-accent-deep: #e8603c; /* 4.6:1 — glows/gradients only, not text */
-	--color-accent-soft: #ffc48a;
-	--color-highlight: #3ad6c6;
-	--color-highlight-soft: #8be8dd;
-	--color-highlight-deep: #12b5c9;
-	--color-midtone: #3c3a78; /* 1.5:1 — fills/gradients only, never text */
-	--color-trim: #b9a8f0;
-	--color-on-accent: #04182a;
-	--color-fg: #fdf6e8;
+	   Every text color here is AA (4.5:1+) on `surface` and `surface-sunken`,
+	   and so is its `.tone-sea` twin; re-check both on any change. */
+	--color-surface: #fff8ec;
+	--color-surface-sunken: #f5e6cc;
+	--color-surface-deep: #2a1408;
+	--color-surface-raised: #fffdf8;
+	--color-accent: #b04416;
+	--color-accent-deep: #8f3212; /* gradient end only */
+	--color-accent-soft: #f4a672; /* fills only, never text */
+	--color-highlight: #0b6e72;
+	--color-highlight-soft: #08585c;
+	--color-highlight-deep: #0a5a60;
+	--color-midtone: #e9c9a3; /* fills/gradients only, never text */
+	--color-trim: #8c3f22;
+	--color-on-accent: #fff8ec;
+	--color-fg: #3a1d10;
 	/* Use these for secondary text, not `opacity-*` on inherited text — opacity
 	   breaks the contrast check. */
-	--color-fg-secondary: #e6dccb;
-	--color-fg-muted: #a9bcc0;
-	/* Must stay distinct from the orange/coral accents, or an error reads as decoration. */
-	--color-error: #ff5a7a;
+	--color-fg-secondary: #5f3a26;
+	--color-fg-muted: #7a5640;
+	/* Must stay distinct from the orange accents, or an error reads as decoration. */
+	--color-error: #b3261e;
+}
+
+/* Dark "deep sea" scope: re-declares the role tokens for a subtree. Utilities read
+   `var(--color-*)`, so everything inside recolors. The gradients are re-declared
+   too — a custom property resolves its var() where it is declared, so the `:root`
+   copies would keep the light colors. */
+.tone-sea {
+	--color-surface: #0b3a42;
+	--color-surface-sunken: #082d34;
+	--color-surface-deep: #05222a;
+	--color-surface-raised: #11474f;
+	--color-accent: #ff9a5c;
+	--color-accent-deep: #e8603c;
+	--color-accent-soft: #ffc48a;
+	--color-highlight: #6fdccb;
+	--color-highlight-soft: #8be8dd;
+	--color-highlight-deep: #12b5c9;
+	--color-midtone: #1d5a63;
+	--color-trim: #f7c69c;
+	--color-on-accent: #2a1408;
+	--color-fg: #fff4e2;
+	--color-fg-secondary: #f1dfc4;
+	--color-fg-muted: #b7cdc8;
+	--color-error: #ff8a8a;
+	color: var(--color-fg);
 }
 
 h1,
@@ -71,9 +97,8 @@ label {
 html {
 	scroll-behavior: smooth;
 	font-family: var(--font-obviously);
-	color: var(--color-slate-50);
-	/* Page surface base — keeps overscroll / any uncovered area on-brand
-	   (e.g. the sticky player's bottom clearance) instead of flashing white. */
+	color: var(--color-fg);
+	/* Page surface base — keeps overscroll / any uncovered area on-brand. */
 	background-color: var(--color-surface);
 }
 
@@ -91,15 +116,15 @@ a:hover {
 	}
 }
 
-/* One source for the brand gradients: `.text-gradient-sun` and `.btn-fill` share
-   `--gradient-brand`; `.bg-brand-wash` echoes the hero `.bg-glow-warm`. */
-:root {
+/* One source for the brand gradients: `.btn-fill` uses `--gradient-brand`. */
+:root,
+.tone-sea {
 	--gradient-brand: linear-gradient(90deg, var(--color-accent), var(--color-accent-deep));
 	--gradient-brand-wash: linear-gradient(
 		135deg,
-		var(--color-highlight-deep) 0%,
-		var(--color-midtone) 52%,
-		var(--color-accent-deep) 100%
+		var(--color-highlight) 0%,
+		var(--color-accent-soft) 55%,
+		var(--color-accent) 100%
 	);
 }
 
@@ -108,48 +133,16 @@ a:hover {
 	background: var(--gradient-brand-wash);
 }
 
-/* ---- Brand utilities (Midwest Glow + a touch of bold) ---- */
-.text-glow {
-	text-shadow: 0 0 28px color-mix(in srgb, var(--color-accent) 40%, transparent);
-}
-/* Hero sunset: sea-blue sky at the top, warming to coral at the base. */
+/* Hero backdrop while the photo loads: a sea-to-sunset sky. */
 .bg-glow-warm {
-	background:
-		radial-gradient(
-			95% 95% at 86% -8%,
-			color-mix(in srgb, var(--color-accent) 70%, transparent) 0%,
-			transparent 54%
-		),
-		radial-gradient(
-			70% 85% at 2% 114%,
-			color-mix(in srgb, var(--color-highlight-deep) 70%, transparent) 0%,
-			transparent 52%
-		),
-		linear-gradient(
-			180deg,
-			var(--color-sky) 0%,
-			var(--color-midtone) 48%,
-			var(--color-accent-deep) 126%
-		);
+	background: linear-gradient(
+		180deg,
+		var(--color-highlight-deep) 0%,
+		var(--color-accent-soft) 70%,
+		var(--color-accent-deep) 100%
+	);
 }
-.text-gradient-sun {
-	background: var(--gradient-brand);
-	-webkit-background-clip: text;
-	background-clip: text;
-	/* -webkit-text-fill-color is required for the gradient to clip to the glyphs
-	   on mobile Blink/WebKit; without it those engines ignore `color: transparent`
-	   here and the text renders washed out (only the text-glow halo shows). */
-	-webkit-text-fill-color: transparent;
-	color: transparent;
-	/* background-clip:text clips the gradient to the element's line box, not the
-	   glyph ink. Under the hero's tight `leading-[0.86]` that box is shorter than
-	   the letters, so the bottom of the word ("Midwest") was sheared off on mobile.
-	   Give the span its own full-height box (inline-block + line-height:1) plus a
-	   sliver of vertical padding so the clip region always covers the glyphs. */
-	display: inline-block;
-	line-height: 1;
-	padding-block: 0.06em;
-}
+
 /* Scroll-reveal (set by the `reveal` action) + hero entrance, both reduced-motion aware. */
 [data-reveal] {
 	opacity: 0;
@@ -199,26 +192,19 @@ a:hover {
 }
 
 /* ---- Surface system ----
-   One family of panels unified by a trim hairline + warm accent glow.
+   One family of cards: a raised surface, a hairline, a soft warm shadow.
    Compose: `panel-glass` (surface) + optionally `glow-hover` (tappable) or
    `glow-feature` (the single hero panel). Tiles that keep their own radius
    (e.g. Instagram) can take `glow-hover` on its own. */
 
-/* Base panel: subtly lifted translucent surface, trim hairline, soft resting shadow. */
 @utility panel-glass {
 	border-radius: 1rem; /* = rounded-2xl, the one panel radius */
-	border: 1px solid color-mix(in srgb, var(--color-trim) 18%, transparent);
-	background: linear-gradient(
-		180deg,
-		color-mix(in srgb, var(--color-accent) 14%, transparent) 0%,
-		color-mix(in srgb, var(--color-highlight-deep) 11%, transparent) 100%
-	);
-	box-shadow:
-		0 18px 44px -30px rgba(0, 0, 0, 0.7),
-		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	border: 1px solid color-mix(in srgb, var(--color-fg) 10%, transparent);
+	background: var(--color-surface-raised);
+	box-shadow: 0 14px 34px -26px color-mix(in srgb, var(--color-surface-deep) 55%, transparent);
 }
 
-/* Tappable panels/tiles: rest calm, bloom warm on hover/focus. */
+/* Tappable panels/tiles: lift and darken the shadow on hover/focus. */
 @utility glow-hover {
 	transition:
 		border-color 0.25s ease,
@@ -226,21 +212,15 @@ a:hover {
 		transform 0.25s ease;
 	&:hover,
 	&:focus-visible {
-		border-color: color-mix(in srgb, var(--color-accent) 55%, transparent);
-		box-shadow:
-			0 0 24px -6px color-mix(in srgb, var(--color-accent) 45%, transparent),
-			0 0 64px -18px color-mix(in srgb, var(--color-accent-deep) 38%, transparent),
-			0 18px 40px -24px rgba(0, 0, 0, 0.6);
-		transform: translateY(-2px);
+		border-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+		box-shadow: 0 22px 40px -24px color-mix(in srgb, var(--color-surface-deep) 60%, transparent);
+		transform: translateY(-3px);
 	}
 }
 
-/* The single hero panel (Bio): a gentle always-on warm glow — same language, turned up. */
+/* The single hero panel (Bio): the same shadow, turned up. */
 @utility glow-feature {
-	box-shadow:
-		0 0 26px -10px color-mix(in srgb, var(--color-accent) 38%, transparent),
-		0 0 80px -22px color-mix(in srgb, var(--color-accent-deep) 30%, transparent),
-		0 20px 50px -28px rgba(0, 0, 0, 0.55);
+	box-shadow: 0 30px 60px -36px color-mix(in srgb, var(--color-surface-deep) 60%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

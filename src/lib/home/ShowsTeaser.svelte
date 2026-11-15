@@ -11,7 +11,7 @@
 	let { events }: Props = $props();
 </script>
 
-<Section label="Live" title="Upcoming shows">
+<Section label="Live" title="Upcoming shows" tone="sea">
 	{#snippet action()}
 		<Button href={resolve('/shows')} label="All dates →" variant="outline" />
 	{/snippet}
@@ -40,7 +40,7 @@
 			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		</div>
 	{:else}
-		<p class="opacity-80">
+		<p class="text-fg-secondary">
 			No scheduled shows right now — <a href={resolve('/contact')}>book Missy</a>.
 		</p>
 	{/if}

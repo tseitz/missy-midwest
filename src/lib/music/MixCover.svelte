@@ -40,9 +40,7 @@
 		</span>
 	</span>
 	{#if mix}
-		<span
-			class="bg-surface/85 absolute right-0 bottom-0 left-0 px-5 py-3 text-left backdrop-blur-md"
-		>
+		<span class="bg-surface-raised absolute right-0 bottom-0 left-0 px-5 py-3 text-left">
 			<span class="missy-header block text-xl">{mix.title}</span>
 		</span>
 	{/if}

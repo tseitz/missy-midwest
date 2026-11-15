@@ -14,8 +14,8 @@
 </script>
 
 {#if !SHOP_ENABLED}
-	<Section label="Shop" title="Coming soon">
-		<p class="mt-2 max-w-md opacity-85">
+	<Section label="Shop" title="Coming soon" tone="sand">
+		<p class="mt-2 max-w-md text-fg-secondary">
 			Official Missy Midwest merch — hats, tees &amp; more — is on the way. Dropping soon.
 		</p>
 		<div class="mt-6">
@@ -23,7 +23,7 @@
 		</div>
 	</Section>
 {:else if groups.length > 0}
-	<Section label="Shop" title="Rep the brand">
+	<Section label="Shop" title="Rep the brand" tone="sand">
 		{#snippet action()}
 			<Button href={resolve('/shop')} label="View all →" variant="outline" />
 		{/snippet}

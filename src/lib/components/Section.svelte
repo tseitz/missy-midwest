@@ -22,6 +22,8 @@
 		 *   for text/list-heavy pages (Shows, Music) where full-bleed sprawls.
 		 */
 		width?: 'wide' | 'narrow';
+		/** Full-bleed background band: page `base`, `sand`, or the dark `sea` scope. */
+		tone?: 'base' | 'sand' | 'sea';
 		/** Default slot: the section body. */
 		children: Snippet;
 		/** Optional slot rendered on the right side of the heading row (e.g. a "View all" Button). */
@@ -35,6 +37,7 @@
 		id,
 		class: className,
 		width = 'wide',
+		tone = 'base',
 		children,
 		action
 	}: Props = $props();
@@ -42,6 +45,9 @@
 	const shell = 'w-full max-w-screen-2xl px-8 py-16 md:px-14';
 	// The inner column: full-width by default, or a centered reading column when narrow.
 	const column = $derived(width === 'narrow' ? 'mx-auto w-full max-w-5xl' : 'w-full');
+	const band = $derived(
+		tone === 'sea' ? 'tone-sea bg-surface' : tone === 'sand' ? 'bg-surface-sunken' : ''
+	);
 </script>
 
 {#snippet body()}
@@ -60,12 +66,14 @@
 	</div>
 {/snippet}
 
-{#if reveal}
-	<section use:revealAction {id} class="{shell} {className}">
-		{@render body()}
-	</section>
-{:else}
-	<section {id} class="{shell} {className}">
-		{@render body()}
-	</section>
-{/if}
+<div class="flex w-full justify-center {band}">
+	{#if reveal}
+		<section use:revealAction {id} class="{shell} {className}">
+			{@render body()}
+		</section>
+	{:else}
+		<section {id} class="{shell} {className}">
+			{@render body()}
+		</section>
+	{/if}
+</div>

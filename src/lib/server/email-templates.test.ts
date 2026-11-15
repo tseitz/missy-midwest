@@ -41,7 +41,7 @@ describe('renderOrderNotification', () => {
 		expect(html).toContain('$64.00');
 		expect(html).toContain('Tour Tee — L');
 		expect(html).toContain('$98.00'); // grand total
-		expect(html).toContain('color:#c2410c'); // total accent
+		expect(html).toContain('color:#b04416'); // total accent
 		expect(html).toContain('Jane Buyer');
 		expect(html).toContain('123 Main St');
 		expect(html).toContain('buyer@example.com');
@@ -62,7 +62,7 @@ describe('renderOrderNotification', () => {
 
 	it('wears the same branded header band as the buyer email', () => {
 		const { html } = renderOrderNotification(order());
-		expect(html).toContain('bgcolor="#06263a"');
+		expect(html).toContain('bgcolor="#0b3a42"');
 		expect(html).toContain('/header/missy-midwest-logo-white.png');
 	});
 });
@@ -108,7 +108,7 @@ describe('renderOrderConfirmation', () => {
 
 	it('leads with the dark brand band + white wordmark and a lilac signature', () => {
 		const { html } = renderOrderConfirmation(order());
-		expect(html).toContain('bgcolor="#06263a"'); // dark brand band
+		expect(html).toContain('bgcolor="#0b3a42"'); // dark brand band
 		expect(html).toContain('/header/missy-midwest-logo-white.png'); // white logo in band
 		expect(html).toContain('/header/missy-midwest-logo.png'); // lilac signature logo
 		expect(html).toContain('https://missymidwest.com'); // absolute URL, not a bare path

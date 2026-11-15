@@ -7,11 +7,11 @@
 	const year = 2026;
 </script>
 
-<footer class="border-trim/15 bg-surface-sunken w-full border-t">
+<footer class="tone-sea border-trim/15 bg-surface-sunken w-full border-t">
 	<div class="mx-auto grid w-full max-w-screen-2xl gap-10 px-8 py-12 md:grid-cols-3 md:px-14">
 		<div>
-			<div class="missy-header text-2xl text-white">Missy Midwest</div>
-			<p class="mt-3 max-w-xs text-sm opacity-80">
+			<div class="missy-header text-2xl text-fg">Missy Midwest</div>
+			<p class="mt-3 max-w-xs text-sm text-fg-secondary">
 				Booking, residencies &amp; workshops — let's make something special.
 			</p>
 			<div class="mt-4">
@@ -45,7 +45,7 @@
 			<div class="mt-4"><SocialLinks size={22} /></div>
 		</div>
 	</div>
-	<div class="bg-surface-deep py-4 text-center text-xs opacity-50">
+	<div class="bg-surface-deep py-4 text-center text-xs text-fg-muted">
 		© {year} Missy Midwest · Jordan Brooke Music LLC ·
 		<a href={resolve('/shipping-returns')}>Shipping &amp; Returns</a> · Built with 💙 by Mr. Midwest
 	</div>

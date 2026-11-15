@@ -9,7 +9,7 @@
 
 <section class="flex w-full max-w-screen-2xl flex-col items-center px-8 py-28 text-center md:px-14">
 	<SectionHeading label="Checkout" title="Order cancelled" />
-	<p class="max-w-md opacity-85">
+	<p class="max-w-md text-fg-secondary">
 		No charge was made. Your cart is still saved if you'd like to try again.
 	</p>
 	<div class="mt-6">

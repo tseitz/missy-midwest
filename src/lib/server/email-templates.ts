@@ -49,13 +49,13 @@ const LOGO_WHITE = `${SITE_URL}/header/missy-midwest-logo-white.png`; // for the
 const LOGO_LILAC = `${SITE_URL}/header/missy-midwest-logo.png`; // for the light signature
 
 const BRAND = {
-	band: '#06263a', // surface — header band
-	ink: '#04182a', // on-accent — body text
-	trim: '#b9a8f0', // trim — rules / signature
-	accent: '#c2410c', // accent — total accent
-	muted: '#4f6268', // secondary text on white
-	wash: '#f2f6f7', // page wash behind the card
-	hairline: '#e2ebed' // faint cell border
+	band: '#0b3a42', // deep sea — header band
+	ink: '#3a1d10', // fg — body text
+	trim: '#8c3f22', // trim — rules / signature
+	accent: '#b04416', // accent — total accent
+	muted: '#7a5640', // fg-muted — secondary text on white
+	wash: '#fff8ec', // surface — page wash behind the card
+	hairline: '#f0e2cc' // faint cell border
 } as const;
 
 const SERIF = "Georgia,'Times New Roman',serif"; // echoes the Cochin headings

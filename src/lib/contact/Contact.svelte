@@ -70,7 +70,7 @@
 	}
 
 	const inputClass =
-		'w-full rounded-lg border border-trim/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-accent focus:ring-2 focus:ring-trim/30 focus:outline-none';
+		'w-full rounded-lg border border-trim/25 bg-surface-raised px-4 py-3 text-fg placeholder:text-fg-muted transition focus:border-accent focus:ring-2 focus:ring-trim/30 focus:outline-none';
 	const labelClass = 'mb-2 block text-sm font-medium text-trim';
 </script>
 
@@ -82,7 +82,7 @@
 	<div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-16">
 		<div>
 			<SectionHeading label="Booking" title="Get in touch" />
-			<p class="mt-6 leading-relaxed opacity-85">
+			<p class="mt-6 leading-relaxed text-fg-secondary">
 				For festival bookings, residencies, workshop offerings or any other inquires please fill out
 				this form.
 				<br />
@@ -177,7 +177,7 @@
 						role="status"
 						aria-live="polite"
 						class="mt-6 rounded-md px-4 py-3 text-sm font-medium {form.success
-							? 'bg-surface/80 text-slate-50'
+							? 'bg-surface-raised text-fg'
 							: 'bg-error text-on-accent'}"
 					>
 						{form.message}

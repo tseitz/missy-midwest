@@ -62,11 +62,11 @@
 
 <Section id="dates" label="Live" title="Upcoming shows" reveal={false} width="narrow">
 	{#if events.length === 0}
-		<p class="mt-2 opacity-80">
+		<p class="mt-2 text-fg-secondary">
 			No scheduled shows right now — <a href={resolve('/contact')}>book Missy</a>.
 		</p>
 	{:else}
-		<p class="mt-2 opacity-80">Tap any show to add it to your calendar.</p>
+		<p class="mt-2 text-fg-secondary">Tap any show to add it to your calendar.</p>
 
 		<!-- event.htmlLink is an external Google Calendar URL; resolve() is for internal routes only -->
 		<!-- eslint-disable svelte/no-navigation-without-resolve -->
@@ -113,7 +113,7 @@
 						>
 						<span class="block text-xs tracking-widest text-white/85">{weekday(event)}</span>
 					</div>
-					<div class="bg-surface/85 relative px-6 py-4 backdrop-blur-md">
+					<div class="bg-surface-raised relative px-6 py-4">
 						<p class="missy-header text-2xl">{event.summary}</p>
 						<p class="text-fg-secondary mt-1 text-sm">{fullDate(event)}</p>
 						{#if loc.venue}<p class="text-fg-secondary mt-1 text-sm font-medium">

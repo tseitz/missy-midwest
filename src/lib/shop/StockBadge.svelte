@@ -12,7 +12,7 @@
 		status.comingSoon
 			? 'bg-highlight-deep/15 text-highlight-deep'
 			: status.soldOut
-				? 'bg-zinc-700 text-zinc-300'
+				? 'bg-surface-sunken text-fg-muted'
 				: status.low
 					? 'bg-highlight/15 text-highlight'
 					: 'bg-trim/12 text-trim'

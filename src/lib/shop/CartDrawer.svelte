@@ -49,7 +49,7 @@
 		</div>
 
 		{#if cart.lines.length === 0}
-			<p class="mt-8 opacity-80">Your cart is empty.</p>
+			<p class="mt-8 text-fg-secondary">Your cart is empty.</p>
 		{:else}
 			<ul class="mt-6 flex-1 space-y-4 overflow-auto">
 				{#each cart.lines as line (line.priceId)}
@@ -89,7 +89,7 @@
 				{/each}
 			</ul>
 
-			<div class="mt-6 border-t border-white/10 pt-4">
+			<div class="mt-6 border-t border-fg/10 pt-4">
 				<div class="flex justify-between text-lg">
 					<span>Subtotal</span>
 					<span>{formatPrice(cart.subtotal)}</span>

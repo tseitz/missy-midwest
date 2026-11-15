@@ -17,7 +17,7 @@
 
 <Section label="Shop" title={data.shopEnabled ? 'Rep the brand' : 'Coming soon'} reveal={false}>
 	{#if !data.shopEnabled}
-		<p class="opacity-85">
+		<p class="text-fg-secondary">
 			Official Missy Midwest merch — hats, tees &amp; more — is dropping soon. Catch a show or say
 			hi in the meantime.
 		</p>
@@ -26,12 +26,14 @@
 			<Button href={resolve('/contact')} label="Get in touch" variant="outline" />
 		</div>
 	{:else if data.loadError}
-		<p class="opacity-85">The shop is temporarily unavailable. Please check back soon.</p>
+		<p class="text-fg-secondary">The shop is temporarily unavailable. Please check back soon.</p>
 		<div class="mt-6">
 			<Button href={resolve('/contact')} label="Get in touch" variant="outline" />
 		</div>
 	{:else if data.groups.length === 0}
-		<p class="opacity-85">Merch is dropping soon. In the meantime, catch a show or say hi.</p>
+		<p class="text-fg-secondary">
+			Merch is dropping soon. In the meantime, catch a show or say hi.
+		</p>
 		<div class="mt-6 flex gap-4">
 			<Button href={resolve('/shows')} label="See shows" variant="fill" />
 			<Button href={resolve('/contact')} label="Get in touch" variant="outline" />

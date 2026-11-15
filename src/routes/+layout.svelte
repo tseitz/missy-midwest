@@ -35,5 +35,5 @@
 <NowPlayingBar />
 {#if barVisible}
 	<!-- Reserve room so the fixed player never covers footer content. -->
-	<div class="bg-surface h-24" aria-hidden="true"></div>
+	<div class="tone-sea bg-surface-deep h-24" aria-hidden="true"></div>
 {/if}

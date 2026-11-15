@@ -179,8 +179,6 @@ the live paths by mocking the flag with a `vi.hoisted` getter on
 - `/contact` is an intentional outlier: it pads at the route wrapper rather than
   wrapping its content in `<Section>`, so the booking form sits flush under the
   header. Don't "normalize" it onto `<Section>`.
-- `Section`'s scroll-reveal stays invisible on a section taller than the
-  viewport — pass `reveal={false}` for top/long sections.
 
 ## Svelte MCP server
 

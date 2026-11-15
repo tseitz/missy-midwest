@@ -68,7 +68,7 @@
 
 <div class="flex w-full justify-center {band}">
 	{#if reveal}
-		<section use:revealAction {id} class="{shell} {className}">
+		<section data-reveal use:revealAction {id} class="{shell} {className}">
 			{@render body()}
 		</section>
 	{:else}

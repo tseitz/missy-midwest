@@ -87,11 +87,18 @@ h6,
 	font-family: var(--font-cochin);
 	font-weight: 600;
 	color: var(--color-fg);
+	text-wrap: balance;
 }
 
 p,
 label {
 	font-family: var(--font-obviously);
+}
+
+p,
+li,
+blockquote {
+	text-wrap: pretty;
 }
 
 html {

@@ -5,7 +5,7 @@
 	import MusicEngine from '$lib/music/MusicEngine.svelte';
 	import NowPlayingBar from '$lib/music/NowPlayingBar.svelte';
 	import { player } from '$lib/music/player.svelte';
-	import { beforeNavigate } from '$app/navigation';
+	import { beforeNavigate, onNavigate } from '$app/navigation';
 	import { updated } from '$app/state';
 	import '../app.css';
 
@@ -19,6 +19,17 @@
 		if (updated.current && !willUnload && to?.url) {
 			location.href = to.url.href;
 		}
+	});
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) return;
+		if (navigation.from?.url.pathname === navigation.to?.url.pathname) return;
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
 	});
 </script>
 

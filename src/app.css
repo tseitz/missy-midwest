@@ -192,7 +192,22 @@ a:hover {
 	animation: hero-rise 0.8s ease-out both;
 }
 
+/* Page-change cross-fade (view transitions, started in the root layout). The
+   fixed chrome gets its own groups so it stays put instead of fading with the
+   page. Each name must be on one element only, or the transition is skipped. */
+.site-header {
+	view-transition-name: site-header;
+}
+.now-playing-bar {
+	view-transition-name: now-playing-bar;
+}
+
 @media (prefers-reduced-motion: reduce) {
+	::view-transition-group(*),
+	::view-transition-old(*),
+	::view-transition-new(*) {
+		animation: none !important;
+	}
 	[data-reveal][data-revealed] {
 		opacity: 1;
 		translate: none;

@@ -14,7 +14,7 @@
 	}
 	let { size = 24 }: Props = $props();
 
-	const color = 'var(--color-missy-classic-lavender)';
+	const color = 'var(--color-trim)';
 	const icons = {
 		soundcloud: SiSoundcloud,
 		instagram: SiInstagram,

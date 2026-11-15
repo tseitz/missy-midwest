@@ -49,13 +49,13 @@ const LOGO_WHITE = `${SITE_URL}/header/missy-midwest-logo-white.png`; // for the
 const LOGO_LILAC = `${SITE_URL}/header/missy-midwest-logo.png`; // for the light signature
 
 const BRAND = {
-	band: '#0b1f4c', // missy-deep-purple — header band
-	ink: '#0a1438', // missy-ink — body text
-	lilac: '#c9a8ff', // missy-classic-lavender — rules / signature
-	magenta: '#e23f93', // missy-magenta — total accent
-	muted: '#6b6480', // secondary text on white
-	wash: '#f4f2f7', // page wash behind the card
-	hairline: '#ece7f3' // faint cell border
+	band: '#06263a', // surface — header band
+	ink: '#04182a', // on-accent — body text
+	trim: '#b9a8f0', // trim — rules / signature
+	accent: '#c2410c', // accent — total accent
+	muted: '#4f6268', // secondary text on white
+	wash: '#f2f6f7', // page wash behind the card
+	hairline: '#e2ebed' // faint cell border
 } as const;
 
 const SERIF = "Georgia,'Times New Roman',serif"; // echoes the Cochin headings
@@ -71,7 +71,7 @@ function heading(text: string): string {
 
 /**
  * Wrap body HTML in the branded shell: a white card on a soft wash, led by the
- * dark navy band with the white wordmark. Table-based + inline styles + bgcolor
+ * dark sea band with the white wordmark. Table-based + inline styles + bgcolor
  * attribute so it survives Outlook and dark-mode clients. `preheader` sets the
  * hidden inbox-preview text.
  */
@@ -97,7 +97,7 @@ function shell(inner: string, preheader = ''): string {
 /** Lilac wordmark signature on the light card — closes the buyer email. */
 function signature(): string {
 	return (
-		`<hr style="border:0;border-top:1px solid ${BRAND.lilac};margin:24px 0 18px">` +
+		`<hr style="border:0;border-top:1px solid ${BRAND.trim};margin:24px 0 18px">` +
 		`<img src="${LOGO_LILAC}" width="150" alt="Missy Midwest" style="display:block;width:150px;max-width:50%;height:auto;border:0">`
 	);
 }
@@ -119,7 +119,7 @@ function itemTable(order: OrderEmailData): string {
 		`<th align="right" style="${HEAD}">Total</th>` +
 		`</tr></thead><tbody>${rows}</tbody><tfoot><tr>` +
 		`<td colspan="2" align="right" style="padding:10px 8px"><strong>Order total</strong></td>` +
-		`<td align="right" style="padding:10px 8px"><strong style="color:${BRAND.magenta}">${formatPrice(order.amountTotal)}</strong></td>` +
+		`<td align="right" style="padding:10px 8px"><strong style="color:${BRAND.accent}">${formatPrice(order.amountTotal)}</strong></td>` +
 		`</tr></tfoot></table>`
 	);
 }

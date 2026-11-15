@@ -60,7 +60,7 @@
 <section class="w-full max-w-screen-2xl px-8 py-16 md:px-14">
 	<a
 		href={resolve('/shop')}
-		class="text-missy-classic-lavender/80 hover:text-missy-blush text-sm tracking-wide transition"
+		class="text-trim/80 hover:text-accent text-sm tracking-wide transition"
 	>
 		← Back to shop
 	</a>
@@ -74,11 +74,11 @@
 
 		<div class="flex flex-col">
 			<h1 class="text-4xl md:text-5xl">{data.group.name}</h1>
-			<p class="text-missy-classic-lavender mt-2 text-2xl">{formatPrice(selected.price)}</p>
+			<p class="text-trim mt-2 text-2xl">{formatPrice(selected.price)}</p>
 			<div class="mt-4"><StockBadge stock={selected.stock} restocking={selected.restocking} /></div>
 
 			{#if data.group.description}
-				<p class="text-missy-classic-lavender/90 mt-6 max-w-md leading-relaxed">
+				<p class="text-trim/90 mt-6 max-w-md leading-relaxed">
 					{data.group.description}
 				</p>
 			{/if}
@@ -106,7 +106,7 @@
 				/>
 			</div>
 
-			<p class="text-missy-muted mt-4 text-xs">
+			<p class="text-fg-muted mt-4 text-xs">
 				Ships in the US · free local pickup ·
 				<a href={resolve('/shipping-returns')}>Shipping &amp; Returns</a>
 			</p>

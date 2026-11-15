@@ -5,7 +5,7 @@
 
 	const WIDGET_SRC =
 		`https://w.soundcloud.com/player/?url=${encodeURIComponent(PROFILE_URL)}` +
-		`&color=%23cbb1fa&auto_play=false&hide_related=true&show_comments=false&visual=false`;
+		`&color=%23ff9a3c&auto_play=false&hide_related=true&show_comments=false&visual=false`;
 
 	function loadApi(): Promise<void> {
 		return new Promise((resolve, reject) => {

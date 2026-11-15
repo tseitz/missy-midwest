@@ -79,7 +79,7 @@ consistent.
 
 - Fonts: `--font-cochin` (headings, serif) and `--font-obviously` (body, sans) —
   these are the only two families. Headings (`h1–h6`) auto-use Cochin in
-  near-white (`missy-pearl`); lavender is an accent now, not the heading color.
+  sand-white (`fg`).
 - Type scale (keep headings to these tiers — don't pick ad-hoc sizes):
   - **Display / hero**: `text-6xl md:text-8xl lg:text-9xl` — the landing `<h1>` only.
   - **Section title**: `text-4xl md:text-5xl` — every `SectionHeading` (and page
@@ -89,32 +89,32 @@ consistent.
     events", a featured-card title, the day-number display.
   - **Card / item title**: `text-xl` — standard card, track, and list-row titles.
   - **Body** `text-base`/`text-sm`, **meta** `text-xs`.
-- Colors — **summer palette: pink + sky-blue**, with lilac as the text/UI accent.
-  Use the Tailwind class form (e.g. `text-missy-magenta`). Token _names_ are kept
-  stable so existing utilities recolor in place, which leaves a few mild
-  misnomers (the `lake-sun*` tokens are now blue; `neon-lavender` is periwinkle):
-  - `missy-blush` (lead pink — CTAs, glows), `missy-magenta` (deep pink),
-    `missy-pearl` (near-white — primary text/heading), `missy-classic-lavender`
-    (lilac — link/heading accent, hairlines), `missy-deep-purple` (deep azure —
-    page/surface base), `missy-ink` (navy ink on bright fills), `missy-plum`
-    (violet mid-tone), `missy-neon-lavender` (periwinkle — currently unused).
-  - `lake-sunrise` / `lake-sunset` / `lake-summer-blue` (sky-blues — dates,
-    "in stock", live state) and `lake-cotton-candy` (soft pink).
-  - Secondary-text scale (warm lavender, contrast-checked): `missy-secondary`
-    (venues, dates, bylines) and `missy-muted` (addresses, captions, metadata).
-    **Use these for secondary text** instead of stacking `opacity-*` on inherited
-    text or reaching for stock `violet-*` (a cooler off-key blue-violet). The
-    link/accent role stays on `missy-classic-lavender`.
-  - `missy-error` (coral-red — form/validation errors; distinct from the pink
-    accents, AA on the surface). Takes dark `missy-ink` text as a filled banner.
-  - Surface scale (recession below the page base `missy-deep-purple`):
-    `missy-surface-sunken` (footer panels) and `missy-surface-deep` (the deepest
-    legal bar). Use these for dark recessed surfaces, not raw hex.
-- Brand utilities: `.label-eyebrow` (pink uppercase eyebrow — `SectionHeading`
-  uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero gradient),
-  `.missy-header`. Gradients are canonical: `--gradient-brand` (pink→blue) drives
-  both `.text-gradient-sun` and `.btn-fill`; `.bg-brand-wash` (sky→violet→pink, an
-  echo of the hero) is the on-brand backdrop behind media/poster fallbacks.
+- Colors — **"Ocean" palette** (St. Croix residency): deep sea-teal night surface,
+  sunset-orange lead accent, turquoise second accent, lilac/violet trim. Tokens are
+  named by **role, not hue**, so a recolor never leaves a misnomer — keep it that
+  way. Use the Tailwind class form (e.g. `text-accent`, `bg-surface`).
+  - `accent` (sunset orange — CTAs, glows, eyebrows), `accent-deep` (coral-orange —
+    glows/gradients only, too low-contrast for text), `accent-soft` (peach).
+  - `highlight` / `highlight-soft` / `highlight-deep` (turquoise — dates,
+    "in stock", live state; `-soft` is the hover).
+  - `trim` (lilac — links, hairlines, outline buttons), `midtone` (violet —
+    gradient bridge and faint fills; never text).
+  - Text: `fg` (sand-white — primary text/headings) > `fg-secondary` (venues,
+    dates, bylines) > `fg-muted` (addresses, captions). **Use these for secondary
+    text** instead of stacking `opacity-*` or reaching for stock `violet-*`/`slate-*`.
+    `on-accent` is the dark ink for text on bright fills (buttons, badges, error banner).
+  - `error` (rose-red — validation; kept distinct from the orange/coral accents).
+  - Surface scale: `surface` (page base) > `surface-sunken` (footer panels) >
+    `surface-deep` (legal bar, scrims). `sky` is the hero gradient's top stop.
+    Use these for dark surfaces, not raw hex.
+  - Every text color is AA (4.5:1+) on `surface`; re-check contrast when changing one.
+  - Email (`src/lib/server/email-templates.ts`) can't read CSS vars, so its `BRAND`
+    object hardcodes hex — update it by hand on a recolor.
+- Brand utilities: `.label-eyebrow` (orange uppercase eyebrow — `SectionHeading`
+  uses it), `.text-gradient-sun`, `.text-glow`, `.bg-glow-warm` (hero sunset gradient),
+  `.missy-header`. Gradients are canonical: `--gradient-brand` (orange→turquoise) drives
+  both `.text-gradient-sun` and `.btn-fill`; `.bg-brand-wash` (turquoise→violet→coral,
+  an echo of the hero) is the on-brand backdrop behind media/poster fallbacks.
 
 **Spacing rhythm** — stick to this scale; don't pick arbitrary values:
 

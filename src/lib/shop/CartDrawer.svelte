@@ -41,7 +41,7 @@
 	></button>
 
 	<aside
-		class="bg-missy-deep-purple border-missy-classic-lavender/15 fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col border-l p-6"
+		class="bg-surface border-trim/15 fixed top-0 right-0 z-50 flex h-full w-full max-w-md flex-col border-l p-6"
 	>
 		<div class="flex items-center justify-between">
 			<h2 class="text-2xl">Your Cart</h2>
@@ -54,14 +54,14 @@
 			<ul class="mt-6 flex-1 space-y-4 overflow-auto">
 				{#each cart.lines as line (line.priceId)}
 					<li class="flex gap-3">
-						<div class="bg-missy-deep-purple/40 h-16 w-16 shrink-0 overflow-hidden rounded-md">
+						<div class="bg-surface/40 h-16 w-16 shrink-0 overflow-hidden rounded-md">
 							{#if line.image}
 								<img src={line.image} alt={line.label} class="h-full w-full object-cover" />
 							{/if}
 						</div>
 						<div class="flex-1">
 							<div class="text-sm font-semibold">{line.label}</div>
-							<div class="text-missy-classic-lavender text-sm">{formatPrice(line.unitPrice)}</div>
+							<div class="text-trim text-sm">{formatPrice(line.unitPrice)}</div>
 							<div class="mt-1 flex items-center gap-2">
 								<button
 									type="button"
@@ -80,7 +80,7 @@
 									type="button"
 									aria-label="Remove item"
 									onclick={() => cart.remove(line.priceId)}
-									class="text-missy-muted hover:text-missy-secondary ml-auto text-xs underline transition"
+									class="text-fg-muted hover:text-fg-secondary ml-auto text-xs underline transition"
 									>Remove</button
 								>
 							</div>
@@ -94,9 +94,9 @@
 					<span>Subtotal</span>
 					<span>{formatPrice(cart.subtotal)}</span>
 				</div>
-				<p class="text-missy-muted mt-1 text-xs">Shipping calculated at checkout.</p>
+				<p class="text-fg-muted mt-1 text-xs">Shipping calculated at checkout.</p>
 				{#if error}
-					<p class="text-missy-error mt-3 text-sm">{error}</p>
+					<p class="text-error mt-3 text-sm">{error}</p>
 				{/if}
 				<div class="mt-4">
 					<Button

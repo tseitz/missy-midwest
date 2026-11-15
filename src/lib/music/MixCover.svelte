@@ -34,14 +34,14 @@
 	/>
 	<span class="absolute inset-0 flex items-center justify-center">
 		<span
-			class="bg-missy-blush text-missy-ink flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl shadow-lg"
+			class="bg-accent text-on-accent flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-2xl shadow-lg"
 		>
 			<PlayPauseIcon {playing} />
 		</span>
 	</span>
 	{#if mix}
 		<span
-			class="bg-missy-deep-purple/85 absolute right-0 bottom-0 left-0 px-5 py-3 text-left backdrop-blur-md"
+			class="bg-surface/85 absolute right-0 bottom-0 left-0 px-5 py-3 text-left backdrop-blur-md"
 		>
 			<span class="missy-header block text-xl">{mix.title}</span>
 		</span>

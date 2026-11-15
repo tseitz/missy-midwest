@@ -10,12 +10,12 @@
 	const status = $derived(stockStatus(stock, restocking));
 	const tone = $derived(
 		status.comingSoon
-			? 'bg-lake-summer-blue/15 text-lake-summer-blue'
+			? 'bg-highlight-deep/15 text-highlight-deep'
 			: status.soldOut
 				? 'bg-zinc-700 text-zinc-300'
 				: status.low
-					? 'bg-lake-sunrise/15 text-lake-sunrise'
-					: 'bg-missy-classic-lavender/12 text-missy-classic-lavender'
+					? 'bg-highlight/15 text-highlight'
+					: 'bg-trim/12 text-trim'
 	);
 </script>
 

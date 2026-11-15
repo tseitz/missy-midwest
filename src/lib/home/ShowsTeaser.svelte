@@ -27,17 +27,14 @@
 					rel="noopener noreferrer"
 					class="group panel-glass glow-hover flex flex-col p-5"
 				>
-					<p class="text-lake-sunrise text-sm font-medium">
+					<p class="text-highlight text-sm font-medium">
 						{#if show.start.dateTime}{formatDateTime(show.start.dateTime)}{:else}{formatDate(
 								show.start?.date || ''
 							)}{/if}
 					</p>
 					<p class="missy-header mt-2 text-xl">{show.summary}</p>
-					<p class="text-missy-muted mt-1 text-xs">{show.location}</p>
-					<span
-						class="text-missy-classic-lavender/80 group-hover:text-missy-classic-lavender mt-4 text-xs transition"
-						>Details ↗</span
-					>
+					<p class="text-fg-muted mt-1 text-xs">{show.location}</p>
+					<span class="text-trim/80 group-hover:text-trim mt-4 text-xs transition">Details ↗</span>
 				</a>
 			{/each}
 			<!-- eslint-enable svelte/no-navigation-without-resolve -->

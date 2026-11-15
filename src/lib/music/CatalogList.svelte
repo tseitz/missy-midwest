@@ -20,7 +20,7 @@
 			<p class="opacity-80">
 				Browse everything on
 				<a
-					class="text-missy-blush"
+					class="text-accent"
 					href="https://soundcloud.com/missymidwest"
 					target="_blank"
 					rel="noopener noreferrer">SoundCloud ↗</a

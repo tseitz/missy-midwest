@@ -75,23 +75,24 @@
 		   leaving a faint vertical seam near the right edge. padding-box keeps the
 		   gradient inside the border so the caps render clean. */
 		background-clip: padding-box;
-		color: var(--color-missy-ink);
-		box-shadow: 0 6px 22px color-mix(in srgb, var(--color-missy-blush) 42%, transparent);
+		color: var(--color-on-accent);
+		box-shadow: 0 6px 22px color-mix(in srgb, var(--color-accent) 42%, transparent);
 	}
 	.btn-fill:hover {
 		border-color: transparent;
-		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-missy-blush) 55%, transparent);
+		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 55%, transparent);
 	}
 	.btn-outline {
-		background: transparent;
-		border-color: var(--color-missy-classic-lavender);
-		color: var(--color-missy-classic-lavender);
+		background: color-mix(in srgb, var(--color-fg) 14%, transparent);
+		border-color: color-mix(in srgb, var(--color-fg) 55%, transparent);
+		color: var(--color-fg);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		box-shadow: 0 4px 18px color-mix(in srgb, var(--color-surface-deep) 35%, transparent);
 	}
 	.btn-outline:hover {
-		border-color: var(--color-missy-blush);
-		color: var(--color-missy-blush);
-		background: color-mix(in srgb, var(--color-missy-classic-lavender) 14%, transparent);
-		box-shadow: 0 4px 18px rgba(199, 168, 234, 0.2);
+		border-color: var(--color-fg);
+		background: color-mix(in srgb, var(--color-fg) 24%, transparent);
 	}
 	.btn:disabled {
 		opacity: 0.5;

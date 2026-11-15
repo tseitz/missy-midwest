@@ -47,7 +47,7 @@
 	aria-valuenow={positionMs}
 	onpointerdown={onPointerDown}
 	onkeydown={onKeydown}
-	class="bg-missy-classic-lavender/20 relative h-2 w-full cursor-pointer rounded-full"
+	class="bg-trim/20 relative h-2 w-full cursor-pointer rounded-full"
 >
-	<div class="bg-missy-blush pointer-events-none h-full rounded-full" style="width:{pct}%"></div>
+	<div class="bg-accent pointer-events-none h-full rounded-full" style="width:{pct}%"></div>
 </div>

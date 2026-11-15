@@ -10,7 +10,7 @@
 
 {#if visible}
 	<div
-		class="border-missy-classic-lavender/15 bg-missy-deep-purple/90 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-md"
+		class="border-trim/15 bg-surface/90 fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-md"
 		style="padding-bottom:env(safe-area-inset-bottom)"
 	>
 		<ProgressBar
@@ -22,7 +22,7 @@
 			<button
 				type="button"
 				onclick={() => player.toggle()}
-				class="bg-missy-blush text-missy-ink flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg"
+				class="bg-accent text-on-accent flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-lg"
 				aria-label={playing ? 'Pause' : 'Play'}
 			>
 				{playing ? '❚❚' : '►'}
@@ -35,10 +35,10 @@
 					class="h-10 w-10 shrink-0 rounded object-cover"
 				/>
 			{/if}
-			<a href={resolve('/music')} class="text-missy-pearl min-w-0 flex-1 truncate text-sm">
+			<a href={resolve('/music')} class="text-fg min-w-0 flex-1 truncate text-sm">
 				{player.state.title ?? 'Loading…'}
 			</a>
-			<span class="text-missy-classic-lavender shrink-0 text-xs tabular-nums opacity-80">
+			<span class="text-trim shrink-0 text-xs tabular-nums opacity-80">
 				{formatDuration(player.state.positionMs)} / {formatDuration(player.state.durationMs)}
 			</span>
 		</div>

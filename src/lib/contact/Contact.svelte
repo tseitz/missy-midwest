@@ -70,8 +70,8 @@
 	}
 
 	const inputClass =
-		'w-full rounded-lg border border-missy-classic-lavender/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-missy-blush focus:ring-2 focus:ring-missy-classic-lavender/30 focus:outline-none';
-	const labelClass = 'mb-2 block text-sm font-medium text-missy-classic-lavender';
+		'w-full rounded-lg border border-trim/25 bg-black/25 px-4 py-3 text-slate-50 placeholder:text-slate-400 transition focus:border-accent focus:ring-2 focus:ring-trim/30 focus:outline-none';
+	const labelClass = 'mb-2 block text-sm font-medium text-trim';
 </script>
 
 <svelte:head>
@@ -90,7 +90,7 @@
 				You can also visit the linktree below for all her latest music, ticket information and more.
 				<br />
 				<br />
-				<a href="https://linktr.ee/missymidwest" target="_blank" class="text-missy-blush"
+				<a href="https://linktr.ee/missymidwest" target="_blank" class="text-accent"
 					>https://linktr.ee/missymidwest</a
 				>
 			</p>
@@ -137,7 +137,7 @@
 					required
 				/>
 				{#if submitAttempted && errors.name}
-					<small class="text-missy-error">{errors.name}</small>
+					<small class="text-error">{errors.name}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="email">Email</label>
@@ -150,13 +150,13 @@
 					required
 				/>
 				{#if submitAttempted && errors.email}
-					<small class="text-missy-error">{errors.email}</small>
+					<small class="text-error">{errors.email}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="phone">Phone (Optional)</label>
 				<input id="phone" name="phone" type="text" class={inputClass} bind:value={formData.phone} />
 				{#if submitAttempted && errors.phone}
-					<small class="text-missy-error">{errors.phone}</small>
+					<small class="text-error">{errors.phone}</small>
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="message">Message</label>
@@ -169,7 +169,7 @@
 					required
 				></textarea>
 				{#if submitAttempted && errors.message}
-					<small class="text-missy-error">{errors.message}</small>
+					<small class="text-error">{errors.message}</small>
 				{/if}
 
 				{#if form}
@@ -177,8 +177,8 @@
 						role="status"
 						aria-live="polite"
 						class="mt-6 rounded-md px-4 py-3 text-sm font-medium {form.success
-							? 'bg-missy-deep-purple/80 text-slate-50'
-							: 'bg-missy-error text-missy-ink'}"
+							? 'bg-surface/80 text-slate-50'
+							: 'bg-error text-on-accent'}"
 					>
 						{form.message}
 					</p>

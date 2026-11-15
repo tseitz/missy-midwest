@@ -139,7 +139,7 @@
 	}
 	.nav-link:hover,
 	.nav-link[aria-current='page'] {
-		color: var(--color-missy-blush);
+		color: var(--color-accent);
 		border-bottom: none;
 	}
 	.icon-btn {
@@ -147,7 +147,7 @@
 		transition: color 0.2s ease;
 	}
 	.icon-btn:hover {
-		color: var(--color-missy-blush);
+		color: var(--color-accent);
 	}
 	.mobile-link {
 		font-family: var(--font-cochin);
@@ -159,18 +159,17 @@
 	}
 	.mobile-link:hover,
 	.mobile-link[aria-current='page'] {
-		color: var(--color-missy-blush);
+		color: var(--color-accent);
 		border-bottom: none;
 	}
-	/* Cohesive purple menu with a warm-pink glow — no clashing orange wash. */
 	.mobile-menu {
 		background:
 			radial-gradient(
 				120% 75% at 82% 0%,
-				color-mix(in srgb, var(--color-missy-blush) 36%, transparent) 0%,
+				color-mix(in srgb, var(--color-accent) 36%, transparent) 0%,
 				transparent 58%
 			),
-			linear-gradient(180deg, var(--color-missy-deep-purple) 0%, var(--color-missy-plum) 100%);
+			linear-gradient(180deg, var(--color-surface) 0%, var(--color-midtone) 100%);
 	}
 	@media (prefers-reduced-motion: no-preference) {
 		.mobile-menu {

@@ -33,8 +33,8 @@
 					class={[
 						'relative order-first transition md:order-none',
 						cart.count > 0
-							? 'text-lake-sunrise hover:text-lake-sunset'
-							: 'text-slate-50 hover:text-missy-blush'
+							? 'text-highlight hover:text-highlight-soft'
+							: 'text-slate-50 hover:text-accent'
 					]}
 					onclick={() => (cart.open = true)}
 				>
@@ -55,7 +55,7 @@
 					</svg>
 					{#if cart.count > 0}
 						<span
-							class="bg-missy-magenta absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
+							class="bg-accent-deep absolute -top-2 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold text-white"
 						>
 							{cart.count}
 						</span>
@@ -89,14 +89,18 @@
 		position: absolute;
 		inset: 0;
 		z-index: -1;
-		background: linear-gradient(180deg, rgba(8, 20, 52, 0.5), transparent);
+		background: linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--color-surface-deep) 50%, transparent),
+			transparent
+		);
 		opacity: 1;
 		transition: opacity 0.3s ease;
 		pointer-events: none;
 	}
 	.site-header[data-scrolled='true'] {
-		background-color: color-mix(in srgb, var(--color-missy-deep-purple) 82%, transparent);
-		border-bottom-color: color-mix(in srgb, var(--color-missy-classic-lavender) 15%, transparent);
+		background-color: color-mix(in srgb, var(--color-surface) 82%, transparent);
+		border-bottom-color: color-mix(in srgb, var(--color-trim) 15%, transparent);
 		box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.65);
 		backdrop-filter: blur(12px);
 		-webkit-backdrop-filter: blur(12px);

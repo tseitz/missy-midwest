@@ -19,6 +19,7 @@ credentials.json
 # Only the transient superpowers planning docs/specs are ignored:
 docs/superpowers/
 .claude/worktrees/
+.claude/plans/
 
 /test-results
 /playwright-report

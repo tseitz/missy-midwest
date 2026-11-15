@@ -26,7 +26,7 @@
 					rel="noopener noreferrer"
 					data-testid="ig-post"
 					aria-label={post.caption ? `View Instagram post: ${post.caption}` : 'View Instagram post'}
-					class="group glow-hover relative aspect-square overflow-hidden rounded-xl border border-missy-classic-lavender/15"
+					class="group glow-hover relative aspect-square overflow-hidden rounded-xl border border-trim/15"
 				>
 					<img
 						src={post.imageUrl}

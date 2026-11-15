@@ -43,9 +43,9 @@
 <style>
 	/* Keep the subcopy legible where it crosses the brighter middle of the photo. */
 	.hero-logo {
-		filter: drop-shadow(0 0 28px rgba(255, 122, 184, 0.4));
+		filter: drop-shadow(0 0 28px color-mix(in srgb, var(--color-accent) 40%, transparent));
 	}
 	.hero-subcopy {
-		text-shadow: 0 1px 12px rgba(7, 18, 56, 0.55);
+		text-shadow: 0 1px 12px color-mix(in srgb, var(--color-surface-deep) 55%, transparent);
 	}
 </style>

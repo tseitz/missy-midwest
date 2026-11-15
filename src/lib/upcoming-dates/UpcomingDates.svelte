@@ -80,7 +80,7 @@
 					href={event.htmlLink}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="group bg-brand-wash hover:shadow-missy-magenta/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl transition hover:shadow-lg"
+					class="group bg-brand-wash hover:shadow-accent-deep/20 relative flex h-80 flex-col justify-end overflow-hidden rounded-xl transition hover:shadow-lg"
 				>
 					<img
 						src={poster ? netlifyImage(poster, { width: 1280 }) : DEFAULT_POSTER}
@@ -113,13 +113,13 @@
 						>
 						<span class="block text-xs tracking-widest text-white/85">{weekday(event)}</span>
 					</div>
-					<div class="bg-missy-deep-purple/85 relative px-6 py-4 backdrop-blur-md">
+					<div class="bg-surface/85 relative px-6 py-4 backdrop-blur-md">
 						<p class="missy-header text-2xl">{event.summary}</p>
-						<p class="text-missy-secondary mt-1 text-sm">{fullDate(event)}</p>
-						{#if loc.venue}<p class="text-missy-secondary mt-1 text-sm font-medium">
+						<p class="text-fg-secondary mt-1 text-sm">{fullDate(event)}</p>
+						{#if loc.venue}<p class="text-fg-secondary mt-1 text-sm font-medium">
 								{loc.venue}
 							</p>{/if}
-						{#if loc.address}<p class="text-missy-muted text-xs">{loc.address}</p>{/if}
+						{#if loc.address}<p class="text-fg-muted text-xs">{loc.address}</p>{/if}
 					</div>
 				</a>
 			{/each}
@@ -137,33 +137,29 @@
 								href={event.htmlLink}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="border-missy-classic-lavender/15 hover:border-missy-blush/40 hover:bg-missy-blush/10 flex items-center gap-4 rounded-lg border-t px-2 py-4 transition sm:gap-5"
+								class="border-trim/15 hover:border-accent/40 hover:bg-accent/10 flex items-center gap-4 rounded-lg border-t px-2 py-4 transition sm:gap-5"
 							>
-								<div class="text-missy-classic-lavender w-12 shrink-0 text-center leading-none">
+								<div class="text-trim w-12 shrink-0 text-center leading-none">
 									<span class="missy-header block text-2xl">{dayNumber(event)}</span>
-									<span class="text-missy-muted block text-xs tracking-widest"
-										>{weekday(event)}</span
-									>
+									<span class="text-fg-muted block text-xs tracking-widest">{weekday(event)}</span>
 								</div>
 								<div
 									class="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
 								>
 									<div class="min-w-0">
 										<p class="missy-header text-xl">{event.summary}</p>
-										{#if loc.venue}<p
-												class="text-missy-secondary mt-0.5 truncate text-sm font-medium"
-											>
+										{#if loc.venue}<p class="text-fg-secondary mt-0.5 truncate text-sm font-medium">
 												{loc.venue}
 											</p>{/if}
-										{#if loc.address}<p class="text-missy-muted truncate text-xs">
+										{#if loc.address}<p class="text-fg-muted truncate text-xs">
 												{loc.address}
 											</p>{/if}
 									</div>
 									<div
 										class="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-0.5 sm:text-right"
 									>
-										<span class="text-missy-secondary text-sm">{timeLabel(event)}</span>
-										<span class="text-lake-sunrise text-xs">Add to calendar ↗</span>
+										<span class="text-fg-secondary text-sm">{timeLabel(event)}</span>
+										<span class="text-highlight text-xs">Add to calendar ↗</span>
 									</div>
 								</div>
 							</a>

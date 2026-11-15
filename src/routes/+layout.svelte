@@ -24,7 +24,7 @@
 
 <Header />
 
-<main class="bg-missy-deep-purple flex min-h-screen w-full flex-col items-center pt-16">
+<main class="bg-surface flex min-h-screen w-full flex-col items-center pt-16">
 	{@render children()}
 </main>
 
@@ -35,5 +35,5 @@
 <NowPlayingBar />
 {#if barVisible}
 	<!-- Reserve room so the fixed player never covers footer content. -->
-	<div class="bg-missy-deep-purple h-24" aria-hidden="true"></div>
+	<div class="bg-surface h-24" aria-hidden="true"></div>
 {/if}

@@ -58,7 +58,7 @@
 					{#if active === i}
 						<div
 							transition:fade={{ duration: 180 }}
-							class="bg-missy-deep-purple/60 absolute inset-0 z-10 flex items-center justify-center"
+							class="bg-surface/60 absolute inset-0 z-10 flex items-center justify-center"
 						>
 							{@render downloadIcon()}
 						</div>
@@ -77,7 +77,7 @@
 </section>
 
 {#snippet downloadIcon()}
-	<svg class="text-missy-classic-lavender h-16 w-16" fill="currentColor" viewBox="0 0 24 24">
+	<svg class="text-trim h-16 w-16" fill="currentColor" viewBox="0 0 24 24">
 		<path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-5 4h10v-2H7v2z" />
 	</svg>
 {/snippet}

@@ -17,13 +17,13 @@
 <!-- href is built with resolve() above, plus an optional ?variant= query the rule can't trace -->
 <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 <a {href} class="group panel-glass glow-hover block overflow-hidden">
-	<div class="bg-missy-deep-purple/40 relative aspect-square">
+	<div class="bg-surface/40 relative aspect-square">
 		{#if card.image}
 			<img src={card.image} alt={card.name} class="h-full w-full object-cover" />
 		{/if}
 		{#if card.comingSoon}
 			<span
-				class="absolute top-3 left-3 rounded-full bg-lake-summer-blue/90 px-3 py-1 text-xs text-missy-ink"
+				class="absolute top-3 left-3 rounded-full bg-highlight-deep/90 px-3 py-1 text-xs text-on-accent"
 			>
 				Coming soon
 			</span>
@@ -38,9 +38,9 @@
 	<div class="px-5 pt-4 pb-5">
 		<h3 class="text-xl leading-snug">{card.name}</h3>
 		{#if card.variantLabel}
-			<p class="text-missy-classic-lavender/80 mt-0.5 text-sm">{card.variantLabel}</p>
+			<p class="text-trim/80 mt-0.5 text-sm">{card.variantLabel}</p>
 		{/if}
-		<p class="text-missy-blush mt-1.5 text-base font-semibold">
+		<p class="text-accent mt-1.5 text-base font-semibold">
 			{card.priceVaries ? 'from ' : ''}{formatPrice(card.price)}
 		</p>
 	</div>

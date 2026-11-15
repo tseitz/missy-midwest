@@ -69,30 +69,26 @@
 	}
 	.btn-fill {
 		background: var(--gradient-brand);
-		/* Clip the gradient to the padding box. With the default border-box clip the
-		   gradient also paints under the 1px transparent border, and at the pill's
-		   rounded caps that clipped border ring samples the gradient ~1px off —
-		   leaving a faint vertical seam near the right edge. padding-box keeps the
-		   gradient inside the border so the caps render clean. */
-		background-clip: padding-box;
+		/* No border: a transparent one shows a 1px ring of the backdrop, or a seam at
+		   the caps with border-box clip. +1px padding keeps it the outline's size. */
+		border: 0;
+		padding: calc(0.7rem + 1px) calc(1.4rem + 1px);
 		color: var(--color-on-accent);
 		box-shadow: 0 6px 22px color-mix(in srgb, var(--color-accent) 42%, transparent);
 	}
 	.btn-fill:hover {
-		border-color: transparent;
 		box-shadow: 0 8px 28px color-mix(in srgb, var(--color-accent) 55%, transparent);
 	}
 	.btn-outline {
-		background: color-mix(in srgb, var(--color-fg) 14%, transparent);
-		border-color: color-mix(in srgb, var(--color-fg) 55%, transparent);
+		background: color-mix(in srgb, var(--color-fg) 6%, transparent);
+		border-color: color-mix(in srgb, var(--color-fg) 70%, transparent);
 		color: var(--color-fg);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		box-shadow: 0 4px 18px color-mix(in srgb, var(--color-surface-deep) 35%, transparent);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
 	}
 	.btn-outline:hover {
 		border-color: var(--color-fg);
-		background: color-mix(in srgb, var(--color-fg) 24%, transparent);
+		background: color-mix(in srgb, var(--color-fg) 14%, transparent);
 	}
 	.btn:disabled {
 		opacity: 0.5;

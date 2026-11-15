@@ -132,6 +132,7 @@
 					id="name"
 					name="name"
 					type="text"
+					autocomplete="name"
 					class={inputClass}
 					bind:value={formData.name}
 					required
@@ -145,6 +146,8 @@
 					id="email"
 					name="email"
 					type="email"
+					autocomplete="email"
+					spellcheck="false"
 					class={inputClass}
 					bind:value={formData.email}
 					required
@@ -154,7 +157,14 @@
 				{/if}
 
 				<label class="mt-5 {labelClass}" for="phone">Phone (Optional)</label>
-				<input id="phone" name="phone" type="text" class={inputClass} bind:value={formData.phone} />
+				<input
+					id="phone"
+					name="phone"
+					type="tel"
+					autocomplete="tel"
+					class={inputClass}
+					bind:value={formData.phone}
+				/>
 				{#if submitAttempted && errors.phone}
 					<small class="text-error">{errors.phone}</small>
 				{/if}
@@ -164,6 +174,7 @@
 					id="message"
 					name="message"
 					rows="7"
+					autocomplete="off"
 					class={inputClass}
 					bind:value={formData.message}
 					required

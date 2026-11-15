@@ -11,7 +11,7 @@ function focusableWithin(container: HTMLElement): HTMLElement[] {
  * On a Tab / Shift+Tab keydown, wrap focus so it stays within `container`.
  * No-op for non-Tab keys or when the container has no focusable children.
  */
-export function wrapTabFocus(container: HTMLElement, event: KeyboardEvent): void {
+function wrapTabFocus(container: HTMLElement, event: KeyboardEvent): void {
 	if (event.key !== 'Tab') return;
 	const items = focusableWithin(container);
 	if (items.length === 0) return;

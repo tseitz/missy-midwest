@@ -24,9 +24,27 @@
 	font-display: swap;
 }
 
+/* Metric-matched fallbacks so the swap to the web fonts doesn't shift layout.
+   Measured from the font files against Georgia / Arial; re-measure if either
+   web font file changes. */
+@font-face {
+	font-family: 'Cochin Fallback';
+	src: local('Georgia');
+	size-adjust: 94.71%;
+	ascent-override: 74.97%;
+	descent-override: 25.34%;
+}
+@font-face {
+	font-family: 'Obviously Fallback';
+	src: local('Arial');
+	size-adjust: 128.5%;
+	ascent-override: 101.17%;
+	descent-override: 21.01%;
+}
+
 @theme {
-	--font-cochin: 'Cochin', serif;
-	--font-obviously: 'Obviously', sans-serif;
+	--font-cochin: 'Cochin', 'Cochin Fallback', serif;
+	--font-obviously: 'Obviously', 'Obviously Fallback', sans-serif;
 	/* Role names, not hue names, so a recolor never leaves a misnomer.
 	   Every text color here is AA (4.5:1+) on `surface` and `surface-sunken`,
 	   and so is its `.tone-sea` twin; re-check both on any change. */

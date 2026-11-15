@@ -10,7 +10,7 @@
 	// Transparent (and dark-scoped) only over the home hero photo; a solid cream
 	// bar everywhere else and once the user scrolls.
 	let scrolled = $state(false);
-	const overHero = $derived(page.url.pathname === resolve('/') && !scrolled);
+	const overHero = $derived(page.route.id === '/' && !scrolled);
 	function syncScrolled() {
 		scrolled = window.scrollY > 16;
 	}
@@ -18,6 +18,11 @@
 </script>
 
 <svelte:window onscroll={syncScrolled} />
+
+<svelte:head>
+	<!-- Hex copies of --color-surface (.tone-sea / :root) in app.css: meta tags can't read CSS vars. -->
+	<meta name="theme-color" content={overHero ? '#0b3a42' : '#fff8ec'} />
+</svelte:head>
 
 <header
 	class={['site-header fixed top-0 z-30 w-full', overHero && 'tone-sea']}

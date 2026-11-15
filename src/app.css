@@ -102,6 +102,8 @@ blockquote {
 }
 
 html {
+	/* `only` opts out of browser auto-dark, which inverts the palette and hides the logo. */
+	color-scheme: only light;
 	scroll-behavior: smooth;
 	font-family: var(--font-obviously);
 	color: var(--color-fg);
